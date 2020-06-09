@@ -1,5 +1,6 @@
 import 'package:fith_app__restaurant/interfaces/categories.dart';
 import 'package:flutter/material.dart';
+import 'package:fith_app__restaurant/screens/seacrh.dart';
 
 class HomePageScafold extends StatelessWidget {
   @override
@@ -34,7 +35,7 @@ class _MainTabsState extends State<MainTabs> {
               child: HomePage(),
             ),
             Container(
-              child: Text('data 2 $tabStateInit'),
+              child: ScaffoldSearch(),
             ),
             Container(
               child: Text('data 3 $tabStateInit'),
@@ -152,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                         elevation: 0,
                         // fillColor: Color(0x00000000),
                         fillColor:  Theme.of(context).primaryColor.withOpacity(0.5),
-                        splashColor: Theme.of(context).buttonColor,
+                        splashColor: Theme.of(context).primaryColor,
                         child: Icon(Icons.arrow_back, color: Colors.white,size: 30),
                         padding: EdgeInsets.all(10.0),
                         shape: CircleBorder(),
@@ -160,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                       RawMaterialButton(
                         onPressed: (){},
                         elevation: 2.0,
-                        splashColor: Theme.of(context).buttonColor,
+                        splashColor: Theme.of(context).primaryColor,
                         fillColor:  Theme.of(context).primaryColorLight.withOpacity(0.4),
                         child: Icon(Icons.favorite, color: Colors.white,),
                         shape: CircleBorder(),
