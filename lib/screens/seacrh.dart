@@ -5,11 +5,9 @@ import 'package:fith_app__restaurant/interfaces/categories.dart';
 class ScaffoldSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    //return SafeArea(
       return Scaffold(
         body: SearchScreen(),
       );
-    //);
   }
 }
 
@@ -86,6 +84,15 @@ class _SearchScreenState extends State<SearchScreen> {
 
           Container(
             child: CategoriesCard(),
+          ),
+
+          Container(
+            margin: EdgeInsets.only(
+              top: totalWidth * 0.06,
+              left: totalWidth * 0.05,
+              right: totalWidth * 0.05
+            ),
+            child: PopularSuggestionsWrapper(),
           )
           
         ],
@@ -293,7 +300,14 @@ class _CategoriesCardState extends State<CategoriesCard> {
                                   _suggestedCategories[index].name,
                                   style: Theme.of(context).textTheme.button.copyWith(
                                     color: Theme.of(context).primaryColorLight,
-                                    fontWeight: FontWeight.w800
+                                    fontWeight: FontWeight.w800,
+                                    shadows: [
+                                      Shadow(
+                                        blurRadius: 3.0,
+                                        color: Colors.black,
+                                        offset: Offset(0, 0)
+                                      )
+                                    ]
                                   ),
                                 ),
                                 FittedBox(
@@ -301,7 +315,14 @@ class _CategoriesCardState extends State<CategoriesCard> {
                                   child: Text(
                                     _suggestedCategories[index].visits,
                                     style: Theme.of(context).textTheme.caption.copyWith(
-                                      color: Theme.of(context).primaryColorLight
+                                      color: Theme.of(context).primaryColorLight,
+                                      shadows: [
+                                        Shadow(
+                                          blurRadius: 3.0,
+                                          color: Colors.black,
+                                          offset: Offset(0, 0)
+                                        )
+                                      ]
                                     ),
                                   )
                                 )
@@ -320,3 +341,143 @@ class _CategoriesCardState extends State<CategoriesCard> {
     );
   }
 }
+ class PopularSuggestionsWrapper extends StatelessWidget {
+   @override
+   Widget build(BuildContext context) {
+     double totalWidth = MediaQuery.of(context).size.width;
+     return Column(
+       children: <Widget>[
+          Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Text(
+              'Popular',
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                fontWeight: FontWeight.w700
+              ),
+            ),
+            Text(
+              'See all',
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                color: Theme.of(context).buttonColor,
+                fontWeight: FontWeight.w700,
+                decoration: TextDecoration.underline
+              ),
+            )
+          ],
+        ),
+        SizedBox( height: totalWidth * 0.04 ),
+        PopularSuggestions()
+       ],
+     );
+   }
+ }
+
+class PopularSuggestions extends StatefulWidget {
+  @override
+  _PopularSuggestionsState createState() => _PopularSuggestionsState();
+}
+
+class _PopularSuggestionsState extends State<PopularSuggestions> {
+  List example = ['1','2','3'];
+  @override
+  Widget build(BuildContext context) {
+    return 
+      Builder(
+        builder: (BuildContext context){
+          return new Column(
+            children: example.map((item) => new PopularCard(name:item)).toList()
+          );
+        }
+      );
+  }
+}
+
+class PopularCard extends StatelessWidget {
+  final String name;
+  PopularCard({this.name});
+
+  @override
+  Widget build(BuildContext context) {
+    double totalWidth = MediaQuery.of(context).size.width;
+    return Container(
+      margin: EdgeInsets.only(bottom: 12),
+      color: Colors.yellow,
+      width: MediaQuery.of(context).size.width,
+      child: Card(
+        child: Column(
+          children: <Widget>[
+            Row(
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.red,
+                  ),
+                  width: totalWidth * 0.30,
+                  height: totalWidth * 0.30,
+                ),
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.only(top:4),
+                    margin: EdgeInsets.only(left: totalWidth * 0.04),
+                    color: Colors.blue,
+                    height: totalWidth * 0.30,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      // mainAxisAlignment: MainAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            CustomChip(name:'12', icon: Icons.timer),
+                            CustomChip(name:'8.300', icon: Icons.monetization_on),
+                            Text('4.8')
+                          ],
+                        ),
+                        SizedBox(height: 10),
+                        Text(
+                          'plate name',
+                          style: Theme.of(context).textTheme.subtitle2.copyWith(
+                            fontWeight: FontWeight.w700,
+                            // fontSize:
+                          )
+                        ),
+                        SizedBox(height: 5),
+                        Text('a short description about the main element ')
+                      ],
+                    )
+                  )
+                )
+              ],
+            ),
+            Container(
+              color: Colors.amber,
+              width: totalWidth,
+              height: 50,
+            )
+          ],
+        )
+      ),
+    );
+  }
+}
+
+class CustomChip extends StatelessWidget {
+  final String name;
+  final IconData icon;
+  CustomChip({this.name, this.icon});
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: <Widget>[
+        Icon(icon, size: 15),
+        Text(this.name),
+      ],
+    );
+  }
+}
+
