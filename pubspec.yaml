@@ -53,6 +53,9 @@ flutter:
     - assets/banner/french-food.png
     - assets/banner/fast-food.png
     - assets/banner/sould-food.png
+    - assets/populars/Boeuf-bourguignon.jpg
+    - assets/populars/Chocolate-souffle.jpg
+    - assets/populars/Salade-Niçoise.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
