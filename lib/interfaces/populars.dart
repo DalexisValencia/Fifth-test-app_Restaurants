@@ -4,12 +4,14 @@ class Popular {
   final String description;
   final String timePreparation;
   final String price;
+  final String quality;
   final RelatedComment relatedComment;
     Popular(
       this.name,
       this.image,
       this.description,
       this.timePreparation,
+      this.quality,
       this.price,
       this.relatedComment
     );

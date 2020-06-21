@@ -1,3 +1,5 @@
+// import 'package:fith_app__restaurant/screens/home.dart';
+// import 'package:fith_app__restaurant/screens/seacrh.dart';
 import 'package:fith_app__restaurant/screens/home.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +24,7 @@ class MyApp extends StatelessWidget {
         cardColor: Color(0xFFEFEFEF)
       ),
       home: HomePageScafold(),
+      // home: Thema(),
       debugShowCheckedModeBanner: false,
     );
   }
