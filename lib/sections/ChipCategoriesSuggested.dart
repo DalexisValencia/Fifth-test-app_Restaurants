@@ -23,7 +23,8 @@ class RelatedCategoriesState extends State<RelatedCategories> {
         return  Container(
           margin: EdgeInsets.only(right: 10),
           child: ActionChip(
-            elevation: 1,
+            // clipBehavior: Clip.antiAlias,
+            elevation: 0.2,
             onPressed: () {
               print('seleccionar a los wolves');
             },

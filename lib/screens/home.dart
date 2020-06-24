@@ -134,7 +134,6 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.red,
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: ExactAssetImage('assets/banner/break-fast.png')
@@ -151,7 +150,6 @@ class _HomePageState extends State<HomePage> {
                       RawMaterialButton(
                         onPressed: (){},
                         elevation: 0,
-                        // fillColor: Color(0x00000000),
                         fillColor:  Theme.of(context).primaryColor.withOpacity(0.5),
                         splashColor: Theme.of(context).primaryColor,
                         child: Icon(Icons.arrow_back, color: Colors.white,size: 30),

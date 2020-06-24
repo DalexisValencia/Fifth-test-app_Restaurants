@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         primaryColorLight: Color(0xFFFBFBFB), // BLANCO
         primaryColor: Color(0xFF7F868A), // GRIS 
         primaryColorDark: Color(0xFF182A46), // AZUL OSCURO
-        buttonColor: Color(0xFFD97D80), // ROSA,
+        buttonColor: Color(0xFFE76D6F), // ROSA,
         accentColor: Color(0xFFC2C2C2), //GRIS CLARO
         cardColor: Color(0xFFEFEFEF)
       ),

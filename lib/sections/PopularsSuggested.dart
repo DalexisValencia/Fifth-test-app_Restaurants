@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 class PopularSuggestedWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-     double totalWidth = MediaQuery.of(context).size.width;
      return Column(
        children: <Widget>[
           Row(
@@ -35,7 +34,6 @@ class PopularSuggestedWrapper extends StatelessWidget {
             )
           ],
         ),
-        SizedBox( height: totalWidth * 0.04 ),
         PopularSuggestions(),
        ],
      );
@@ -59,7 +57,33 @@ class _PopularSuggestionsState extends State<PopularSuggestions> {
       RelatedComment(
         'Jessica simons',
         'image',
-        'It is a special place to visit in family. The neighborhood is nice, the restaurant´s service is unbeatable, the food is delicious'
+        'It is a special place to visit in family. The neighborhood is nices'
+      )
+    ),
+    Popular(
+      'Chocolate soufflé',
+      'assets/populars/Chocolate-souffle.jpg',
+      'The word soufflé comes from the French verb ‘to blow’ and, and the name suggests, this is a light, airy dessert. The dish dates back to the early 18th century and nowadays is a staple on dessert menus around the world.',
+      '15 min',
+      '4.8',
+      '17.000',
+      RelatedComment(
+        'Miguel Rios',
+        'image',
+        'It is a special place to visit in family. The neighborhood is nice'
+      )
+    ),
+    Popular(
+      'Salade Niçoise',
+      'assets/populars/Salade-Niçoise.jpg',
+      'The word soufflé comes from the French verb ‘to blow’ and, and the name suggests, this is a light, airy dessert. The dish dates back to the early 18th century and nowadays is a staple on dessert menus around the world.',
+      '40 min',
+      '4.7',
+      '17.000',
+      RelatedComment(
+        'Nataly Santana',
+        'image',
+        'It is a special place to visit in family. The neighborhood is nice.'
       )
     )
   ];
@@ -83,15 +107,28 @@ class PopularCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double totalWidth = MediaQuery.of(context).size.width;
-    double totalHeight = MediaQuery.of(context).size.height;
     return Container(
       padding: EdgeInsets.all(0),
-      // color: Colors.red,
-      margin: EdgeInsets.only(bottom: 12),
+      margin: EdgeInsets.only(
+        right: totalWidth * 0.05
+      ),
       width: MediaQuery.of(context).size.width,
       child: Card(
+        color: Theme.of(context).primaryColorLight,
+        elevation: 0,
         child: Container(
-          padding: EdgeInsets.fromLTRB( 12, 8, 10, 5 ),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColorLight,
+            borderRadius: BorderRadius.circular(5),
+            boxShadow: [
+              BoxShadow(
+                color: Theme.of(context).primaryColor.withOpacity(0.2),
+                spreadRadius: 2,
+                blurRadius: 3.5
+              )
+            ]
+          ),
+          padding: EdgeInsets.fromLTRB( 12, 8, 0, 5 ),
           child: Column(
             children: <Widget>[
               Row(
@@ -99,7 +136,6 @@ class PopularCard extends StatelessWidget {
                   Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),
-                      color: Colors.red,
                       image: DecorationImage(
                         fit: BoxFit.cover,
                         image: ExactAssetImage(
@@ -112,7 +148,7 @@ class PopularCard extends StatelessWidget {
                   ),
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.only(top:4, right: 15),
+                      padding: EdgeInsets.only(top:4, right: 12),
                       margin: EdgeInsets.only(left: totalWidth * 0.04),
                       height: totalWidth * 0.30,
                       child: Column(
@@ -165,13 +201,23 @@ class PopularCard extends StatelessWidget {
                 ],
               ),
               Container(
-                width: totalWidth,
-                height: 50,
+                margin: EdgeInsets.only(top: totalWidth * 0.03, right: totalWidth * 0.04),
+                padding: EdgeInsets.only(top: totalWidth * 0.01),
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      width: 0.3,
+                      color: Theme.of(context).primaryColor
+                    )
+                  )
+                ),
+                width: totalWidth * 0.80,
+                height: 55,
                 child: Stack(
                   children: <Widget>[
                     Container(
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           CircleAvatar(
@@ -179,7 +225,7 @@ class PopularCard extends StatelessWidget {
                             child: Text('LY'),
                           ),
                           SizedBox(
-                            width: totalWidth * 0.01,
+                            width: totalWidth * 0.03,
                           ),
                           Expanded(
                             child:  Column(
@@ -191,13 +237,16 @@ class PopularCard extends StatelessWidget {
                                 style: Theme.of(context).textTheme.caption.copyWith(
                                   fontWeight: FontWeight.bold
                                 ),
-                                ),
+                              ),
+                              SizedBox(
+                                height: totalWidth * 0.01,
+                              ),
                               Text(
-                                comment.relatedComment.comment,
+                                comment.relatedComment.comment.substring(0, 60) + '...',
                                 style: Theme.of(context).textTheme.caption.copyWith(
                                   fontSize: 9
                                 ),
-                                )
+                              )
                             ],
                           )
                           )
@@ -208,87 +257,84 @@ class PopularCard extends StatelessWidget {
                   ],
                 ),
               ),
-              Container(
-                padding: EdgeInsets.only(
-                  top: totalWidth * 0.01,
-                  right: totalWidth * 0.03
-                ),
-                height: totalHeight * 0.07,
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      width: totalWidth * 0.30,
-                      child:   Stack(
-                      children: <Widget>[
-                        Positioned(
-                          top: 0,
-                          left: 0,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.amber,
-                            child: Text('LY'),
-                          ),
-                        ),
-                        Positioned(
-                          top: 0,
-                          left: totalWidth * 0.16,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.amber,
-                            child: Text('LY'),
-                          ),
-                        ),
-                        Positioned(
-                          top: 0,
-                          left: totalWidth * 0.08,
-                          child: CircleAvatar(
-                            backgroundColor: Colors.amberAccent,
-                            child: Text('LY'),
-                          ),
-                        )
-                      ],
-                    ),
-                    ),
-                    Expanded(
-                      flex: 2,
-                      child: Container(
-                        child: Center(
-                          child: Text(
-                            'log in to see all comments',
-                            style: Theme.of(context).textTheme.caption.copyWith(
-                              fontSize: 12
-                            ),
-                          ),
-                        ),
-                      ),
+              // Container(
+              //   padding: EdgeInsets.only(
+              //     top: totalWidth * 0.01,
+              //     right: totalWidth * 0.03
+              //   ),
+              //   height: totalHeight * 0.07,
+              //   child: Row(
+              //     children: <Widget>[
+              //       Container(
+              //         width: totalWidth * 0.30,
+              //         child:   Stack(
+              //         children: <Widget>[
+              //           Positioned(
+              //             top: 0,
+              //             left: 0,
+              //             child: CircleAvatar(
+              //               backgroundColor: Colors.amber,
+              //               child: Text('LY'),
+              //             ),
+              //           ),
+              //           Positioned(
+              //             top: 0,
+              //             left: totalWidth * 0.16,
+              //             child: CircleAvatar(
+              //               backgroundColor: Colors.amber,
+              //               child: Text('LY'),
+              //             ),
+              //           ),
+              //           Positioned(
+              //             top: 0,
+              //             left: totalWidth * 0.08,
+              //             child: CircleAvatar(
+              //               backgroundColor: Colors.amberAccent,
+              //               child: Text('LY'),
+              //             ),
+              //           )
+              //         ],
+              //       ),
+              //       ),
+              //       Expanded(
+              //         flex: 2,
+              //         child: Container(
+              //           child: Center(
+              //             child: Text(
+              //               'log in to see all comments',
+              //               style: Theme.of(context).textTheme.caption.copyWith(
+              //                 fontSize: 12
+              //               ),
+              //             ),
+              //           ),
+              //         ),
                       
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: MaterialButton(
-                        splashColor: Theme.of(context).buttonColor,
-                        elevation: 0,
-                        padding: EdgeInsets.all(0),
-                        height: 22,
-                        minWidth: 40,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)
-                        ),
-                        onPressed: (){},
-                        color: Theme.of(context).accentColor,
-                        child: Text(
-                          "Iniciar",
-                          style: Theme.of(context).textTheme.caption.copyWith(
-                            color: Theme.of(context).primaryColorDark,
-                            fontWeight: FontWeight.w600 
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              )
+              //       ),
+              //       Expanded(
+              //         flex: 1,
+              //         child: MaterialButton(
+              //           splashColor: Theme.of(context).buttonColor,
+              //           elevation: 0,
+              //           padding: EdgeInsets.all(0),
+              //           height: 22,
+              //           minWidth: 40,
+              //           shape: RoundedRectangleBorder(
+              //             borderRadius: BorderRadius.circular(20)
+              //           ),
+              //           onPressed: (){},
+              //           color: Theme.of(context).accentColor,
+              //           child: Text(
+              //             "Iniciar",
+              //             style: Theme.of(context).textTheme.caption.copyWith(
+              //               color: Theme.of(context).primaryColorDark,
+              //               fontWeight: FontWeight.w600 
+              //             ),
+              //           ),
+              //         ),
+              //       )
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         )

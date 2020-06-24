@@ -24,7 +24,8 @@ class CardCategorySuggestedState extends State<CardCategorySuggested> {
       child: Column(
         children: <Widget>[
           Padding(
-            padding: EdgeInsets.fromLTRB(totalWidth * 0.05, 0, totalWidth * 0.05, 0 ),
+            // padding: EdgeInsets.fromLTRB(totalWidth * 0.05, 0, totalWidth * 0.05, 0 ),
+            padding: EdgeInsets.only(left:totalWidth * 0.05),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -57,7 +58,7 @@ class CardCategorySuggestedState extends State<CardCategorySuggested> {
           ),
           Container(
             margin: EdgeInsets.only(
-              top:  totalWidth * 0.04,
+              // top:  totalWidth * 0.04,
               left: totalWidth * 0.04
             ),
             width: totalWidth,
