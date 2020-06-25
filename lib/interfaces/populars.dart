@@ -1,3 +1,5 @@
+import 'package:flutter/rendering.dart';
+
 class Popular {
   final String image;
   final String name;
@@ -5,6 +7,7 @@ class Popular {
   final String timePreparation;
   final String price;
   final String quality;
+  final Color shipColor;
   final RelatedComment relatedComment;
     Popular(
       this.name,
@@ -13,7 +16,8 @@ class Popular {
       this.timePreparation,
       this.quality,
       this.price,
-      this.relatedComment
+      this.relatedComment,
+      this.shipColor
     );
 }
 

@@ -61,13 +61,13 @@ class _HightLightRestaurantsListState extends State<HightLightRestaurantsList> {
       name: 'House of bistek',
       description: 'detail in this',
       favorite: true,
-      image: 'assets/banner/mexican-food.png'
+      image: 'assets/banner/break-fast.png'
     ),
     HightlightResturantsInterface(
       name: 'House of bistek',
       description: 'detail in this',
       favorite: false,
-      image: 'assets/populars/Salade-Niçoise.jpg'
+      image: 'assets/banner/break-fast.png'
     )
   ];
   @override
@@ -123,9 +123,9 @@ class _HightlightResturantsState extends State<HightlightResturants> {
                   shape: CircleBorder(),
                   onPressed: (){},
                   child: Icon(
-                    Icons.place,
+                    Icons.store_mall_directory,
                     color: Theme.of(context).primaryColorLight,
-                    size: 21,
+                    size: 25,
                   )
                 ),
               ),
@@ -138,8 +138,10 @@ class _HightlightResturantsState extends State<HightlightResturants> {
                       fit: BoxFit.scaleDown,
                       child: Text(
                         widget.hightlight.name,
-                        style: Theme.of(context).textTheme.button.copyWith(
+                        style: Theme.of(context).textTheme.headline6.copyWith(
                           color: Theme.of(context).primaryColorLight,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 18,
                           shadows: [
                             Shadow(
                               offset: Offset(0.0, 0.0),
@@ -155,9 +157,9 @@ class _HightlightResturantsState extends State<HightlightResturants> {
                     ),
                     Text(
                       widget.hightlight.description,
-                      style: Theme.of(context).textTheme.button.copyWith(
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
                         color: Theme.of(context).primaryColorLight,
-                        fontSize: 11,
+                        fontSize: 13,
                         fontWeight: FontWeight.w400,
                         shadows: [
                           Shadow(
@@ -175,7 +177,7 @@ class _HightlightResturantsState extends State<HightlightResturants> {
                 width: totalWidth * 0.12,
                 child: RawMaterialButton(
                   elevation: 0,
-                  fillColor: widget.hightlight.favorite ? Theme.of(context).buttonColor : Theme.of(context).primaryColor.withOpacity(0.5),
+                  fillColor: widget.hightlight.favorite ? Theme.of(context).buttonColor : Colors.white.withOpacity(0.3),
                   padding: EdgeInsets.all(0),
                   shape: CircleBorder(),
                   onPressed: (){},

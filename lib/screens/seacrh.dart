@@ -9,6 +9,8 @@ class ScaffoldSearch extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).primaryColorLight,
         // body: SearchScreen(),
         body: ScaffoldMainContainer(),
@@ -23,34 +25,20 @@ class ScaffoldMainContainer extends StatelessWidget {
     double totalWidth = MediaQuery.of(context).size.width;
     double totalHeight = MediaQuery.of(context).size.height;
     double statusBarWidth = MediaQuery.of(context).padding.top;
-    return Column(
+    return SingleChildScrollView(
+      child: Column(
       children: <Widget>[
-        // Container(
-        //   width: totalWidth,
-        //   height: totalHeight * 0.10,
-        //   decoration: BoxDecoration(
-        //     color: Theme.of(context).primaryColorLight,
-        //     boxShadow: [
-        //       BoxShadow(
-        //         color: Colors.red,
-        //         blurRadius: 15.0,
-        //         offset: Offset(0.0, 0.75)
-        //       )
-        //     ]
-        //   ),
-        //   child: FixedTopHeader(),
-        // ),
         Container(
-          child: Material(
-            elevation: 5.0,
-            shadowColor: Theme.of(context).primaryColorDark,
+          //child: Material(
+            //elevation: 5.0,
+            // shadowColor: Theme.of(context).primaryColorDark,
             child: Container(
               height: totalHeight * 0.10,
               width: totalWidth,
               color: Theme.of(context).primaryColorLight,
               child: FixedTopHeader(),
             ),
-          ),
+          // ),
         ),
         Container(
           width: totalWidth,
@@ -60,7 +48,9 @@ class ScaffoldMainContainer extends StatelessWidget {
           ),
         )
       ]
+    )
     );
+    
   }
 }
 
@@ -89,7 +79,7 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
             },
             child: Icon(
               Icons.arrow_back,
-              size: 30,
+              size: 25,
               color: Theme.of(context).primaryColorDark,
             ),
           ),
@@ -107,8 +97,8 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
               print('Configuraciones de tu busqueda');
             },
             child: Icon(
-              Icons.settings,
-              size: 30,
+              Icons.more_vert,
+              size: 23,
               color: Theme.of(context).primaryColorDark.withOpacity(0.7),
             ),
           ),
@@ -189,14 +179,14 @@ class _SearchWidgetState extends State<SearchWidget> {
     return Container(
       margin: EdgeInsets.fromLTRB(totalWidth * 0.03, 0, totalWidth * 0.07, 0),
       height: 40,
-      width: totalWidth * 0.60,
+      width: totalWidth * 0.63,
       child: Form(
         key: _searchForm,
         child: Container(
           child: TextFormField(
             decoration: InputDecoration(
               filled: true,
-              fillColor: Theme.of(context).accentColor, // .withOpacity(0.7)
+              fillColor: Theme.of(context).highlightColor, // .withOpacity(0.7)
               contentPadding: EdgeInsets.all(0),
               prefixIcon: Icon(Icons.search),
               prefixStyle: TextStyle(

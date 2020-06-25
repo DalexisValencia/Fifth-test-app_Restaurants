@@ -58,7 +58,8 @@ class _PopularSuggestionsState extends State<PopularSuggestions> {
         'Jessica simons',
         'image',
         'It is a special place to visit in family. The neighborhood is nices'
-      )
+      ),
+      Color(0xFFE76D6F)
     ),
     Popular(
       'Chocolate soufflé',
@@ -71,7 +72,8 @@ class _PopularSuggestionsState extends State<PopularSuggestions> {
         'Miguel Rios',
         'image',
         'It is a special place to visit in family. The neighborhood is nice'
-      )
+      ),
+      Color(0xFFFFB60E)
     ),
     Popular(
       'Salade Niçoise',
@@ -84,7 +86,8 @@ class _PopularSuggestionsState extends State<PopularSuggestions> {
         'Nataly Santana',
         'image',
         'It is a special place to visit in family. The neighborhood is nice.'
-      )
+      ),
+      Color(0xFF4F57D5)
     )
   ];
   @override
@@ -164,7 +167,7 @@ class PopularCard extends StatelessWidget {
                                 width: 30,
                                 height: 18,
                                 decoration: BoxDecoration(
-                                  color: Theme.of(context).buttonColor,
+                                  color: comment.shipColor,
                                   borderRadius: BorderRadius.circular(10)
                                 ),
                                 child: Text(
@@ -178,7 +181,7 @@ class PopularCard extends StatelessWidget {
                               )
                             ],
                           ),
-                          SizedBox(height: 10),
+                          SizedBox(height: 6),
                           Text(// comment plate name
                             comment.name,
                             style: Theme.of(context).textTheme.caption.copyWith(
@@ -356,11 +359,16 @@ class CustomChip extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Icon(
-            icon,
-            size: 12.5,
-            color: Theme.of(context).primaryColor
+          Container(
+            margin: EdgeInsets.only(top:1),
+            // color: Colors.red,
+            child:Icon(
+              icon,
+              size: 13,
+              color: Theme.of(context).primaryColor
+            ),
           ),
+          SizedBox( width: totalWidth * 0.005),
           Text(
             this.name,
             style: Theme.of(context).textTheme.caption.copyWith(

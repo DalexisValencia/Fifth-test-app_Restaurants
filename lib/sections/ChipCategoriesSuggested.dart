@@ -8,11 +8,14 @@ class RelatedCategories extends StatefulWidget {
 
 class RelatedCategoriesState extends State<RelatedCategories> {
   List<Category> _suggesteds = [
-    Category('Cofee', Icons.store_mall_directory),
-    Category('Burgers', Icons.store_mall_directory),
-    Category('Meat', Icons.store_mall_directory),
-    Category('Salad', Icons.store_mall_directory),
-    Category('Sweets', Icons.store_mall_directory),
+    Category('Cofee', Icons.free_breakfast),
+    Category('Burgers', Icons.fastfood),
+    Category('Meat', Icons.av_timer),
+    Category('Salad', Icons.local_dining ),
+    Category('Sweets', Icons.group_work),
+    Category('Beer', Icons.local_bar),
+    Category('Cake', Icons.cake),
+    Category('Pizza', Icons.local_pizza)
   ];
   @override
    Widget build(BuildContext context) {
@@ -23,6 +26,7 @@ class RelatedCategoriesState extends State<RelatedCategories> {
         return  Container(
           margin: EdgeInsets.only(right: 10),
           child: ActionChip(
+            backgroundColor: Theme.of(context).highlightColor,
             // clipBehavior: Clip.antiAlias,
             elevation: 0.2,
             onPressed: () {
