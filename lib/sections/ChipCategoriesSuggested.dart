@@ -10,7 +10,7 @@ class RelatedCategoriesState extends State<RelatedCategories> {
   List<Category> _suggesteds = [
     Category('Cofee', Icons.free_breakfast),
     Category('Burgers', Icons.fastfood),
-    Category('Meat', Icons.av_timer),
+    Category('Meat', Icons.restaurant),
     Category('Salad', Icons.local_dining ),
     Category('Sweets', Icons.group_work),
     Category('Beer', Icons.local_bar),
