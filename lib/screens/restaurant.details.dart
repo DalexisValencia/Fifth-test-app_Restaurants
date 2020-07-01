@@ -1,3 +1,5 @@
+import 'package:fith_app__restaurant/interfaces/availableForLunch.dart';
+import 'package:fith_app__restaurant/sections/CardAvailableForLunch.dart';
 import 'package:flutter/material.dart';
 
 class RestaurantDetailWrapper extends StatelessWidget {
@@ -110,7 +112,6 @@ class TitleAndShortDescription extends StatelessWidget {
             color: Theme.of(context).primaryColorDark
           ),
         ),
-        // child:  Icon(Icons.comment)
       )
     ], 
     );
@@ -137,13 +138,15 @@ class DetailHighlightProduct extends StatefulWidget {
 }
 
 class _DetailHighlightProductState extends State<DetailHighlightProduct> {
-
-  List availablePlates = ['1', '2', '3'];
-  
   Widget _wrapperHeader () => Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: <Widget>[
-      Text('Avilable Now'),
+      Text(
+        'Available for lunch now',
+        style: Theme.of(context).textTheme.bodyText1.copyWith(
+          fontWeight: FontWeight.w700
+        ),
+      ),
       MaterialButton(
         elevation: 0,
         shape: RoundedRectangleBorder(
@@ -168,178 +171,38 @@ class _DetailHighlightProductState extends State<DetailHighlightProduct> {
     return Container(
       margin: EdgeInsets.only(
         top: MediaQuery.of(context).size.width * 0.01,
-        left: MediaQuery.of(context).size.width * 0.07
       ),
       child: Column(
         children: <Widget>[
-          _wrapperHeader(),
           Container(
-            // color: Colors.amber,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.50,
-            child: CompleteListAvailablePlates(),
+            margin: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.07
+            ),
+            child: _wrapperHeader(),
+          ),
+          Container(
+            margin: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * 0.035
+            ),
+            // width: MediaQuery.of(context).size.width,
+            // height: MediaQuery.of(context).size.height * 0.52,
+            // child: CompleteListAvailablePlates(),
+            child: Align(
+              alignment: Alignment.center,
+              child: AspectRatio(
+                aspectRatio: 2/2,
+                child: Container(
+                  child: CompleteListAvailablePlates(),
+                ),
+              ),
+            )
+            
           ),
           SizedBox(
             height: 20,
           )
-          // _completeListAvailablePlates(),
         ],
       ),
-    );
-  }
-}
-
-class CompleteListAvailablePlates extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: 10,
-      itemBuilder: (BuildContext context, int index){
-        return Container(
-          padding: EdgeInsets.all(0),
-          margin: EdgeInsets.only(
-            right:MediaQuery.of(context).size.width * 0.04
-          ),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.teal,
-          ),
-          width: MediaQuery.of(context).size.width * 0.70,
-          //child: Card(
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  flex: 6,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20)
-                      ),
-                      color: Colors.yellow,
-                    ),
-                    child: Stack(
-                      children: <Widget>[
-                        Positioned(
-                          top:  MediaQuery.of(context).size.height * 0.02,
-                          left: MediaQuery.of(context).size.width * 0.05,
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(
-                              MediaQuery.of(context).size.width * 0.05,
-                              MediaQuery.of(context).size.height * 0.01,
-                              MediaQuery.of(context).size.width * 0.05,
-                              MediaQuery.of(context).size.height * 0.01
-                            ),
-                            decoration: BoxDecoration(
-                              color: Colors.blue,
-                              borderRadius: BorderRadius.circular(50)
-                            ),
-                            child: Text(
-                              'eliminatioru',
-                              style: Theme.of(context).textTheme.button.copyWith(
-                                color: Theme.of(context).primaryColorLight,
-                                fontSize: 12
-                              ),
-                            ),
-                          )
-                        )
-                      ],
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 5,
-                  child: Container(
-                    padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.02,
-                      right: MediaQuery.of(context).size.width * 0.02
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20)
-                      ),
-                      color: Colors.amberAccent,
-                    ),
-                    child: Column(
-                      children: <Widget>[
-                        Row(
-                          children: <Widget>[
-                            Icon(Icons.watch),
-                            Text('12000 - 10000')
-                          ],
-                        ),
-                        Text('House of ilumin san diego'),
-                        Row(
-                          children: <Widget>[
-                            Row(
-                              children: <Widget>[
-                                Icon(Icons.star),Icon(Icons.star),Icon(Icons.star),
-                                Icon(Icons.star),Icon(Icons.star)
-                              ],
-                            ),
-                            Text('4.8 aqiulfier')
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Icon(Icons.watch),
-                            Text('the preparation time')
-                          ],
-                        ),
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                margin: EdgeInsets.only(
-                                  right: MediaQuery.of(context).size.width * 0.02
-                                ),
-                                child: Chip(
-                                  label: FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Text('1 - 12.000') 
-                                  )
-                                ),
-                              )
-                            ),
-                             Expanded(
-                              child: Container(
-                                margin: EdgeInsets.only(
-                                  right: MediaQuery.of(context).size.width * 0.02
-                                ),
-                                child: Chip(
-                                  label: FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Text('1 - 12.000') 
-                                  )
-                                ),
-                              )
-                            ),
-                             Expanded(
-                              child: Container(
-                                margin: EdgeInsets.only(
-                                  right: MediaQuery.of(context).size.width * 0.02
-                                ),
-                                child: Chip(
-                                  label: FittedBox(
-                                    fit: BoxFit.scaleDown,
-                                    child: Text('1 - 12.000') 
-                                  )
-                                ),
-                              )
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          //),
-        );
-      },
     );
   }
 }
