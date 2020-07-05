@@ -107,7 +107,7 @@ class _HightlightResturantsState extends State<HightlightResturants> {
           )
       ),
       width: totalWidth,
-      height: MediaQuery.of(context).size.height * 0.38,
+      height: MediaQuery.of(context).size.height * 0.30,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -195,14 +195,14 @@ class _HightlightResturantsState extends State<HightlightResturants> {
             child: Align(
               alignment: Alignment.bottomRight,
               child: MaterialButton(
-                padding: EdgeInsets.fromLTRB(20,10,20,10),
+                padding: EdgeInsets.fromLTRB(25,15,25,15),
                 onPressed: (){},
                 color: Theme.of(context).buttonColor,
                 elevation: 0,
                 child: Text(
                   'See more',
                   style: Theme.of(context).textTheme.caption.copyWith(
-                    fontSize: 13,
+                    fontSize: 14,
                     color: Theme.of(context).primaryColorLight,
                     fontWeight: FontWeight.w500
                   ),

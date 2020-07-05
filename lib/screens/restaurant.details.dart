@@ -1,6 +1,11 @@
-import 'package:fith_app__restaurant/interfaces/availableForLunch.dart';
+// import 'package:fith_app__restaurant/interfaces/availableForLunch.dart';
+import 'package:fith_app__restaurant/interfaces/ContactInterface.dart';
 import 'package:fith_app__restaurant/sections/CardAvailableForLunch.dart';
+import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
+import 'package:fith_app__restaurant/sections/CardsHighlightRestaurants.dart';
+import 'package:fith_app__restaurant/sections/CircleOptionDetailRestaurant.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class RestaurantDetailWrapper extends StatelessWidget {
   @override
@@ -29,7 +34,8 @@ class RestaurantDetailWrapper extends StatelessWidget {
               child:  TitleAndShortDescription(),
             ),
             WrapperMap(),
-            DetailHighlightProduct()
+            DetailHighlightProduct(),
+            ExploreTheMenu()
           ],
         )
       )
@@ -184,13 +190,10 @@ class _DetailHighlightProductState extends State<DetailHighlightProduct> {
             margin: EdgeInsets.only(
               left: MediaQuery.of(context).size.width * 0.035
             ),
-            // width: MediaQuery.of(context).size.width,
-            // height: MediaQuery.of(context).size.height * 0.52,
-            // child: CompleteListAvailablePlates(),
             child: Align(
               alignment: Alignment.center,
               child: AspectRatio(
-                aspectRatio: 2/2,
+                aspectRatio: 2/2.010,
                 child: Container(
                   child: CompleteListAvailablePlates(),
                 ),
@@ -198,6 +201,251 @@ class _DetailHighlightProductState extends State<DetailHighlightProduct> {
             )
             
           ),
+          SizedBox(
+            height: 20,
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class ExploreTheMenu extends StatefulWidget {
+  @override
+  _ExploreTheMenuState createState() => _ExploreTheMenuState();
+}
+
+class _ExploreTheMenuState extends State<ExploreTheMenu> {
+
+  Widget _header () => Container(
+    margin: EdgeInsets.only(
+      left:  MediaQuery.of(context).size.width * 0.07
+    ),
+    child:  Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text(
+          'Explore the Menu',
+          style: Theme.of(context).textTheme.bodyText1.copyWith(
+            fontWeight: FontWeight.w700
+          ),
+        ),
+        MaterialButton(
+          onPressed: (){},
+          child: Text(
+            'View All',
+            style: Theme.of(context).textTheme.bodyText1.copyWith(
+              color: Theme.of(context).buttonColor,
+              fontWeight: FontWeight.bold
+            ),
+          ),
+        )
+      ],
+    )
+  );
+
+  List _chipsLikeMenuList = [
+    'Champiñones (100)', 'Ensaladas (200)',  'Frescos (120)', 
+    'Almuerzos (123)', 'Comida Rapida (10)'
+  ];
+
+  Widget _chipsAsMenu () {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.only(
+        left:  MediaQuery.of(context).size.width * 0.07
+      ),
+      child: Builder(builder: (BuildContext context){
+        List<Widget> chips = [];
+          _chipsLikeMenuList.map((e){
+            chips.add(
+              Container(
+                child: Chip(
+                  label: Text(
+                    '$e',
+                    maxLines: 1,
+                  )
+                )
+              )
+            );
+          }
+        ).toList();
+        return Wrap(
+          runSpacing: -8,
+          spacing: 5,
+          alignment: WrapAlignment.start,
+          crossAxisAlignment: WrapCrossAlignment.end,
+          children: chips,
+        );
+      })
+    );
+  }
+  
+  Widget _optionsToContact () {
+    return Container(
+          padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.07,
+            right: MediaQuery.of(context).size.width * 0.07
+          ),
+          // color: Colors.red,
+          child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            CircleOption(
+              icon: Icons.share,
+              title: 'Share',
+            ),
+            CircleOption(
+              icon: Icons.comment,
+              title: 'Comment',
+            ),
+            CircleOption(
+              icon: Icons.calendar_today,
+              title: 'Schedule',
+            ),
+            CircleOption(
+              icon: Icons.assignment,
+              title: 'Rerserve',
+            )
+          ],
+        )
+      );
+  }
+  
+  List<ContactInterface> _contactPhones = [
+    ContactInterface( name: 'Phone',  phone: '7153914', action: 'call' ),
+    ContactInterface( name: 'Mail',  phone: 'company@contact.com', action: 'mail' ),
+    ContactInterface( name: 'Whatsapp',  phone: '7153914', action: 'whatsapp' ),
+    ContactInterface( name: 'Average Cost',  phone: '\$12.00 - \$44.00', action: 'none' )
+  ];
+  Widget _contactColumnPhones () {
+    return Container(
+      margin: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.02
+      ),
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.only(
+        left: MediaQuery.of(context).size.width * 0.07,
+        right: MediaQuery.of(context).size.width * 0.07
+      ),
+      child: Builder(
+        builder: (BuildContext context){
+          List<Widget> contacts = [];
+          _contactPhones.map((e){
+            contacts.add(
+              Container(
+                height: 40,
+                decoration: BoxDecoration(
+                  // color: Colors.red,
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 0.3,
+                      color: Theme.of(context).primaryColor
+                    )
+                  )
+                ),
+                child: SizedBox.expand(
+                  child: MaterialButton(
+                    onPressed: () async{
+                      const String url = 'tel://7153914';
+                      bool showSnackBar = false;
+                      String alertSnackBar = '';
+                      if (e.action == 'call'){
+                        if (await canLaunch(url)) {
+                          launch(url);
+                        }else{
+                          showSnackBar = true;
+                          alertSnackBar = 'Ha ocurrido un error';
+                        }
+                      }
+                      if (e.action == 'mail'){
+                        if (await canLaunch(url)){
+                          final Uri _emailLaunchUri = Uri(
+                              scheme: 'mailto',
+                              path: e.phone,
+                              queryParameters: {
+                                'suject': 'Username and lastName'
+                              }
+                          );
+
+                          launch(_emailLaunchUri.toString());
+                        }else{
+                          showSnackBar = true;
+                          alertSnackBar = 'No hemos podido abrir el email ';
+                        }
+                      }
+                      if (e.action == 'whatsapp') {
+                        print('abrir whatsapp');
+                        var whatsappUrl ="whatsapp://send?phone=3107127993";
+                        if (await canLaunch(url)) {
+                          launch(whatsappUrl);
+                        }else{
+                          showSnackBar = true;
+                          alertSnackBar = '¿Puede revisar si whatsapp esta instalado?';
+                        }
+                      }
+                      if (showSnackBar) {
+                        final snackBar = SnackBar(
+                          content: Text(
+                            alertSnackBar,
+                            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              color: Theme.of(context).primaryColorLight
+                            ),
+                          ),
+                          backgroundColor: Theme.of(context).primaryColorDark,
+                        );
+                      Scaffold.of(context).showSnackBar(snackBar);
+                      }
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(e.name),
+                        FittedBox(
+                          child:Text(
+                            e.phone,
+                            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              color: Theme.of(context).buttonColor,
+                              fontWeight: FontWeight.w500
+                            ),
+                          )
+                        )
+                      ],
+                    ),
+                  )
+                ),
+              )
+            );
+          }).toList();
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: contacts,
+          );
+        }
+      ),
+    );
+  }
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          _header(),
+          _chipsAsMenu(),
+          Container(
+            padding: EdgeInsets.only(
+              left:  MediaQuery.of(context).size.width * 0.035,
+            ),
+            child:  CardCategorySuggested(),
+          ),
+          Container(
+            padding: EdgeInsets.only(
+              left:  MediaQuery.of(context).size.width * 0.07,
+            ),
+            child:  HightlightResturantsWrapper()
+          ),
+          _optionsToContact(),
+          _contactColumnPhones(),
           SizedBox(
             height: 20,
           )
