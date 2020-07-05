@@ -8,14 +8,14 @@ class RelatedCategories extends StatefulWidget {
 
 class RelatedCategoriesState extends State<RelatedCategories> {
   List<Category> _suggesteds = [
-    Category('Cofee', Icons.free_breakfast),
-    Category('Burgers', Icons.fastfood),
-    Category('Meat', Icons.restaurant),
-    Category('Salad', Icons.local_dining ),
-    Category('Sweets', Icons.group_work),
-    Category('Beer', Icons.local_bar),
-    Category('Cake', Icons.cake),
-    Category('Pizza', Icons.local_pizza)
+    Category('Cofee', Icons.free_breakfast, ''),
+    Category('Burgers', Icons.fastfood, ''),
+    Category('Meat', Icons.restaurant, ''),
+    Category('Salad', Icons.local_dining, '' ),
+    Category('Sweets', Icons.group_work, ''),
+    Category('Beer', Icons.local_bar, ''),
+    Category('Cake', Icons.cake, ''),
+    Category('Pizza', Icons.local_pizza, '')
   ];
   @override
    Widget build(BuildContext context) {

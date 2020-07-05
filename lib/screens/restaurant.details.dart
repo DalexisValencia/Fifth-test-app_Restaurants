@@ -376,6 +376,7 @@ class _ExploreTheMenuState extends State<ExploreTheMenu> {
                       }
                       if (e.action == 'whatsapp') {
                         print('abrir whatsapp');
+                        
                         var whatsappUrl ="whatsapp://send?phone=3107127993";
                         if (await canLaunch(url)) {
                           launch(whatsappUrl);

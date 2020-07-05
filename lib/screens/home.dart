@@ -114,12 +114,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<Category> _categories = [
-    Category('Commerces', Icons.store_mall_directory),
-    Category('food', Icons.sentiment_neutral),
-    Category('Wine', Icons.sentiment_neutral),
-    Category('Coffee', Icons.store_mall_directory),
-    Category('Meat', Icons.sentiment_neutral),
-    Category('Commerces', Icons.sentiment_neutral),
+    Category('Break Fast', Icons.store_mall_directory, 'assets/home-categories/category-1.png'),
+    Category('Food', Icons.sentiment_neutral, 'assets/home-categories/category-2.png'),
+    Category('Wine', Icons.sentiment_neutral, 'assets/home-categories/category-3.png'),
+    Category('Coffee', Icons.store_mall_directory, 'assets/home-categories/category-4.png'),
+    Category('Meat', Icons.sentiment_neutral, 'assets/home-categories/category-5.png'),
+    Category('Beer', Icons.sentiment_neutral, 'assets/home-categories/category-6.png'),
   ];
 
   @override
@@ -236,41 +236,78 @@ class _HomePageState extends State<HomePage> {
                   child: WhatAreYouLookinForForm()
                 ),
                 Container(
-                  transform: Matrix4.translationValues(0, -MediaQuery.of(context).size.height * 0.01, 0),
-                  // color: Colors.red,
-                  padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+                  padding: EdgeInsets.only(
+                    top: MediaQuery.of(context).size.height * 0.02,
+                    left: MediaQuery.of(context).size.width * 0.07,
+                    right: MediaQuery.of(context).size.width * 0.07
+                  ),
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 2 * 0.75,
-                  child: GridView.count(
-                    padding: EdgeInsets.all(0),
-                    crossAxisCount: 3,
-                    children: List.generate(_categories.length, (index){
-                        return Card(
-                          margin: EdgeInsets.fromLTRB(5, 8, 5, 8),
-                          elevation: 1,
-                          child: RaisedButton(
-                            onPressed: (){},
-                            color: Theme.of(context).primaryColorLight,
-                            splashColor: Colors.red,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  _categories[index].icon,
-                                  size: 36,
-                                ),
-                                FittedBox(
-                                  fit: BoxFit.scaleDown,
-                                  child: Text("${_categories[index].name}"),
-                                )
-                              ],
-                            )
-                          )
+                  height: MediaQuery.of(context).size.height * 0.35,
+                  color: Colors.amber,
+                  child: Builder(
+                      builder: (BuildContext context){
+                        List<Widget> _categoriesCard = [];
+                        _categories.map((item){
+                          _categoriesCard.add(
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.red,
+                                  borderRadius: BorderRadius.circular(25)
+                              ),
+                              margin: EdgeInsets.only(
+                                bottom: MediaQuery.of(context).size.height * 0.02,
+                                right: MediaQuery.of(context).size.height * 0.02
+                              ),
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              height: MediaQuery.of(context).size.height * 0.30 / 2,
+                              child: CardCategorySuggested(category:item),
+                            ),
+                          );
+                        }).toList();
+                        return Wrap(
+                          children: _categoriesCard,
                         );
-                      })
-                  )
+                      }
+                  ),
                 )
+
+
+                // Container(
+                //   transform: Matrix4.translationValues(0, -MediaQuery.of(context).size.height * 0.01, 0),
+                //   color: Colors.red,
+                //   padding: EdgeInsets.fromLTRB(25, 10, 25, 10),
+                //   width: MediaQuery.of(context).size.width,
+                //   height: MediaQuery.of(context).size.height / 2 * 0.75,
+                //   child: GridView.count(
+                //     padding: EdgeInsets.all(0),
+                //     crossAxisCount: 3,
+                //     children: List.generate(_categories.length, (index){
+                  //       return Card(
+                  //         margin: EdgeInsets.fromLTRB(5, 8, 5, 8),
+                  //         elevation: 1,
+                  //         child: RaisedButton(
+                  //           onPressed: (){},
+                  //           color: Theme.of(context).primaryColorLight,
+                  //           splashColor: Colors.red,
+                  //           child: Column(
+                  //             crossAxisAlignment: CrossAxisAlignment.center,
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             children: <Widget>[
+                  //               Icon(
+                  //                 _categories[index].icon,
+                  //                 size: 36,
+                  //               ),
+                  //               FittedBox(
+                  //                 fit: BoxFit.scaleDown,
+                  //                 child: Text("${_categories[index].name}"),
+                  //               )
+                  //             ],
+                  //           )
+                  //         )
+                  //       );
+                  //     })
+                  // )
+                // )
               ],
             ),
           ),
@@ -357,5 +394,83 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
     //     )
     //   ),
     // );
+  }
+}
+
+class CardCategorySuggested extends StatefulWidget {
+  final Category category;
+  CardCategorySuggested({this.category});
+
+  @override
+  _CardCategorySuggestedState createState() => _CardCategorySuggestedState();
+}
+
+class _CardCategorySuggestedState extends State<CardCategorySuggested> {
+  @override
+  Widget build(BuildContext context) {
+    print( widget.category );
+    return RaisedButton(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(7)
+      ),
+      onPressed: (){},
+      color: Theme.of(context).primaryColorLight,
+      splashColor: Colors.red,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.10,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: ExactAssetImage(
+                  widget.category.iconSource
+                )
+              )
+            ),
+          ),
+          // Icon(
+          //   widget.category.icon,
+          //   size: 36,
+          //   color: Theme.of(context).primaryColorDark,
+          // ),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Text(
+              widget.category.name,
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                color: Theme.of(context).primaryColorDark,
+              ),
+            ),
+          )
+        ],
+      ),
+      //     margin: EdgeInsets.fromLTRB(5, 8, 5, 8),
+      //     elevation: 1,
+      //     child: RaisedButton(
+      //       onPressed: (){},
+      //       color: Theme.of(context).primaryColorLight,
+      //       splashColor: Colors.red,
+      //       child: Column(
+      //         crossAxisAlignment: CrossAxisAlignment.center,
+      //         mainAxisAlignment: MainAxisAlignment.center,
+      //         children: <Widget>[
+      //           Icon(
+      //             _categories[index].icon,
+      //             size: 36,
+      //           ),
+      //           FittedBox(
+      //             fit: BoxFit.scaleDown,
+      //             child: Text("${_categories[index].name}"),
+      //           )
+      //         ],
+      //       )
+      //     )
+      //   );
+      // })
+    );
   }
 }
