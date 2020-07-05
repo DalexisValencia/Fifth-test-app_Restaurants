@@ -275,21 +275,30 @@ class _HomePageState extends State<HomePage> {
                     right: MediaQuery.of(context).size.width * 0.07),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.35,
-                color: Colors.amber,
+                // color: Colors.amber,
                 child: Builder(builder: (BuildContext context) {
                   List<Widget> _categoriesCard = [];
                   _categories.asMap().entries.map((item) {
-                    print(item.key);
                     _categoriesCard.add(
                       Container(
                         decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(25)),
-                        margin: EdgeInsets.only(
-                            bottom: MediaQuery.of(context).size.height * 0.02,
-                            right: item.key != 2 && item.key != 5
-                                ? MediaQuery.of(context).size.height * 0.02
-                                : 0),
+                          boxShadow: [
+                            BoxShadow(
+                                offset: Offset(1, -3),
+                                color: Theme.of(context)
+                                    .accentColor
+                                    .withOpacity(0.2),
+                                blurRadius: 2,
+                                spreadRadius: 1),
+                          ],
+                          borderRadius: BorderRadius.circular(7),
+                        ),
+                        // margin: EdgeInsets.only(
+                        //     bottom: MediaQuery.of(context).size.height * 0.02,
+                        //     right: item.key != 2 && item.key != 5
+                        //         ? MediaQuery.of(context).size.height * 0.02
+                        //         : 0),
+                        // padding: EdgeInsets.only(left: 5),
                         width: MediaQuery.of(context).size.width * 0.25,
                         height: MediaQuery.of(context).size.height * 0.30 / 2,
                         child: CardCategorySuggested(category: item.value),
@@ -297,6 +306,10 @@ class _HomePageState extends State<HomePage> {
                     );
                   }).toList();
                   return Wrap(
+                    spacing: MediaQuery.of(context).size.height * 0.02,
+                    runSpacing: MediaQuery.of(context).size.height * 0.02,
+                    alignment: WrapAlignment.center,
+                    crossAxisAlignment: WrapCrossAlignment.center,
                     children: _categoriesCard,
                   );
                 }),
@@ -346,42 +359,6 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
         ],
       ),
     ));
-    // return Container(
-    //   width: MediaQuery.of(context).size.width,
-    //   color: Colors.red,
-    //   child: Form(
-    //     key: _formKey,
-    //     child: Column(
-    //       children: <Widget>[
-    //         TextFormField(
-    //           decoration: InputDecoration(
-    //             filled: true,
-    //             fillColor: Theme.of(context).primaryColorLight,
-    //             hintText: 'What are you looking For?',
-    //             disabledBorder: OutlineInputBorder(
-    //               borderRadius: BorderRadius.circular(20),
-    //               borderSide: BorderSide(
-    //                 color: Theme.of(context).primaryColorLight,
-    //                 width: 2
-    //               )
-    //             ),
-    //             focusedBorder: OutlineInputBorder(
-    //               borderRadius: BorderRadius.circular(10),
-    //               borderSide: BorderSide(
-    //                 color: Theme.of(context).primaryColorLight,
-    //                 width: 2
-    //               )
-    //             ),
-    //             hintStyle: TextStyle(
-    //               color: Theme.of(context).primaryColorDark
-    //             ),
-    //             prefixIcon:Icon(Icons.search)
-    //           ),
-    //         )
-    //       ],
-    //     )
-    //   ),
-    // );
   }
 }
 
@@ -398,11 +375,11 @@ class _CardCategorySuggestedState extends State<CardCategorySuggested> {
   Widget build(BuildContext context) {
     print(widget.category);
     return RaisedButton(
-      elevation: 0,
+      // elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       onPressed: () {},
       color: Theme.of(context).primaryColorLight,
-      splashColor: Colors.red,
+      splashColor: Theme.of(context).buttonColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -430,29 +407,6 @@ class _CardCategorySuggestedState extends State<CardCategorySuggested> {
           )
         ],
       ),
-      //     margin: EdgeInsets.fromLTRB(5, 8, 5, 8),
-      //     elevation: 1,
-      //     child: RaisedButton(
-      //       onPressed: (){},
-      //       color: Theme.of(context).primaryColorLight,
-      //       splashColor: Colors.red,
-      //       child: Column(
-      //         crossAxisAlignment: CrossAxisAlignment.center,
-      //         mainAxisAlignment: MainAxisAlignment.center,
-      //         children: <Widget>[
-      //           Icon(
-      //             _categories[index].icon,
-      //             size: 36,
-      //           ),
-      //           FittedBox(
-      //             fit: BoxFit.scaleDown,
-      //             child: Text("${_categories[index].name}"),
-      //           )
-      //         ],
-      //       )
-      //     )
-      //   );
-      // })
     );
   }
 }
