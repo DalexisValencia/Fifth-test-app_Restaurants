@@ -1,4 +1,5 @@
-import 'package:fith_app__restaurant/sections/RoundedOptions.dart';
+import 'package:fith_app__restaurant/interfaces/aditional.dart';
+import 'package:fith_app__restaurant/widgets/AditionalsExpansions.dart';
 import 'package:flutter/material.dart';
 
 class PlateDetailWrapper extends StatelessWidget {
@@ -9,7 +10,8 @@ class PlateDetailWrapper extends StatelessWidget {
         children: <Widget>[
           HeaderPlateDetails(),
           GroupPlateBasicDetails(),
-          RoundedOptionsContactWrapper()
+          Aditionals()
+          // RoundedOptionsContactWrapper()
         ],
       ),
     );
@@ -130,6 +132,15 @@ class GroupPlateBasicDetails extends StatelessWidget {
             ),
           ),
           Container(
+            child: Text(
+              "\$29.00",
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.headline6.copyWith(
+                  color: Theme.of(context).primaryColorDark,
+                  fontWeight: FontWeight.w500),
+            ),
+          ),
+          Container(
             margin: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.008),
             // color: Colors.white,
@@ -184,6 +195,78 @@ class GroupPlateBasicDetails extends StatelessWidget {
                 ],
               )),
         ],
+      ),
+    );
+  }
+}
+
+class Aditionals extends StatefulWidget {
+  @override
+  AditionalsState createState() => AditionalsState();
+}
+
+class AditionalsState extends State<Aditionals> {
+  bool activeTab = null;
+
+  setActiveTab(tabIndex) {
+    print("ahora le damos activo a otro");
+    setState(() {
+      activeTab = tabIndex == activeTab ? null : activeTab;
+    });
+  }
+
+  Widget _header() {
+    return Container(
+      margin:
+          EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.010),
+      width: MediaQuery.of(context).size.width,
+      child: Text(
+        "Adicionales",
+        style: Theme.of(context).textTheme.subtitle1.copyWith(
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).primaryColorDark),
+      ),
+    );
+  }
+
+  Widget _expansionAdittional() {
+    List<Adittional> aditionals = [
+      Adittional(title: 'Cubiertos', isMulti: false, children: [
+        AditionalsOptions(name: 'Con Cubiertos', isActive: true),
+        AditionalsOptions(name: 'Con Palillos chinos', isActive: false)
+      ])
+    ];
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      color: Colors.amber,
+      child: Builder(
+        builder: (BuildContext context) {
+          List<Widget> expandible = [];
+          aditionals.map((item) {
+            print(item.children);
+            expandible.add(AditionalExpansionPanel(
+                title: item.title,
+                isMulti: item.isMulti,
+                children: item.children));
+          }).toList();
+
+          return Column(
+            children: expandible,
+          );
+        },
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width * 0.07,
+          right: MediaQuery.of(context).size.width * 0.07),
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        children: <Widget>[_header(), _expansionAdittional()],
       ),
     );
   }
