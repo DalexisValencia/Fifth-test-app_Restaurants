@@ -13,15 +13,18 @@ class AditionalExpansionPanel extends StatefulWidget {
 
 class _AditionalExpansionPanelState extends State<AditionalExpansionPanel> {
   int currentActive = 0;
+  bool isActivePanel = false;
 
   checkFlowCheckBox(val, inx) {
     if (!val) {
+      print("1");
       setState(() {
         currentActive = 100;
       });
     }
 
     if (val) {
+      print("2");
       setState(() {
         currentActive = inx;
       });
@@ -32,11 +35,34 @@ class _AditionalExpansionPanelState extends State<AditionalExpansionPanel> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          border: Border.all(
-              width: 1,
-              color: Theme.of(context).primaryColorDark.withOpacity(0.5)),
+          border: isActivePanel
+              ? Border(
+                  top: BorderSide(
+                      color:
+                          Theme.of(context).primaryColorDark.withOpacity(0.5),
+                      width: 1),
+                  left: BorderSide(
+                      color:
+                          Theme.of(context).primaryColorDark.withOpacity(0.5),
+                      width: 1),
+                  right: BorderSide(
+                      color:
+                          Theme.of(context).primaryColorDark.withOpacity(0.5),
+                      width: 1),
+                  bottom: BorderSide(color: Colors.red, width: 0),
+                )
+              : Border.all(
+                  width: 1,
+                  color: isActivePanel
+                      ? Colors.red
+                      : Theme.of(context).primaryColorDark.withOpacity(0.5)),
           color: Theme.of(context).primaryColorLight),
       child: ExpansionTile(
+        onExpansionChanged: (val) {
+          setState(() {
+            isActivePanel = val;
+          });
+        },
         backgroundColor: Theme.of(context).primaryColorLight,
         title: Text(
           widget.title,
@@ -89,9 +115,11 @@ class AditionalCheckBoxTile extends StatefulWidget {
 class _AditionalCheckBoxTileState extends State<AditionalCheckBoxTile> {
   bool isCurrentCheckActive = false;
   _activeOption(val) {
+    // si la seleccion no es multiple
     if (!widget.isMulti) {
       widget.callBackClick(val, widget.index);
     }
+    // Si la seleccion es multiple
     if (widget.isMulti) {
       setState(() {
         this.isCurrentCheckActive = val;
@@ -99,27 +127,38 @@ class _AditionalCheckBoxTileState extends State<AditionalCheckBoxTile> {
     }
   }
 
+  changeNotifierWidgetParent() {
+    // solo si la seleccion no es multiple
+    if (!widget.isMulti) {
+      setState(() {
+        isCurrentCheckActive = widget.active;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
+    this.changeNotifierWidgetParent();
   }
 
   @override
   Widget build(BuildContext context) {
-    setState(() {
-      print("pintalo!!");
-      isCurrentCheckActive = widget.active;
-    });
+    this.changeNotifierWidgetParent();
     return Container(
       decoration: BoxDecoration(
-          // color: Colors.yellow,
           border: Border(
               top: BorderSide(
                   width: 1,
                   color: Theme.of(context).primaryColorDark.withOpacity(0.2)))),
       child: CheckboxListTile(
-        // controlAffinity: ListTileControlAffinity.leading,
-        title: Text(widget.name),
+        title: Text(
+          widget.name,
+          style: Theme.of(context)
+              .textTheme
+              .caption
+              .copyWith(color: Theme.of(context).primaryColorDark),
+        ),
         activeColor: Theme.of(context).buttonColor,
         value: isCurrentCheckActive,
         onChanged: (val) => _activeOption(val),

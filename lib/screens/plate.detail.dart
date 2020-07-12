@@ -234,6 +234,11 @@ class AditionalsState extends State<Aditionals> {
       Adittional(title: 'Cubiertos', isMulti: false, children: [
         AditionalsOptions(name: 'Con Cubiertos', isActive: true),
         AditionalsOptions(name: 'Con Palillos chinos', isActive: false)
+      ]),
+      Adittional(title: 'Salsa', isMulti: true, children: [
+        AditionalsOptions(name: '... de tomate', isActive: false),
+        AditionalsOptions(name: '... terillaki', isActive: false),
+        AditionalsOptions(name: '... de guacamole', isActive: false)
       ])
     ];
     return Container(
