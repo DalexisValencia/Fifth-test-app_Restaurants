@@ -10,6 +10,7 @@ class PlateDetailWrapper extends StatelessWidget {
         children: <Widget>[
           HeaderPlateDetails(),
           GroupPlateBasicDetails(),
+          AmountProduct(),
           Aditionals()
           // RoundedOptionsContactWrapper()
         ],
@@ -141,11 +142,15 @@ class GroupPlateBasicDetails extends StatelessWidget {
             ),
           ),
           Container(
+            padding: EdgeInsets.only(
+                left: MediaQuery.of(context).size.width * 0.07,
+                right: MediaQuery.of(context).size.width * 0.07),
             margin: EdgeInsets.only(
                 top: MediaQuery.of(context).size.height * 0.008),
             // color: Colors.white,
             child: Text(
-              'short description of product',
+              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque auctor odio et dignissim consectetur. In hac habitasse platea dictumst. In vel ligula nec velit tincidunt ultricies',
+              textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.button.copyWith(
                   color: Theme.of(context).primaryColorDark,
                   fontWeight: FontWeight.w400),
@@ -206,19 +211,11 @@ class Aditionals extends StatefulWidget {
 }
 
 class AditionalsState extends State<Aditionals> {
-  bool activeTab = null;
-
-  setActiveTab(tabIndex) {
-    print("ahora le damos activo a otro");
-    setState(() {
-      activeTab = tabIndex == activeTab ? null : activeTab;
-    });
-  }
-
   Widget _header() {
     return Container(
-      margin:
-          EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.010),
+      margin: EdgeInsets.only(
+          bottom: MediaQuery.of(context).size.height * 0.018,
+          top: MediaQuery.of(context).size.height * 0.005),
       width: MediaQuery.of(context).size.width,
       child: Text(
         "Adicionales",
@@ -272,6 +269,120 @@ class AditionalsState extends State<Aditionals> {
       width: MediaQuery.of(context).size.width,
       child: Column(
         children: <Widget>[_header(), _expansionAdittional()],
+      ),
+    );
+  }
+}
+
+class AmountProduct extends StatefulWidget {
+  @override
+  _AmountProductState createState() => _AmountProductState();
+}
+
+class _AmountProductState extends State<AmountProduct> {
+  int amount = 1;
+  double priceOrigin = 29.00;
+  double price = 29.00;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  void _amountproduct(type) {
+    if (type == 'add') {
+      setState(() {
+        amount++;
+        price = priceOrigin * amount;
+      });
+    }
+    if (type == 'remove' && amount > 1) {
+      setState(() {
+        amount--;
+        price = priceOrigin * amount;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width * 0.07,
+          right: MediaQuery.of(context).size.width * 0.07),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                    // color: Colors.blue,
+                    child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    "\$$price",
+                    style: Theme.of(context).textTheme.headline5.copyWith(
+                        color: Theme.of(context).buttonColor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                )),
+                Container(
+                  child: Row(
+                    children: <Widget>[
+                      MaterialButton(
+                        minWidth: 40,
+                        elevation: 0,
+                        color: Theme.of(context).buttonColor,
+                        padding: EdgeInsets.all(0),
+                        onPressed: () => _amountproduct('remove'),
+                        child: Text(
+                          "-",
+                          style: Theme.of(context).textTheme.headline6.copyWith(
+                              color: Theme.of(context).primaryColorLight,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            color: Theme.of(context).primaryColorLight,
+                            borderRadius: BorderRadius.circular(2),
+                            border: Border.all(
+                                color: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.5))),
+                        height: 35,
+                        padding: EdgeInsets.only(
+                            left: MediaQuery.of(context).size.width * 0.05,
+                            right: MediaQuery.of(context).size.width * 0.05),
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text("$amount"),
+                        ),
+                      ),
+                      MaterialButton(
+                        minWidth: 40,
+                        elevation: 0,
+                        color: Theme.of(context).buttonColor,
+                        padding: EdgeInsets.all(0),
+                        // shape: CircleBorder(),
+                        onPressed: () => _amountproduct('add'),
+                        child: Text(
+                          "+",
+                          style: Theme.of(context).textTheme.headline6.copyWith(
+                              color: Theme.of(context).primaryColorLight,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
