@@ -1,4 +1,5 @@
 import 'package:fith_app__restaurant/interfaces/aditional.dart';
+import 'package:fith_app__restaurant/interfaces/summaryStep.dart';
 import 'package:fith_app__restaurant/widgets/AditionalsExpansions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -634,6 +635,24 @@ class PreparationTime extends StatefulWidget {
 }
 
 class _PreparationTimeState extends State<PreparationTime> {
+  List<SummaryStepsInterface> listSummmarySteps = [
+    SummaryStepsInterface(
+        title: 'Preparation time for plates',
+        subTitle: '50 minutes',
+        icon: Icons.access_time),
+    SummaryStepsInterface(
+        title: 'Preparation time for # plates',
+        subTitle: '50 minutes',
+        icon: Icons.access_time),
+    SummaryStepsInterface(
+        title: '# Plates', subTitle: '\$150.000', icon: Icons.attach_money),
+    SummaryStepsInterface(
+        title: 'Aditionals', subTitle: '\$13.000', icon: Icons.attach_money),
+    SummaryStepsInterface(
+        title: 'TOTAL',
+        subTitle: '\$150.000 + \$13.000',
+        icon: Icons.attach_money)
+  ];
   Widget _header() {
     return Container(
         width: MediaQuery.of(context).size.width,
@@ -650,6 +669,73 @@ class _PreparationTimeState extends State<PreparationTime> {
         ));
   }
 
+  Widget summaryContainer(title, subtitle, icon, withBorderBottom) {
+    return Container(
+      margin: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width * 0.05,
+          right: MediaQuery.of(context).size.width * 0.05),
+      decoration: BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+                  color: Theme.of(context)
+                      .primaryColor
+                      .withOpacity(withBorderBottom ? 0 : 0.3)))),
+      child: ListTile(
+          contentPadding: EdgeInsets.all(0),
+          leading: SizedBox(
+            height: 50,
+            width: 50,
+            child: Container(
+              child: Center(
+                child: Icon(
+                  icon,
+                  size: 30,
+                  color: Theme.of(context).primaryColor,
+                ),
+              ),
+            ),
+          ),
+          title: Container(
+            transform: Matrix4.translationValues(-10, 0, 0),
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.subtitle1.copyWith(
+                    color: Theme.of(context).primaryColorDark,
+                    fontWeight: FontWeight.w600,
+                  ),
+            ),
+          ),
+          subtitle: Container(
+            transform: Matrix4.translationValues(-10, 0, 0),
+            child: Text(subtitle,
+                style: Theme.of(context).textTheme.caption.copyWith(
+                    color: Theme.of(context).primaryColor.withOpacity(0.6),
+                    fontWeight: FontWeight.w500)),
+          )),
+    );
+  }
+
+  Widget _buildSummarySteps() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Builder(
+        builder: (BuildContext context) {
+          List<Widget> _summarySteps = [];
+          listSummmarySteps.asMap().entries.map((item) {
+            int idx = item.key;
+            bool noBorderBottom = (idx + 1) == listSummmarySteps.length;
+            SummaryStepsInterface val = item.value;
+            _summarySteps.add(summaryContainer(
+                val.title, val.subTitle, val.icon, noBorderBottom));
+          }).toList();
+          return Column(
+            children: _summarySteps,
+          );
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -663,250 +749,7 @@ class _PreparationTimeState extends State<PreparationTime> {
               borderRadius: BorderRadius.circular(5),
               border: Border.all(
                   color: Theme.of(context).primaryColor.withOpacity(0.3))),
-          child: Column(
-            children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Theme.of(context)
-                                .primaryColor
-                                .withOpacity(0.3)))),
-                // color: Colors.amber,
-                margin: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.07,
-                  right: MediaQuery.of(context).size.width * 0.07,
-                ),
-                child: ListTile(
-                    contentPadding: EdgeInsets.all(0),
-                    leading: SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: Container(
-                        // color: Colors.red,
-                        child: Center(
-                          child: Icon(
-                            Icons.access_time,
-                            size: 30,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                    title: Container(
-                      transform: Matrix4.translationValues(-10, 0, 0),
-                      child: Text(
-                        'Preparation Time For Plate',
-                        style: Theme.of(context).textTheme.subtitle1.copyWith(
-                              color: Theme.of(context).primaryColorDark,
-                              fontWeight: FontWeight.w600,
-                            ),
-                      ),
-                    ),
-                    subtitle: Container(
-                      transform: Matrix4.translationValues(-10, 0, 0),
-                      child: Text("50 minutes",
-                          style: Theme.of(context).textTheme.caption.copyWith(
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(0.6),
-                              fontWeight: FontWeight.w500)),
-                    )),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Theme.of(context)
-                                .primaryColor
-                                .withOpacity(0.3)))),
-                // color: Colors.amber,
-                margin: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.07,
-                  right: MediaQuery.of(context).size.width * 0.07,
-                ),
-                child: ListTile(
-                    contentPadding: EdgeInsets.all(0),
-                    leading: SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: Container(
-                        // color: Colors.red,
-                        child: Center(
-                          child: Icon(
-                            Icons.access_time,
-                            size: 30,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                    title: Container(
-                      transform: Matrix4.translationValues(-10, 0, 0),
-                      child: Text(
-                        'Preparation Time # Plates',
-                        style: Theme.of(context).textTheme.subtitle1.copyWith(
-                              color: Theme.of(context).primaryColorDark,
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                    ),
-                    subtitle: Container(
-                      transform: Matrix4.translationValues(-10, 0, 0),
-                      child: Text("1 Hour + 50 minutes",
-                          style: Theme.of(context).textTheme.caption.copyWith(
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(0.6),
-                              fontWeight: FontWeight.w500)),
-                    )),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Theme.of(context)
-                                .primaryColor
-                                .withOpacity(0.3)))),
-                // color: Colors.amber,
-                margin: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.07,
-                  right: MediaQuery.of(context).size.width * 0.07,
-                ),
-                child: ListTile(
-                    contentPadding: EdgeInsets.all(0),
-                    leading: SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: Container(
-                        // color: Colors.red,
-                        child: Center(
-                          child: Icon(
-                            Icons.attach_money,
-                            size: 30,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                    title: Container(
-                      transform: Matrix4.translationValues(-10, 0, 0),
-                      child: Text(
-                        '# Plates',
-                        style: Theme.of(context).textTheme.subtitle1.copyWith(
-                              color: Theme.of(context).primaryColorDark,
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                    ),
-                    subtitle: Container(
-                      transform: Matrix4.translationValues(-10, 0, 0),
-                      child: Text("\$150.000",
-                          style: Theme.of(context).textTheme.caption.copyWith(
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(0.6),
-                              fontWeight: FontWeight.w500)),
-                    )),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Theme.of(context)
-                                .primaryColor
-                                .withOpacity(0.3)))),
-                // color: Colors.amber,
-                margin: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.07,
-                  right: MediaQuery.of(context).size.width * 0.07,
-                ),
-                child: ListTile(
-                    contentPadding: EdgeInsets.all(0),
-                    leading: SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: Container(
-                        // color: Colors.red,
-                        child: Center(
-                          child: Icon(
-                            Icons.attach_money,
-                            size: 30,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                    title: Container(
-                      transform: Matrix4.translationValues(-10, 0, 0),
-                      child: Text(
-                        'Aditionals',
-                        style: Theme.of(context).textTheme.subtitle1.copyWith(
-                              color: Theme.of(context).primaryColorDark,
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                    ),
-                    subtitle: Container(
-                      transform: Matrix4.translationValues(-10, 0, 0),
-                      child: Text("\$13.000",
-                          style: Theme.of(context).textTheme.caption.copyWith(
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(0.6),
-                              fontWeight: FontWeight.w500)),
-                    )),
-              ),
-              Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: Theme.of(context)
-                                .primaryColor
-                                .withOpacity(0.3)))),
-                // color: Colors.amber,
-                margin: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.07,
-                  right: MediaQuery.of(context).size.width * 0.07,
-                ),
-                child: ListTile(
-                    contentPadding: EdgeInsets.all(0),
-                    leading: SizedBox(
-                      height: 50,
-                      width: 50,
-                      child: Container(
-                        // color: Colors.red,
-                        child: Center(
-                          child: Icon(
-                            Icons.attach_money,
-                            size: 30,
-                            color: Theme.of(context).primaryColor,
-                          ),
-                        ),
-                      ),
-                    ),
-                    title: Container(
-                      transform: Matrix4.translationValues(-10, 0, 0),
-                      child: Text(
-                        'TOTAL',
-                        style: Theme.of(context).textTheme.subtitle1.copyWith(
-                              color: Theme.of(context).primaryColorDark,
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                    ),
-                    subtitle: Container(
-                      transform: Matrix4.translationValues(-10, 0, 0),
-                      child: Text("\$150.000 + \$13.000 = \$163.000",
-                          style: Theme.of(context).textTheme.caption.copyWith(
-                              color: Theme.of(context)
-                                  .primaryColor
-                                  .withOpacity(0.6),
-                              fontWeight: FontWeight.w500)),
-                    )),
-              )
-            ],
-          ),
+          child: _buildSummarySteps(),
         )
       ],
     );
