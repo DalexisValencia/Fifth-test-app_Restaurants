@@ -1,4 +1,5 @@
 import 'package:fith_app__restaurant/interfaces/categories.dart';
+import 'package:fith_app__restaurant/screens/disscover.dart';
 import 'package:fith_app__restaurant/screens/plate.detail.dart';
 import 'package:fith_app__restaurant/screens/restaurant.details.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,7 @@ class _MainTabsState extends State<MainTabs> {
                 child: PlateDetailWrapper(),
               ),
               Container(
-                child: Text('data 5 $tabStateInit'),
+                child: DiscoverScaffold(),
               )
             ],
           ),
