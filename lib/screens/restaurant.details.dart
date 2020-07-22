@@ -3,7 +3,6 @@ import 'package:fith_app__restaurant/interfaces/ContactInterface.dart';
 import 'package:fith_app__restaurant/sections/CardAvailableForLunch.dart';
 import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
 import 'package:fith_app__restaurant/sections/CardsHighlightRestaurants.dart';
-import 'package:fith_app__restaurant/sections/CircleOptionDetailRestaurant.dart';
 import 'package:fith_app__restaurant/sections/RoundedOptions.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';

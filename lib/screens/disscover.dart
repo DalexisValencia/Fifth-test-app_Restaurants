@@ -1,4 +1,6 @@
+import 'package:fith_app__restaurant/widgets/roundedIcons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class DiscoverScaffold extends StatefulWidget {
   @override
@@ -7,6 +9,18 @@ class DiscoverScaffold extends StatefulWidget {
 
 class _DiscoverScaffoldState extends State<DiscoverScaffold> {
   double heightAppBar = 55;
+  _changeStatusBarThemeColor() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      // systemNavigationBarColor: Colors.white, // navigation bar color
+      statusBarColor: Theme.of(context).primaryColorLight, // status bar color
+    ));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  }
+
+  @override
+  initState() {
+    super.initState();
+  }
 
   Widget _screenTitle() {
     return Container(
@@ -37,6 +51,7 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
 
   @override
   Widget build(BuildContext context) {
+    _changeStatusBarThemeColor();
     return SafeArea(
       child: Container(
         height: MediaQuery.of(context).size.height,
@@ -53,15 +68,7 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
                     children: <Widget>[
                       _screenTitle(),
                       _nearYouContainer(),
-                      _newLaunch(),
-                      Container(
-                        color: Colors.red,
-                        height: 200,
-                      ),
-                      Container(
-                        color: Colors.blue,
-                        height: 200,
-                      )
+                      _newLaunch()
                     ],
                   ),
                 )),
@@ -92,10 +99,27 @@ class _MainTopHeaderState extends State<MainTopHeader> {
           left: MediaQuery.of(context).size.width * 0.07,
           right: MediaQuery.of(context).size.width * 0.07),
       height: widget.myheight,
-      color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColorLight,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[Text("izquierda"), Text("Derecha")],
+        children: <Widget>[
+          CircleIconButton(
+            icon: Icons.arrow_back,
+            color: Theme.of(context).primaryColorDark,
+            bgColor: Theme.of(context).primaryColorLight,
+            trigger: () {
+              print("Holiwis");
+            },
+          ),
+          CircleIconButton(
+            icon: Icons.search,
+            color: Theme.of(context).primaryColorDark,
+            bgColor: Theme.of(context).accentColor.withOpacity(0.4),
+            trigger: () {
+              print("Holiwis");
+            },
+          ),
+        ],
       ),
     );
   }
@@ -267,154 +291,229 @@ class _NewLaunchState extends State<NewLaunch> {
                 color: Theme.of(context).primaryColorDark,
                 fontWeight: FontWeight.w800),
           ),
-          MaterialButton(
-            color: Theme.of(context).primaryColor,
-            padding: EdgeInsets.all(0),
-            minWidth: 45,
-            onPressed: () {},
-            child: Icon(
-              Icons.center_focus_strong,
-              size: 18,
-              color: Theme.of(context).primaryColorDark,
-            ),
-          )
+          CircleIconButton(
+            icon: Icons.tune,
+            color: Theme.of(context).primaryColorDark,
+            bgColor: Theme.of(context).primaryColorLight,
+            trigger: () {
+              print("Holiwis");
+            },
+          ),
         ],
       ),
     );
   }
 
   Widget _newLauchContainer() {
+    List latestLaunched = [1, 2, 3];
     return Container(
-      height: 350,
-      padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.07),
-      width: MediaQuery.of(context).size.width,
-      child: Stack(
-        children: <Widget>[
-          Container(
-            height: 240,
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: ExactAssetImage('assets/banner/french-food.png'))),
-          ),
-          Positioned(
-            top: 130,
-            left: MediaQuery.of(context).size.width * 0.07,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                        blurRadius: 6,
-                        color:
-                            Theme.of(context).primaryColorDark.withOpacity(0.5),
-                        offset: Offset(0, 0))
-                  ],
-                  color: Theme.of(context).primaryColorLight,
-                  borderRadius: BorderRadius.circular(10)),
-              width: MediaQuery.of(context).size.width * 0.72,
-              child: Column(
-                children: <Widget>[
-                  Container(
-                    padding: EdgeInsets.all(0),
-                    decoration: BoxDecoration(
-                        // color: Colors.red,
-                        border: Border(
-                            bottom: BorderSide(
-                                color: Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.6),
-                                width: 0.6))),
-                    child: ListTile(
-                      contentPadding: EdgeInsets.all(0),
-                      title: Text(
+      child: Builder(builder: (BuildContext context) {
+        List<Widget> _totalLaunched = [];
+        latestLaunched.map((e) {
+          _totalLaunched.add(NewLaunchedWrapper());
+        }).toList();
+        return Column(
+          children: _totalLaunched,
+        );
+      }),
+    );
+    // return NewLaunchedWrapper();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: <Widget>[_header(), _newLauchContainer()],
+      ),
+    );
+  }
+}
+
+class NewLaunchedWrapper extends StatefulWidget {
+  @override
+  _NewLaunchedWrapperState createState() => _NewLaunchedWrapperState();
+}
+
+class _NewLaunchedWrapperState extends State<NewLaunchedWrapper> {
+  Widget _wrapperImage() {
+    return Container(
+      height: 240,
+      padding: EdgeInsets.symmetric(horizontal: 10),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          image: DecorationImage(
+              fit: BoxFit.cover,
+              image: ExactAssetImage('assets/banner/french-food.png'))),
+    );
+  }
+
+  Widget _cardHeader() {
+    return Container(
+      padding: EdgeInsets.all(0),
+      decoration: BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+                  color: Theme.of(context).primaryColor.withOpacity(0.6),
+                  width: 0.6))),
+      child: Container(
+        padding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.010),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
                         'House of Blues san diego',
-                        style: Theme.of(context).textTheme.button.copyWith(
+                        style: Theme.of(context).textTheme.subtitle1.copyWith(
                             color: Theme.of(context).primaryColorDark,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold),
                       ),
-                      subtitle: Text(
+                    ),
+                    FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
                         'address direction or description',
                         style: Theme.of(context).textTheme.caption.copyWith(
                             color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.w400),
                       ),
-                      trailing: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                            color: Theme.of(context).buttonColor,
-                            borderRadius: BorderRadius.circular(50)),
-                        child: Icon(
-                          Icons.restaurant_menu,
-                          color: Theme.of(context).primaryColorLight,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 8),
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                color: Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.6),
-                                width: 0.6))),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        _iconAnText(Icons.star, Theme.of(context).buttonColor,
-                            '4.8 votes'),
-                        _iconAnText(Icons.timer,
-                            Theme.of(context).primaryColorDark, '30 minutes'),
-                        _iconAnText(Icons.format_align_right,
-                            Theme.of(context).primaryColorDark, 'Agenda')
-                      ],
-                    ),
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                        border: Border(
-                            bottom: BorderSide(
-                                color: Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.6),
-                                width: 0.6))),
-                    child: ListTile(
-                      contentPadding: EdgeInsets.all(0),
-                      leading: CircleAvatar(
-                        backgroundColor: Colors.amber,
-                      ),
-                      title: Container(
-                        transform: Matrix4.translationValues(-10, 0, 0),
-                        child: Text(
-                          'Nombre del usuario',
-                          style: Theme.of(context).textTheme.caption.copyWith(
-                              color: Theme.of(context).primaryColorDark,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      subtitle: Container(
-                        transform: Matrix4.translationValues(-10, 0, 0),
-                        child: Text(
-                          'Comentario que ha colocado el ususario',
-                          style: Theme.of(context).textTheme.caption.copyWith(
-                              fontSize: 11,
-                              fontWeight: FontWeight.w300,
-                              color: Theme.of(context).primaryColor),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
-          )
+            Container(
+              width: 35,
+              height: 35,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).buttonColor,
+                  borderRadius: BorderRadius.circular(50)),
+              child: Icon(
+                Icons.restaurant_menu,
+                size: 20,
+                color: Theme.of(context).primaryColorLight,
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _cardBody() {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 8),
+      decoration: BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+                  color: Theme.of(context).primaryColor.withOpacity(0.6),
+                  width: 0.6))),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          _iconAnText(Icons.star, Theme.of(context).buttonColor, '4.8 votes'),
+          _iconAnText(
+              Icons.timer, Theme.of(context).primaryColorDark, '30 minutes'),
+          _iconAnText(Icons.format_align_right,
+              Theme.of(context).primaryColorDark, 'Agenda')
         ],
+      ),
+    );
+  }
+
+  Widget _cardComments() {
+    List comments = [1, 2];
+    return Container(
+      child: Builder(
+        builder: (BuildContext context) {
+          List<Widget> wComments = [];
+          comments.asMap().entries.map((e) {
+            int idx = e.key;
+            print(idx);
+            print(comments.length);
+            wComments.add(Container(
+              decoration: BoxDecoration(
+                  // color: Colors.red,
+                  border: Border(
+                      bottom: BorderSide(
+                          color: (idx + 1) == comments.length
+                              ? Colors.transparent
+                              : Theme.of(context).primaryColor.withOpacity(0.6),
+                          width: 0.6))),
+              child: Container(
+                child: Row(
+                  children: <Widget>[
+                    Container(
+                      padding: EdgeInsets.only(right: 10),
+                      width: 47,
+                      height: 47,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.amber,
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            'Nombre del usuario',
+                            style: Theme.of(context).textTheme.caption.copyWith(
+                                color: Theme.of(context).primaryColorDark,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                'Comentario que ha colocado el ususario',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .caption
+                                    .copyWith(
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w300,
+                                        color: Theme.of(context).primaryColor),
+                              )),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ));
+          }).toList();
+          return Column(
+            children: wComments,
+          );
+        },
+      ),
+    );
+  }
+
+  Widget _cardWrapper() {
+    return Container(
+      transform: Matrix4.translationValues(0, -100, 0),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 15),
+        decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                  blurRadius: 6,
+                  color: Theme.of(context).primaryColorDark.withOpacity(0.5),
+                  offset: Offset(0, 0))
+            ],
+            color: Theme.of(context).primaryColorLight,
+            borderRadius: BorderRadius.circular(10)),
+        width: MediaQuery.of(context).size.width * 0.72,
+        child: Column(
+          children: <Widget>[_cardHeader(), _cardBody(), _cardComments()],
+        ),
       ),
     );
   }
@@ -444,8 +543,61 @@ class _NewLaunchState extends State<NewLaunch> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: 300,
+      padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.07),
+      width: MediaQuery.of(context).size.width,
+      child: Stack(
+        children: <Widget>[
+          _wrapperImage(),
+          Positioned(
+            top: 200,
+            left: MediaQuery.of(context).size.width * 0.07,
+            child: _cardWrapper(),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class TopRestaurants extends StatefulWidget {
+  @override
+  _TopRestaurantsState createState() => _TopRestaurantsState();
+}
+
+class _TopRestaurantsState extends State<TopRestaurants> {
+  Widget _header() {
+    return Container(
+      child: Row(
+        children: <Widget>[
+          Text(
+            "Top Retaurants",
+            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                color: Theme.of(context).primaryColorDark,
+                fontWeight: FontWeight.w800),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _topRestaurant() {
+    return Text("");
+  }
+
+  Widget _nextTops() {
+    return Text("");
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * 0.07),
       child: Column(
-        children: <Widget>[_header(), _newLauchContainer()],
+        children: <Widget>[_header(), _topRestaurant(), _nextTops()],
       ),
     );
   }
