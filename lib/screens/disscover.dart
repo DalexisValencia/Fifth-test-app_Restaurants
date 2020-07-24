@@ -49,6 +49,10 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
     return NewLaunch();
   }
 
+  Widget _topRestaurants() {
+    return TopRestaurants();
+  }
+
   @override
   Widget build(BuildContext context) {
     _changeStatusBarThemeColor();
@@ -68,7 +72,8 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
                     children: <Widget>[
                       _screenTitle(),
                       _nearYouContainer(),
-                      _newLaunch()
+                      _newLaunch(),
+                      _topRestaurants()
                     ],
                   ),
                 )),
@@ -569,7 +574,10 @@ class TopRestaurants extends StatefulWidget {
 class _TopRestaurantsState extends State<TopRestaurants> {
   Widget _header() {
     return Container(
+      margin: EdgeInsets.symmetric(
+          vertical: MediaQuery.of(context).size.height * 0.010),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
             "Top Retaurants",
@@ -577,25 +585,147 @@ class _TopRestaurantsState extends State<TopRestaurants> {
                 color: Theme.of(context).primaryColorDark,
                 fontWeight: FontWeight.w800),
           ),
+          MaterialButton(
+            padding: EdgeInsets.all(0),
+            elevation: 0,
+            onPressed: () {},
+            color: Theme.of(context).primaryColorLight,
+            splashColor: Theme.of(context).buttonColor,
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            child: Text(
+              "See all",
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  color: Theme.of(context).buttonColor,
+                  fontWeight: FontWeight.w700,
+                  decoration: TextDecoration.underline),
+            ),
+          )
         ],
       ),
     );
   }
 
   Widget _topRestaurant() {
-    return Text("");
+    return Container(
+      margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.07),
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.38,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(15),
+          color: Colors.amber,
+          image: DecorationImage(
+              fit: BoxFit.cover,
+              image: ExactAssetImage('assets/populars/Salade-Niçoise.jpg'))),
+      child: Stack(
+        children: <Widget>[
+          Positioned(
+              bottom: 10,
+              child: FittedBox(
+                child: Container(
+                  decoration:
+                      BoxDecoration(color: Theme.of(context).primaryColorLight),
+                  child: Text("La info"),
+                ),
+              )),
+        ],
+      ),
+    );
   }
 
   Widget _nextTops() {
-    return Text("");
+    List anotherTops = List(5);
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.only(
+          right: MediaQuery.of(context).size.width * 0.07,
+          top: MediaQuery.of(context).size.width * 0.05),
+      child: Builder(builder: (BuildContext context) {
+        List<Widget> nextTops = [];
+        anotherTops.map((e) {
+          nextTops.add(_cardNextTops());
+        }).toList();
+        return Column(
+          children: nextTops,
+        );
+      }),
+    );
+  }
+
+  Widget _cardNextTops() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 5),
+      padding: EdgeInsets.all(15),
+      decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).primaryColor.withOpacity(0.5),
+              blurRadius: 5,
+              offset: Offset(0, 2),
+            ) //spreadRadius: 5)
+          ],
+          color: Theme.of(context).primaryColorLight,
+          borderRadius: BorderRadius.circular(8)),
+      child: Row(
+        // mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width * 0.25,
+            height: MediaQuery.of(context).size.width * 0.25,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: ExactAssetImage(
+                        'assets/populars/Salade-Niçoise.jpg'))),
+          ),
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(
+                  left: MediaQuery.of(context).size.width * 0.04),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Container(
+                    child: Text(
+                      "Turkay Gravy Secrets",
+                      style: Theme.of(context).textTheme.subtitle1.copyWith(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColorDark),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(
+                        vertical: MediaQuery.of(context).size.width * 0.015),
+                    child: Text(
+                      "Este es un texto del detallado del restaurante de dos lineas",
+                      style: Theme.of(context)
+                          .textTheme
+                          .caption
+                          .copyWith(color: Theme.of(context).primaryColor),
+                    ),
+                  ),
+                  Container(
+                    child: Row(
+                      children: <Widget>[],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.07),
+      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
       child: Column(
         children: <Widget>[_header(), _topRestaurant(), _nextTops()],
       ),
