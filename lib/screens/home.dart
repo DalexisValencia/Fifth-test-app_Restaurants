@@ -1,7 +1,10 @@
+import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/categories.dart';
 import 'package:fith_app__restaurant/screens/disscover.dart';
 import 'package:fith_app__restaurant/screens/plate.detail.dart';
 import 'package:fith_app__restaurant/screens/restaurant.details.dart';
+import 'package:fith_app__restaurant/sections/HomeCategoryCardSuggested.dart';
+import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:fith_app__restaurant/screens/seacrh.dart';
 
@@ -23,7 +26,6 @@ class _MainTabsState extends State<MainTabs> {
     setState(() {
       tabStateInit = tab;
     });
-    print(tabStateInit);
   }
 
   @override
@@ -156,12 +158,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    double withDefaultPadding =
+        MediaQuery.of(context).size.width * defaultPadding;
     return Container(
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-          // color: Colors.amber
-          ),
+      // decoration: BoxDecoration(color: Colors.amber),
       child: Column(children: <Widget>[
         Expanded(
           child: Container(
@@ -173,40 +175,35 @@ class _HomePageState extends State<HomePage> {
               children: <Widget>[
                 Positioned(
                   width: MediaQuery.of(context).size.width,
-                  top: MediaQuery.of(context).size.height * 0.05,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      RawMaterialButton(
-                        onPressed: () {},
-                        elevation: 0,
-                        fillColor:
-                            Theme.of(context).primaryColor.withOpacity(0.5),
-                        splashColor: Theme.of(context).primaryColor,
-                        child: Icon(Icons.arrow_back,
-                            color: Colors.white, size: 30),
-                        padding: EdgeInsets.all(10.0),
-                        shape: CircleBorder(),
-                      ),
-                      RawMaterialButton(
-                        onPressed: () {},
-                        elevation: 2.0,
-                        splashColor: Theme.of(context).primaryColor,
-                        fillColor: Theme.of(context)
-                            .primaryColorLight
-                            .withOpacity(0.4),
-                        child: Icon(
-                          Icons.favorite,
-                          color: Colors.white,
+                  top: MediaQuery.of(context).padding.top,
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        left: withDefaultPadding - 5,
+                        right: withDefaultPadding - 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        CircleIconButton(
+                          icon: Icons.arrow_back,
+                          color: Theme.of(context).primaryColorLight,
+                          bgColor:
+                              Theme.of(context).primaryColor.withOpacity(0.5),
+                          trigger: () {},
                         ),
-                        shape: CircleBorder(),
-                        padding: EdgeInsets.all(10),
-                      )
-                    ],
+                        CircleIconButton(
+                          icon: Icons.favorite,
+                          color: Theme.of(context).primaryColorLight,
+                          bgColor: Theme.of(context)
+                              .primaryColorLight
+                              .withOpacity(0.4),
+                          trigger: () {},
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Positioned(
-                    left: 30,
+                    left: withDefaultPadding,
                     top: MediaQuery.of(context).size.height * 0.14,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,9 +257,7 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               Container(
-                  padding: EdgeInsets.only(
-                      left: MediaQuery.of(context).size.width * 0.08,
-                      right: MediaQuery.of(context).size.width * 0.08),
+                  padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                       // color: Colors.red
@@ -273,11 +268,10 @@ class _HomePageState extends State<HomePage> {
               Container(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.02,
-                    left: MediaQuery.of(context).size.width * 0.07,
-                    right: MediaQuery.of(context).size.width * 0.07),
+                    left: withDefaultPadding,
+                    right: withDefaultPadding),
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.35,
-                // color: Colors.amber,
                 child: Builder(builder: (BuildContext context) {
                   List<Widget> _categoriesCard = [];
                   _categories.asMap().entries.map((item) {
@@ -295,15 +289,9 @@ class _HomePageState extends State<HomePage> {
                           ],
                           borderRadius: BorderRadius.circular(7),
                         ),
-                        // margin: EdgeInsets.only(
-                        //     bottom: MediaQuery.of(context).size.height * 0.02,
-                        //     right: item.key != 2 && item.key != 5
-                        //         ? MediaQuery.of(context).size.height * 0.02
-                        //         : 0),
-                        // padding: EdgeInsets.only(left: 5),
                         width: MediaQuery.of(context).size.width * 0.25,
                         height: MediaQuery.of(context).size.height * 0.30 / 2,
-                        child: CardCategorySuggested(category: item.value),
+                        child: HomeCardCategorySuggested(category: item.value),
                       ),
                     );
                   }).toList();
@@ -331,7 +319,6 @@ class WhatAreYouLookinForForm extends StatefulWidget {
 }
 
 class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
-  // final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -361,54 +348,5 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
         ],
       ),
     ));
-  }
-}
-
-class CardCategorySuggested extends StatefulWidget {
-  final Category category;
-  CardCategorySuggested({this.category});
-
-  @override
-  _CardCategorySuggestedState createState() => _CardCategorySuggestedState();
-}
-
-class _CardCategorySuggestedState extends State<CardCategorySuggested> {
-  @override
-  Widget build(BuildContext context) {
-    print(widget.category);
-    return RaisedButton(
-      // elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-      onPressed: () {},
-      color: Theme.of(context).primaryColorLight,
-      splashColor: Theme.of(context).buttonColor,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height * 0.10,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: ExactAssetImage(widget.category.iconSource))),
-          ),
-          // Icon(
-          //   widget.category.icon,
-          //   size: 36,
-          //   color: Theme.of(context).primaryColorDark,
-          // ),
-          FittedBox(
-            fit: BoxFit.scaleDown,
-            child: Text(
-              widget.category.name,
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    color: Theme.of(context).primaryColorDark,
-                  ),
-            ),
-          )
-        ],
-      ),
-    );
   }
 }
