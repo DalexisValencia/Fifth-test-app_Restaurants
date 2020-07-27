@@ -30,7 +30,6 @@ class RelatedCategoriesState extends State<RelatedCategories> {
             // clipBehavior: Clip.antiAlias,
             elevation: 0.2,
             onPressed: () {
-              print('seleccionar a los wolves');
             },
             avatar: CircleAvatar(
               backgroundColor: Color(0x00000000),

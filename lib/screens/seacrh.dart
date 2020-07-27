@@ -1,7 +1,9 @@
+import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
 import 'package:fith_app__restaurant/sections/CardsHighlightRestaurants.dart';
 import 'package:fith_app__restaurant/sections/ChipCategoriesSuggested.dart';
 import 'package:fith_app__restaurant/sections/PopularsSuggested.dart';
+import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 
 class ScaffoldSearch extends StatelessWidget {
@@ -12,7 +14,6 @@ class ScaffoldSearch extends StatelessWidget {
         resizeToAvoidBottomPadding: false,
         resizeToAvoidBottomInset: false,
         backgroundColor: Theme.of(context).primaryColorLight,
-        // body: SearchScreen(),
         body: ScaffoldMainContainer(),
       )
     );
@@ -25,20 +26,19 @@ class ScaffoldMainContainer extends StatelessWidget {
     double totalWidth = MediaQuery.of(context).size.width;
     double totalHeight = MediaQuery.of(context).size.height;
     double statusBarWidth = MediaQuery.of(context).padding.top;
+    double withDefaultPadding = MediaQuery.of(context).size.width * defaultPadding;
     return SingleChildScrollView(
       child: Column(
       children: <Widget>[
         Container(
-          //child: Material(
-            //elevation: 5.0,
-            // shadowColor: Theme.of(context).primaryColorDark,
             child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: withDefaultPadding
+              ),
               height: totalHeight * 0.10,
               width: totalWidth,
-              color: Theme.of(context).primaryColorLight,
               child: FixedTopHeader(),
             ),
-          // ),
         ),
         Container(
           width: totalWidth,
@@ -66,44 +66,23 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Container(
-          width: MediaQuery.of(context).size.width * 0.10,
-          height: MediaQuery.of(context).size.width * 0.10,
-          child: RawMaterialButton(
-            shape: CircleBorder(),
-            fillColor: Theme.of(context).accentColor.withOpacity(.1),
-            elevation: 0,
-            splashColor: Theme.of(context).primaryColorDark.withOpacity(0.7),
-            onPressed: () {
-              print('Volver atras');
-            },
-            child: Icon(
-              Icons.arrow_back,
-              size: 25,
-              color: Theme.of(context).primaryColorDark,
-            ),
+        CircleIconButton(
+          icon: Icons.arrow_back,
+          color: Theme.of(context).primaryColorDark,
+          bgColor:Theme.of(context).accentColor.withOpacity(.1),
+          trigger: () {},
+        ),
+        Expanded(
+          child: Hero(
+            tag: 'search',
+            child: SearchWidget(),
           ),
         ),
-        Hero(
-          tag: 'search',
-          child: SearchWidget(),
-        ),
-        Container(
-          width: MediaQuery.of(context).size.width * 0.10,
-          height: MediaQuery.of(context).size.width * 0.10,
-          child: RawMaterialButton(
-            shape: CircleBorder(),
-            elevation: 0,
-            fillColor: Theme.of(context).accentColor.withOpacity(.1),
-            splashColor: Theme.of(context).primaryColor,
-            onPressed: () {
-            },
-            child: Icon(
-              Icons.more_vert,
-              size: 23,
-              color: Theme.of(context).primaryColorDark.withOpacity(0.7),
-            ),
-          ),
+        CircleIconButton(
+          icon: Icons.more_vert,
+          color: Theme.of(context).primaryColorDark.withOpacity(0.7),
+          bgColor:Theme.of(context).accentColor.withOpacity(.1),
+          trigger: () {},
         ),
       ],
     );
@@ -125,7 +104,7 @@ class _SearchScreenState extends State<SearchScreen> {
           Container(
             margin: EdgeInsets.only(
               top: totalWidth * 0.03,
-              left: totalWidth * 0.05
+              left: totalWidth * defaultPadding
             ),
             width: totalWidth,
             height: 40,
@@ -177,11 +156,8 @@ class _SearchWidgetState extends State<SearchWidget> {
   }
   @override
   Widget build(BuildContext context) {
-    double totalWidth = MediaQuery.of(context).size.width;
     return Container(
-      margin: EdgeInsets.fromLTRB(totalWidth * 0.03, 0, totalWidth * 0.07, 0),
       height: 40,
-      width: totalWidth * 0.63,
       child: Form(
         key: _searchForm,
         child: Container(

@@ -41,7 +41,6 @@ class _MainTabsState extends State<MainTabs> with TickerProviderStateMixin{
     super.dispose();
   }
   setStatusBar() {
-    print("algo mas pacifico");
      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       // systemNavigationBarColor: Colors.white, // navigation bar color
       statusBarColor: Colors.black, // status bar color
