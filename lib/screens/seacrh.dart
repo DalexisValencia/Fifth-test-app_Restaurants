@@ -98,13 +98,15 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     double totalWidth = MediaQuery.of(context).size.width;
+    double withDefaultPadding = totalWidth * defaultPadding;
+
     return SingleChildScrollView(
       child: Column(
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(
               top: totalWidth * 0.03,
-              left: totalWidth * defaultPadding
+              left: withDefaultPadding
             ),
             width: totalWidth,
             height: 40,
@@ -118,7 +120,7 @@ class _SearchScreenState extends State<SearchScreen> {
           Container(
             margin: EdgeInsets.only(
               top: totalWidth * 0.06,
-              left: totalWidth * 0.05
+              left: withDefaultPadding
             ),
             child: PopularSuggestedWrapper(),
           ),
@@ -126,7 +128,7 @@ class _SearchScreenState extends State<SearchScreen> {
           Container(
             margin: EdgeInsets.only(
               top: totalWidth * 0.02,
-              left: totalWidth * 0.05
+              left: withDefaultPadding
             ),
             child: HightlightResturantsWrapper(),
           )
