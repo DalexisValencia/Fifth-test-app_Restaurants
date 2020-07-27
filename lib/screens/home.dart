@@ -280,9 +280,10 @@ class _HomePageState extends State<HomePage> {
                 transform: Matrix4.translationValues( 0, -MediaQuery.of(context).size.width * 0.07, 0),
                 child: Hero(
                   tag: 'search',
-                  child: WhatAreYouLookinForForm(controller:widget.controller),
+                  child: WhatAreYouLookinForForm(),
                 ) 
               ),
+              //controller:widget.controller
               Container(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.02,
@@ -309,7 +310,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         width: MediaQuery.of(context).size.width * 0.25,
                         height: MediaQuery.of(context).size.height * 0.30 / 2,
-                        child: HomeCardCategorySuggested(category: item.value),
+                        child: HomeCardCategorySuggested(category: item.value, controller:widget.controller),
                       ),
                     );
                   }).toList();
@@ -331,9 +332,6 @@ class _HomePageState extends State<HomePage> {
 }
 
 class WhatAreYouLookinForForm extends StatefulWidget {
-  final TabController controller;
-  WhatAreYouLookinForForm({this.controller});
-  // widget.controller.animateTo(2);
   @override
   _WhatAreYouLookinForFormState createState() =>
       _WhatAreYouLookinForFormState();
@@ -350,8 +348,6 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
       padding: EdgeInsets.fromLTRB(14, 13, 10, 13),
       color: Theme.of(context).primaryColorLight,
       onPressed: () {
-        // print('rumores');
-        // widget.controller.animateTo(1);
         Navigator.push(context, MaterialPageRoute(builder: (context) => ScaffoldSearch()));        
       },
       child: Row(
