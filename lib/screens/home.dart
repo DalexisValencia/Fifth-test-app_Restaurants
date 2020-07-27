@@ -20,14 +20,25 @@ class MainTabs extends StatefulWidget {
   _MainTabsState createState() => _MainTabsState();
 }
 
-class _MainTabsState extends State<MainTabs> {
+class _MainTabsState extends State<MainTabs> with TickerProviderStateMixin{
+  TabController _tabController;
   int tabStateInit = 0;
   void goToTabs(int tab) {
     setState(() {
       tabStateInit = tab;
     });
   }
+  @override
+  void initState() {
+    _tabController = new TabController(vsync: this, length: 5);
+    super.initState();
+  }
 
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -36,10 +47,11 @@ class _MainTabsState extends State<MainTabs> {
           resizeToAvoidBottomPadding: false, //avoid flutter ugly alert
           backgroundColor: Theme.of(context).primaryColorLight,
           body: TabBarView(
+            controller: _tabController,
             physics: NeverScrollableScrollPhysics(),
             children: <Widget>[
               Container(
-                child: HomePage(),
+                child: HomePage(controller:_tabController),
               ),
               Container(
                 child: ScaffoldSearch(),
@@ -59,6 +71,7 @@ class _MainTabsState extends State<MainTabs> {
               color: Colors.white,
               height: 60,
               child: TabBar(
+                  controller: _tabController,
                   labelPadding: EdgeInsets.only(right: 5),
                   labelColor: Theme.of(context).primaryColorDark,
                   unselectedLabelColor: Theme.of(context).accentColor,
@@ -136,6 +149,8 @@ class _MainTabsState extends State<MainTabs> {
 }
 
 class HomePage extends StatefulWidget {
+  final TabController controller;
+  HomePage({this.controller});
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -257,14 +272,17 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             children: <Widget>[
               Container(
-                  padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      // color: Colors.red
-                      ),
-                  transform: Matrix4.translationValues(
-                      0, -MediaQuery.of(context).size.width * 0.07, 0),
-                  child: WhatAreYouLookinForForm()),
+                padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                  // color: Colors.red
+                ),
+                transform: Matrix4.translationValues( 0, -MediaQuery.of(context).size.width * 0.07, 0),
+                child: Hero(
+                  tag: 'search',
+                  child: WhatAreYouLookinForForm(controller:widget.controller),
+                ) 
+              ),
               Container(
                 padding: EdgeInsets.only(
                     top: MediaQuery.of(context).size.height * 0.02,
@@ -313,6 +331,9 @@ class _HomePageState extends State<HomePage> {
 }
 
 class WhatAreYouLookinForForm extends StatefulWidget {
+  final TabController controller;
+  WhatAreYouLookinForForm({this.controller});
+  // widget.controller.animateTo(2);
   @override
   _WhatAreYouLookinForFormState createState() =>
       _WhatAreYouLookinForFormState();
@@ -321,15 +342,17 @@ class WhatAreYouLookinForForm extends StatefulWidget {
 class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: RaisedButton(
-      splashColor: Theme.of(context).accentColor,
+    return 
+      RaisedButton(
+      splashColor: Theme.of(context).buttonColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       elevation: 4,
       padding: EdgeInsets.fromLTRB(14, 13, 10, 13),
       color: Theme.of(context).primaryColorLight,
       onPressed: () {
-        print("hero animation");
+        // print('rumores');
+        // widget.controller.animateTo(1);
+        Navigator.push(context, MaterialPageRoute(builder: (context) => ScaffoldSearch()));        
       },
       child: Row(
         children: <Widget>[
@@ -347,6 +370,6 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
           )
         ],
       ),
-    ));
+    );
   }
 }
