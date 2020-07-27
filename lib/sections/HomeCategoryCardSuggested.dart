@@ -16,7 +16,6 @@ class HomeCardCategorySuggested extends StatefulWidget {
 class _HomeCardCategorySuggestedState extends State<HomeCardCategorySuggested> {
   @override
   Widget build(BuildContext context) {
-    print(widget.category);
     return RaisedButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       onPressed: () {
@@ -24,7 +23,6 @@ class _HomeCardCategorySuggestedState extends State<HomeCardCategorySuggested> {
           milliseconds: 200
         ), (){
           widget.controller.animateTo(4);
-          print("molestar a otros");
         });
       },
       color: Theme.of(context).primaryColorLight,

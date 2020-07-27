@@ -113,7 +113,6 @@ class _MainTopHeaderState extends State<MainTopHeader> {
             color: Theme.of(context).primaryColorDark,
             bgColor: Theme.of(context).primaryColorLight,
             trigger: () {
-              print("Holiwis");
             },
           ),
           CircleIconButton(
@@ -121,7 +120,6 @@ class _MainTopHeaderState extends State<MainTopHeader> {
             color: Theme.of(context).primaryColorDark,
             bgColor: Theme.of(context).accentColor.withOpacity(0.4),
             trigger: () {
-              print("Holiwis");
             },
           ),
         ],
@@ -301,7 +299,6 @@ class _NewLaunchState extends State<NewLaunch> {
             color: Theme.of(context).primaryColorDark,
             bgColor: Theme.of(context).primaryColorLight,
             trigger: () {
-              print("Holiwis");
             },
           ),
         ],
@@ -441,8 +438,6 @@ class _NewLaunchedWrapperState extends State<NewLaunchedWrapper> {
           List<Widget> wComments = [];
           comments.asMap().entries.map((e) {
             int idx = e.key;
-            print(idx);
-            print(comments.length);
             wComments.add(Container(
               decoration: BoxDecoration(
                   // color: Colors.red,

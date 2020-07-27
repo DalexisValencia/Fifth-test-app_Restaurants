@@ -97,7 +97,6 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
             fillColor: Theme.of(context).accentColor.withOpacity(.1),
             splashColor: Theme.of(context).primaryColor,
             onPressed: () {
-              print('Configuraciones de tu busqueda');
             },
             child: Icon(
               Icons.more_vert,

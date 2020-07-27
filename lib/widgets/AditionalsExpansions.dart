@@ -17,14 +17,12 @@ class _AditionalExpansionPanelState extends State<AditionalExpansionPanel> {
 
   checkFlowCheckBox(val, inx) {
     if (!val) {
-      print("1");
       setState(() {
         currentActive = 100;
       });
     }
 
     if (val) {
-      print("2");
       setState(() {
         currentActive = inx;
       });

@@ -7,6 +7,7 @@ import 'package:fith_app__restaurant/sections/HomeCategoryCardSuggested.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:fith_app__restaurant/screens/seacrh.dart';
+import 'package:flutter/services.dart';
 
 class HomePageScafold extends StatelessWidget {
   @override
@@ -39,8 +40,17 @@ class _MainTabsState extends State<MainTabs> with TickerProviderStateMixin{
     _tabController.dispose();
     super.dispose();
   }
+  setStatusBar() {
+    print("algo mas pacifico");
+     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      // systemNavigationBarColor: Colors.white, // navigation bar color
+      statusBarColor: Colors.black, // status bar color
+    ));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+  }
   @override
   Widget build(BuildContext context) {
+    setStatusBar();
     return DefaultTabController(
       length: 5,
       child: Scaffold(
