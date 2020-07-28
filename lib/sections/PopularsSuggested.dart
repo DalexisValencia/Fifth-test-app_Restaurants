@@ -1,39 +1,29 @@
+import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/populars.dart';
+import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
+import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
 import 'package:flutter/material.dart';
 
 class PopularSuggestedWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double withDefaultPadding = MediaQuery.of(context).size.width * defaultPadding;
      return Column(
        children: <Widget>[
-          Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              'Popular',
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                fontWeight: FontWeight.w700
-              ),
+        Padding(
+          padding: EdgeInsets.only(
+            left: withDefaultPadding
+          ),
+          child: FullSectionTitle(
+            title: 'Popular',
+            rightContainer: RoundedCustomButton(
+              title: 'See all',
+              callPressed: (){}
             ),
-            MaterialButton(
-              padding: EdgeInsets.all(0),
-              height: 25,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15)
-              ),
-              onPressed: (){},
-              splashColor: Theme.of(context).buttonColor,
-              child: Text(
-                'See all',
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  color: Theme.of(context).buttonColor,
-                  fontWeight: FontWeight.w700,
-                  decoration: TextDecoration.underline
-                ),
-              ),
-            )
-          ],
-        ),
+            paddingRight: false,
+          )
+        )
+        ,
         PopularSuggestions(),
        ],
      );
@@ -110,10 +100,11 @@ class PopularCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double totalWidth = MediaQuery.of(context).size.width;
+    double withDefaultPadding = totalWidth * defaultPadding;
     return Container(
       padding: EdgeInsets.all(0),
-      margin: EdgeInsets.only(
-        right: totalWidth * 0.05
+      margin: EdgeInsets.symmetric(
+        horizontal: withDefaultPadding - 5
       ),
       width: MediaQuery.of(context).size.width,
       child: Card(
@@ -162,7 +153,8 @@ class PopularCard extends StatelessWidget {
                             children: <Widget>[
                               CustomChip(name: comment.timePreparation, icon: Icons.timer),
                               CustomChip(name: comment.price, icon: Icons.monetization_on),
-                              Container(
+                              Expanded(
+                                child: Container(
                                 padding: EdgeInsets.only(top:1.8),
                                 width: 30,
                                 height: 18,
@@ -170,14 +162,19 @@ class PopularCard extends StatelessWidget {
                                   color: comment.shipColor,
                                   borderRadius: BorderRadius.circular(10)
                                 ),
-                                child: Text(
-                                  comment.quality,
-                                  style: Theme.of(context).textTheme.caption.copyWith(
-                                    fontWeight: FontWeight.w500,
-                                    color: Theme.of(context).primaryColorLight
+                                child: FittedBox(
+                                  fit: BoxFit.scaleDown,
+                                  child: Text(
+                                    comment.quality,
+                                    style: Theme.of(context).textTheme.caption.copyWith(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500,
+                                      color: Theme.of(context).primaryColorLight
+                                    ),
+                                    textAlign: TextAlign.center,
                                   ),
-                                  textAlign: TextAlign.center,
                                 ),
+                              ),
                               )
                             ],
                           ),

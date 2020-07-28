@@ -1,44 +1,33 @@
 import 'package:fith_app__restaurant/interfaces/HightlightResturantsInterface.dart';
+import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
+import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
+import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:flutter/material.dart';
 
 class HightlightResturantsWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    double withDefaultPadding = MediaQuery.of(context).size.width * defaultPadding;
     return Column(
       children: <Widget>[
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Text(
-              'Highlight Restaurants',
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                fontWeight: FontWeight.w700
-              ),
+        Padding(
+          padding: EdgeInsets.only(
+            left: withDefaultPadding
+          ),
+          child: FullSectionTitle(
+            title: 'Highlight Restaurants',
+            rightContainer: RoundedCustomButton(
+              title: 'See all',
+              callPressed: (){}
             ),
-            MaterialButton(
-              padding: EdgeInsets.all(0),
-              height: 25,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15)
-              ),
-              onPressed: (){},
-              splashColor: Theme.of(context).buttonColor,
-              child: Text(
-                'See all',
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  color: Theme.of(context).buttonColor,
-                  fontWeight: FontWeight.w700,
-                  decoration: TextDecoration.underline
-                ),
-              ),
-            )
-          ],
+          ),
         ),
-        HightLightRestaurantsList(),
-        SizedBox(
-          height: 20,
+        Container(
+          margin: EdgeInsets.symmetric(
+            horizontal: withDefaultPadding
+          ),
+          child: HightLightRestaurantsList(),
         )
-        // HightlightResturants()
       ],
     );
   }
@@ -96,7 +85,7 @@ class _HightlightResturantsState extends State<HightlightResturants> {
     double totalWidth = MediaQuery.of(context).size.width;
     double totalHeight = MediaQuery.of(context).size.height;
     return Container(
-      margin: EdgeInsets.only(right: totalWidth * 0.056, bottom: totalHeight * 0.03 ),
+      margin: EdgeInsets.only(bottom: totalHeight * 0.03 ),
       padding: EdgeInsets.fromLTRB(12, 18, 12, 18),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),

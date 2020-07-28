@@ -42,7 +42,7 @@ class ScaffoldMainContainer extends StatelessWidget {
         ),
         Container(
           width: totalWidth,
-          height: totalHeight - (totalHeight*0.24) - statusBarWidth,
+          // height: totalHeight - (totalHeight*0.24) - statusBarWidth,
           child: SingleChildScrollView(
             child: SearchScreen(),
           ),
@@ -100,8 +100,7 @@ class _SearchScreenState extends State<SearchScreen> {
     double totalWidth = MediaQuery.of(context).size.width;
     double withDefaultPadding = totalWidth * defaultPadding;
 
-    return SingleChildScrollView(
-      child: Column(
+    return Column(
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(
@@ -118,24 +117,18 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
 
           Container(
-            margin: EdgeInsets.only(
-              top: totalWidth * 0.06,
-              left: withDefaultPadding
-            ),
             child: PopularSuggestedWrapper(),
           ),
 
           Container(
-            margin: EdgeInsets.only(
-              top: totalWidth * 0.02,
-              left: withDefaultPadding
-            ),
             child: HightlightResturantsWrapper(),
-          )
+          ),
           
+          SizedBox(
+            height: 20,
+          )
         ],
-      ),
-    );
+      );
   }
 }
 /*:::WIDGET SEARCH:::*/
