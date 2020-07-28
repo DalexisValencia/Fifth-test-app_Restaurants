@@ -1,6 +1,7 @@
 // import 'package:fith_app__restaurant/screens/home.dart';
 // import 'package:fith_app__restaurant/screens/seacrh.dart';
 import 'package:fith_app__restaurant/screens/home.dart';
+import 'package:fith_app__restaurant/screens/seacrh.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
           focusColor: Color(0xFF4F57D5), //
           highlightColor: Color(0xFFEFEEF2)),
       home: HomePageScafold(),
+      // routes: <String, WidgetBuilder>{
+      //   "/search": (BuildContext context) => new ScaffoldSearch()
+      // },
       // home: Thema(),
       debugShowCheckedModeBanner: false,
     );

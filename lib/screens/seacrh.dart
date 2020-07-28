@@ -8,14 +8,13 @@ class ScaffoldSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Theme.of(context).primaryColorLight,
-        // body: SearchScreen(),
-        body: ScaffoldMainContainer(),
-      )
-    );
+        child: Scaffold(
+      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Theme.of(context).primaryColorLight,
+      // body: SearchScreen(),
+      body: ScaffoldMainContainer(),
+    ));
   }
 }
 
@@ -26,35 +25,32 @@ class ScaffoldMainContainer extends StatelessWidget {
     double totalHeight = MediaQuery.of(context).size.height;
     double statusBarWidth = MediaQuery.of(context).padding.top;
     return SingleChildScrollView(
-      child: Column(
-      children: <Widget>[
-        Container(
-          //child: Material(
-            //elevation: 5.0,
-            // shadowColor: Theme.of(context).primaryColorDark,
-            child: Container(
-              height: totalHeight * 0.10,
-              width: totalWidth,
-              color: Theme.of(context).primaryColorLight,
-              child: FixedTopHeader(),
-            ),
-          // ),
-        ),
-        Container(
+        child: Column(children: <Widget>[
+      Container(
+        //child: Material(
+        //elevation: 5.0,
+        // shadowColor: Theme.of(context).primaryColorDark,
+        child: Container(
+          height: totalHeight * 0.10,
           width: totalWidth,
-          height: totalHeight - (totalHeight*0.24) - statusBarWidth,
-          child: SingleChildScrollView(
-            child: SearchScreen(),
-          ),
-        )
-      ]
-    )
-    );
-    
+          color: Theme.of(context).primaryColorLight,
+          child: FixedTopHeader(),
+        ),
+        // ),
+      ),
+      Container(
+        width: totalWidth,
+        height: totalHeight - (totalHeight * 0.24) - statusBarWidth,
+        child: SingleChildScrollView(
+          child: SearchScreen(),
+        ),
+      )
+    ]));
   }
 }
 
-class FixedTopHeader extends StatefulWidget {//Contenedor del buscador
+class FixedTopHeader extends StatefulWidget {
+  //Contenedor del buscador
   @override
   FixedTopHeaderState createState() => FixedTopHeaderState();
 }
@@ -122,39 +118,30 @@ class _SearchScreenState extends State<SearchScreen> {
         children: <Widget>[
           Container(
             margin: EdgeInsets.only(
-              top: totalWidth * 0.03,
-              left: totalWidth * 0.05
-            ),
+                top: totalWidth * 0.03, left: totalWidth * 0.05),
             width: totalWidth,
             height: 40,
             child: RelatedCategories(),
           ),
-
           Container(
             child: CardCategorySuggested(),
           ),
-
           Container(
             margin: EdgeInsets.only(
-              top: totalWidth * 0.06,
-              left: totalWidth * 0.05
-            ),
+                top: totalWidth * 0.06, left: totalWidth * 0.05),
             child: PopularSuggestedWrapper(),
           ),
-
           Container(
             margin: EdgeInsets.only(
-              top: totalWidth * 0.02,
-              left: totalWidth * 0.05
-            ),
+                top: totalWidth * 0.02, left: totalWidth * 0.05),
             child: HightlightResturantsWrapper(),
           )
-          
         ],
       ),
     );
   }
 }
+
 /*:::WIDGET SEARCH:::*/
 class SearchWidget extends StatefulWidget {
   @override
@@ -164,48 +151,46 @@ class SearchWidget extends StatefulWidget {
 class _SearchWidgetState extends State<SearchWidget> {
   final _searchForm = GlobalKey<FormState>();
 
-  OutlineInputBorder defaulBorderInput () {
+  OutlineInputBorder defaulBorderInput() {
     return OutlineInputBorder(
-      borderRadius: BorderRadius.circular(5),
-      borderSide: new BorderSide(
-        color: Theme.of(context).cardColor,
-        width: 0
-      )
-    );
+        borderRadius: BorderRadius.circular(5),
+        borderSide:
+            new BorderSide(color: Theme.of(context).cardColor, width: 0));
   }
+
   @override
   Widget build(BuildContext context) {
     double totalWidth = MediaQuery.of(context).size.width;
-    return Container(
-      margin: EdgeInsets.fromLTRB(totalWidth * 0.03, 0, totalWidth * 0.07, 0),
-      height: 40,
-      width: totalWidth * 0.63,
-      child: Form(
-        key: _searchForm,
+    return Hero(
+        tag: 'search-field',
         child: Container(
-          child: TextFormField(
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Theme.of(context).highlightColor, // .withOpacity(0.7)
-              contentPadding: EdgeInsets.all(0),
-              prefixIcon: Icon(Icons.search),
-              prefixStyle: TextStyle(
-                color: Theme.of(context).buttonColor,
-                fontWeight: FontWeight.w700
-              ),
-              hintText: 'Search ...',
-              hintStyle: TextStyle(
-                color: Theme.of(context).primaryColor.withOpacity(0.8),
-                fontWeight: FontWeight.w600
-              ),
-              border: defaulBorderInput(),
-              focusedBorder: defaulBorderInput(),
-              enabledBorder: defaulBorderInput(),
-              disabledBorder: defaulBorderInput(),
-            ),
-          )
-        ),
-      )
-    );
+            margin:
+                EdgeInsets.fromLTRB(totalWidth * 0.03, 0, totalWidth * 0.07, 0),
+            height: 40,
+            width: totalWidth * 0.63,
+            child: Form(
+              key: _searchForm,
+              child: Container(
+                  child: TextFormField(
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor:
+                      Theme.of(context).highlightColor, // .withOpacity(0.7)
+                  contentPadding: EdgeInsets.all(0),
+                  prefixIcon: Icon(Icons.search),
+                  prefixStyle: TextStyle(
+                      color: Theme.of(context).buttonColor,
+                      fontWeight: FontWeight.w700),
+                  hintText: 'Search ...',
+                  hintStyle: TextStyle(
+                      color: Theme.of(context).primaryColor.withOpacity(0.8),
+                      fontWeight: FontWeight.w600),
+                  border: defaulBorderInput(),
+                  focusedBorder: defaulBorderInput(),
+                  enabledBorder: defaulBorderInput(),
+                  disabledBorder: defaulBorderInput(),
+                ),
+              )),
+            )));
   }
 }
