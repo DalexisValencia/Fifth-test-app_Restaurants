@@ -2,6 +2,7 @@ import 'package:fith_app__restaurant/interfaces/HightlightResturantsInterface.da
 import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
 import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 
 class HightlightResturantsWrapper extends StatelessWidget {
@@ -105,17 +106,11 @@ class _HightlightResturantsState extends State<HightlightResturants> {
             children: <Widget>[
               Container(
                 width: totalWidth * 0.12,
-                child: RawMaterialButton(
-                  elevation: 0,
-                  fillColor: Theme.of(context).primaryColor..withOpacity(0.5),
-                  padding: EdgeInsets.all(0),
-                  shape: CircleBorder(),
-                  onPressed: (){},
-                  child: Icon(
-                    Icons.store_mall_directory,
-                    color: Theme.of(context).primaryColorLight,
-                    size: 25,
-                  )
+                child: CircleIconButton(
+                  icon: Icons.store_mall_directory,
+                  color: Theme.of(context).primaryColorLight,
+                  bgColor: Theme.of(context).primaryColor..withOpacity(0.5),
+                  trigger: () {}
                 ),
               ),
               Container(
@@ -164,17 +159,11 @@ class _HightlightResturantsState extends State<HightlightResturants> {
               ),
               Container(
                 width: totalWidth * 0.12,
-                child: RawMaterialButton(
-                  elevation: 0,
-                  fillColor: widget.hightlight.favorite ? Theme.of(context).buttonColor : Colors.white.withOpacity(0.3),
-                  padding: EdgeInsets.all(0),
-                  shape: CircleBorder(),
-                  onPressed: (){},
-                  child: Icon(
-                    Icons.favorite,
-                    color: Theme.of(context).primaryColorLight,
-                    size: 21,
-                  )
+                child: CircleIconButton(
+                  icon: Icons.favorite,
+                  color: Theme.of(context).primaryColorLight,
+                  bgColor: widget.hightlight.favorite ? Theme.of(context).buttonColor : Colors.white.withOpacity(0.3),
+                  trigger: () {}
                 ),
               )
             ],
@@ -184,20 +173,20 @@ class _HightlightResturantsState extends State<HightlightResturants> {
             child: Align(
               alignment: Alignment.bottomRight,
               child: MaterialButton(
-                padding: EdgeInsets.fromLTRB(25,15,25,15),
+                padding: EdgeInsets.zero,
+                // padding: EdgeInsets.fromLTRB(25,15,25,15),
                 onPressed: (){},
                 color: Theme.of(context).buttonColor,
                 elevation: 0,
                 child: Text(
                   'See more',
                   style: Theme.of(context).textTheme.caption.copyWith(
-                    fontSize: 14,
                     color: Theme.of(context).primaryColorLight,
                     fontWeight: FontWeight.w500
                   ),
                 ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(totalWidth*0.10)
+                  borderRadius: BorderRadius.circular(15)
                 ),
               ),
             ),

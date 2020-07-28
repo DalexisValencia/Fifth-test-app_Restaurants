@@ -357,7 +357,9 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
       padding: EdgeInsets.fromLTRB(14, 13, 10, 13),
       color: Theme.of(context).primaryColorLight,
       onPressed: () {
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ScaffoldSearch()));        
+        Navigator.of(context, rootNavigator: false).push(MaterialPageRoute(
+                    builder: (context) => ScaffoldSearch(), maintainState: false));
+        // Navigator.push(context, MaterialPageRoute(builder: (context) => ScaffoldSearch()));        
       },
       child: Row(
         children: <Widget>[
