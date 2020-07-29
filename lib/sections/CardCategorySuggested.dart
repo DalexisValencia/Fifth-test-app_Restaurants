@@ -1,4 +1,7 @@
+import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/CategorySuggested.dart';
+import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
+import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
 import 'package:flutter/material.dart';
 
 class CardCategorySuggested extends StatefulWidget {
@@ -18,48 +21,28 @@ class CardCategorySuggestedState extends State<CardCategorySuggested> {
   Widget build(BuildContext context) {
     double totalWidth = MediaQuery.of(context).size.width;
     double totalHeight = MediaQuery.of(context).size.height;
+    double withDefaultPadding = MediaQuery.of(context).size.width * defaultPadding;
     return Container(
       margin: EdgeInsets.only(top:totalWidth * 0.05),
       width: MediaQuery.of(context).size.width,
       child: Column(
         children: <Widget>[
           Padding(
-            // padding: EdgeInsets.fromLTRB(totalWidth * 0.05, 0, totalWidth * 0.05, 0 ),
-            padding: EdgeInsets.only(left:totalWidth * 0.05),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Text(
-                  'Suggestions',
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    fontWeight: FontWeight.w700
-                  ),
-                ),
-                MaterialButton(
-                  // color: Colors.red,
-                  padding: EdgeInsets.all(0),
-                  splashColor: Theme.of(context).buttonColor,
-                  height: 25,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)
-                  ),
-                  onPressed: (){},
-                  child: Text(
-                    'See all',
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                      color: Theme.of(context).buttonColor,
-                      fontWeight: FontWeight.w700,
-                      decoration: TextDecoration.underline
-                    ),
-                  )
-                )
-              ],
-            )
+            padding: EdgeInsets.only(
+              left: withDefaultPadding 
+            ),
+            child: FullSectionTitle(
+              title: 'Suggestions',
+              rightContainer: RoundedCustomButton(
+                title: 'See all',
+                callPressed: (){}
+              ),
+            ),
           ),
+          
           Container(
             margin: EdgeInsets.only(
-              // top:  totalWidth * 0.04,
-              left: totalWidth * 0.04
+              left: withDefaultPadding
             ),
             width: totalWidth,
             height: totalHeight * 0.25,
