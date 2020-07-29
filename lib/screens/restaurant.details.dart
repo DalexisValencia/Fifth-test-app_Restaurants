@@ -1,42 +1,107 @@
 // import 'package:fith_app__restaurant/interfaces/availableForLunch.dart';
+import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/ContactInterface.dart';
 import 'package:fith_app__restaurant/sections/CardAvailableForLunch.dart';
 import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
 import 'package:fith_app__restaurant/sections/CardsHighlightRestaurants.dart';
 import 'package:fith_app__restaurant/sections/RoundedOptions.dart';
+import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
+import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
+import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class RestaurantDetailWrapper extends StatelessWidget {
+class RestaurantDetailWrapper extends StatefulWidget {
+  @override
+  _RestaurantDetailWrapperState createState() =>
+      _RestaurantDetailWrapperState();
+}
+
+class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper> {
+  bool minSizeReached = false;
+  ScrollController _controller;
+
+  @override
+  void initState() {
+    _controller = ScrollController();
+    _controller.addListener(_scrollListener);
+    super.initState();
+  }
+
+  _scrollListener() {
+    if (_controller.offset > 100 && !minSizeReached) {
+      setState(() {
+        minSizeReached = true;
+      });
+    }
+    if (_controller.offset < 100 && minSizeReached) {
+      setState(() {
+        minSizeReached = false;
+      });
+    }
+  }
+
+  Widget _headerCustom() {
+    double withDefaultPadding =
+        MediaQuery.of(context).size.width * defaultPadding;
+    return AnimatedContainer(
+      decoration: BoxDecoration(
+          border: Border(
+              bottom: BorderSide(
+                  color: minSizeReached
+                      ? Theme.of(context).primaryColorDark.withOpacity(0.3)
+                      : Colors.transparent,
+                  width: 1)),
+          color: Theme.of(context).primaryColorLight,
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 5,
+                offset: Offset(0, 2),
+                color: minSizeReached
+                    ? Theme.of(context).accentColor
+                    : Colors.transparent)
+          ]),
+      duration: Duration(milliseconds: 500),
+      height: defaultHeaderCustomHeight,
+      padding: EdgeInsets.symmetric(horizontal: withDefaultPadding - 10),
+      width: MediaQuery.of(context).size.width,
+      child: FixedTopDetailRestaurant(),
+    );
+  }
+
+  Widget _bodyRestaurantsDetail() {
+    double withDefaultPadding =
+        MediaQuery.of(context).size.width * defaultPadding;
+    double lessHeight =
+        (MediaQuery.of(context).padding.top + defaultHeaderCustomHeight) + 60;
+    return Container(
+        height: MediaQuery.of(context).size.height - lessHeight,
+        child: SingleChildScrollView(
+            controller: _controller,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.width * 0.03),
+                  padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
+                  width: MediaQuery.of(context).size.width,
+                  // color: Colors.red,
+                  child: TitleAndShortDescription(),
+                ),
+                WrapperMap(),
+                DetailHighlightProduct(),
+                ExploreTheMenu()
+              ],
+            )));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-        child: SingleChildScrollView(
-            child: Column(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.07,
-              right: MediaQuery.of(context).size.width * 0.03),
-          width: MediaQuery.of(context).size.width,
-          // color: Colors.amber,
-          child: FixedTopDetailRestaurant(),
-        ),
-        Container(
-          margin:
-              EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.03),
-          padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.09,
-              right: MediaQuery.of(context).size.width * 0.058),
-          width: MediaQuery.of(context).size.width,
-          // color: Colors.red,
-          child: TitleAndShortDescription(),
-        ),
-        WrapperMap(),
-        DetailHighlightProduct(),
-        ExploreTheMenu()
-      ],
-    )));
+      child: Column(
+        children: <Widget>[_headerCustom(), _bodyRestaurantsDetail()],
+      ),
+    );
   }
 }
 
@@ -47,25 +112,17 @@ class FixedTopDetailRestaurant extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        MaterialButton(
-          minWidth: 40,
-          elevation: 0,
-          onPressed: () {},
-          color: Theme.of(context).highlightColor,
-          padding: EdgeInsets.all(0),
-          shape: CircleBorder(),
-          child: Icon(Icons.arrow_back,
-              size: 22, color: Theme.of(context).primaryColorDark),
+        CircleIconButton(
+          icon: Icons.arrow_back,
+          color: Theme.of(context).primaryColorDark,
+          bgColor: Theme.of(context).highlightColor,
+          trigger: () {},
         ),
-        MaterialButton(
-          minWidth: 40,
-          elevation: 0,
-          onPressed: () {},
-          color: Theme.of(context).highlightColor,
-          padding: EdgeInsets.all(0),
-          shape: CircleBorder(),
-          child: Icon(Icons.search,
-              size: 20, color: Theme.of(context).primaryColorDark),
+        CircleIconButton(
+          icon: Icons.search,
+          color: Theme.of(context).primaryColorDark,
+          bgColor: Theme.of(context).highlightColor,
+          trigger: () {},
         )
       ],
     );
@@ -132,34 +189,16 @@ class DetailHighlightProduct extends StatefulWidget {
 }
 
 class _DetailHighlightProductState extends State<DetailHighlightProduct> {
-  Widget _wrapperHeader() => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            'Available for lunch now',
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1
-                .copyWith(fontWeight: FontWeight.w700),
-          ),
-          MaterialButton(
-            elevation: 0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(18.0)),
-            onPressed: () {},
-            splashColor: Theme.of(context).buttonColor,
-            child: Text(
-              'view all',
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  color: Theme.of(context).buttonColor,
-                  fontWeight: FontWeight.bold),
-            ),
-          )
-        ],
+  Widget _wrapperHeader() => FullSectionTitle(
+        title: 'Available for lunch now',
+        rightContainer:
+            RoundedCustomButton(title: 'See all', callPressed: () {}),
       );
 
   @override
   Widget build(BuildContext context) {
+    double withDefaultPadding =
+        MediaQuery.of(context).size.width * defaultPadding;
     return Container(
       margin: EdgeInsets.only(
         top: MediaQuery.of(context).size.width * 0.01,
@@ -167,13 +206,11 @@ class _DetailHighlightProductState extends State<DetailHighlightProduct> {
       child: Column(
         children: <Widget>[
           Container(
-            margin:
-                EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
+            margin: EdgeInsets.only(left: withDefaultPadding),
             child: _wrapperHeader(),
           ),
           Container(
-              margin: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.035),
+              margin: EdgeInsets.only(left: withDefaultPadding - 10),
               child: Align(
                 alignment: Alignment.center,
                 child: AspectRatio(
@@ -200,26 +237,10 @@ class ExploreTheMenu extends StatefulWidget {
 class _ExploreTheMenuState extends State<ExploreTheMenu> {
   Widget _header() => Container(
       margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            'Explore the Menu',
-            style: Theme.of(context)
-                .textTheme
-                .bodyText1
-                .copyWith(fontWeight: FontWeight.w700),
-          ),
-          MaterialButton(
-            onPressed: () {},
-            child: Text(
-              'View All',
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  color: Theme.of(context).buttonColor,
-                  fontWeight: FontWeight.bold),
-            ),
-          )
-        ],
+      child: FullSectionTitle(
+        title: 'Explore the Menu',
+        rightContainer:
+            RoundedCustomButton(title: 'See all', callPressed: () {}),
       ));
 
   List _chipsLikeMenuList = [
@@ -308,7 +329,6 @@ class _ExploreTheMenuState extends State<ExploreTheMenu> {
                   }
                 }
                 if (e.action == 'whatsapp') {
-
                   var whatsappUrl = "whatsapp://send?phone=3107127993";
                   if (await canLaunch(url)) {
                     launch(whatsappUrl);
@@ -364,16 +384,9 @@ class _ExploreTheMenuState extends State<ExploreTheMenu> {
           _header(),
           _chipsAsMenu(),
           Container(
-            padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.035,
-            ),
             child: CardCategorySuggested(),
           ),
-          Container(
-              padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width * 0.07,
-              ),
-              child: HightlightResturantsWrapper()),
+          Container(child: HightlightResturantsWrapper()),
           RoundedOptionsContactWrapper(),
           _contactColumnPhones(),
           SizedBox(
