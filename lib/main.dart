@@ -1,7 +1,6 @@
-// import 'package:fith_app__restaurant/screens/home.dart';
-// import 'package:fith_app__restaurant/screens/seacrh.dart';
+import 'dart:async';
+
 import 'package:fith_app__restaurant/screens/home.dart';
-import 'package:fith_app__restaurant/screens/seacrh.dart';
 import 'package:fith_app__restaurant/screens/splashScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -26,12 +25,36 @@ class MyApp extends StatelessWidget {
           focusColor: Color(0xFF4F57D5), //
           highlightColor: Color(0xFFEFEEF2)),
       // home: HomePageScafold(),
-      home: SplashScreen(),
+      home: MainScreen(),
       // routes: <String, WidgetBuilder>{
       //   "/search": (BuildContext context) => new ScaffoldSearch()
       // },
       // home: Thema(),
       debugShowCheckedModeBanner: false,
     );
+  }
+}
+
+class MainScreen extends StatefulWidget {
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  bool splashScreen = true;
+
+  @override
+  void initState() {
+    super.initState();
+    Timer(Duration(seconds: 2), () {
+      setState(() {
+        splashScreen = false;
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return splashScreen ? SplashScreen() : HomePageScafold();
   }
 }
