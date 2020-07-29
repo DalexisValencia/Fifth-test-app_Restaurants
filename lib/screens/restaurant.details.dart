@@ -1,4 +1,3 @@
-// import 'package:fith_app__restaurant/interfaces/availableForLunch.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/ContactInterface.dart';
 import 'package:fith_app__restaurant/sections/CardAvailableForLunch.dart';
@@ -236,7 +235,8 @@ class ExploreTheMenu extends StatefulWidget {
 
 class _ExploreTheMenuState extends State<ExploreTheMenu> {
   Widget _header() => Container(
-      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
+      margin: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width * defaultPadding),
       child: FullSectionTitle(
         title: 'Explore the Menu',
         rightContainer:
@@ -254,8 +254,8 @@ class _ExploreTheMenuState extends State<ExploreTheMenu> {
   Widget _chipsAsMenu() {
     return Container(
         width: MediaQuery.of(context).size.width,
-        padding:
-            EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
+        padding: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * defaultPadding),
         child: Builder(builder: (BuildContext context) {
           List<Widget> chips = [];
           _chipsLikeMenuList.map((e) {
@@ -285,19 +285,19 @@ class _ExploreTheMenuState extends State<ExploreTheMenu> {
         name: 'Average Cost', phone: '\$12.00 - \$44.00', action: 'none')
   ];
   Widget _contactColumnPhones() {
+    double withDefaultPadding =
+        MediaQuery.of(context).size.width * defaultPadding;
+
     return Container(
       margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.07,
-          right: MediaQuery.of(context).size.width * 0.07),
+      padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
       child: Builder(builder: (BuildContext context) {
         List<Widget> contacts = [];
         _contactPhones.map((e) {
           contacts.add(Container(
             height: 40,
             decoration: BoxDecoration(
-                // color: Colors.red,
                 border: Border(
                     bottom: BorderSide(
                         width: 0.3, color: Theme.of(context).primaryColor))),
