@@ -36,13 +36,6 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
       });
       _changeStatusBarThemeColor(SystemUiOverlayStyle.light);
     }
-    // if (_controller.offset >= _controller.position.maxScrollExtent &&
-    //   // print("reach the bottom");
-    // }
-
-    // if (_controller.offset <= _controller.position.minScrollExtent &&
-    //   // print("reach the top");
-    // }
   }
 
   @override

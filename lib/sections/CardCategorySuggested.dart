@@ -94,7 +94,6 @@ class CardCategorySuggestedState extends State<CardCategorySuggested> {
                           ),
                           elevation: 0,
                           onPressed: () {
-                            print('categoria seleccionada');
                           },
                           fillColor: Color(0x000000),
                           splashColor: Theme.of(context).buttonColor,

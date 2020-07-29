@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:fith_app__restaurant/interfaces/categories.dart';
 import 'package:flutter/material.dart';
 
 class HomeCardCategorySuggested extends StatefulWidget {
   final Category category;
-  HomeCardCategorySuggested({this.category});
+  final TabController controller;
+  HomeCardCategorySuggested({this.category, this.controller});
 
   @override
   _HomeCardCategorySuggestedState createState() =>
@@ -13,10 +16,15 @@ class HomeCardCategorySuggested extends StatefulWidget {
 class _HomeCardCategorySuggestedState extends State<HomeCardCategorySuggested> {
   @override
   Widget build(BuildContext context) {
-    print(widget.category);
     return RaisedButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
-      onPressed: () {},
+      onPressed: () {
+        Timer(Duration(
+          milliseconds: 200
+        ), (){
+          widget.controller.animateTo(4);
+        });
+      },
       color: Theme.of(context).primaryColorLight,
       splashColor: Theme.of(context).buttonColor,
       child: Column(
