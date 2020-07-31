@@ -9,19 +9,6 @@ import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 
-// class ScaffoldSearch extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//         child: Scaffold(
-//       resizeToAvoidBottomPadding: false,
-//       resizeToAvoidBottomInset: false,
-//       backgroundColor: Theme.of(context).primaryColorLight,
-//       body: ScaffoldMainContainer(),
-//     ));
-//   }
-// }
-
 class ScaffoldSearch extends StatefulWidget {
   @override
   _ScaffoldSearchState createState() => _ScaffoldSearchState();
@@ -151,7 +138,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void startAnimationContainer() {
-    Timer(Duration(milliseconds: 2000), () {
+    Timer(Duration(milliseconds: 1000), () {
       setState(() {
         animateScreenChildrenContainer = false;
       });
