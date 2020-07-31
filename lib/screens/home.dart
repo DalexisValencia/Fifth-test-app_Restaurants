@@ -2,171 +2,22 @@ import 'dart:async';
 
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/categories.dart';
-import 'package:fith_app__restaurant/screens/disscover.dart';
-import 'package:fith_app__restaurant/screens/plate.detail.dart';
-import 'package:fith_app__restaurant/screens/restaurant.details.dart';
 import 'package:fith_app__restaurant/sections/HomeCategoryCardSuggested.dart';
+import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:fith_app__restaurant/screens/seacrh.dart';
+
+/*
 import 'package:flutter/services.dart';
-
-class HomePageScafold extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MainTabs();
-  }
+setStatusBar() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    // systemNavigationBarColor: Colors.white, // navigation bar color
+    statusBarColor: Colors.black, // status bar color
+  ));
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 }
-
-class MainTabs extends StatefulWidget {
-  @override
-  _MainTabsState createState() => _MainTabsState();
-}
-
-class _MainTabsState extends State<MainTabs> with TickerProviderStateMixin {
-  TabController _tabController;
-  int tabStateInit = 0;
-  void goToTabs(int tab) {
-    setState(() {
-      tabStateInit = tab;
-    });
-  }
-
-  @override
-  void initState() {
-    _tabController = new TabController(vsync: this, length: 5);
-    this.loadingApp();
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _tabController.dispose();
-    super.dispose();
-  }
-
-  setStatusBar() {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      // systemNavigationBarColor: Colors.white, // navigation bar color
-      statusBarColor: Colors.black, // status bar color
-    ));
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-  }
-
-  loadingApp() {
-    setStatusBar();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 5,
-      child: Scaffold(
-          resizeToAvoidBottomPadding: false, //avoid flutter ugly alert
-          backgroundColor: Theme.of(context).primaryColorLight,
-          body: TabBarView(
-            controller: _tabController,
-            physics: NeverScrollableScrollPhysics(),
-            children: <Widget>[
-              Container(
-                child:
-                    HomePage(controller: _tabController, animateScreen: true),
-              ),
-              Container(
-                child: ScaffoldSearch(),
-              ),
-              Container(
-                child: RestaurantDetailWrapper(),
-              ),
-              Container(
-                child: PlateDetailWrapper(),
-              ),
-              Container(
-                child: DiscoverScaffold(),
-              )
-            ],
-          ),
-          bottomNavigationBar: Container(
-              color: Colors.white,
-              height: 60,
-              child: TabBar(
-                  controller: _tabController,
-                  labelPadding: EdgeInsets.only(right: 5),
-                  labelColor: Theme.of(context).primaryColorDark,
-                  unselectedLabelColor: Theme.of(context).accentColor,
-                  indicatorColor: Color(0X000000),
-                  onTap: (tab) => goToTabs(tab),
-                  tabs: [
-                    Tab(
-                        iconMargin: EdgeInsets.all(0),
-                        icon: Icon(
-                          Icons.home,
-                          size: 20,
-                        ),
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            "Home",
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        )),
-                    Tab(
-                        iconMargin: EdgeInsets.all(0),
-                        icon: Icon(
-                          Icons.restaurant,
-                          size: 20,
-                        ),
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            "Delicious",
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        )),
-                    Tab(
-                        iconMargin: EdgeInsets.all(0),
-                        icon: Icon(
-                          Icons.class_,
-                          size: 20,
-                        ),
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            "Bookmark",
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        )),
-                    Tab(
-                        iconMargin: EdgeInsets.all(0),
-                        icon: Icon(
-                          Icons.favorite,
-                          size: 20,
-                        ),
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            "Favs",
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        )),
-                    Tab(
-                        iconMargin: EdgeInsets.all(0),
-                        icon: Icon(
-                          Icons.shopping_cart,
-                          size: 20,
-                        ),
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            "Car",
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        )),
-                  ]))),
-    );
-  }
-}
-
+*/
 class HomePage extends StatefulWidget {
   final TabController controller;
   final bool animateScreen;
@@ -175,8 +26,10 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   bool animateOpacity = false;
+  bool animationChildren = false;
   List<Category> _categories = [
     Category('Break Fast', Icons.store_mall_directory,
         'assets/home-categories/category-1.png'),
@@ -194,16 +47,70 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     this.animateOpacity = widget.animateScreen;
+    this.animationChildren = this.animateOpacity;
     super.initState();
     this.setAnimationState();
   }
 
   setAnimationState() {
-    Timer(Duration(milliseconds: 500), () {
+    Timer(Duration(milliseconds: 100), () {
       setState(() {
         animateOpacity = false;
       });
+      this.startAnimationChildren();
     });
+  }
+
+  startAnimationChildren() {
+    Timer(Duration(milliseconds: 100), () {
+      setState(() {
+        animationChildren = false;
+      });
+    });
+  }
+
+  Widget _topHeadinng() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          width: MediaQuery.of(context).size.width * 0.3,
+          child: Text(
+            "Have a Good day",
+            style: Theme.of(context).textTheme.headline5.copyWith(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).primaryColorLight,
+              shadows: [
+                Shadow(
+                  blurRadius: 15.0,
+                  color: Colors.black,
+                  offset: Offset(5.0, 5.0),
+                ),
+              ],
+            ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.only(top: 5),
+          child: Text(
+            'Restaurants waiting for you',
+            style: Theme.of(context).textTheme.subtitle2.copyWith(
+              fontWeight: FontWeight.normal,
+              color: Theme.of(context).primaryColorLight,
+              shadows: [
+                Shadow(
+                  blurRadius: 15.0,
+                  color: Colors.black,
+                  offset: Offset(5.0, 5.0),
+                ),
+              ],
+            ),
+          ),
+        )
+      ],
+    );
   }
 
   @override
@@ -255,55 +162,13 @@ class _HomePageState extends State<HomePage> {
                     ),
                   ),
                   Positioned(
-                      left: withDefaultPadding,
-                      top: MediaQuery.of(context).size.height * 0.14,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.3,
-                            child: Text(
-                              "Have a Good day",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .headline5
-                                  .copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).primaryColorLight,
-                                shadows: [
-                                  Shadow(
-                                    blurRadius: 15.0,
-                                    color: Colors.black,
-                                    offset: Offset(5.0, 5.0),
-                                  ),
-                                ],
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                            ),
-                          ),
-                          Container(
-                            margin: EdgeInsets.only(top: 5),
-                            child: Text(
-                              'Restaurants waiting for you',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .subtitle2
-                                  .copyWith(
-                                fontWeight: FontWeight.normal,
-                                color: Theme.of(context).primaryColorLight,
-                                shadows: [
-                                  Shadow(
-                                    blurRadius: 15.0,
-                                    color: Colors.black,
-                                    offset: Offset(5.0, 5.0),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        ],
-                      ))
+                    left: withDefaultPadding,
+                    top: MediaQuery.of(context).size.height * 0.14,
+                    child: CustomContainerAnimation(
+                      animationChildren: animationChildren,
+                      children: _topHeadinng(),
+                    ),
+                  )
                 ],
               ),
             ),
@@ -321,10 +186,12 @@ class _HomePageState extends State<HomePage> {
                         ),
                     transform: Matrix4.translationValues(
                         0, -MediaQuery.of(context).size.width * 0.07, 0),
-                    child: Hero(
-                      tag: 'search',
-                      child: WhatAreYouLookinForForm(),
-                    )),
+                    child: CustomContainerAnimation(
+                        animationChildren: animationChildren,
+                        children: Hero(
+                          tag: 'search',
+                          child: WhatAreYouLookinForForm(),
+                        ))),
                 //controller:widget.controller
                 Container(
                   padding: EdgeInsets.only(

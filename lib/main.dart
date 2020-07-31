@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:fith_app__restaurant/screens/home.dart';
+import 'package:fith_app__restaurant/screens/main.tabs.dart';
 import 'package:fith_app__restaurant/screens/splashScreen.dart';
 import 'package:flutter/material.dart';
 
@@ -24,12 +23,7 @@ class MyApp extends StatelessWidget {
           hoverColor: Color(0xFFFFB60E), // Amarillo,
           focusColor: Color(0xFF4F57D5), //
           highlightColor: Color(0xFFEFEEF2)),
-      // home: HomePageScafold(),
       home: MainScreen(),
-      // routes: <String, WidgetBuilder>{
-      //   "/search": (BuildContext context) => new ScaffoldSearch()
-      // },
-      // home: Thema(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -55,6 +49,6 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return splashScreen ? SplashScreen() : HomePageScafold();
+    return splashScreen ? SplashScreen() : MainTabsWrapper();
   }
 }
