@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage>
   }
 
   setAnimationState() {
-    Timer(Duration(milliseconds: 100), () {
+    Timer(Duration(milliseconds: animationStartTime), () {
       setState(() {
         animateOpacity = false;
       });
@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage>
   }
 
   startAnimationChildren() {
-    Timer(Duration(milliseconds: 100), () {
+    Timer(Duration(milliseconds: animationStartTime), () {
       setState(() {
         animationChildren = false;
       });
@@ -183,7 +183,7 @@ class _HomePageState extends State<HomePage>
         MediaQuery.of(context).size.width * defaultPadding;
     return AnimatedOpacity(
       opacity: animateOpacity ? 0 : 1,
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: animationOpacityTime),
       child: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,

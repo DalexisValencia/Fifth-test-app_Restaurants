@@ -1,30 +1,82 @@
+import 'dart:async';
+
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
 import 'package:fith_app__restaurant/sections/CardsHighlightRestaurants.dart';
 import 'package:fith_app__restaurant/sections/ChipCategoriesSuggested.dart';
 import 'package:fith_app__restaurant/sections/PopularsSuggested.dart';
+import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 
-class ScaffoldSearch extends StatelessWidget {
+// class ScaffoldSearch extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return SafeArea(
+//         child: Scaffold(
+//       resizeToAvoidBottomPadding: false,
+//       resizeToAvoidBottomInset: false,
+//       backgroundColor: Theme.of(context).primaryColorLight,
+//       body: ScaffoldMainContainer(),
+//     ));
+//   }
+// }
+
+class ScaffoldSearch extends StatefulWidget {
+  @override
+  _ScaffoldSearchState createState() => _ScaffoldSearchState();
+}
+
+class _ScaffoldSearchState extends State<ScaffoldSearch> {
+  bool animatedOpacity = true;
+  bool startAnimatedScreen = true;
+  @override
+  void initState() {
+    super.initState();
+    Timer(Duration(milliseconds: 100), () {
+      setState(() {
+        this.animatedOpacity = false;
+      });
+      startAnimationScreen();
+    });
+  }
+
+  void startAnimationScreen() {
+    Timer(Duration(microseconds: animationStartTime), () {
+      setState(() {
+        this.startAnimatedScreen = true;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-      resizeToAvoidBottomPadding: false,
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).primaryColorLight,
-      body: ScaffoldMainContainer(),
-    ));
+    return AnimatedOpacity(
+      duration: Duration(milliseconds: 500),
+      opacity: animatedOpacity ? 0 : 1,
+      child: SafeArea(
+          child: Scaffold(
+        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Theme.of(context).primaryColorLight,
+        body: ScaffoldMainContainer(animationScreen: startAnimatedScreen),
+      )),
+    );
   }
 }
 
-class ScaffoldMainContainer extends StatelessWidget {
+class ScaffoldMainContainer extends StatefulWidget {
+  final bool animationScreen;
+  ScaffoldMainContainer({this.animationScreen});
+  @override
+  _ScaffoldMainContainerState createState() => _ScaffoldMainContainerState();
+}
+
+class _ScaffoldMainContainerState extends State<ScaffoldMainContainer> {
   @override
   Widget build(BuildContext context) {
     double totalWidth = MediaQuery.of(context).size.width;
     double totalHeight = MediaQuery.of(context).size.height;
-    // double statusBarWidth = MediaQuery.of(context).padding.top;
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
     return SingleChildScrollView(
@@ -39,9 +91,8 @@ class ScaffoldMainContainer extends StatelessWidget {
       ),
       Container(
         width: totalWidth,
-        // height: totalHeight - (totalHeight*0.24) - statusBarWidth,
         child: SingleChildScrollView(
-          child: SearchScreen(),
+          child: SearchScreen(animateScreen: widget.animationScreen),
         ),
       )
     ]));
@@ -85,39 +136,70 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
 }
 
 class SearchScreen extends StatefulWidget {
+  final bool animateScreen;
+  SearchScreen({this.animateScreen});
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  bool animateScreenChildrenContainer = true;
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+    startAnimationContainer();
+  }
+
+  void startAnimationContainer() {
+    Timer(Duration(milliseconds: 2000), () {
+      setState(() {
+        animateScreenChildrenContainer = false;
+      });
+    });
+  }
+
+  Widget _bodySearch() {
     double totalWidth = MediaQuery.of(context).size.width;
     double withDefaultPadding = totalWidth * defaultPadding;
-
     return Column(
       children: <Widget>[
-        Container(
-          margin:
-              EdgeInsets.only(top: totalWidth * 0.03, left: withDefaultPadding),
-          width: totalWidth,
-          height: 40,
-          child: RelatedCategories(),
+        CustomContainerAnimation(
+          animationChildren: animateScreenChildrenContainer,
+          children: Container(
+            margin: EdgeInsets.only(
+                top: totalWidth * 0.03, left: withDefaultPadding),
+            width: totalWidth,
+            height: 40,
+            child: RelatedCategories(),
+          ),
         ),
-        Container(
-          child: CardCategorySuggested(),
+        CustomContainerAnimation(
+            animationChildren: animateScreenChildrenContainer,
+            children: Container(
+              child: CardCategorySuggested(),
+            )),
+        CustomContainerAnimation(
+          animationChildren: animateScreenChildrenContainer,
+          children: Container(
+            child: PopularSuggestedWrapper(),
+          ),
         ),
-        Container(
-          child: PopularSuggestedWrapper(),
-        ),
-        Container(
-          child: HightlightResturantsWrapper(),
+        CustomContainerAnimation(
+          animationChildren: animateScreenChildrenContainer,
+          children: Container(
+            child: HightlightResturantsWrapper(),
+          ),
         ),
         SizedBox(
           height: 20,
         )
       ],
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _bodySearch();
   }
 }
 
