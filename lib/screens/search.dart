@@ -24,7 +24,7 @@ class ScaffoldMainContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     double totalWidth = MediaQuery.of(context).size.width;
     double totalHeight = MediaQuery.of(context).size.height;
-    double statusBarWidth = MediaQuery.of(context).padding.top;
+    // double statusBarWidth = MediaQuery.of(context).padding.top;
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
     return SingleChildScrollView(
@@ -69,7 +69,7 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
         ),
         Expanded(
           child: Hero(
-            tag: 'search',
+            tag: 'mainSearch',
             child: SearchWidget(),
           ),
         ),

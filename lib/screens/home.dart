@@ -6,7 +6,7 @@ import 'package:fith_app__restaurant/sections/HomeCategoryCardSuggested.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
-import 'package:fith_app__restaurant/screens/seacrh.dart';
+import 'package:fith_app__restaurant/screens/search.dart';
 
 /*
 import 'package:flutter/services.dart';
@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage>
           transform: Matrix4.translationValues(
               0, -MediaQuery.of(context).size.width * 0.07, 0),
           child: Hero(
-            tag: 'search',
+            tag: 'mainSearch',
             child: WhatAreYouLookinForForm(),
           )),
     );
