@@ -113,6 +113,70 @@ class _HomePageState extends State<HomePage>
     );
   }
 
+  Widget _containerSearch() {
+    double withDefaultPadding =
+        MediaQuery.of(context).size.width * defaultPadding;
+    return CustomContainerAnimation(
+      animationChildren: animationChildren,
+      children: Container(
+          padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+              // color: Colors.red
+              ),
+          transform: Matrix4.translationValues(
+              0, -MediaQuery.of(context).size.width * 0.07, 0),
+          child: Hero(
+            tag: 'search',
+            child: WhatAreYouLookinForForm(),
+          )),
+    );
+  }
+
+  Widget _categoryContainerSuggested() {
+    double withDefaultPadding =
+        MediaQuery.of(context).size.width * defaultPadding;
+    return Container(
+      // color: Colors.red,
+      padding: EdgeInsets.only(
+          top: MediaQuery.of(context).size.height * 0.02,
+          left: withDefaultPadding,
+          right: withDefaultPadding),
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.35,
+      child: Builder(builder: (BuildContext context) {
+        List<Widget> _categoriesCard = [];
+        _categories.asMap().entries.map((item) {
+          _categoriesCard.add(
+            Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      offset: Offset(1, -3),
+                      color: Theme.of(context).accentColor.withOpacity(0.2),
+                      blurRadius: 2,
+                      spreadRadius: 1),
+                ],
+                borderRadius: BorderRadius.circular(7),
+              ),
+              width: MediaQuery.of(context).size.width * 0.25,
+              height: MediaQuery.of(context).size.height * 0.30 / 2,
+              child: HomeCardCategorySuggested(
+                  category: item.value, controller: widget.controller),
+            ),
+          );
+        }).toList();
+        return Wrap(
+          spacing: MediaQuery.of(context).size.height * 0.02,
+          runSpacing: MediaQuery.of(context).size.height * 0.02,
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: _categoriesCard,
+        );
+      }),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double withDefaultPadding =
@@ -177,63 +241,10 @@ class _HomePageState extends State<HomePage>
             // what are you looking for
             child: Column(
               children: <Widget>[
-                Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: withDefaultPadding),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                        // color: Colors.red
-                        ),
-                    transform: Matrix4.translationValues(
-                        0, -MediaQuery.of(context).size.width * 0.07, 0),
-                    child: CustomContainerAnimation(
-                        animationChildren: animationChildren,
-                        children: Hero(
-                          tag: 'search',
-                          child: WhatAreYouLookinForForm(),
-                        ))),
-                //controller:widget.controller
-                Container(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.height * 0.02,
-                      left: withDefaultPadding,
-                      right: withDefaultPadding),
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.35,
-                  child: Builder(builder: (BuildContext context) {
-                    List<Widget> _categoriesCard = [];
-                    _categories.asMap().entries.map((item) {
-                      _categoriesCard.add(
-                        Container(
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  offset: Offset(1, -3),
-                                  color: Theme.of(context)
-                                      .accentColor
-                                      .withOpacity(0.2),
-                                  blurRadius: 2,
-                                  spreadRadius: 1),
-                            ],
-                            borderRadius: BorderRadius.circular(7),
-                          ),
-                          width: MediaQuery.of(context).size.width * 0.25,
-                          height: MediaQuery.of(context).size.height * 0.30 / 2,
-                          child: HomeCardCategorySuggested(
-                              category: item.value,
-                              controller: widget.controller),
-                        ),
-                      );
-                    }).toList();
-                    return Wrap(
-                      spacing: MediaQuery.of(context).size.height * 0.02,
-                      runSpacing: MediaQuery.of(context).size.height * 0.02,
-                      alignment: WrapAlignment.center,
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: _categoriesCard,
-                    );
-                  }),
-                )
+                _containerSearch(),
+                CustomContainerAnimation(
+                    animationChildren: animationChildren,
+                    children: _categoryContainerSuggested())
               ],
             ),
           ),
