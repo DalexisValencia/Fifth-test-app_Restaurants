@@ -6,6 +6,7 @@ import 'package:fith_app__restaurant/sections/CardsHighlightRestaurants.dart';
 import 'package:fith_app__restaurant/sections/ChipCategoriesSuggested.dart';
 import 'package:fith_app__restaurant/sections/PopularsSuggested.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
+import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 
@@ -259,6 +260,43 @@ class ActiveFocus extends StatefulWidget {
 }
 
 class _ActiveFocusState extends State<ActiveFocus> {
+  Widget _seeAll(title, to) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Align(
+        child: MaterialButton(
+          elevation: 0,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          color: Colors.transparent,
+          splashColor: Theme.of(context).splashColor,
+          onPressed: () {
+            print("ver todos $to");
+          },
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.caption.copyWith(
+                decoration: TextDecoration.underline,
+                color: Theme.of(context).primaryColorDark),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _totalregisters(registers) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.only(bottom: 5),
+      child: Align(
+          alignment: Alignment.topRight,
+          child: Text(registers,
+              style: Theme.of(context).textTheme.button.copyWith(
+                  color: Theme.of(context).buttonColor,
+                  fontWeight: FontWeight.w400))),
+    );
+  }
+
   Widget _recentSearch() {
     var recentsSearchs = [1, 2, 3];
     return Container(
@@ -280,12 +318,17 @@ class _ActiveFocusState extends State<ActiveFocus> {
           Builder(
             builder: (BuildContext context) {
               List<Widget> recent = [];
+              recent.add(_totalregisters('Recents 3 of 20'));
               recentsSearchs.map((e) {
                 recent.add(Container(
-                  color: Colors.blue[400],
-                  height: 50,
+                  padding: EdgeInsets.symmetric(horizontal: 2),
+                  //color: Colors.blue[400],
+                  child: QuickView(),
                 ));
               }).toList();
+
+              recent.add(_seeAll('See all recents', 'recente-search'));
+
               return Column(
                 children: recent,
               );
@@ -317,12 +360,14 @@ class _ActiveFocusState extends State<ActiveFocus> {
           Builder(
             builder: (BuildContext context) {
               List<Widget> recent = [];
+              recent.add(_totalregisters('Results 3 of 40'));
               recentsSearchs.map((e) {
                 recent.add(Container(
-                  color: Colors.blue[400],
-                  height: 50,
+                  padding: EdgeInsets.symmetric(horizontal: 2),
+                  child: QuickView(),
                 ));
               }).toList();
+              recent.add(_seeAll('See all results', 'recente-search'));
               return Column(
                 children: recent,
               );
@@ -351,22 +396,6 @@ class _ActiveFocusState extends State<ActiveFocus> {
         children: <Widget>[
           _recentSearch(),
           _results(),
-          Container(
-            color: Colors.blue[400],
-            height: 50,
-          ),
-          Container(
-            color: Colors.blue[300],
-            height: 50,
-          ),
-          Container(
-            color: Colors.blue[200],
-            height: 50,
-          ),
-          Container(
-            color: Colors.blue[100],
-            height: 50,
-          ),
           SizedBox(
             height: 50,
           )
