@@ -213,7 +213,7 @@ class _DetailHighlightProductState extends State<DetailHighlightProduct> {
               child: Align(
                 alignment: Alignment.center,
                 child: AspectRatio(
-                  aspectRatio: 2 / 2.010,
+                  aspectRatio: 2 / 2.030,
                   child: Container(
                     child: CompleteListAvailablePlates(),
                   ),
