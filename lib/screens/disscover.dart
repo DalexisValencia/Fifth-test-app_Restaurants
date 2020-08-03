@@ -1,3 +1,4 @@
+import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -112,15 +113,13 @@ class _MainTopHeaderState extends State<MainTopHeader> {
             icon: Icons.arrow_back,
             color: Theme.of(context).primaryColorDark,
             bgColor: Theme.of(context).primaryColorLight,
-            trigger: () {
-            },
+            trigger: () {},
           ),
           CircleIconButton(
             icon: Icons.search,
             color: Theme.of(context).primaryColorDark,
             bgColor: Theme.of(context).accentColor.withOpacity(0.4),
-            trigger: () {
-            },
+            trigger: () {},
           ),
         ],
       ),
@@ -298,8 +297,7 @@ class _NewLaunchState extends State<NewLaunch> {
             icon: Icons.tune,
             color: Theme.of(context).primaryColorDark,
             bgColor: Theme.of(context).primaryColorLight,
-            trigger: () {
-            },
+            trigger: () {},
           ),
         ],
       ),
@@ -648,72 +646,7 @@ class _TopRestaurantsState extends State<TopRestaurants> {
   }
 
   Widget _cardNextTops() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 5),
-      padding: EdgeInsets.all(15),
-      decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Theme.of(context).primaryColor.withOpacity(0.5),
-              blurRadius: 5,
-              offset: Offset(0, 2),
-            ) //spreadRadius: 5)
-          ],
-          color: Theme.of(context).primaryColorLight,
-          borderRadius: BorderRadius.circular(8)),
-      child: Row(
-        // mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width * 0.25,
-            height: MediaQuery.of(context).size.width * 0.25,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: ExactAssetImage(
-                        'assets/populars/Salade-Niçoise.jpg'))),
-          ),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(
-                  left: MediaQuery.of(context).size.width * 0.04),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                    child: Text(
-                      "Turkay Gravy Secrets",
-                      style: Theme.of(context).textTheme.subtitle1.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).primaryColorDark),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                        vertical: MediaQuery.of(context).size.width * 0.015),
-                    child: Text(
-                      "Este es un texto del detallado del restaurante de dos lineas",
-                      style: Theme.of(context)
-                          .textTheme
-                          .caption
-                          .copyWith(color: Theme.of(context).primaryColor),
-                    ),
-                  ),
-                  Container(
-                    child: Row(
-                      children: <Widget>[],
-                    ),
-                  )
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    );
+    return QuickView();
   }
 
   @override
