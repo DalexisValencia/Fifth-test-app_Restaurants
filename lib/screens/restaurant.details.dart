@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/ContactInterface.dart';
 import 'package:fith_app__restaurant/sections/CardAvailableForLunch.dart';
 import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
 import 'package:fith_app__restaurant/sections/CardsHighlightRestaurants.dart';
 import 'package:fith_app__restaurant/sections/RoundedOptions.dart';
+import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
 import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
@@ -18,13 +21,26 @@ class RestaurantDetailWrapper extends StatefulWidget {
 
 class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper> {
   bool minSizeReached = false;
+  bool animationScreenOpacity = true;
+  bool animationScreenContainer = true;
   ScrollController _controller;
 
   @override
   void initState() {
+    // this.animationScreenContainer = this.animationScreenOpacity;
     _controller = ScrollController();
     _controller.addListener(_scrollListener);
     super.initState();
+    this.startAnimationOpacity();
+  }
+
+  void startAnimationOpacity() {
+    Timer(Duration(milliseconds: animationStartTime), () {
+      setState(() {
+        animationScreenOpacity = false;
+      });
+      // this.startAnimationContainer();
+    });
   }
 
   _scrollListener() {
@@ -73,25 +89,36 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper> {
         MediaQuery.of(context).size.width * defaultPadding;
     double lessHeight =
         (MediaQuery.of(context).padding.top + defaultHeaderCustomHeight) + 60;
-    return Container(
-        height: MediaQuery.of(context).size.height - lessHeight,
-        child: SingleChildScrollView(
-            controller: _controller,
-            child: Column(
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.width * 0.03),
-                  padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
-                  width: MediaQuery.of(context).size.width,
-                  // color: Colors.red,
-                  child: TitleAndShortDescription(),
-                ),
-                WrapperMap(),
-                DetailHighlightProduct(),
-                ExploreTheMenu()
-              ],
-            )));
+    return AnimatedOpacity(
+        duration: Duration(milliseconds: 1000),
+        opacity: 1, //animationScreenOpacity ? 0 : 1,
+        child: Container(
+            height: MediaQuery.of(context).size.height - lessHeight,
+            child: SingleChildScrollView(
+                controller: _controller,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.only(
+                          top: MediaQuery.of(context).size.width * 0.03),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: withDefaultPadding),
+                      width: MediaQuery.of(context).size.width,
+                      // color: Colors.red,
+                      child: TitleAndShortDescription(),
+                    ),
+                    // CustomContainerAnimation(
+                    //   animationChildren: animationScreenOpacity,
+                    //   children: WrapperMap(),
+                    // ),
+                    DetailHighlightProduct(),
+                    ExploreTheMenu(),
+                    CardCategorySuggested(),
+                    HightlightResturantsWrapper(),
+                    RoundedOptionsContactWrapper(),
+                    ContactMethods()
+                  ],
+                ))));
   }
 
   @override
@@ -155,14 +182,11 @@ class TitleAndShortDescription extends StatelessWidget {
         ),
         Expanded(
           flex: 1,
-          child: RawMaterialButton(
-            elevation: 0,
-            onPressed: () {},
-            fillColor: Theme.of(context).highlightColor,
-            padding: EdgeInsets.all(0),
-            shape: CircleBorder(),
-            child: Icon(Icons.my_location,
-                size: 22, color: Theme.of(context).primaryColorDark),
+          child: CircleIconButton(
+            icon: Icons.my_location,
+            color: Theme.of(context).primaryColorDark,
+            bgColor: Colors.transparent,
+            trigger: () {},
           ),
         )
       ],
@@ -219,9 +243,6 @@ class _DetailHighlightProductState extends State<DetailHighlightProduct> {
                   ),
                 ),
               )),
-          SizedBox(
-            height: 20,
-          )
         ],
       ),
     );
@@ -276,6 +297,25 @@ class _ExploreTheMenuState extends State<ExploreTheMenu> {
         }));
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          _header(),
+          _chipsAsMenu(),
+        ],
+      ),
+    );
+  }
+}
+
+class ContactMethods extends StatefulWidget {
+  @override
+  ContactMethodsState createState() => ContactMethodsState();
+}
+
+class ContactMethodsState extends State<ContactMethods> {
   List<ContactInterface> _contactPhones = [
     ContactInterface(name: 'Phone', phone: '7153914', action: 'call'),
     ContactInterface(
@@ -284,7 +324,8 @@ class _ExploreTheMenuState extends State<ExploreTheMenu> {
     ContactInterface(
         name: 'Average Cost', phone: '\$12.00 - \$44.00', action: 'none')
   ];
-  Widget _contactColumnPhones() {
+  @override
+  Widget build(BuildContext context) {
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
 
@@ -373,27 +414,6 @@ class _ExploreTheMenuState extends State<ExploreTheMenu> {
           children: contacts,
         );
       }),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          _header(),
-          _chipsAsMenu(),
-          Container(
-            child: CardCategorySuggested(),
-          ),
-          Container(child: HightlightResturantsWrapper()),
-          RoundedOptionsContactWrapper(),
-          _contactColumnPhones(),
-          SizedBox(
-            height: 20,
-          )
-        ],
-      ),
     );
   }
 }

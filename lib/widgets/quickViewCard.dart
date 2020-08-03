@@ -83,18 +83,20 @@ class _QuickViewState extends State<QuickView> {
                             //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               IconAndText(
-                                icon: Icons.star,
-                                iconColor: Theme.of(context).buttonColor,
-                                text: '4.8 Votes',
-                                textColor: Theme.of(context).primaryColorDark,
-                              ),
+                                  icon: Icons.star,
+                                  iconColor: Theme.of(context).buttonColor,
+                                  iconSize: 16,
+                                  text: '4.8 Votes',
+                                  textColor: Theme.of(context).primaryColorDark,
+                                  textSize: 12),
                               Spacer(),
                               IconAndText(
-                                icon: Icons.attach_money,
-                                iconColor: Theme.of(context).primaryColorDark,
-                                text: '\$47.00',
-                                textColor: Theme.of(context).primaryColorDark,
-                              )
+                                  icon: Icons.attach_money,
+                                  iconColor: Theme.of(context).primaryColorDark,
+                                  iconSize: 16,
+                                  text: '47.00', //\$
+                                  textColor: Theme.of(context).primaryColorDark,
+                                  textSize: 12)
                             ],
                           ),
                         ),

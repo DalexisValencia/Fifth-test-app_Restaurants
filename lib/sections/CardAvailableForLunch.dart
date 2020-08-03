@@ -1,4 +1,5 @@
 import 'package:fith_app__restaurant/interfaces/availableForLunch.dart';
+import 'package:fith_app__restaurant/widgets/iconAndText.dart';
 import 'package:flutter/material.dart';
 
 List<AvailablePlatesForLunch> availablePlates = [
@@ -140,22 +141,13 @@ class _CompleteListAvailablePlatesState
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          Icon(Icons.monetization_on,
-                              size: 16, color: Theme.of(context).primaryColor),
-                          SizedBox(
-                            width: 2,
-                          ),
-                          Text(
-                            availablePlates[index].price,
-                            style: Theme.of(context).textTheme.caption.copyWith(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).primaryColor),
-                          )
-                        ],
-                      ),
+                      IconAndText(
+                          icon: Icons.monetization_on,
+                          iconColor: Theme.of(context).primaryColor,
+                          iconSize: 14,
+                          text: availablePlates[index].price,
+                          textColor: Theme.of(context).primaryColor,
+                          textSize: 12),
                       SizedBox(height: 5),
                       Text(
                         availablePlates[index].plateName,
@@ -215,20 +207,13 @@ class _CompleteListAvailablePlatesState
                         ],
                       ),
                       SizedBox(height: 7),
-                      Row(
-                        children: <Widget>[
-                          Icon(Icons.access_time,
-                              size: 16, color: Theme.of(context).primaryColor),
-                          SizedBox(width: 3),
-                          Text(
-                            availablePlates[index].preparationTime,
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 13,
-                                color: Theme.of(context).primaryColor),
-                          )
-                        ],
-                      ),
+                      IconAndText(
+                          icon: Icons.access_time,
+                          iconColor: Theme.of(context).primaryColor,
+                          iconSize: 14,
+                          text: availablePlates[index].preparationTime,
+                          textColor: Theme.of(context).primaryColor,
+                          textSize: 12),
                       SizedBox(
                         height: 5,
                       ),
