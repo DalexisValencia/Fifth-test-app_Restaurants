@@ -85,7 +85,7 @@ class _ScaffoldMainContainerState extends State<ScaffoldMainContainer> {
             width: totalWidth,
             child: SingleChildScrollView(
               //child: SearchScreen(animateScreen: widget.animationScreen),
-              child: ActiveFocus(),
+              child: ActiveFocus(animationScreen: widget.animationScreen),
             ),
           )),
         )
@@ -255,11 +255,30 @@ class _SearchScreenState extends State<SearchScreen> {
 }
 
 class ActiveFocus extends StatefulWidget {
+  final bool animationScreen;
+  ActiveFocus({this.animationScreen});
   @override
   _ActiveFocusState createState() => _ActiveFocusState();
 }
 
 class _ActiveFocusState extends State<ActiveFocus> {
+  bool animationScreenChild = false;
+  @override
+  initState() {
+    super.initState();
+    animationScreenChild = widget.animationScreen;
+    this.startAnimation();
+  }
+
+  startAnimation() {
+    Timer(Duration(milliseconds: 500), () {
+      setState(() {
+        animationScreenChild = false;
+      });
+    });
+    print('animationScreenChild');
+  }
+
   Widget _seeAll(title, to) {
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -380,22 +399,28 @@ class _ActiveFocusState extends State<ActiveFocus> {
 
   @override
   Widget build(BuildContext context) {
+    print(animationScreenChild);
     double totalWidth = MediaQuery.of(context).size.width;
     double withDefaultPadding = totalWidth * defaultPadding;
     print(MediaQuery.of(context).viewInsets.bottom);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
-      // color: Colors.amber,
       height: MediaQuery.of(context).viewInsets.bottom > 1
           ? MediaQuery.of(context).viewInsets.bottom
           : MediaQuery.of(context).size.height,
-      // height: MediaQuery.of(context).viewInsets.bottom,
       width: MediaQuery.of(context).size.width,
       child: SingleChildScrollView(
           child: Column(
         children: <Widget>[
-          _recentSearch(),
-          _results(),
+          CustomContainerAnimation(
+            animationChildren: animationScreenChild,
+            children: _recentSearch(),
+          ),
+          CustomContainerAnimation(
+            animationChildren: animationScreenChild,
+            children: _results(),
+          ),
+          // _recentSearch(),
           SizedBox(
             height: 50,
           )
