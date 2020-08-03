@@ -66,23 +66,30 @@ class _ScaffoldMainContainerState extends State<ScaffoldMainContainer> {
     double totalHeight = MediaQuery.of(context).size.height;
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
-    return SingleChildScrollView(
-        child: Column(children: <Widget>[
-      Container(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
-          height: totalHeight * 0.10,
-          width: totalWidth,
-          child: FixedTopHeader(),
+    return Column(
+      children: <Widget>[
+        Container(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: withDefaultPadding - 10),
+            height: defaultHeaderCustomHeight,
+            width: totalWidth,
+            child: FixedTopHeader(),
+          ),
         ),
-      ),
-      Container(
-        width: totalWidth,
-        child: SingleChildScrollView(
-          child: SearchScreen(animateScreen: widget.animationScreen),
-        ),
-      )
-    ]));
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: totalHeight - (defaultHeaderCustomHeight + 85),
+          child: SingleChildScrollView(
+              child: Container(
+            width: totalWidth,
+            child: SingleChildScrollView(
+              //child: SearchScreen(animateScreen: widget.animationScreen),
+              child: ActiveFocus(),
+            ),
+          )),
+        )
+      ],
+    );
   }
 }
 
@@ -93,6 +100,62 @@ class FixedTopHeader extends StatefulWidget {
 }
 
 class FixedTopHeaderState extends State<FixedTopHeader> {
+  bool isFocusActive = false;
+  final _searchForm = GlobalKey<FormState>();
+  FocusNode _focus = new FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _focus.addListener(_onFocusChange);
+  }
+
+  _onFocusChange() {
+    setState(() {
+      isFocusActive = _focus.hasFocus;
+    });
+    debugPrint("Focus: " + _focus.hasFocus.toString());
+  }
+
+  OutlineInputBorder defaulBorderInput() {
+    return OutlineInputBorder(
+        borderRadius: BorderRadius.circular(5),
+        borderSide:
+            new BorderSide(color: Theme.of(context).cardColor, width: 0));
+  }
+
+  Widget _inputSearch() {
+    return Container(
+        height: 40,
+        child: Form(
+          key: _searchForm,
+          child: Container(
+              child: TextFormField(
+            onFieldSubmitted: (e) {
+              debugPrint("info:");
+            },
+            focusNode: _focus,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Theme.of(context).highlightColor, // .withOpacity(0.7)
+              contentPadding: EdgeInsets.all(0),
+              prefixIcon: Icon(Icons.search),
+              prefixStyle: TextStyle(
+                  color: Theme.of(context).buttonColor,
+                  fontWeight: FontWeight.w700),
+              hintText: 'Search ...',
+              hintStyle: TextStyle(
+                  color: Theme.of(context).primaryColor.withOpacity(0.8),
+                  fontWeight: FontWeight.w600),
+              border: defaulBorderInput(),
+              focusedBorder: defaulBorderInput(),
+              enabledBorder: defaulBorderInput(),
+              disabledBorder: defaulBorderInput(),
+            ),
+          )),
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -108,7 +171,7 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
         Expanded(
           child: Hero(
             tag: 'mainSearch',
-            child: SearchWidget(),
+            child: _inputSearch(),
           ),
         ),
         CircleIconButton(
@@ -190,48 +253,125 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 }
 
-/*:::WIDGET SEARCH:::*/
-class SearchWidget extends StatefulWidget {
+class ActiveFocus extends StatefulWidget {
   @override
-  _SearchWidgetState createState() => _SearchWidgetState();
+  _ActiveFocusState createState() => _ActiveFocusState();
 }
 
-class _SearchWidgetState extends State<SearchWidget> {
-  final _searchForm = GlobalKey<FormState>();
+class _ActiveFocusState extends State<ActiveFocus> {
+  Widget _recentSearch() {
+    var recentsSearchs = [1, 2, 3];
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
+            child: Text(
+              "Recientes",
+              textAlign: TextAlign.start,
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    color: Theme.of(context).primaryColorDark,
+                    fontWeight: FontWeight.w800,
+                  ),
+            ),
+          ),
+          Builder(
+            builder: (BuildContext context) {
+              List<Widget> recent = [];
+              recentsSearchs.map((e) {
+                recent.add(Container(
+                  color: Colors.blue[400],
+                  height: 50,
+                ));
+              }).toList();
+              return Column(
+                children: recent,
+              );
+            },
+          )
+        ],
+      ),
+    );
+  }
 
-  OutlineInputBorder defaulBorderInput() {
-    return OutlineInputBorder(
-        borderRadius: BorderRadius.circular(5),
-        borderSide:
-            new BorderSide(color: Theme.of(context).cardColor, width: 0));
+  Widget _results() {
+    var recentsSearchs = [1, 2, 3];
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 10),
+            child: Text(
+              "Results",
+              textAlign: TextAlign.start,
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    color: Theme.of(context).primaryColorDark,
+                    fontWeight: FontWeight.w800,
+                  ),
+            ),
+          ),
+          Builder(
+            builder: (BuildContext context) {
+              List<Widget> recent = [];
+              recentsSearchs.map((e) {
+                recent.add(Container(
+                  color: Colors.blue[400],
+                  height: 50,
+                ));
+              }).toList();
+              return Column(
+                children: recent,
+              );
+            },
+          )
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    double totalWidth = MediaQuery.of(context).size.width;
+    double withDefaultPadding = totalWidth * defaultPadding;
+    print(MediaQuery.of(context).viewInsets.bottom);
     return Container(
-        height: 40,
-        child: Form(
-          key: _searchForm,
-          child: Container(
-              child: TextFormField(
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Theme.of(context).highlightColor, // .withOpacity(0.7)
-              contentPadding: EdgeInsets.all(0),
-              prefixIcon: Icon(Icons.search),
-              prefixStyle: TextStyle(
-                  color: Theme.of(context).buttonColor,
-                  fontWeight: FontWeight.w700),
-              hintText: 'Search ...',
-              hintStyle: TextStyle(
-                  color: Theme.of(context).primaryColor.withOpacity(0.8),
-                  fontWeight: FontWeight.w600),
-              border: defaulBorderInput(),
-              focusedBorder: defaulBorderInput(),
-              enabledBorder: defaulBorderInput(),
-              disabledBorder: defaulBorderInput(),
-            ),
-          )),
-        ));
+      padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
+      // color: Colors.amber,
+      height: MediaQuery.of(context).viewInsets.bottom > 1
+          ? MediaQuery.of(context).viewInsets.bottom
+          : MediaQuery.of(context).size.height,
+      // height: MediaQuery.of(context).viewInsets.bottom,
+      width: MediaQuery.of(context).size.width,
+      child: SingleChildScrollView(
+          child: Column(
+        children: <Widget>[
+          _recentSearch(),
+          _results(),
+          Container(
+            color: Colors.blue[400],
+            height: 50,
+          ),
+          Container(
+            color: Colors.blue[300],
+            height: 50,
+          ),
+          Container(
+            color: Colors.blue[200],
+            height: 50,
+          ),
+          Container(
+            color: Colors.blue[100],
+            height: 50,
+          ),
+          SizedBox(
+            height: 50,
+          )
+        ],
+      )),
+    );
   }
 }
