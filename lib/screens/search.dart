@@ -16,42 +16,54 @@ class ScaffoldSearch extends StatefulWidget {
 }
 
 class _ScaffoldSearchState extends State<ScaffoldSearch> {
-  bool animatedOpacity = true;
-  bool startAnimatedScreen = true;
-  @override
-  void initState() {
-    super.initState();
-    Timer(Duration(milliseconds: 100), () {
-      setState(() {
-        this.animatedOpacity = false;
-      });
-      startAnimationScreen();
-    });
-  }
-
-  void startAnimationScreen() {
-    Timer(Duration(microseconds: animationStartTime), () {
-      setState(() {
-        this.startAnimatedScreen = true;
-      });
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return AnimatedOpacity(
-      duration: Duration(milliseconds: 500),
-      opacity: animatedOpacity ? 0 : 1,
-      child: SafeArea(
-          child: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Theme.of(context).primaryColorLight,
-        body: ScaffoldMainContainer(animationScreen: startAnimatedScreen),
-      )),
-    );
+    return Scaffold(body: Text("congestions"));
   }
 }
+
+// class ScaffoldSearch extends StatefulWidget {
+//   @override
+//   _ScaffoldSearchState createState() => _ScaffoldSearchState();
+// }
+
+// class _ScaffoldSearchState extends State<ScaffoldSearch> {
+//   bool animatedOpacity = true;
+//   bool startAnimatedScreen = true;
+//   @override
+//   void initState() {
+//     super.initState();
+//     Timer(Duration(milliseconds: 100), () {
+//       setState(() {
+//         this.animatedOpacity = false;
+//       });
+//       startAnimationScreen();
+//     });
+//   }
+
+//   void startAnimationScreen() {
+//     Timer(Duration(microseconds: animationStartTime), () {
+//       setState(() {
+//         this.startAnimatedScreen = true;
+//       });
+//     });
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return AnimatedOpacity(
+//       duration: Duration(milliseconds: 500),
+//       opacity: animatedOpacity ? 0 : 1,
+//       child: SafeArea(
+//           child: Scaffold(
+//         resizeToAvoidBottomPadding: false,
+//         resizeToAvoidBottomInset: false,
+//         backgroundColor: Theme.of(context).primaryColorLight,
+//         body: ScaffoldMainContainer(animationScreen: startAnimatedScreen),
+//       )),
+//     );
+//   }
+// }
 
 class ScaffoldMainContainer extends StatefulWidget {
   final bool animationScreen;
@@ -115,7 +127,7 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
     setState(() {
       isFocusActive = _focus.hasFocus;
     });
-    debugPrint("Focus: " + _focus.hasFocus.toString());
+    //debugPrint("Focus: " + _focus.hasFocus.toString());
   }
 
   OutlineInputBorder defaulBorderInput() {
@@ -132,9 +144,7 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
           key: _searchForm,
           child: Container(
               child: TextFormField(
-            onFieldSubmitted: (e) {
-              debugPrint("info:");
-            },
+            onFieldSubmitted: (e) {},
             focusNode: _focus,
             decoration: InputDecoration(
               filled: true,
@@ -276,7 +286,7 @@ class _ActiveFocusState extends State<ActiveFocus> {
         animationScreenChild = false;
       });
     });
-    print('animationScreenChild');
+    print('en la busqueda');
   }
 
   Widget _seeAll(title, to) {
@@ -289,9 +299,7 @@ class _ActiveFocusState extends State<ActiveFocus> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
           color: Colors.transparent,
           splashColor: Theme.of(context).splashColor,
-          onPressed: () {
-            print("ver todos $to");
-          },
+          onPressed: () {},
           child: Text(
             title,
             style: Theme.of(context).textTheme.caption.copyWith(
@@ -399,10 +407,9 @@ class _ActiveFocusState extends State<ActiveFocus> {
 
   @override
   Widget build(BuildContext context) {
-    print(animationScreenChild);
     double totalWidth = MediaQuery.of(context).size.width;
     double withDefaultPadding = totalWidth * defaultPadding;
-    print(MediaQuery.of(context).viewInsets.bottom);
+    // print(MediaQuery.of(context).viewInsets.bottom);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
       height: MediaQuery.of(context).viewInsets.bottom > 1

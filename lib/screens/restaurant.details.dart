@@ -19,7 +19,8 @@ class RestaurantDetailWrapper extends StatefulWidget {
       _RestaurantDetailWrapperState();
 }
 
-class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper> {
+class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
+    with SingleTickerProviderStateMixin {
   bool minSizeReached = false;
   bool animationScreenOpacity = true;
   bool animationScreenContainer = true;
@@ -27,7 +28,7 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper> {
 
   @override
   void initState() {
-    // this.animationScreenContainer = this.animationScreenOpacity;
+    this.animationScreenContainer = this.animationScreenOpacity;
     _controller = ScrollController();
     _controller.addListener(_scrollListener);
     super.initState();
@@ -39,7 +40,15 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper> {
       setState(() {
         animationScreenOpacity = false;
       });
-      // this.startAnimationContainer();
+      this.startAnimationContainer();
+    });
+  }
+
+  void startAnimationContainer() {
+    Timer(Duration(milliseconds: animationStartTime), () {
+      setState(() {
+        animationScreenContainer = false;
+      });
     });
   }
 
@@ -90,8 +99,9 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper> {
     double lessHeight =
         (MediaQuery.of(context).padding.top + defaultHeaderCustomHeight) + 60;
     return AnimatedOpacity(
-        duration: Duration(milliseconds: 1000),
-        opacity: 1, //animationScreenOpacity ? 0 : 1,
+        duration:
+            Duration(milliseconds: animationOpacityTime), //animationOpacityTime
+        opacity: animationScreenOpacity ? 0 : 1,
         child: Container(
             height: MediaQuery.of(context).size.height - lessHeight,
             child: SingleChildScrollView(
@@ -107,16 +117,34 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper> {
                       // color: Colors.red,
                       child: TitleAndShortDescription(),
                     ),
-                    // CustomContainerAnimation(
-                    //   animationChildren: animationScreenOpacity,
-                    //   children: WrapperMap(),
-                    // ),
-                    DetailHighlightProduct(),
-                    ExploreTheMenu(),
-                    CardCategorySuggested(),
-                    HightlightResturantsWrapper(),
-                    RoundedOptionsContactWrapper(),
-                    ContactMethods()
+                    CustomContainerAnimation(
+                      animationChildren: animationScreenContainer,
+                      children: WrapperMap(),
+                    ),
+                    CustomContainerAnimation(
+                      animationChildren: animationScreenContainer,
+                      children: DetailHighlightProduct(),
+                    ),
+                    CustomContainerAnimation(
+                      animationChildren: animationScreenContainer,
+                      children: ExploreTheMenu(),
+                    ),
+                    CustomContainerAnimation(
+                      animationChildren: animationScreenContainer,
+                      children: CardCategorySuggested(),
+                    ),
+                    CustomContainerAnimation(
+                      animationChildren: animationScreenContainer,
+                      children: HightlightResturantsWrapper(),
+                    ),
+                    CustomContainerAnimation(
+                      animationChildren: animationScreenContainer,
+                      children: RoundedOptionsContactWrapper(),
+                    ),
+                    CustomContainerAnimation(
+                      animationChildren: animationScreenContainer,
+                      children: ContactMethods(),
+                    ),
                   ],
                 ))));
   }
@@ -126,6 +154,7 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper> {
     return SafeArea(
       child: Column(
         children: <Widget>[_headerCustom(), _bodyRestaurantsDetail()],
+        //children: <Widget>[Text("solo info!")],
       ),
     );
   }

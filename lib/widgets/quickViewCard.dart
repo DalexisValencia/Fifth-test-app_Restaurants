@@ -24,9 +24,7 @@ class _QuickViewState extends State<QuickView> {
           borderRadius: BorderRadius.circular(8)),
       child: InkWell(
           splashColor: Colors.red,
-          onTap: () {
-            print("pueblo griefo");
-          },
+          onTap: () {},
           child: Row(
             // mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
