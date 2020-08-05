@@ -5,6 +5,7 @@ import 'package:fith_app__restaurant/interfaces/aditional.dart';
 import 'package:fith_app__restaurant/interfaces/summaryStep.dart';
 import 'package:fith_app__restaurant/widgets/AditionalsExpansions.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
+import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -174,33 +175,21 @@ class _StackTopHeaderState extends State<StackTopHeader> {
           Container(
             width: 40,
             height: 40,
-            child: RaisedButton(
-              elevation: 0,
-              splashColor: Theme.of(context).buttonColor,
-              onPressed: () {},
-              padding: EdgeInsets.all(0),
-              shape: CircleBorder(),
-              color: Theme.of(context).primaryColorDark.withOpacity(0.2),
-              child: Icon(
-                Icons.arrow_back,
-                color: widget.iconColors,
-              ),
+            child: CircleIconButton(
+              icon: Icons.arrow_back,
+              color: widget.iconColors,
+              bgColor: Theme.of(context).primaryColorDark.withOpacity(0.2),
+              trigger: () {},
             ),
           ),
           Container(
             width: 40,
             height: 40,
-            child: RaisedButton(
-              elevation: 0,
-              splashColor: Theme.of(context).buttonColor,
-              onPressed: () {},
-              padding: EdgeInsets.all(0),
-              shape: CircleBorder(),
-              color: Theme.of(context).primaryColorDark.withOpacity(0.2),
-              child: Icon(
-                Icons.favorite,
-                color: widget.iconColors,
-              ),
+            child: CircleIconButton(
+              icon: Icons.favorite,
+              color: widget.iconColors,
+              bgColor: Theme.of(context).primaryColorDark.withOpacity(0.2),
+              trigger: () {},
             ),
           ),
         ],
