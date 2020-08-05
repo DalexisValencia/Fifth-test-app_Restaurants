@@ -67,12 +67,12 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: CustomContainerAnimation(
-            animationChildren: animationChildren,
-            children: AnimatedOpacity(
-              duration: Duration(milliseconds: animationOpacityTime),
-              opacity: animatedOpacity ? 0 : 1,
-              child: Container(
+        body: AnimatedOpacity(
+            duration: Duration(milliseconds: animationOpacityTime),
+            opacity: animatedOpacity ? 0 : 1,
+            child: CustomContainerAnimation(
+              animationChildren: animationChildren,
+              children: Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child: Stack(

@@ -1,3 +1,7 @@
+import 'dart:async';
+
+import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +14,8 @@ class DiscoverScaffold extends StatefulWidget {
 
 class _DiscoverScaffoldState extends State<DiscoverScaffold> {
   double heightAppBar = 55;
+  bool animatedOpacity = true;
+  bool animationChildren = true;
   _changeStatusBarThemeColor() {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       // systemNavigationBarColor: Colors.white, // navigation bar color
@@ -21,6 +27,24 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
   @override
   initState() {
     super.initState();
+    this.startAnimationScreen();
+  }
+
+  startAnimationScreen() {
+    Timer(Duration(milliseconds: animationStartTime), () {
+      setState(() {
+        animatedOpacity = false;
+      });
+      startAnimationChildren();
+    });
+  }
+
+  startAnimationChildren() {
+    Timer(Duration(milliseconds: animationStartTime), () {
+      setState(() {
+        animationChildren = false;
+      });
+    });
   }
 
   Widget _screenTitle() {
@@ -58,31 +82,38 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
   Widget build(BuildContext context) {
     _changeStatusBarThemeColor();
     return SafeArea(
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        child: Stack(
-          children: <Widget>[
-            Container(
-                padding: EdgeInsets.only(top: heightAppBar),
-                color: Theme.of(context).primaryColorLight,
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: <Widget>[
-                      _screenTitle(),
-                      _nearYouContainer(),
-                      _newLaunch(),
-                      _topRestaurants()
-                    ],
-                  ),
-                )),
-            Positioned(
-              top: 0,
-              child: MainTopHeader(myheight: heightAppBar),
+      child: AnimatedOpacity(
+        duration: Duration(milliseconds: animationOpacityTime),
+        opacity: animatedOpacity ? 0 : 1,
+        child: CustomContainerAnimation(
+          animationChildren: animationChildren,
+          children: Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            child: Stack(
+              children: <Widget>[
+                Container(
+                    padding: EdgeInsets.only(top: heightAppBar),
+                    color: Theme.of(context).primaryColorLight,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          _screenTitle(),
+                          _nearYouContainer(),
+                          _newLaunch(),
+                          _topRestaurants()
+                        ],
+                      ),
+                    )),
+                Positioned(
+                  top: 0,
+                  child: MainTopHeader(myheight: heightAppBar),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
