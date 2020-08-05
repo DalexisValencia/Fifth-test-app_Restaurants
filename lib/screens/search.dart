@@ -16,65 +16,33 @@ class ScaffoldSearch extends StatefulWidget {
 }
 
 class _ScaffoldSearchState extends State<ScaffoldSearch> {
+  bool animatedOpacity = true;
+  bool animateOpacity = true;
+  bool animatedChildren = true;
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(body: Text("congestions"));
+  void initState() {
+    super.initState();
+    this.startAnimationScreen();
   }
-}
 
-// class ScaffoldSearch extends StatefulWidget {
-//   @override
-//   _ScaffoldSearchState createState() => _ScaffoldSearchState();
-// }
+  void startAnimationScreen() {
+    Timer(Duration(milliseconds: animationStartTime), () {
+      setState(() {
+        this.animateOpacity = false;
+      });
+      startChildAnimartion();
+    });
+  }
 
-// class _ScaffoldSearchState extends State<ScaffoldSearch> {
-//   bool animatedOpacity = true;
-//   bool startAnimatedScreen = true;
-//   @override
-//   void initState() {
-//     super.initState();
-//     Timer(Duration(milliseconds: 100), () {
-//       setState(() {
-//         this.animatedOpacity = false;
-//       });
-//       startAnimationScreen();
-//     });
-//   }
+  void startChildAnimartion() {
+    Timer(Duration(milliseconds: animationStartTime), () {
+      setState(() {
+        animatedChildren = false;
+      });
+    });
+  }
 
-//   void startAnimationScreen() {
-//     Timer(Duration(microseconds: animationStartTime), () {
-//       setState(() {
-//         this.startAnimatedScreen = true;
-//       });
-//     });
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return AnimatedOpacity(
-//       duration: Duration(milliseconds: 500),
-//       opacity: animatedOpacity ? 0 : 1,
-//       child: SafeArea(
-//           child: Scaffold(
-//         resizeToAvoidBottomPadding: false,
-//         resizeToAvoidBottomInset: false,
-//         backgroundColor: Theme.of(context).primaryColorLight,
-//         body: ScaffoldMainContainer(animationScreen: startAnimatedScreen),
-//       )),
-//     );
-//   }
-// }
-
-class ScaffoldMainContainer extends StatefulWidget {
-  final bool animationScreen;
-  ScaffoldMainContainer({this.animationScreen});
-  @override
-  _ScaffoldMainContainerState createState() => _ScaffoldMainContainerState();
-}
-
-class _ScaffoldMainContainerState extends State<ScaffoldMainContainer> {
-  @override
-  Widget build(BuildContext context) {
+  Widget _bodyScaffold() {
     double totalWidth = MediaQuery.of(context).size.width;
     double totalHeight = MediaQuery.of(context).size.height;
     double withDefaultPadding =
@@ -91,17 +59,35 @@ class _ScaffoldMainContainerState extends State<ScaffoldMainContainer> {
         ),
         Container(
           width: MediaQuery.of(context).size.width,
-          height: totalHeight - (defaultHeaderCustomHeight + 85),
+          height: totalHeight - (defaultHeaderCustomHeight + 90),
           child: SingleChildScrollView(
               child: Container(
             width: totalWidth,
             child: SingleChildScrollView(
-              //child: SearchScreen(animateScreen: widget.animationScreen),
-              child: ActiveFocus(animationScreen: widget.animationScreen),
-            ),
+                child: CustomContainerAnimation(
+              animationChildren: animatedChildren,
+              children: ActiveFocus(),
+            )
+                //child: SearchScreen(animateScreen: widget.animationScreen),
+                ),
           )),
         )
       ],
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedOpacity(
+      duration: Duration(milliseconds: 500),
+      opacity: animateOpacity ? 0 : 1,
+      child: SafeArea(
+          child: Scaffold(
+        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Theme.of(context).primaryColorLight,
+        body: _bodyScaffold(),
+      )),
     );
   }
 }
@@ -265,28 +251,14 @@ class _SearchScreenState extends State<SearchScreen> {
 }
 
 class ActiveFocus extends StatefulWidget {
-  final bool animationScreen;
-  ActiveFocus({this.animationScreen});
   @override
   _ActiveFocusState createState() => _ActiveFocusState();
 }
 
 class _ActiveFocusState extends State<ActiveFocus> {
-  bool animationScreenChild = false;
   @override
   initState() {
     super.initState();
-    animationScreenChild = widget.animationScreen;
-    this.startAnimation();
-  }
-
-  startAnimation() {
-    Timer(Duration(milliseconds: 500), () {
-      setState(() {
-        animationScreenChild = false;
-      });
-    });
-    print('en la busqueda');
   }
 
   Widget _seeAll(title, to) {
@@ -419,14 +391,8 @@ class _ActiveFocusState extends State<ActiveFocus> {
       child: SingleChildScrollView(
           child: Column(
         children: <Widget>[
-          CustomContainerAnimation(
-            animationChildren: animationScreenChild,
-            children: _recentSearch(),
-          ),
-          CustomContainerAnimation(
-            animationChildren: animationScreenChild,
-            children: _results(),
-          ),
+          _recentSearch(),
+          _results(),
           // _recentSearch(),
           SizedBox(
             height: 50,
