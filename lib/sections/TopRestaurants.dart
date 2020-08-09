@@ -1,3 +1,4 @@
+import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
 import 'package:flutter/material.dart';
 
@@ -103,8 +104,10 @@ class _MainTopRestaurantState extends State<MainTopRestaurant> {
 
   @override
   Widget build(BuildContext context) {
+    double withDefaultPadding =
+        MediaQuery.of(context).size.width * defaultPadding;
     return Container(
-      margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.07),
+      margin: EdgeInsets.only(right: withDefaultPadding),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.30,
       decoration: BoxDecoration(
@@ -112,7 +115,7 @@ class _MainTopRestaurantState extends State<MainTopRestaurant> {
           color: Colors.amber,
           image: DecorationImage(
               fit: BoxFit.cover,
-              image: ExactAssetImage('assets/populars/Salade-Niçoise.jpg'))),
+              image: ExactAssetImage('assets/banner/mexican-food.png'))),
       child: MaterialButton(
         elevation: 0,
         color: Colors.transparent,
@@ -121,7 +124,7 @@ class _MainTopRestaurantState extends State<MainTopRestaurant> {
           children: <Widget>[
             Positioned(
                 bottom: -5,
-                left: MediaQuery.of(context).size.width * 0.07,
+                left: withDefaultPadding - 12,
                 child: Container(
                   width: MediaQuery.of(context).size.width -
                       (MediaQuery.of(context).size.width * 0.10) * 3,
@@ -130,8 +133,7 @@ class _MainTopRestaurantState extends State<MainTopRestaurant> {
                     color: Theme.of(context).primaryColorLight,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  margin: EdgeInsets.symmetric(
-                      vertical: MediaQuery.of(context).size.width * 0.07),
+                  margin: EdgeInsets.symmetric(vertical: withDefaultPadding),
                   child: Column(
                     children: <Widget>[
                       _cardHeader(),
