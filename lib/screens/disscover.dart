@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:fith_app__restaurant/sections/TopRestaurants.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
@@ -631,30 +632,7 @@ class _TopRestaurantsState extends State<TopRestaurants> {
   }
 
   Widget _topRestaurant() {
-    return Container(
-      margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.07),
-      width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.38,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.amber,
-          image: DecorationImage(
-              fit: BoxFit.cover,
-              image: ExactAssetImage('assets/populars/Salade-Niçoise.jpg'))),
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-              bottom: 10,
-              child: FittedBox(
-                child: Container(
-                  decoration:
-                      BoxDecoration(color: Theme.of(context).primaryColorLight),
-                  child: Text("La info"),
-                ),
-              )),
-        ],
-      ),
-    );
+    return MainTopRestaurant();
   }
 
   Widget _nextTops() {
