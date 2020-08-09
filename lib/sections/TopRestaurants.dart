@@ -106,36 +106,42 @@ class _MainTopRestaurantState extends State<MainTopRestaurant> {
     return Container(
       margin: EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.07),
       width: MediaQuery.of(context).size.width,
-      height: MediaQuery.of(context).size.height * 0.33,
+      height: MediaQuery.of(context).size.height * 0.30,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           color: Colors.amber,
           image: DecorationImage(
               fit: BoxFit.cover,
               image: ExactAssetImage('assets/populars/Salade-Niçoise.jpg'))),
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-              bottom: -5,
-              left: MediaQuery.of(context).size.width * 0.07,
-              child: Container(
-                width: MediaQuery.of(context).size.width -
-                    (MediaQuery.of(context).size.width * 0.10) * 3,
-                padding: EdgeInsets.symmetric(horizontal: 15),
-                decoration: BoxDecoration(
-                  color: Theme.of(context).primaryColorLight,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                margin: EdgeInsets.symmetric(
-                    vertical: MediaQuery.of(context).size.width * 0.07),
-                child: Column(
-                  children: <Widget>[
-                    _cardHeader(),
-                    _cardBody(),
-                  ],
-                ),
-              )),
-        ],
+      child: MaterialButton(
+        elevation: 0,
+        color: Colors.transparent,
+        splashColor: Theme.of(context).buttonColor,
+        child: Stack(
+          children: <Widget>[
+            Positioned(
+                bottom: -5,
+                left: MediaQuery.of(context).size.width * 0.07,
+                child: Container(
+                  width: MediaQuery.of(context).size.width -
+                      (MediaQuery.of(context).size.width * 0.10) * 3,
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColorLight,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  margin: EdgeInsets.symmetric(
+                      vertical: MediaQuery.of(context).size.width * 0.07),
+                  child: Column(
+                    children: <Widget>[
+                      _cardHeader(),
+                      _cardBody(),
+                    ],
+                  ),
+                )),
+          ],
+        ),
+        onPressed: () {},
       ),
     );
   }
