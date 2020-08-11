@@ -46,7 +46,6 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
               Container(
                 child:
                     HomePage(controller: _tabController, animateScreen: true),
-                //HomePage(),
               ),
               Container(
                 child: ScaffoldSearch(),

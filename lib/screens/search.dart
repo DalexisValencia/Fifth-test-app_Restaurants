@@ -51,44 +51,50 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
       children: <Widget>[
         Container(
           child: Container(
-            padding: EdgeInsets.symmetric(horizontal: withDefaultPadding - 10),
-            height: defaultHeaderCustomHeight,
-            width: totalWidth,
-            child: FixedTopHeader(),
+              padding:
+                  EdgeInsets.symmetric(horizontal: withDefaultPadding - 10),
+              height: defaultHeaderCustomHeight,
+              width: totalWidth,
+              child: Hero(
+                tag: 'mainSearch',
+                child: FixedTopHeader(),
+              )),
+        ),
+        AnimatedOpacity(
+          duration: Duration(milliseconds: 500),
+          opacity: animateOpacity ? 0 : 1,
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            height: totalHeight - (defaultHeaderCustomHeight + 90),
+            child: SingleChildScrollView(
+                child: Container(
+              width: totalWidth,
+              child: SingleChildScrollView(
+                  child: CustomContainerAnimation(
+                animationChildren: animatedChildren,
+                children: ActiveFocus(),
+              )
+                  //child: SearchScreen(animateScreen: widget.animationScreen),
+                  ),
+            )),
           ),
         ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: totalHeight - (defaultHeaderCustomHeight + 90),
-          child: SingleChildScrollView(
-              child: Container(
-            width: totalWidth,
-            child: SingleChildScrollView(
-                child: CustomContainerAnimation(
-              animationChildren: animatedChildren,
-              children: ActiveFocus(),
-            )
-                //child: SearchScreen(animateScreen: widget.animationScreen),
-                ),
-          )),
-        )
       ],
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedOpacity(
-      duration: Duration(milliseconds: 500),
-      opacity: animateOpacity ? 0 : 1,
-      child: SafeArea(
-          child: Scaffold(
-        resizeToAvoidBottomPadding: false,
-        resizeToAvoidBottomInset: false,
-        backgroundColor: Theme.of(context).primaryColorLight,
-        body: _bodyScaffold(),
-      )),
-    );
+    return SafeArea(
+        child: Scaffold(
+      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
+      backgroundColor: Theme.of(context).primaryColorLight,
+      body: _bodyScaffold(),
+      //
+    )
+        //
+        );
   }
 }
 
@@ -100,7 +106,7 @@ class FixedTopHeader extends StatefulWidget {
 
 class FixedTopHeaderState extends State<FixedTopHeader> {
   bool isFocusActive = false;
-  final _searchForm = GlobalKey<FormState>();
+  // final _searchForm = GlobalKey<FormState>();
   FocusNode _focus = new FocusNode();
 
   @override
@@ -126,8 +132,9 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
   Widget _inputSearch() {
     return Container(
         height: 40,
-        child: Form(
-          key: _searchForm,
+        child: Material(
+            child: Form(
+          // key: _searchForm,
           child: Container(
               child: TextFormField(
             onFieldSubmitted: (e) {},
@@ -150,7 +157,7 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
               disabledBorder: defaulBorderInput(),
             ),
           )),
-        ));
+        )));
   }
 
   @override
@@ -163,13 +170,12 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
           icon: Icons.arrow_back,
           color: Theme.of(context).primaryColorDark,
           bgColor: Theme.of(context).accentColor.withOpacity(.1),
-          trigger: () {},
+          trigger: () {
+            Navigator.pop(context);
+          },
         ),
         Expanded(
-          child: Hero(
-            tag: 'mainSearch',
-            child: _inputSearch(),
-          ),
+          child: _inputSearch(),
         ),
         CircleIconButton(
           icon: Icons.more_vert,

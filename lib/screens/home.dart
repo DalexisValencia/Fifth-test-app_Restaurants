@@ -7,17 +7,8 @@ import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:fith_app__restaurant/screens/search.dart';
-
-/*
 import 'package:flutter/services.dart';
-setStatusBar() {
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    // systemNavigationBarColor: Colors.white, // navigation bar color
-    statusBarColor: Colors.black, // status bar color
-  ));
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-}
-*/
+
 class HomePage extends StatefulWidget {
   final TabController controller;
   final bool animateScreen;
@@ -50,6 +41,14 @@ class _HomePageState extends State<HomePage>
     this.animationChildren = this.animateOpacity;
     super.initState();
     this.setAnimationState();
+  }
+
+  void changeSystemBarColor() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: Colors.white, // navigation bar color
+      statusBarColor: Theme.of(context).buttonColor, // status bar color
+    ));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
   }
 
   setAnimationState() {
@@ -124,12 +123,12 @@ class _HomePageState extends State<HomePage>
           decoration: BoxDecoration(
               // color: Colors.red
               ),
-          transform: Matrix4.translationValues(
-              0, -MediaQuery.of(context).size.width * 0.07, 0),
           child: Hero(
             tag: 'mainSearch',
             child: WhatAreYouLookinForForm(),
-          )),
+          )
+          // child: WhatAreYouLookinForForm(),
+          ),
     );
   }
 
@@ -137,7 +136,7 @@ class _HomePageState extends State<HomePage>
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
     return Container(
-      // color: Colors.red,
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.04),
       padding: EdgeInsets.only(
           top: MediaQuery.of(context).size.height * 0.02,
           left: withDefaultPadding,
@@ -179,9 +178,11 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    this.changeSystemBarColor();
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
-    return AnimatedOpacity(
+    return Scaffold(
+        body: AnimatedOpacity(
       opacity: animateOpacity ? 0 : 1,
       duration: Duration(milliseconds: animationOpacityTime),
       child: Container(
@@ -239,18 +240,23 @@ class _HomePageState extends State<HomePage>
           ),
           Expanded(
             // what are you looking for
-            child: Column(
-              children: <Widget>[
-                _containerSearch(),
-                CustomContainerAnimation(
-                    animationChildren: animationChildren,
-                    children: _categoryContainerSuggested())
-              ],
+            child: Container(
+              transform: Matrix4.translationValues(
+                  0, -MediaQuery.of(context).size.width * 0.07, 0),
+              // color: Colors.red,
+              child: Column(
+                children: <Widget>[
+                  _containerSearch(),
+                  CustomContainerAnimation(
+                      animationChildren: animationChildren,
+                      children: _categoryContainerSuggested())
+                ],
+              ),
             ),
           ),
         ]),
       ),
-    );
+    ));
   }
 }
 
@@ -270,9 +276,11 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
       padding: EdgeInsets.fromLTRB(14, 13, 10, 13),
       color: Theme.of(context).primaryColorLight,
       onPressed: () {
-        Navigator.of(context, rootNavigator: false).push(MaterialPageRoute(
-            builder: (context) => ScaffoldSearch(), maintainState: false));
-        // Navigator.push(context, MaterialPageRoute(builder: (context) => ScaffoldSearch()));
+        Timer(Duration(milliseconds: 250), () {
+          Navigator.push(context, MaterialPageRoute(builder: (_) {
+            return ScaffoldSearch();
+          }));
+        });
       },
       child: Row(
         children: <Widget>[
