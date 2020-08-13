@@ -120,15 +120,11 @@ class _HomePageState extends State<HomePage>
       children: Container(
           padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
           width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-              // color: Colors.red
-              ),
+          decoration: BoxDecoration(),
           child: Hero(
             tag: 'mainSearch',
             child: WhatAreYouLookinForForm(),
-          )
-          // child: WhatAreYouLookinForForm(),
-          ),
+          )),
     );
   }
 
@@ -136,7 +132,7 @@ class _HomePageState extends State<HomePage>
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
     return Container(
-      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.04),
+      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.025),
       padding: EdgeInsets.only(
           top: MediaQuery.of(context).size.height * 0.02,
           left: withDefaultPadding,

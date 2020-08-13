@@ -10,6 +10,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
+  final navigatorBloc = new BlocNavigations();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -25,8 +26,8 @@ class MyApp extends StatelessWidget {
           hoverColor: Color(0xFFFFB60E), // Amarillo,
           focusColor: Color(0xFF4F57D5), //
           highlightColor: Color(0xFFEFEEF2)),
-      home: TestBlocPattern(),
-      // home: MainScreen(),
+      // home: TestBlocPattern(),
+      home: MainScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -38,12 +39,14 @@ class TestBlocPattern extends StatefulWidget {
 }
 
 class _TestBlocPatternState extends State<TestBlocPattern> {
-  final navigatorBloc = new blocNavigations();
+  final navigatorBloc = new BlocNavigations();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SafeArea(
       child: StreamBuilder(
+        initialData: navigatorBloc.initial,
         stream: navigatorBloc.streamprevious,
         builder: (context, snapshot) {
           print(snapshot.data);

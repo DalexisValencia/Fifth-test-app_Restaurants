@@ -18,6 +18,7 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
     setState(() {
       tabStateInit = tab;
     });
+    print(tabStateInit);
   }
 
   @override
@@ -32,8 +33,7 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
     super.dispose();
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _tabsController() {
     return DefaultTabController(
       length: 5,
       child: Scaffold(
@@ -138,6 +138,38 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                           ),
                         )),
                   ]))),
+    );
+  }
+
+  Future<bool> _onWillPop() async {
+    if (tabStateInit == 0) return true;
+    _tabController.animateTo(_tabController.previousIndex);
+    return false;
+    // return (await showDialog(
+    //       context: context,
+    //       builder: (context) => new AlertDialog(
+    //         title: new Text('Are you sure?'),
+    //         content: new Text('Do you want to exit an App'),
+    //         actions: <Widget>[
+    //           new FlatButton(
+    //             onPressed: () => Navigator.of(context).pop(false),
+    //             child: new Text('No'),
+    //           ),
+    //           new FlatButton(
+    //             onPressed: () => Navigator.of(context).pop(true),
+    //             child: new Text('Yes'),
+    //           ),
+    //         ],
+    //       ),
+    //     )) ??
+    //     false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: _tabsController(),
     );
   }
 }

@@ -1,8 +1,11 @@
 import 'dart:async';
 
-class blocNavigations {
+class BlocNavigations {
+  var _initial = "leave";
+  String get initial => _initial;
+
   StreamController<String> _previousPageController =
-      new StreamController<String>();
+      new StreamController<String>.broadcast();
 
   Stream<String> get streamprevious => _previousPageController.stream;
 
