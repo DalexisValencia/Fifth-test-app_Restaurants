@@ -23,13 +23,14 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
 
   @override
   void initState() {
-    _tabController = new TabController(vsync: this, length: 5);
+    // _tabController = new TabController(vsync: this, length: 5);
     super.initState();
   }
 
   @override
   void dispose() {
     _tabController.dispose();
+    // detailBloc.close();
     super.dispose();
   }
 
@@ -170,6 +171,10 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
     return WillPopScope(
       onWillPop: _onWillPop,
       child: _tabsController(),
+      // child: BlocProvider(
+      //   create: (BuildContext context) => ProductdetailsBloc(),
+      //   child: _tabsController(),
+      // ),
     );
   }
 }

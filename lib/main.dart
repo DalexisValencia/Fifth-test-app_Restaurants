@@ -1,8 +1,6 @@
 import 'dart:async';
-import 'package:fith_app__restaurant/blocs/navigations.dart';
 import 'package:fith_app__restaurant/screens/main.tabs.dart';
 import 'package:fith_app__restaurant/screens/splashScreen.dart';
-import 'package:fith_app__restaurant/blocs/navigations.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -10,7 +8,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final navigatorBloc = new BlocNavigations();
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -26,52 +23,9 @@ class MyApp extends StatelessWidget {
           hoverColor: Color(0xFFFFB60E), // Amarillo,
           focusColor: Color(0xFF4F57D5), //
           highlightColor: Color(0xFFEFEEF2)),
-      // home: TestBlocPattern(),
       home: MainScreen(),
       debugShowCheckedModeBanner: false,
     );
-  }
-}
-
-class TestBlocPattern extends StatefulWidget {
-  @override
-  _TestBlocPatternState createState() => _TestBlocPatternState();
-}
-
-class _TestBlocPatternState extends State<TestBlocPattern> {
-  final navigatorBloc = new BlocNavigations();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: SafeArea(
-      child: StreamBuilder(
-        initialData: navigatorBloc.initial,
-        stream: navigatorBloc.streamprevious,
-        builder: (context, snapshot) {
-          print(snapshot.data);
-          return Column(
-            children: <Widget>[
-              Container(child: Text("${snapshot.data}")),
-              RaisedButton(
-                child: Text("cambiar a otro"),
-                onPressed: () {
-                  print("el click");
-                  navigatorBloc.setPreviousPage("Tab 1");
-                },
-              ),
-              RaisedButton(
-                child: Text("cambiar a otro"),
-                onPressed: () {
-                  print("el click");
-                  navigatorBloc.setPreviousPage("Tab 2");
-                },
-              )
-            ],
-          );
-        },
-      ),
-    ));
   }
 }
 

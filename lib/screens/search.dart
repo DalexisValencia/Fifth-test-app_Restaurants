@@ -9,6 +9,10 @@ import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
+// Bloc pattern:
+import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 
 class ScaffoldSearch extends StatefulWidget {
   @override
@@ -19,9 +23,11 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
   bool animatedOpacity = true;
   bool animateOpacity = true;
   bool animatedChildren = true;
+  // ProductdetailsBloc detailBloc;
   @override
   void initState() {
     super.initState();
+    // detailBloc = BlocProvider.of<ProductdetailsBloc>(context);
     this.startAnimationScreen();
   }
 
@@ -90,11 +96,20 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
       resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).primaryColorLight,
-      body: _bodyScaffold(),
+      body: BlocProvider(
+        create: (BuildContext context) => ProductdetailsBloc(),
+        child: _bodyScaffold(),
+      ),
+      // body: _bodyScaffold(),
       //
     )
         //
         );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 }
 
@@ -267,6 +282,11 @@ class _ActiveFocusState extends State<ActiveFocus> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   Widget _seeAll(title, to) {
     return Container(
       width: MediaQuery.of(context).size.width,
@@ -387,7 +407,6 @@ class _ActiveFocusState extends State<ActiveFocus> {
   Widget build(BuildContext context) {
     double totalWidth = MediaQuery.of(context).size.width;
     double withDefaultPadding = totalWidth * defaultPadding;
-    // print(MediaQuery.of(context).viewInsets.bottom);
     return Container(
       padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
       height: MediaQuery.of(context).viewInsets.bottom > 1

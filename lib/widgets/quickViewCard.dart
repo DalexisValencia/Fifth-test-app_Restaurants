@@ -1,5 +1,9 @@
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+// Bloc pattern:
+import 'package:bloc/bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 
 class QuickView extends StatefulWidget {
   @override
@@ -7,8 +11,22 @@ class QuickView extends StatefulWidget {
 }
 
 class _QuickViewState extends State<QuickView> {
+  ProductdetailsBloc blocProduct;
+  @override
+  void initState() {
+    blocProduct = BlocProvider.of<ProductdetailsBloc>(context);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    blocProduct.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // print(blocProduct);
     return Container(
       decoration: BoxDecoration(
           //   boxShadow: [
@@ -25,7 +43,10 @@ class _QuickViewState extends State<QuickView> {
           color: Theme.of(context).primaryColorLight,
           padding: EdgeInsets.all(0),
           splashColor: Colors.red,
-          onPressed: () {},
+          onPressed: () {
+            print("aqui colocamos la data");
+            blocProduct.add(ProductdetailsCurrent(product: 'detallado'));
+          },
           child: Container(
             margin: EdgeInsets.symmetric(vertical: 5),
             padding: EdgeInsets.all(15),
