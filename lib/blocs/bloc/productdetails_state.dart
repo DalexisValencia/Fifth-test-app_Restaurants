@@ -20,7 +20,7 @@ class ProductdetailsInitial extends ProductdetailsState {
 }
 
 class ProductDetailCurrent extends ProductdetailsState {
-  final product;
+  final String product;
   ProductDetailCurrent({this.product});
 
   @override

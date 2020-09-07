@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:fith_app__restaurant/Lists/menu.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/categories.dart';
 import 'package:fith_app__restaurant/sections/HomeCategoryCardSuggested.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
@@ -21,20 +21,6 @@ class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   bool animateOpacity = false;
   bool animationChildren = false;
-  List<Category> _categories = [
-    Category('Break Fast', Icons.store_mall_directory,
-        'assets/home-categories/category-1.png'),
-    Category('Food', Icons.sentiment_neutral,
-        'assets/home-categories/category-2.png'),
-    Category('Wine', Icons.sentiment_neutral,
-        'assets/home-categories/category-3.png'),
-    Category('Coffee', Icons.store_mall_directory,
-        'assets/home-categories/category-4.png'),
-    Category('Meat', Icons.sentiment_neutral,
-        'assets/home-categories/category-5.png'),
-    Category('Beer', Icons.sentiment_neutral,
-        'assets/home-categories/category-6.png'),
-  ];
   @override
   void initState() {
     this.animateOpacity = widget.animateScreen;
@@ -141,7 +127,7 @@ class _HomePageState extends State<HomePage>
       height: MediaQuery.of(context).size.height * 0.35,
       child: Builder(builder: (BuildContext context) {
         List<Widget> _categoriesCard = [];
-        _categories.asMap().entries.map((item) {
+        categories.asMap().entries.map((item) {
           _categoriesCard.add(
             Container(
               decoration: BoxDecoration(

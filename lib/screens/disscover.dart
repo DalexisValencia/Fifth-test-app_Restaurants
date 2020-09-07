@@ -655,7 +655,8 @@ class _TopRestaurantsState extends State<TopRestaurants> {
   }
 
   Widget _cardNextTops() {
-    return QuickView();
+    return Text("building..");
+    // return QuickView();
   }
 
   @override

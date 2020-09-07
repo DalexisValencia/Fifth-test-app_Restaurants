@@ -10,7 +10,7 @@ import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 // Bloc pattern:
-import 'package:bloc/bloc.dart';
+// import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 
@@ -77,9 +77,9 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
               width: totalWidth,
               child: SingleChildScrollView(
                   child: CustomContainerAnimation(
-                animationChildren: animatedChildren,
-                children: ActiveFocus(),
-              )
+                      animationChildren: animatedChildren,
+                      // children: ActiveFocus(),
+                      children: SearchScreen(animateScreen: animatedChildren))
                   //child: SearchScreen(animateScreen: widget.animationScreen),
                   ),
             )),

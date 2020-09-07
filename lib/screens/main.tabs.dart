@@ -23,7 +23,7 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
 
   @override
   void initState() {
-    // _tabController = new TabController(vsync: this, length: 5);
+    _tabController = new TabController(vsync: this, length: 5);
     super.initState();
   }
 

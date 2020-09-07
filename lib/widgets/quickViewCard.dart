@@ -1,3 +1,4 @@
+import 'package:fith_app__restaurant/screens/details.dart';
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,6 +47,13 @@ class _QuickViewState extends State<QuickView> {
           onPressed: () {
             print("aqui colocamos la data");
             blocProduct.add(ProductdetailsCurrent(product: 'detallado'));
+            Navigator.of(context)
+                .push(MaterialPageRoute<ProductdetailsBloc>(builder: (context) {
+              return BlocProvider.value(
+                value: blocProduct,
+                child: DetailsWrapper(),
+              );
+            }));
           },
           child: Container(
             margin: EdgeInsets.symmetric(vertical: 5),

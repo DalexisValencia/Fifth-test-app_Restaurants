@@ -19,10 +19,9 @@ class _HomeCardCategorySuggestedState extends State<HomeCardCategorySuggested> {
     return RaisedButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       onPressed: () {
-        Timer(Duration(
-          milliseconds: 200
-        ), (){
-          widget.controller.animateTo(4);
+        Timer(Duration(milliseconds: 200), () {
+          print(widget.category.name);
+          // widget.controller.animateTo(4);
         });
       },
       color: Theme.of(context).primaryColorLight,
