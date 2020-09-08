@@ -45,15 +45,14 @@ class _QuickViewState extends State<QuickView> {
           padding: EdgeInsets.all(0),
           splashColor: Colors.red,
           onPressed: () {
-            print("aqui colocamos la data");
-            blocProduct.add(ProductdetailsCurrent(product: 'detallado'));
-            Navigator.of(context)
-                .push(MaterialPageRoute<ProductdetailsBloc>(builder: (context) {
-              return BlocProvider.value(
-                value: blocProduct,
-                child: DetailsWrapper(),
-              );
-            }));
+            // blocProduct.add(ProductdetailsCurrent(product: 'detallado'));
+            // Navigator.of(context)
+            //     .push(MaterialPageRoute<ProductdetailsBloc>(builder: (context) {
+            //   return BlocProvider.value(
+            //     value: blocProduct,
+            //     child: DetailsWrapper(),
+            //   );
+            // }));
           },
           child: Container(
             margin: EdgeInsets.symmetric(vertical: 5),

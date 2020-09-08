@@ -1,9 +1,11 @@
+import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 import 'package:fith_app__restaurant/screens/disscover.dart';
 import 'package:fith_app__restaurant/screens/home.dart';
 import 'package:fith_app__restaurant/screens/plate.detail.dart';
 import 'package:fith_app__restaurant/screens/restaurant.details.dart';
 import 'package:fith_app__restaurant/screens/search.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainTabsWrapper extends StatefulWidget {
   @override
@@ -40,28 +42,30 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
       child: Scaffold(
           resizeToAvoidBottomPadding: false, //avoid flutter ugly alert
           backgroundColor: Theme.of(context).primaryColorLight,
-          body: TabBarView(
-            controller: _tabController,
-            physics: NeverScrollableScrollPhysics(),
-            children: <Widget>[
-              Container(
-                child:
-                    HomePage(controller: _tabController, animateScreen: true),
-              ),
-              Container(
-                child: ScaffoldSearch(),
-              ),
-              Container(
-                child: RestaurantDetailWrapper(),
-              ),
-              Container(
-                child: PlateDetailWrapper(),
-              ),
-              Container(
-                child: DiscoverScaffold(),
-              )
-            ],
-          ),
+          body: BlocProvider(
+              create: (BuildContext context) => ProductdetailsBloc(),
+              child: TabBarView(
+                controller: _tabController,
+                physics: NeverScrollableScrollPhysics(),
+                children: <Widget>[
+                  Container(
+                    child: HomePage(
+                        controller: _tabController, animateScreen: true),
+                  ),
+                  Container(
+                    child: ScaffoldSearch(),
+                  ),
+                  Container(
+                    child: RestaurantDetailWrapper(),
+                  ),
+                  Container(
+                    child: PlateDetailWrapper(),
+                  ),
+                  Container(
+                    child: DiscoverScaffold(),
+                  )
+                ],
+              )),
           bottomNavigationBar: Container(
               color: Colors.white,
               height: 60,

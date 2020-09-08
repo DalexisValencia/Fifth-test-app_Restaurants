@@ -1,12 +1,14 @@
 import 'dart:async';
 
+import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/sections/TopRestaurants.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
-import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
+// import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DiscoverScaffold extends StatefulWidget {
   @override
@@ -14,112 +16,137 @@ class DiscoverScaffold extends StatefulWidget {
 }
 
 class _DiscoverScaffoldState extends State<DiscoverScaffold> {
-  double heightAppBar = 55;
-  bool animatedOpacity = true;
-  bool animationChildren = true;
-  _changeStatusBarThemeColor() {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      // systemNavigationBarColor: Colors.white, // navigation bar color
-      statusBarColor: Theme.of(context).primaryColorLight, // status bar color
-    ));
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-  }
-
-  @override
-  initState() {
-    super.initState();
-    this.startAnimationScreen();
-  }
-
-  startAnimationScreen() {
-    Timer(Duration(milliseconds: animationStartTime), () {
-      setState(() {
-        animatedOpacity = false;
-      });
-      startAnimationChildren();
-    });
-  }
-
-  startAnimationChildren() {
-    Timer(Duration(milliseconds: animationStartTime), () {
-      setState(() {
-        animationChildren = false;
-      });
-    });
-  }
-
-  Widget _screenTitle() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.015,
-        left: MediaQuery.of(context).size.width * 0.07,
-        right: MediaQuery.of(context).size.width * 0.07,
-        bottom: MediaQuery.of(context).size.height * 0.015,
-      ),
-      child: Text(
-        "Discovery",
-        textAlign: TextAlign.left,
-        style: Theme.of(context).textTheme.headline4.copyWith(
-            color: Theme.of(context).primaryColorDark,
-            fontWeight: FontWeight.w600),
-      ),
-    );
-  }
-
-  Widget _nearYouContainer() {
-    return NearYou();
-  }
-
-  Widget _newLaunch() {
-    return NewLaunch();
-  }
-
-  Widget _topRestaurants() {
-    return TopRestaurants();
-  }
-
   @override
   Widget build(BuildContext context) {
-    _changeStatusBarThemeColor();
-    return SafeArea(
-      child: AnimatedOpacity(
-        duration: Duration(milliseconds: animationOpacityTime),
-        opacity: animatedOpacity ? 0 : 1,
-        child: CustomContainerAnimation(
-          animationChildren: animationChildren,
-          children: Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: Stack(
-              children: <Widget>[
-                Container(
-                    padding: EdgeInsets.only(top: heightAppBar),
-                    color: Theme.of(context).primaryColorLight,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: <Widget>[
-                          _screenTitle(),
-                          _nearYouContainer(),
-                          _newLaunch(),
-                          _topRestaurants()
-                        ],
-                      ),
-                    )),
-                Positioned(
-                  top: 0,
-                  child: MainTopHeader(myheight: heightAppBar),
-                ),
-              ],
-            ),
-          ),
+    return Scaffold(
+      body: Container(
+        // child: Text("elemento basico"),
+        child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
+          builder: (context, state) {
+            // print(state.props);
+            // print("arriba!");
+            return Center(
+              child: Text("${state.props}"),
+            );
+          },
         ),
       ),
     );
   }
 }
+
+// class DiscoverScaffold extends StatefulWidget {
+//   @override
+//   _DiscoverScaffoldState createState() => _DiscoverScaffoldState();
+// }
+
+// class _DiscoverScaffoldState extends State<DiscoverScaffold> {
+//   double heightAppBar = 55;
+//   bool animatedOpacity = true;
+//   bool animationChildren = true;
+//   _changeStatusBarThemeColor() {
+//     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+//       // systemNavigationBarColor: Colors.white, // navigation bar color
+//       statusBarColor: Theme.of(context).primaryColorLight, // status bar color
+//     ));
+//     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+//   }
+
+//   @override
+//   initState() {
+//     super.initState();
+//     this.startAnimationScreen();
+//   }
+
+//   startAnimationScreen() {
+//     Timer(Duration(milliseconds: animationStartTime), () {
+//       setState(() {
+//         animatedOpacity = false;
+//       });
+//       startAnimationChildren();
+//     });
+//   }
+
+//   startAnimationChildren() {
+//     Timer(Duration(milliseconds: animationStartTime), () {
+//       setState(() {
+//         animationChildren = false;
+//       });
+//     });
+//   }
+
+//   Widget _screenTitle() {
+//     return Container(
+//       width: MediaQuery.of(context).size.width,
+//       padding: EdgeInsets.only(
+//         top: MediaQuery.of(context).size.height * 0.015,
+//         left: MediaQuery.of(context).size.width * 0.07,
+//         right: MediaQuery.of(context).size.width * 0.07,
+//         bottom: MediaQuery.of(context).size.height * 0.015,
+//       ),
+//       child: Text(
+//         "Discovery",
+//         textAlign: TextAlign.left,
+//         style: Theme.of(context).textTheme.headline4.copyWith(
+//             color: Theme.of(context).primaryColorDark,
+//             fontWeight: FontWeight.w600),
+//       ),
+//     );
+//   }
+
+//   Widget _nearYouContainer() {
+//     return NearYou();
+//   }
+
+//   Widget _newLaunch() {
+//     return NewLaunch();
+//   }
+
+//   Widget _topRestaurants() {
+//     return TopRestaurants();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     _changeStatusBarThemeColor();
+//     return SafeArea(
+//       child: AnimatedOpacity(
+//         duration: Duration(milliseconds: animationOpacityTime),
+//         opacity: animatedOpacity ? 0 : 1,
+//         child: CustomContainerAnimation(
+//           animationChildren: animationChildren,
+//           children: Container(
+//             height: MediaQuery.of(context).size.height,
+//             width: MediaQuery.of(context).size.width,
+//             child: Stack(
+//               children: <Widget>[
+//                 Container(
+//                     padding: EdgeInsets.only(top: heightAppBar),
+//                     color: Theme.of(context).primaryColorLight,
+//                     width: MediaQuery.of(context).size.width,
+//                     height: MediaQuery.of(context).size.height,
+//                     child: SingleChildScrollView(
+//                       child: Column(
+//                         children: <Widget>[
+//                           _screenTitle(),
+//                           _nearYouContainer(),
+//                           _newLaunch(),
+//                           _topRestaurants()
+//                         ],
+//                       ),
+//                     )),
+//                 Positioned(
+//                   top: 0,
+//                   child: MainTopHeader(myheight: heightAppBar),
+//                 ),
+//               ],
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class MainTopHeader extends StatefulWidget {
   final double myheight;

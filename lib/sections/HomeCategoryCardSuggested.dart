@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/categories.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomeCardCategorySuggested extends StatefulWidget {
   final Category category;
@@ -14,14 +16,27 @@ class HomeCardCategorySuggested extends StatefulWidget {
 }
 
 class _HomeCardCategorySuggestedState extends State<HomeCardCategorySuggested> {
+  ProductdetailsBloc blocProduct;
+  @override
+  void initState() {
+    blocProduct = BlocProvider.of<ProductdetailsBloc>(context);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    blocProduct.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       onPressed: () {
         Timer(Duration(milliseconds: 200), () {
-          print(widget.category.name);
-          // widget.controller.animateTo(4);
+          blocProduct.add(ProductdetailsCurrent(product: widget.category.name));
+          widget.controller.animateTo(4);
         });
       },
       color: Theme.of(context).primaryColorLight,
