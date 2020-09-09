@@ -6,6 +6,7 @@ import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Discovery.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
+import 'package:fith_app__restaurant/sections/NearYouCard.dart';
 import 'package:fith_app__restaurant/sections/TopRestaurants.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 // import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
@@ -214,7 +215,6 @@ class _NearYouState extends State<NearYou> {
 
   Widget _suggestions() {
     return Container(
-      // color: Colors.amber,
       height: 160,
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
@@ -222,96 +222,16 @@ class _NearYouState extends State<NearYou> {
           scrollDirection: Axis.horizontal,
           itemCount: widget.nearYou.length,
           itemBuilder: (BuildContext context, int index) {
-            return _suggestionsCards(index);
+            return NearYouCard(
+              dish: widget.nearYou[index],
+              index: index,
+            );
           }),
-    );
-  }
-
-  Widget _suggestionsCards(index) {
-    return Container(
-      // color: Colors.red,
-      margin: EdgeInsets.only(
-          right: index < 9 ? MediaQuery.of(context).size.width * 0.04 : 5),
-      width: MediaQuery.of(context).size.width / 2.6,
-      child: Column(
-        children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width / 2.6,
-            height: 110,
-            decoration: BoxDecoration(
-                // color: Colors.amberAccent,
-                borderRadius: BorderRadius.circular(15),
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: ExactAssetImage('assets/banner/sould-food.png'))),
-            child: Stack(
-              children: <Widget>[
-                Positioned(
-                  top: 10,
-                  right: 10,
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.4),
-                        borderRadius: BorderRadius.circular(15)),
-                    padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-                    child: Row(
-                      children: <Widget>[
-                        Icon(
-                          Icons.star,
-                          color: Theme.of(context).primaryColorLight,
-                          size: 11,
-                        ),
-                        Text(
-                          "4.8",
-                          style: Theme.of(context).textTheme.caption.copyWith(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 11,
-                              color: Theme.of(context).primaryColorLight),
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width / 2.6,
-            padding: EdgeInsets.only(top: 6),
-            child: Column(
-              // mainAxisAlignment: ,
-              // mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  'House of blues',
-                  textAlign: TextAlign.start,
-                  style: Theme.of(context).textTheme.caption.copyWith(
-                      color: Theme.of(context).primaryColorDark,
-                      fontWeight: FontWeight.w700),
-                ),
-                FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      'detail product small text',
-                      style: Theme.of(context).textTheme.caption.copyWith(
-                          wordSpacing: 0.5,
-                          fontSize: 10,
-                          fontWeight: FontWeight.w400,
-                          color: Theme.of(context).primaryColor),
-                    ))
-              ],
-            ),
-          )
-        ],
-      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    // print("NearYou");
-    // print(widget.nearYou);
     return Column(
       children: <Widget>[_header(), _suggestions()],
     );
