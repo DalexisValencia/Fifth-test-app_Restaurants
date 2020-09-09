@@ -4,5 +4,5 @@ class Category {
   String name;
   IconData icon;
   String iconSource;
-  Category(this.name, this.icon, this.iconSource);
+  Category({this.name, this.icon, this.iconSource});
 }

@@ -21,7 +21,7 @@ class Restaurants {
   final List<ContactMeans> contact;
   final List<Comments> comments;
   final String schedule;
-  final List<Category> categories;
+  final List<String> categories;
 
   Restaurants(
       {this.name,

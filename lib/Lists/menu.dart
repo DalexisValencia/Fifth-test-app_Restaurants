@@ -6,18 +6,30 @@ import 'package:fith_app__restaurant/interfaces/categories.dart';
 import 'package:flutter/material.dart';
 
 List<Category> categories = [
-  Category('Break Fast', Icons.store_mall_directory,
-      'assets/home-categories/category-1.png'),
   Category(
-      'Food', Icons.sentiment_neutral, 'assets/home-categories/category-2.png'),
+      name: 'Break Fast',
+      icon: Icons.store_mall_directory,
+      iconSource: 'assets/home-categories/category-1.png'),
   Category(
-      'Wine', Icons.sentiment_neutral, 'assets/home-categories/category-3.png'),
-  Category('Coffee', Icons.store_mall_directory,
-      'assets/home-categories/category-4.png'),
+      name: 'Food',
+      icon: Icons.sentiment_neutral,
+      iconSource: 'assets/home-categories/category-2.png'),
   Category(
-      'Meat', Icons.sentiment_neutral, 'assets/home-categories/category-5.png'),
+      name: 'Wine',
+      icon: Icons.sentiment_neutral,
+      iconSource: 'assets/home-categories/category-3.png'),
   Category(
-      'Beer', Icons.sentiment_neutral, 'assets/home-categories/category-6.png'),
+      name: 'Coffee',
+      icon: Icons.store_mall_directory,
+      iconSource: 'assets/home-categories/category-4.png'),
+  Category(
+      name: 'Meat',
+      icon: Icons.sentiment_neutral,
+      iconSource: 'assets/home-categories/category-5.png'),
+  Category(
+      name: 'Beer',
+      icon: Icons.sentiment_neutral,
+      iconSource: 'assets/home-categories/category-6.png'),
 ];
 
 List<Dishes> dishes = [
@@ -37,7 +49,7 @@ List<Dishes> dishes = [
           image: '',
         )
       ],
-      category: [categories[0], categories[2]],
+      category: [categories[0].name, categories[2].name],
       promotion: true,
       pricePromotions: [10000, 20000, 30000]
       //
@@ -58,7 +70,7 @@ List<Dishes> dishes = [
           image: '',
         )
       ],
-      category: [categories[1], categories[3]],
+      category: [categories[1].name, categories[3].name],
       promotion: true,
       pricePromotions: []
       //
@@ -79,7 +91,12 @@ List<Dishes> dishes = [
           image: '',
         )
       ],
-      category: [categories[0], categories[1], categories[2], categories[3]],
+      category: [
+        categories[0].name,
+        categories[1].name,
+        categories[2].name,
+        categories[3].name
+      ],
       promotion: true,
       pricePromotions: []
       //
@@ -119,7 +136,12 @@ List<Restaurants> restaurants = [
       )
     ],
     schedule: '8:00am to 9:00pm',
-    categories: [categories[0], categories[1], categories[2], categories[3]],
+    categories: [
+      categories[0].name,
+      categories[1].name,
+      categories[2].name,
+      categories[3].name
+    ],
     //
   ),
   Restaurants(
@@ -149,7 +171,7 @@ List<Restaurants> restaurants = [
       ),
     ],
     schedule: '8:00am to 9:00pm',
-    categories: [categories[0], categories[3]],
+    categories: [categories[0].name, categories[3].name],
     //
   ),
   Restaurants(
@@ -179,7 +201,7 @@ List<Restaurants> restaurants = [
       ),
     ],
     schedule: '8:00am to 9:00pm',
-    categories: [categories[0], categories[2]],
+    categories: [categories[0].name, categories[2].name],
     //
   )
 ];

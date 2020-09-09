@@ -24,11 +24,11 @@ class _HomeCardCategorySuggestedState extends State<HomeCardCategorySuggested> {
     super.initState();
   }
 
-  @override
-  void dispose() {
-    blocDiscovery.close();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   blocDiscovery.close();
+  //   super.dispose();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +38,8 @@ class _HomeCardCategorySuggestedState extends State<HomeCardCategorySuggested> {
         Timer(Duration(milliseconds: 200), () {
           blocDiscovery.add(DiscoveryStart(category: widget.category.name));
           widget.controller.animateTo(4);
+          // Timer(Duration(seconds: 8), () {
+          // });
         });
       },
       color: Theme.of(context).primaryColorLight,

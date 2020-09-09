@@ -36,11 +36,12 @@ expampleTest(name) {
   // print(dishes);
   var paltes = dishes.where((item) {
     // print(item.category.where((category) => category.name == name));
-    var ixis = item.category.where((category) {
-      return category.name == name;
-    }).toList();
-    // print(ixis.length);
-    return ixis.length == 1; //item.category.contains(name);
+    // var ixis = item.category.where((category) {
+    //   return category.name == name;
+    // }).toList();
+    // // print(ixis.length);
+    // return ixis.length == 1; //item.category.contains(name);
+    return true;
   }).toList();
   print(paltes);
   // var dishesFinales = dishes.where((element) {

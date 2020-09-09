@@ -9,7 +9,7 @@ class Dishes {
   final double rating;
   final String preparation;
   final List<Comments> comments;
-  final List<Category> category;
+  final List<String> category;
   final bool promotion;
   final List<double>
       pricePromotions; // Por ahora solo tres precios por promocion

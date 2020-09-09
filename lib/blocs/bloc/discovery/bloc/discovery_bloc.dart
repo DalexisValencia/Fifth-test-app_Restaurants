@@ -25,28 +25,19 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
 }
 
 completeDiscovery(name) {
-  List<Dishes> platos = dishes.where((item) {
-    var ixis = item.category.where((category) {
-      return category.name == name;
-    }).toList();
-    return ixis.length == 1; //item.category.contains(name);
+  List<Dishes> platos = dishes.where((dish) {
+    return dish.category.indexOf(name) != -1;
   }).toList();
 
-  List<Restaurants> restaurantes = restaurants
-    ..where((item) {
-      var ixis = item.categories.where((category) {
-        return category.name == name;
-      }).toList();
-      return ixis.length == 1; //item.category.contains(name);
-    }).toList();
+  List<Restaurants> resta = restaurants.where((item) {
+    return item.categories.indexOf(name) != -1;
+  }).toList();
   Discovery discoveryView = Discovery(
     name: name,
-    popular: platos,
-    newLaunch: [],
-    restaurants: restaurantes,
+    near: platos,
+    newLaunch: dishes,
+    restaurants: resta,
   );
 
   return discoveryView;
-
-  // print(discoveryView);
 }

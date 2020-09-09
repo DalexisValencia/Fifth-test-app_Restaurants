@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:fith_app__restaurant/interfaces/Discovery.dart';
+import 'package:fith_app__restaurant/interfaces/Dishes.dart';
+import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
 import 'package:fith_app__restaurant/sections/TopRestaurants.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 // import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
@@ -17,134 +20,115 @@ class DiscoverScaffold extends StatefulWidget {
 }
 
 class _DiscoverScaffoldState extends State<DiscoverScaffold> {
+  double heightAppBar = 55;
+  bool animatedOpacity = true;
+  bool animationChildren = true;
+  _changeStatusBarThemeColor() {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      // systemNavigationBarColor: Colors.white, // navigation bar color
+      statusBarColor: Theme.of(context).primaryColorLight, // status bar color
+    ));
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+  }
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: BlocBuilder<DiscoveryBloc, DiscoveryState>(
-          builder: (context, state) {
-            return Center(
-              child: Text("${state.props}"),
-            );
-          },
-        ),
+  initState() {
+    super.initState();
+    this.startAnimationScreen();
+  }
+
+  startAnimationScreen() {
+    Timer(Duration(milliseconds: animationStartTime), () {
+      setState(() {
+        animatedOpacity = false;
+      });
+      startAnimationChildren();
+    });
+  }
+
+  startAnimationChildren() {
+    Timer(Duration(milliseconds: animationStartTime), () {
+      setState(() {
+        animationChildren = false;
+      });
+    });
+  }
+
+  Widget _screenTitle(name) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.only(
+        top: MediaQuery.of(context).size.height * 0.015,
+        left: MediaQuery.of(context).size.width * 0.07,
+        right: MediaQuery.of(context).size.width * 0.07,
+        bottom: MediaQuery.of(context).size.height * 0.015,
+      ),
+      child: Text(
+        name.toString().toUpperCase(),
+        textAlign: TextAlign.left,
+        style: Theme.of(context).textTheme.headline4.copyWith(
+            color: Theme.of(context).primaryColorDark,
+            fontWeight: FontWeight.w600),
       ),
     );
   }
+
+  Widget _nearYouContainer(nearYou) {
+    return NearYou(nearYou: nearYou);
+  }
+
+  Widget _newLaunch(List<Dishes> recents) {
+    return NewLaunch(newLaunched: recents);
+  }
+
+  Widget _topRestaurants(List<Restaurants> restaurants) {
+    return TopRestaurants(restaurants: restaurants);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    _changeStatusBarThemeColor();
+    return SafeArea(child: BlocBuilder<DiscoveryBloc, DiscoveryState>(
+      builder: (BuildContext context, state) {
+        Discovery discoveryPropsBloc = state.props[0];
+        return AnimatedOpacity(
+          duration: Duration(milliseconds: animationOpacityTime),
+          opacity: animatedOpacity ? 0 : 1,
+          child: CustomContainerAnimation(
+            animationChildren: animationChildren,
+            children: Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: Stack(
+                children: <Widget>[
+                  Container(
+                      padding: EdgeInsets.only(top: heightAppBar),
+                      color: Theme.of(context).primaryColorLight,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: <Widget>[
+                            _screenTitle(discoveryPropsBloc.name),
+                            _nearYouContainer(discoveryPropsBloc.near),
+                            // _newLaunch(discoveryPropsBloc.newLaunch),
+                            // _topRestaurants(discoveryPropsBloc.restaurants)
+                          ],
+                        ),
+                      )),
+                  Positioned(
+                    top: 0,
+                    child: MainTopHeader(myheight: heightAppBar),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    ));
+  }
 }
-
-// class DiscoverScaffold extends StatefulWidget {
-//   @override
-//   _DiscoverScaffoldState createState() => _DiscoverScaffoldState();
-// }
-
-// class _DiscoverScaffoldState extends State<DiscoverScaffold> {
-//   double heightAppBar = 55;
-//   bool animatedOpacity = true;
-//   bool animationChildren = true;
-//   _changeStatusBarThemeColor() {
-//     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-//       // systemNavigationBarColor: Colors.white, // navigation bar color
-//       statusBarColor: Theme.of(context).primaryColorLight, // status bar color
-//     ));
-//     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-//   }
-
-//   @override
-//   initState() {
-//     super.initState();
-//     this.startAnimationScreen();
-//   }
-
-//   startAnimationScreen() {
-//     Timer(Duration(milliseconds: animationStartTime), () {
-//       setState(() {
-//         animatedOpacity = false;
-//       });
-//       startAnimationChildren();
-//     });
-//   }
-
-//   startAnimationChildren() {
-//     Timer(Duration(milliseconds: animationStartTime), () {
-//       setState(() {
-//         animationChildren = false;
-//       });
-//     });
-//   }
-
-//   Widget _screenTitle() {
-//     return Container(
-//       width: MediaQuery.of(context).size.width,
-//       padding: EdgeInsets.only(
-//         top: MediaQuery.of(context).size.height * 0.015,
-//         left: MediaQuery.of(context).size.width * 0.07,
-//         right: MediaQuery.of(context).size.width * 0.07,
-//         bottom: MediaQuery.of(context).size.height * 0.015,
-//       ),
-//       child: Text(
-//         "Discovery",
-//         textAlign: TextAlign.left,
-//         style: Theme.of(context).textTheme.headline4.copyWith(
-//             color: Theme.of(context).primaryColorDark,
-//             fontWeight: FontWeight.w600),
-//       ),
-//     );
-//   }
-
-//   Widget _nearYouContainer() {
-//     return NearYou();
-//   }
-
-//   Widget _newLaunch() {
-//     return NewLaunch();
-//   }
-
-//   Widget _topRestaurants() {
-//     return TopRestaurants();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     _changeStatusBarThemeColor();
-//     return SafeArea(
-//       child: AnimatedOpacity(
-//         duration: Duration(milliseconds: animationOpacityTime),
-//         opacity: animatedOpacity ? 0 : 1,
-//         child: CustomContainerAnimation(
-//           animationChildren: animationChildren,
-//           children: Container(
-//             height: MediaQuery.of(context).size.height,
-//             width: MediaQuery.of(context).size.width,
-//             child: Stack(
-//               children: <Widget>[
-//                 Container(
-//                     padding: EdgeInsets.only(top: heightAppBar),
-//                     color: Theme.of(context).primaryColorLight,
-//                     width: MediaQuery.of(context).size.width,
-//                     height: MediaQuery.of(context).size.height,
-//                     child: SingleChildScrollView(
-//                       child: Column(
-//                         children: <Widget>[
-//                           _screenTitle(),
-//                           _nearYouContainer(),
-//                           _newLaunch(),
-//                           _topRestaurants()
-//                         ],
-//                       ),
-//                     )),
-//                 Positioned(
-//                   top: 0,
-//                   child: MainTopHeader(myheight: heightAppBar),
-//                 ),
-//               ],
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class MainTopHeader extends StatefulWidget {
   final double myheight;
@@ -185,6 +169,8 @@ class _MainTopHeaderState extends State<MainTopHeader> {
 }
 
 class NearYou extends StatefulWidget {
+  final List<Dishes> nearYou;
+  NearYou({this.nearYou});
   @override
   _NearYouState createState() => _NearYouState();
 }
@@ -234,7 +220,7 @@ class _NearYouState extends State<NearYou> {
       padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: 10,
+          itemCount: widget.nearYou.length,
           itemBuilder: (BuildContext context, int index) {
             return _suggestionsCards(index);
           }),
@@ -324,6 +310,8 @@ class _NearYouState extends State<NearYou> {
 
   @override
   Widget build(BuildContext context) {
+    // print("NearYou");
+    // print(widget.nearYou);
     return Column(
       children: <Widget>[_header(), _suggestions()],
     );
@@ -331,6 +319,8 @@ class _NearYouState extends State<NearYou> {
 }
 
 class NewLaunch extends StatefulWidget {
+  final List<Dishes> newLaunched;
+  NewLaunch({this.newLaunched});
   @override
   _NewLaunchState createState() => _NewLaunchState();
 }
@@ -379,6 +369,8 @@ class _NewLaunchState extends State<NewLaunch> {
 
   @override
   Widget build(BuildContext context) {
+    print('Launched');
+    print(widget.newLaunched);
     return Container(
       child: Column(
         children: <Widget>[_header(), _newLauchContainer()],
@@ -617,6 +609,8 @@ class _NewLaunchedWrapperState extends State<NewLaunchedWrapper> {
 }
 
 class TopRestaurants extends StatefulWidget {
+  final List<Restaurants> restaurants;
+  TopRestaurants({this.restaurants});
   @override
   _TopRestaurantsState createState() => _TopRestaurantsState();
 }
@@ -686,6 +680,7 @@ class _TopRestaurantsState extends State<TopRestaurants> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.restaurants);
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
