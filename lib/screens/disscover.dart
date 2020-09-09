@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/sections/TopRestaurants.dart';
@@ -20,11 +21,8 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        // child: Text("elemento basico"),
-        child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
+        child: BlocBuilder<DiscoveryBloc, DiscoveryState>(
           builder: (context, state) {
-            // print(state.props);
-            // print("arriba!");
             return Center(
               child: Text("${state.props}"),
             );

@@ -1,4 +1,4 @@
-import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/screens/disscover.dart';
 import 'package:fith_app__restaurant/screens/home.dart';
 import 'package:fith_app__restaurant/screens/plate.detail.dart';
@@ -43,7 +43,7 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
           resizeToAvoidBottomPadding: false, //avoid flutter ugly alert
           backgroundColor: Theme.of(context).primaryColorLight,
           body: BlocProvider(
-              create: (BuildContext context) => ProductdetailsBloc(),
+              create: (BuildContext context) => DiscoveryBloc(),
               child: TabBarView(
                 controller: _tabController,
                 physics: NeverScrollableScrollPhysics(),

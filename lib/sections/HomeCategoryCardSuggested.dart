@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/categories.dart';
 import 'package:flutter/material.dart';
@@ -16,16 +17,16 @@ class HomeCardCategorySuggested extends StatefulWidget {
 }
 
 class _HomeCardCategorySuggestedState extends State<HomeCardCategorySuggested> {
-  ProductdetailsBloc blocProduct;
+  DiscoveryBloc blocDiscovery;
   @override
   void initState() {
-    blocProduct = BlocProvider.of<ProductdetailsBloc>(context);
+    blocDiscovery = BlocProvider.of<DiscoveryBloc>(context);
     super.initState();
   }
 
   @override
   void dispose() {
-    blocProduct.close();
+    blocDiscovery.close();
     super.dispose();
   }
 
@@ -35,7 +36,7 @@ class _HomeCardCategorySuggestedState extends State<HomeCardCategorySuggested> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
       onPressed: () {
         Timer(Duration(milliseconds: 200), () {
-          blocProduct.add(ProductdetailsCurrent(product: widget.category.name));
+          blocDiscovery.add(DiscoveryStart(category: widget.category.name));
           widget.controller.animateTo(4);
         });
       },
