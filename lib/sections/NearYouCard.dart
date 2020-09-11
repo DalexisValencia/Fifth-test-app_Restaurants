@@ -8,16 +8,19 @@ class NearYouCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        // color: Colors.red,
         margin: EdgeInsets.only(
             right: index < 9 ? MediaQuery.of(context).size.width * 0.04 : 5),
         width: MediaQuery.of(context).size.width / 2.6,
         child: RaisedButton(
           elevation: 0,
-          padding: EdgeInsets.symmetric(horizontal: 3),
           onPressed: () {
-            print("info");
+            print(dish);
           },
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+          // padding: EdgeInsets.symmetric(horizontal: 3),
+          padding: EdgeInsets.all(0),
           color: Theme.of(context).primaryColorLight,
           splashColor: Colors.red,
           child: Column(
@@ -70,7 +73,7 @@ class NearYouCard extends StatelessWidget {
               ),
               Container(
                 width: MediaQuery.of(context).size.width / 2.6,
-                padding: EdgeInsets.only(top: 6),
+                padding: EdgeInsets.only(top: 6, left: 6),
                 child: Column(
                   // mainAxisAlignment: ,
                   // mainAxisAlignment: MainAxisAlignment.start,
@@ -86,7 +89,8 @@ class NearYouCard extends StatelessWidget {
                     FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Text(
-                          'detail product small text',
+                          dish.details.substring(1, 25) + '...',
+                          // 'detail product small text',
                           style: Theme.of(context).textTheme.caption.copyWith(
                               wordSpacing: 0.5,
                               fontSize: 10,
