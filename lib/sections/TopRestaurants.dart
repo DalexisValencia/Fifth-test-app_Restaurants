@@ -1,13 +1,45 @@
 import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
+import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
+import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
+import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:flutter/material.dart';
 
 class MainTopRestaurant extends StatefulWidget {
+  final Restaurants restaurant;
+  MainTopRestaurant({this.restaurant});
   @override
   _MainTopRestaurantState createState() => _MainTopRestaurantState();
 }
 
 class _MainTopRestaurantState extends State<MainTopRestaurant> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        margin: EdgeInsets.only(bottom: 10),
+        child: Column(
+          children: <Widget>[
+            RestaurantTopSummary(resturant: widget.restaurant),
+            FullSectionTitle(
+              title: 'Related in restaurant_name',
+              rightContainer:
+                  RoundedCustomButton(title: 'See all', callPressed: () {}),
+            ),
+            RelatedProductsInThisRestaurant()
+          ],
+        ));
+  }
+}
+
+class RestaurantTopSummary extends StatefulWidget {
+  final Restaurants resturant;
+  RestaurantTopSummary({this.resturant});
+  @override
+  _RestaurantTopSummaryState createState() => _RestaurantTopSummaryState();
+}
+
+class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
   Widget _cardHeader() {
     return Container(
       decoration: BoxDecoration(
@@ -28,7 +60,7 @@ class _MainTopRestaurantState extends State<MainTopRestaurant> {
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        'House of Blues san diego',
+                        widget.resturant.name,
                         style: Theme.of(context).textTheme.subtitle1.copyWith(
                             color: Theme.of(context).primaryColorDark,
                             fontSize: 14,
@@ -38,7 +70,7 @@ class _MainTopRestaurantState extends State<MainTopRestaurant> {
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        'address direction or description',
+                        widget.resturant.description.substring(0, 20) + "...",
                         style: Theme.of(context).textTheme.caption.copyWith(
                             fontSize: 10,
                             color: Theme.of(context).primaryColor,
@@ -77,23 +109,23 @@ class _MainTopRestaurantState extends State<MainTopRestaurant> {
             icon: Icons.star,
             iconColor: Theme.of(context).primaryColorDark,
             iconSize: 14,
-            text: '4.8 votes',
+            text: '${widget.resturant.rating} stars',
             textColor: Theme.of(context).primaryColorDark,
             textSize: 12,
           ),
           IconAndText(
-            icon: Icons.timer,
+            icon: Icons.location_on,
             iconColor: Theme.of(context).primaryColorDark,
             iconSize: 14,
-            text: '30 minutes',
+            text: '${widget.resturant.distance}',
             textColor: Theme.of(context).primaryColorDark,
             textSize: 12,
           ),
           IconAndText(
-            icon: Icons.format_align_right,
+            icon: Icons.assignment,
             iconColor: Theme.of(context).primaryColorDark,
             iconSize: 14,
-            text: 'Agenda',
+            text: 'Reserve',
             textColor: Theme.of(context).primaryColorDark,
             textSize: 12,
           )
@@ -106,8 +138,9 @@ class _MainTopRestaurantState extends State<MainTopRestaurant> {
   Widget build(BuildContext context) {
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
+    print(widget.resturant);
     return Container(
-      margin: EdgeInsets.only(right: withDefaultPadding),
+      margin: EdgeInsets.only(right: withDefaultPadding, bottom: 10),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.30,
       decoration: BoxDecoration(
@@ -145,6 +178,28 @@ class _MainTopRestaurantState extends State<MainTopRestaurant> {
         ),
         onPressed: () {},
       ),
+    );
+  }
+}
+
+class RelatedProductsInThisRestaurant extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    List anotherTops = List(5);
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.only(
+          right: MediaQuery.of(context).size.width * 0.07,
+          top: MediaQuery.of(context).size.width * 0.02),
+      child: Builder(builder: (BuildContext context) {
+        List<Widget> nextTops = [];
+        anotherTops.map((e) {
+          nextTops.add(QuickView());
+        }).toList();
+        return Column(
+          children: nextTops,
+        );
+      }),
     );
   }
 }

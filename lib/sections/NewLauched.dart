@@ -157,22 +157,30 @@ class _NewLaunchedWrapperState extends State<NewLaunchedWrapper> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget.dish.comments.length > 2
-          ? 315
-          : 200 + (widget.dish.comments.length * 50).toDouble(),
-      padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.07),
-      width: MediaQuery.of(context).size.width,
-      child: Stack(
-        children: <Widget>[
-          _wrapperImage(),
-          Positioned(
-            top: 200,
-            left: MediaQuery.of(context).size.width * 0.07,
-            child: _cardWrapper(),
-          )
-        ],
-      ),
-    );
+        height: widget.dish.comments.length > 2
+            ? 315
+            : 185 + (widget.dish.comments.length * 50).toDouble(),
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * 0.07),
+        width: MediaQuery.of(context).size.width,
+        // child: Material(
+        child: InkWell(
+          //splashColor: Colors.red,
+          onTap: () {
+            print('ir al detallado');
+          },
+          child: Stack(
+            children: <Widget>[
+              _wrapperImage(),
+              Positioned(
+                top: 200,
+                left: MediaQuery.of(context).size.width * 0.07,
+                child: _cardWrapper(),
+              )
+            ],
+          ),
+        )
+        // )
+        );
   }
 }

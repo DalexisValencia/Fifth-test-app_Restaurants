@@ -11,6 +11,7 @@ import 'package:fith_app__restaurant/sections/NewLauched.dart';
 import 'package:fith_app__restaurant/sections/TopRestaurants.dart';
 import 'package:fith_app__restaurant/sections/EmptySection.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
+import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 // import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
@@ -115,7 +116,7 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
                             _screenTitle(discoveryPropsBloc.name),
                             _nearYouContainer(discoveryPropsBloc.near),
                             _newLaunch(discoveryPropsBloc.newLaunch),
-                            // _topRestaurants(discoveryPropsBloc.restaurants)
+                            _topRestaurants(discoveryPropsBloc.restaurants)
                           ],
                         ),
                       )),
@@ -362,34 +363,6 @@ class _TopRestaurantsState extends State<TopRestaurants> {
     );
   }
 
-  Widget _topRestaurant() {
-    return MainTopRestaurant();
-  }
-
-  Widget _nextTops() {
-    List anotherTops = List(5);
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(
-          right: MediaQuery.of(context).size.width * 0.07,
-          top: MediaQuery.of(context).size.width * 0.05),
-      child: Builder(builder: (BuildContext context) {
-        List<Widget> nextTops = [];
-        anotherTops.map((e) {
-          nextTops.add(_cardNextTops());
-        }).toList();
-        return Column(
-          children: nextTops,
-        );
-      }),
-    );
-  }
-
-  Widget _cardNextTops() {
-    return Text("building..");
-    // return QuickView();
-  }
-
   @override
   Widget build(BuildContext context) {
     print(widget.restaurants);
@@ -397,7 +370,22 @@ class _TopRestaurantsState extends State<TopRestaurants> {
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
       child: Column(
-        children: <Widget>[_header(), _topRestaurant(), _nextTops()],
+        children: <Widget>[
+          _header(),
+          Builder(
+            builder: (BuildContext context) {
+              List<Widget> restaurants = [];
+              widget.restaurants.asMap().entries.map((e) {
+                restaurants.add(MainTopRestaurant(restaurant: e.value));
+              }).toList();
+              return Column(
+                children: restaurants,
+              );
+            },
+          )
+          // _topRestaurant(),
+          // _nextTops()
+        ],
       ),
     );
   }

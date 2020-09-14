@@ -12,16 +12,16 @@ class QuickView extends StatefulWidget {
 }
 
 class _QuickViewState extends State<QuickView> {
-  ProductdetailsBloc blocProduct;
+  // ProductdetailsBloc blocProduct;
   @override
   void initState() {
-    blocProduct = BlocProvider.of<ProductdetailsBloc>(context);
+    // blocProduct = BlocProvider.of<ProductdetailsBloc>(context);
     super.initState();
   }
 
   @override
   void dispose() {
-    blocProduct.close();
+    // blocProduct.close();
     super.dispose();
   }
 
