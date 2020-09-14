@@ -30,16 +30,8 @@ class _QuickViewState extends State<QuickView> {
 
   @override
   Widget build(BuildContext context) {
-    // print(blocProduct);
     return Container(
       decoration: BoxDecoration(
-          //   boxShadow: [
-          //   BoxShadow(
-          //     color: Theme.of(context).primaryColor.withOpacity(0.2),
-          //     blurRadius: 2,
-          //     offset: Offset(-1, -1),
-          //   )
-          // ],
           border:
               Border.all(color: Theme.of(context).accentColor.withOpacity(0.2)),
           borderRadius: BorderRadius.circular(8)),
