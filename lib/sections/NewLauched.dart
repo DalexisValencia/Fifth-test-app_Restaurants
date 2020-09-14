@@ -1,4 +1,5 @@
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
+import 'package:fith_app__restaurant/widgets/Cardcomments.dart';
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
 import 'package:flutter/material.dart';
 
@@ -125,106 +126,6 @@ class _NewLaunchedWrapperState extends State<NewLaunchedWrapper> {
     );
   }
 
-  Widget _seeAllComments() {
-    return Container(
-      height: 30,
-      padding: EdgeInsets.all(0),
-      width: MediaQuery.of(context).size.width,
-      child: MaterialButton(
-        splashColor: Theme.of(context).buttonColor,
-        elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        minWidth: 10,
-        height: 10,
-        onPressed: () {
-          print('Ver todos los comentarios de un plato');
-        },
-        child: Text(
-          "See All",
-          style: TextStyle(
-              fontSize: 10, color: Theme.of(context).primaryColorDark),
-        ),
-      ),
-    );
-  }
-
-  Widget _cardComments() {
-    return Container(
-      child: Builder(
-        builder: (BuildContext context) {
-          List<Widget> wComments = [];
-          widget.dish.comments.asMap().entries.map((e) {
-            int idx = e.key;
-            if (idx <= 1) {
-              wComments.add(Container(
-                decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: (idx + 1) == widget.dish.comments.length
-                                ? Colors.transparent
-                                : Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.6),
-                            width: 0.6))),
-                child: Container(
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        padding: EdgeInsets.only(right: 10),
-                        width: 47,
-                        height: 47,
-                        child: CircleAvatar(
-                          backgroundColor: Colors.amber,
-                        ),
-                      ),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              widget.dish.comments[idx].name,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .caption
-                                  .copyWith(
-                                      color: Theme.of(context).primaryColorDark,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            FittedBox(
-                                fit: BoxFit.scaleDown,
-                                child: Text(
-                                  widget.dish.comments[idx].comment
-                                          .substring(0, 41) +
-                                      '...',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .caption
-                                      .copyWith(
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w300,
-                                          color:
-                                              Theme.of(context).primaryColor),
-                                )),
-                          ],
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ));
-            }
-          }).toList();
-          if (widget.dish.comments.length > 2) {
-            wComments.add(_seeAllComments());
-          }
-          return Column(
-            children: wComments,
-          );
-        },
-      ),
-    );
-  }
-
   Widget _cardWrapper() {
     return Container(
       transform: Matrix4.translationValues(0, -100, 0),
@@ -241,7 +142,13 @@ class _NewLaunchedWrapperState extends State<NewLaunchedWrapper> {
             borderRadius: BorderRadius.circular(10)),
         width: MediaQuery.of(context).size.width * 0.72,
         child: Column(
-          children: <Widget>[_cardHeader(), _cardBody(), _cardComments()],
+          children: <Widget>[
+            _cardHeader(), _cardBody(),
+            //
+            CardComments(
+              comments: widget.dish.comments,
+            )
+          ],
         ),
       ),
     );
