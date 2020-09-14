@@ -1,5 +1,7 @@
 import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
+import 'package:fith_app__restaurant/sections/EmptySection.dart';
 import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
 import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
@@ -22,11 +24,42 @@ class _MainTopRestaurantState extends State<MainTopRestaurant> {
           children: <Widget>[
             RestaurantTopSummary(resturant: widget.restaurant),
             FullSectionTitle(
-              title: 'Related in restaurant_name',
+              title: 'Menu Related of ${widget.restaurant.name}',
               rightContainer:
                   RoundedCustomButton(title: 'See all', callPressed: () {}),
             ),
-            RelatedProductsInThisRestaurant()
+            widget.restaurant.menu.length >= 1
+                ? RelatedProductsInThisRestaurant(menu: widget.restaurant.menu)
+                : Container(
+                    margin: EdgeInsets.only(
+                        right:
+                            MediaQuery.of(context).size.width * defaultPadding),
+                    child: EmptySections(),
+                  ),
+            Container(
+              margin: EdgeInsets.only(
+                  top: 20,
+                  right: MediaQuery.of(context).size.width * defaultPadding,
+                  bottom: 20),
+              decoration: BoxDecoration(
+                  border: Border(
+                      bottom: BorderSide(
+                          color: Theme.of(context).accentColor, width: 1))),
+            )
+            // widget.restaurant.menu.length >= 1
+            //     ? Container(
+            //         margin: EdgeInsets.only(
+            //             top: 20,
+            //             right:
+            //                 MediaQuery.of(context).size.width * defaultPadding,
+            //             bottom: 20),
+            //         decoration: BoxDecoration(
+            //             border: Border(
+            //                 bottom: BorderSide(
+            //                     color: Theme.of(context).buttonColor,
+            //                     width: 3))),
+            //       )
+            //     : Text("")
           ],
         ));
   }
@@ -88,7 +121,7 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
                   color: Theme.of(context).buttonColor,
                   borderRadius: BorderRadius.circular(50)),
               child: Icon(
-                Icons.restaurant_menu,
+                Icons.restaurant,
                 size: 20,
                 color: Theme.of(context).primaryColorLight,
               ),
@@ -121,13 +154,21 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
             textColor: Theme.of(context).primaryColorDark,
             textSize: 12,
           ),
-          IconAndText(
-            icon: Icons.assignment,
-            iconColor: Theme.of(context).primaryColorDark,
-            iconSize: 14,
-            text: 'Reserve',
-            textColor: Theme.of(context).primaryColorDark,
-            textSize: 12,
+          Material(
+            child: InkWell(
+              splashColor: Colors.red,
+              onTap: () {
+                print('Reservar');
+              },
+              child: IconAndText(
+                icon: Icons.assignment,
+                iconColor: Theme.of(context).primaryColorDark,
+                iconSize: 14,
+                text: 'Reserve',
+                textColor: Theme.of(context).primaryColorDark,
+                textSize: 12,
+              ),
+            ),
           )
         ],
       ),
@@ -183,9 +224,10 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
 }
 
 class RelatedProductsInThisRestaurant extends StatelessWidget {
+  final List<Dishes> menu;
+  RelatedProductsInThisRestaurant({this.menu});
   @override
   Widget build(BuildContext context) {
-    List anotherTops = List(5);
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(
@@ -193,8 +235,10 @@ class RelatedProductsInThisRestaurant extends StatelessWidget {
           top: MediaQuery.of(context).size.width * 0.02),
       child: Builder(builder: (BuildContext context) {
         List<Widget> nextTops = [];
-        anotherTops.map((e) {
-          nextTops.add(QuickView());
+        menu.map((e) {
+          nextTops.add(QuickView(
+            dish: e,
+          ));
         }).toList();
         return Column(
           children: nextTops,

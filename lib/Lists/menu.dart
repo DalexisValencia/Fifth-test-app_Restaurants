@@ -132,7 +132,7 @@ List<Restaurants> restaurants = [
     distance: '4km',
     lunchNow: [], //List Dishes
     tagsMenu: ['tag1', 'tag2', 'tag3', 'tag4'],
-    menu: [], //List Dishes
+    menu: dishes, //List Dishes
     suggestions: [],
     highlight: [],
     socialShare: ['Whatsapp', 'Pinterest', 'Instagram'],
@@ -172,7 +172,7 @@ List<Restaurants> restaurants = [
     distance: '4km',
     lunchNow: [], //List Dishes
     tagsMenu: ['tag1', 'tag2', 'tag3', 'tag4'],
-    menu: [], //List Dishes
+    menu: dishes, //List Dishes
     suggestions: [],
     highlight: [],
     socialShare: ['Whatsapp', 'Pinterest', 'Instagram'],

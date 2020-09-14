@@ -1,3 +1,4 @@
+import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/details.dart';
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +8,8 @@ import 'package:bloc/bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 
 class QuickView extends StatefulWidget {
+  final Dishes dish;
+  QuickView({this.dish});
   @override
   _QuickViewState createState() => _QuickViewState();
 }
@@ -32,19 +35,23 @@ class _QuickViewState extends State<QuickView> {
       decoration: BoxDecoration(
           //   boxShadow: [
           //   BoxShadow(
-          //     color: Theme.of(context).primaryColor.withOpacity(0.5),
-          //     blurRadius: 5,
-          //     offset: Offset(0, 2),
+          //     color: Theme.of(context).primaryColor.withOpacity(0.2),
+          //     blurRadius: 2,
+          //     offset: Offset(-1, -1),
           //   )
           // ],
+          border:
+              Border.all(color: Theme.of(context).accentColor.withOpacity(0.2)),
           borderRadius: BorderRadius.circular(8)),
       margin: EdgeInsets.only(bottom: 5),
       child: MaterialButton(
           elevation: 1,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
           color: Theme.of(context).primaryColorLight,
           padding: EdgeInsets.all(0),
           splashColor: Colors.red,
           onPressed: () {
+            print(widget.dish);
             // blocProduct.add(ProductdetailsCurrent(product: 'detallado'));
             // Navigator.of(context)
             //     .push(MaterialPageRoute<ProductdetailsBloc>(builder: (context) {
@@ -67,8 +74,7 @@ class _QuickViewState extends State<QuickView> {
                       borderRadius: BorderRadius.circular(10),
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: ExactAssetImage(
-                              'assets/populars/Salade-Niçoise.jpg'))),
+                          image: ExactAssetImage(widget.dish.image))),
                 ),
                 Expanded(
                   child: Container(
@@ -79,7 +85,7 @@ class _QuickViewState extends State<QuickView> {
                       children: <Widget>[
                         Container(
                           child: Text(
-                            "Turkay Gravy Secrets",
+                            widget.dish.name,
                             style: Theme.of(context)
                                 .textTheme
                                 .subtitle1
@@ -95,7 +101,7 @@ class _QuickViewState extends State<QuickView> {
                                   vertical: MediaQuery.of(context).size.width *
                                       0.015),
                               child: Text(
-                                "Este es un texto del detallado del restaurante de dos lineas",
+                                widget.dish.details.substring(0, 80) + '...',
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption
@@ -115,20 +121,29 @@ class _QuickViewState extends State<QuickView> {
                                     icon: Icons.star,
                                     iconColor: Theme.of(context).buttonColor,
                                     iconSize: 16,
-                                    text: '4.8 Votes',
+                                    text: '${widget.dish.rating} Votes',
                                     textColor:
                                         Theme.of(context).primaryColorDark,
                                     textSize: 12),
                                 Spacer(),
-                                IconAndText(
-                                    icon: Icons.attach_money,
-                                    iconColor:
-                                        Theme.of(context).primaryColorDark,
-                                    iconSize: 16,
-                                    text: '47.00', //\$
-                                    textColor:
-                                        Theme.of(context).primaryColorDark,
-                                    textSize: 12)
+                                Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                        onTap: () {
+                                          print('Ir al detallado del producto');
+                                        },
+                                        splashColor:
+                                            Theme.of(context).buttonColor,
+                                        child: IconAndText(
+                                            icon: Icons.add_shopping_cart,
+                                            iconColor:
+                                                Theme.of(context).buttonColor,
+                                            iconSize: 16,
+                                            text:
+                                                '\$${widget.dish.price.toInt()}', //\$
+                                            textColor: Theme.of(context)
+                                                .primaryColorDark,
+                                            textSize: 12)))
                               ],
                             ),
                           ),

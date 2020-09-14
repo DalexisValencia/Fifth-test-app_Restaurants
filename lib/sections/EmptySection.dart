@@ -5,8 +5,8 @@ class EmptySections extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        margin: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * defaultPadding),
+        // margin: EdgeInsets.symmetric(
+        //     horizontal: MediaQuery.of(context).size.width * defaultPadding),
         padding: EdgeInsets.symmetric(vertical: 40),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(5),
