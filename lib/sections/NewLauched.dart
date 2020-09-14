@@ -1,4 +1,5 @@
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
+import 'package:fith_app__restaurant/widgets/iconAndText.dart';
 import 'package:flutter/material.dart';
 
 class NewLaunchedWrapper extends StatefulWidget {
@@ -16,8 +17,7 @@ class _NewLaunchedWrapperState extends State<NewLaunchedWrapper> {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
           image: DecorationImage(
-              fit: BoxFit.cover,
-              image: ExactAssetImage('assets/banner/french-food.png'))),
+              fit: BoxFit.cover, image: ExactAssetImage(widget.dish.image))),
     );
   }
 
@@ -42,7 +42,7 @@ class _NewLaunchedWrapperState extends State<NewLaunchedWrapper> {
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        'House of Blues san diego',
+                        widget.dish.name,
                         style: Theme.of(context).textTheme.subtitle1.copyWith(
                             color: Theme.of(context).primaryColorDark,
                             fontSize: 16,
@@ -52,7 +52,7 @@ class _NewLaunchedWrapperState extends State<NewLaunchedWrapper> {
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        'address direction or description',
+                        widget.dish.details.substring(0, 28) + '...',
                         style: Theme.of(context).textTheme.caption.copyWith(
                             color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.w400),
@@ -91,74 +91,132 @@ class _NewLaunchedWrapperState extends State<NewLaunchedWrapper> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          _iconAnText(Icons.star, Theme.of(context).buttonColor, '4.8 votes'),
-          _iconAnText(
-              Icons.timer, Theme.of(context).primaryColorDark, '30 minutes'),
-          _iconAnText(Icons.format_align_right,
-              Theme.of(context).primaryColorDark, 'Agenda')
+          IconAndText(
+            icon: Icons.star,
+            iconColor: Theme.of(context).buttonColor,
+            iconSize: 13,
+            text: '4.8 votes',
+            textColor: Theme.of(context).primaryColorDark,
+            textSize: 11,
+          ),
+          IconAndText(
+            icon: Icons.timer,
+            iconColor: Theme.of(context).primaryColorDark,
+            iconSize: 13,
+            text: '30 minutes',
+            textColor: Theme.of(context).primaryColorDark,
+            textSize: 11,
+          ),
+          InkWell(
+            onTap: () {
+              print('RESERVAR');
+            },
+            child: IconAndText(
+              icon: Icons.assignment,
+              iconColor: Theme.of(context).primaryColorDark,
+              iconSize: 13,
+              text: 'Reserve',
+              textColor: Theme.of(context).primaryColorDark,
+              textSize: 11,
+            ),
+          )
         ],
       ),
     );
   }
 
+  Widget _seeAllComments() {
+    return Container(
+      height: 30,
+      padding: EdgeInsets.all(0),
+      width: MediaQuery.of(context).size.width,
+      child: MaterialButton(
+        splashColor: Theme.of(context).buttonColor,
+        elevation: 0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        minWidth: 10,
+        height: 10,
+        onPressed: () {
+          print('Ver todos los comentarios de un plato');
+        },
+        child: Text(
+          "See All",
+          style: TextStyle(
+              fontSize: 10, color: Theme.of(context).primaryColorDark),
+        ),
+      ),
+    );
+  }
+
   Widget _cardComments() {
-    List comments = [1, 2];
     return Container(
       child: Builder(
         builder: (BuildContext context) {
           List<Widget> wComments = [];
-          comments.asMap().entries.map((e) {
+          widget.dish.comments.asMap().entries.map((e) {
             int idx = e.key;
-            wComments.add(Container(
-              decoration: BoxDecoration(
-                  // color: Colors.red,
-                  border: Border(
-                      bottom: BorderSide(
-                          color: (idx + 1) == comments.length
-                              ? Colors.transparent
-                              : Theme.of(context).primaryColor.withOpacity(0.6),
-                          width: 0.6))),
-              child: Container(
-                child: Row(
-                  children: <Widget>[
-                    Container(
-                      padding: EdgeInsets.only(right: 10),
-                      width: 47,
-                      height: 47,
-                      child: CircleAvatar(
-                        backgroundColor: Colors.amber,
+            if (idx <= 1) {
+              wComments.add(Container(
+                decoration: BoxDecoration(
+                    border: Border(
+                        bottom: BorderSide(
+                            color: (idx + 1) == widget.dish.comments.length
+                                ? Colors.transparent
+                                : Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.6),
+                            width: 0.6))),
+                child: Container(
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        padding: EdgeInsets.only(right: 10),
+                        width: 47,
+                        height: 47,
+                        child: CircleAvatar(
+                          backgroundColor: Colors.amber,
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Nombre del usuario',
-                            style: Theme.of(context).textTheme.caption.copyWith(
-                                color: Theme.of(context).primaryColorDark,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                'Comentario que ha colocado el ususario',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .caption
-                                    .copyWith(
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.w300,
-                                        color: Theme.of(context).primaryColor),
-                              )),
-                        ],
-                      ),
-                    )
-                  ],
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              widget.dish.comments[idx].name,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption
+                                  .copyWith(
+                                      color: Theme.of(context).primaryColorDark,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            FittedBox(
+                                fit: BoxFit.scaleDown,
+                                child: Text(
+                                  widget.dish.comments[idx].comment
+                                          .substring(0, 41) +
+                                      '...',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .caption
+                                      .copyWith(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w300,
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                )),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
                 ),
-              ),
-            ));
+              ));
+            }
           }).toList();
+          if (widget.dish.comments.length > 2) {
+            wComments.add(_seeAllComments());
+          }
           return Column(
             children: wComments,
           );
@@ -189,32 +247,12 @@ class _NewLaunchedWrapperState extends State<NewLaunchedWrapper> {
     );
   }
 
-  Widget _iconAnText(icon, color, text) {
-    return Row(
-      children: <Widget>[
-        Icon(
-          icon,
-          size: 14,
-          color: color,
-        ),
-        SizedBox(
-          width: 3,
-        ),
-        Text(
-          text,
-          style: Theme.of(context).textTheme.button.copyWith(
-              fontSize: 13,
-              color: Theme.of(context).primaryColorDark,
-              fontWeight: FontWeight.w700),
-        )
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 300,
+      height: widget.dish.comments.length > 2
+          ? 315
+          : 200 + (widget.dish.comments.length * 50).toDouble(),
       padding: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width * 0.07),
       width: MediaQuery.of(context).size.width,

@@ -47,6 +47,18 @@ List<Dishes> dishes = [
           comment:
               'It is a special place to visit in family. The neighborhood is nice',
           image: '',
+        ),
+        Comments(
+          name: 'Jessica Simons',
+          comment:
+              'It is a special place to visit in family. The neighborhood is nice',
+          image: '',
+        ),
+        Comments(
+          name: 'Jessica Simons',
+          comment:
+              'It is a special place to visit in family. The neighborhood is nice',
+          image: '',
         )
       ],
       category: [categories[0].name, categories[2].name],
@@ -63,6 +75,12 @@ List<Dishes> dishes = [
       rating: 4.8,
       preparation: '15 min',
       comments: [
+        Comments(
+          name: 'Jessica Simons',
+          comment:
+              'It is a special place to visit in family. The neighborhood is nice',
+          image: '',
+        ),
         Comments(
           name: 'Jessica Simons',
           comment:
