@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Discovery.dart';
@@ -78,7 +79,16 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
   }
 
   Widget _nearYouContainer(nearYou) {
-    return NearYou(nearYou: nearYou);
+    // return BlocProvider<DishBloc, DishState>(
+    //   builder: (context, state) {
+    //     return NearYou(nearYou: nearYou);
+    //   },
+    // );
+    return BlocProvider(
+      create: (BuildContext context) => DishBloc(),
+      child: NearYou(nearYou: nearYou),
+    );
+    // return NearYou(nearYou: nearYou);
   }
 
   Widget _newLaunch(List<Dishes> recents) {

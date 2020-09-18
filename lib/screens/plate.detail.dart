@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/aditional.dart';
 import 'package:fith_app__restaurant/interfaces/summaryStep.dart';
@@ -8,6 +9,7 @@ import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PlateDetailWrapper extends StatefulWidget {
   @override
@@ -15,144 +17,166 @@ class PlateDetailWrapper extends StatefulWidget {
 }
 
 class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
-  bool minSizeReached = false;
-  bool animatedOpacity = true;
-  bool animationChildren = true;
-
-  ScrollController _controller;
-  @override
-  void initState() {
-    _controller = ScrollController();
-    _controller.addListener(_scrollListener);
-    super.initState();
-    this.startAnimationScreen();
-  }
-
-  void startAnimationScreen() {
-    Timer(Duration(milliseconds: animationStartTime), () {
-      setState(() {
-        animatedOpacity = false;
-      });
-    });
-    startAnimationChildren();
-  }
-
-  void startAnimationChildren() {
-    Timer(Duration(milliseconds: animationStartTime), () {
-      setState(() {
-        animationChildren = false;
-      });
-    });
-  }
-
-  _changeStatusBarThemeColor(SystemUiOverlayStyle style) {
-    SystemChrome.setSystemUIOverlayStyle(style);
-  }
-
-  _scrollListener() {
-    if (_controller.offset > 100 && !minSizeReached) {
-      setState(() {
-        minSizeReached = true;
-      });
-      _changeStatusBarThemeColor(SystemUiOverlayStyle.dark);
-    }
-    if (_controller.offset < 100 && minSizeReached) {
-      setState(() {
-        minSizeReached = false;
-      });
-      _changeStatusBarThemeColor(SystemUiOverlayStyle.light);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: AnimatedOpacity(
-            duration: Duration(milliseconds: animationOpacityTime),
-            opacity: animatedOpacity ? 0 : 1,
-            child: CustomContainerAnimation(
-              animationChildren: animationChildren,
-              children: Container(
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height,
-                child: Stack(
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              child: SingleChildScrollView(
-                                controller: _controller,
-                                child: Column(
-                                  children: <Widget>[
-                                    HeaderPlateDetails(),
-                                    GroupPlateBasicDetails(),
-                                    AmountProduct(),
-                                    Aditionals(),
-                                    SummaryIngredients(),
-                                    PreparationTime(),
-                                    SizedBox(
-                                      height: 60,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Positioned(
-                      top: 0,
-                      child: AnimatedContainer(
-                          decoration: BoxDecoration(
-                              color: minSizeReached
-                                  ? Colors.white
-                                  : Colors.transparent,
-                              boxShadow: [
-                                BoxShadow(
-                                    blurRadius: 0.5,
-                                    color: minSizeReached
-                                        ? Theme.of(context).primaryColor
-                                        : Colors.transparent,
-                                    offset: Offset(2, 0))
-                              ]),
-                          duration: Duration(milliseconds: 500),
-                          curve: Curves.ease,
-                          padding: EdgeInsets.only(
-                              top: MediaQuery.of(context).padding.top + 10,
-                              bottom: 10),
-                          width: MediaQuery.of(context).size.width,
-                          child: StackTopHeader(
-                            iconColors: minSizeReached
-                                ? Theme.of(context).primaryColorDark
-                                : Theme.of(context).primaryColorLight,
-                          )),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Container(
-                            margin: EdgeInsets.all(0),
-                            padding: EdgeInsets.all(0),
-                            width: MediaQuery.of(context).size.width,
-                            height: 50,
-                            child: SizedBox.expand(
-                              child: AddtoCar(),
-                            )),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            )));
+      body: SafeArea(
+        child: SingleChildScrollView(child: BlocBuilder<DishBloc, DishState>(
+          builder: (context, state) {
+            return Column(
+              children: <Widget>[Text("Estoy dentro de las posibilidades")],
+            );
+          },
+        )),
+      ),
+    );
   }
 }
+
+// class PlateDetailWrapper extends StatefulWidget {
+//   @override
+//   _PlateDetailWrapperState createState() => _PlateDetailWrapperState();
+// }
+
+// class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
+//   bool minSizeReached = false;
+//   bool animatedOpacity = true;
+//   bool animationChildren = true;
+
+//   ScrollController _controller;
+//   @override
+//   void initState() {
+//     _controller = ScrollController();
+//     _controller.addListener(_scrollListener);
+//     super.initState();
+//     this.startAnimationScreen();
+//   }
+
+//   void startAnimationScreen() {
+//     Timer(Duration(milliseconds: animationStartTime), () {
+//       setState(() {
+//         animatedOpacity = false;
+//       });
+//     });
+//     startAnimationChildren();
+//   }
+
+//   void startAnimationChildren() {
+//     Timer(Duration(milliseconds: animationStartTime), () {
+//       setState(() {
+//         animationChildren = false;
+//       });
+//     });
+//   }
+
+//   _changeStatusBarThemeColor(SystemUiOverlayStyle style) {
+//     SystemChrome.setSystemUIOverlayStyle(style);
+//   }
+
+//   _scrollListener() {
+//     if (_controller.offset > 100 && !minSizeReached) {
+//       setState(() {
+//         minSizeReached = true;
+//       });
+//       _changeStatusBarThemeColor(SystemUiOverlayStyle.dark);
+//     }
+//     if (_controller.offset < 100 && minSizeReached) {
+//       setState(() {
+//         minSizeReached = false;
+//       });
+//       _changeStatusBarThemeColor(SystemUiOverlayStyle.light);
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//         body: AnimatedOpacity(
+//             duration: Duration(milliseconds: animationOpacityTime),
+//             opacity: animatedOpacity ? 0 : 1,
+//             child: CustomContainerAnimation(
+//               animationChildren: animationChildren,
+//               children: Container(
+//                 width: MediaQuery.of(context).size.width,
+//                 height: MediaQuery.of(context).size.height,
+//                 child: Stack(
+//                   children: <Widget>[
+//                     Container(
+//                       width: MediaQuery.of(context).size.width,
+//                       height: MediaQuery.of(context).size.height,
+//                       child: Column(
+//                         children: <Widget>[
+//                           Expanded(
+//                             child: Container(
+//                               width: MediaQuery.of(context).size.width,
+//                               child: SingleChildScrollView(
+//                                 controller: _controller,
+//                                 child: Column(
+//                                   children: <Widget>[
+//                                     HeaderPlateDetails(),
+//                                     GroupPlateBasicDetails(),
+//                                     AmountProduct(),
+//                                     Aditionals(),
+//                                     SummaryIngredients(),
+//                                     PreparationTime(),
+//                                     SizedBox(
+//                                       height: 60,
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                     Positioned(
+//                       top: 0,
+//                       child: AnimatedContainer(
+//                           decoration: BoxDecoration(
+//                               color: minSizeReached
+//                                   ? Colors.white
+//                                   : Colors.transparent,
+//                               boxShadow: [
+//                                 BoxShadow(
+//                                     blurRadius: 0.5,
+//                                     color: minSizeReached
+//                                         ? Theme.of(context).primaryColor
+//                                         : Colors.transparent,
+//                                     offset: Offset(2, 0))
+//                               ]),
+//                           duration: Duration(milliseconds: 500),
+//                           curve: Curves.ease,
+//                           padding: EdgeInsets.only(
+//                               top: MediaQuery.of(context).padding.top + 10,
+//                               bottom: 10),
+//                           width: MediaQuery.of(context).size.width,
+//                           child: StackTopHeader(
+//                             iconColors: minSizeReached
+//                                 ? Theme.of(context).primaryColorDark
+//                                 : Theme.of(context).primaryColorLight,
+//                           )),
+//                     ),
+//                     Positioned(
+//                       bottom: 0,
+//                       child: Container(
+//                         width: MediaQuery.of(context).size.width,
+//                         child: Container(
+//                             margin: EdgeInsets.all(0),
+//                             padding: EdgeInsets.all(0),
+//                             width: MediaQuery.of(context).size.width,
+//                             height: 50,
+//                             child: SizedBox.expand(
+//                               child: AddtoCar(),
+//                             )),
+//                       ),
+//                     )
+//                   ],
+//                 ),
+//               ),
+//             )));
+//   }
+// }
 
 class StackTopHeader extends StatefulWidget {
   final Color iconColors;

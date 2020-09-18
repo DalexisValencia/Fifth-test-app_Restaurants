@@ -1,5 +1,8 @@
+import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
+import 'package:fith_app__restaurant/screens/plate.detail.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NearYouCard extends StatelessWidget {
   final Dishes dish;
@@ -7,6 +10,7 @@ class NearYouCard extends StatelessWidget {
   NearYouCard({this.dish, this.index});
   @override
   Widget build(BuildContext context) {
+    final blocDish = BlocProvider.of<DishBloc>(context);
     return Container(
         margin: EdgeInsets.only(
             right: index < 9 ? MediaQuery.of(context).size.width * 0.04 : 5),
@@ -14,7 +18,16 @@ class NearYouCard extends StatelessWidget {
         child: RaisedButton(
           elevation: 0,
           onPressed: () {
-            print(dish);
+            blocDish.add(DishStart(dishName: dish.name));
+            // Navigator.of(context)
+            //     .push(MaterialPageRoute<PlateDetailWrapper>(builder: (context) {
+            //   return BlocProvider.value(
+            //     value: blocDish,
+            //     child: PlateDetailWrapper(),
+            //   );
+            // }));
+            // print(dish);
+            // print('ir a los detalles del producto');
           },
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
