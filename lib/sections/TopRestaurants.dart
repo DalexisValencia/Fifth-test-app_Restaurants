@@ -157,9 +157,7 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
           Material(
             child: InkWell(
               splashColor: Colors.red,
-              onTap: () {
-                print('Reservar');
-              },
+              onTap: () {},
               child: IconAndText(
                 icon: Icons.assignment,
                 iconColor: Theme.of(context).primaryColorDark,
@@ -179,7 +177,6 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
   Widget build(BuildContext context) {
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
-    print(widget.resturant);
     return Container(
       margin: EdgeInsets.only(right: withDefaultPadding, bottom: 10),
       width: MediaQuery.of(context).size.width,

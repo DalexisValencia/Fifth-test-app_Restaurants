@@ -20,7 +20,6 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
     setState(() {
       tabStateInit = tab;
     });
-    print(tabStateInit);
   }
 
   @override

@@ -79,16 +79,11 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
   }
 
   Widget _nearYouContainer(nearYou) {
-    // return BlocProvider<DishBloc, DishState>(
-    //   builder: (context, state) {
-    //     return NearYou(nearYou: nearYou);
-    //   },
+    // return BlocProvider<DishBloc>(
+    //   create: (BuildContext context) => DishBloc(),
+    //   child: NearYou(nearYou: nearYou),
     // );
-    return BlocProvider(
-      create: (BuildContext context) => DishBloc(),
-      child: NearYou(nearYou: nearYou),
-    );
-    // return NearYou(nearYou: nearYou);
+    return NearYou(nearYou: nearYou);
   }
 
   Widget _newLaunch(List<Dishes> recents) {
@@ -227,20 +222,23 @@ class _NearYouState extends State<NearYou> {
   }
 
   Widget _suggestions() {
-    return Container(
-      height: 160,
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: widget.nearYou.length,
-          itemBuilder: (BuildContext context, int index) {
-            return NearYouCard(
-              dish: widget.nearYou[index],
-              index: index,
-            );
-          }),
-    );
+    return BlocProvider<DishBloc>(
+        create: (BuildContext context) => DishBloc(),
+        child: Container(
+          height: 160,
+          width: MediaQuery.of(context).size.width,
+          padding:
+              EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: widget.nearYou.length,
+              itemBuilder: (BuildContext context, int index) {
+                return NearYouCard(
+                  dish: widget.nearYou[index],
+                  index: index,
+                );
+              }),
+        ));
   }
 
   _sectionBody() {
@@ -307,7 +305,6 @@ class _NewLaunchState extends State<NewLaunch> {
         );
       }),
     );
-    // return NewLaunchedWrapper();
   }
 
   _sectionBody() {
@@ -321,8 +318,6 @@ class _NewLaunchState extends State<NewLaunch> {
 
   @override
   Widget build(BuildContext context) {
-    // print('Launched');
-    // print(widget.newLaunched);
     return Container(
       child: Column(
         children: <Widget>[_header(), _sectionBody()],
@@ -375,7 +370,6 @@ class _TopRestaurantsState extends State<TopRestaurants> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.restaurants);
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),

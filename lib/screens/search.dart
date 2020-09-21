@@ -134,7 +134,6 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
     setState(() {
       isFocusActive = _focus.hasFocus;
     });
-    //debugPrint("Focus: " + _focus.hasFocus.toString());
   }
 
   OutlineInputBorder defaulBorderInput() {

@@ -109,9 +109,7 @@ class _NewLaunchedWrapperState extends State<NewLaunchedWrapper> {
             textSize: 11,
           ),
           InkWell(
-            onTap: () {
-              print('RESERVAR');
-            },
+            onTap: () {},
             child: IconAndText(
               icon: Icons.assignment,
               iconColor: Theme.of(context).primaryColorDark,
@@ -166,9 +164,7 @@ class _NewLaunchedWrapperState extends State<NewLaunchedWrapper> {
         // child: Material(
         child: InkWell(
           //splashColor: Colors.red,
-          onTap: () {
-            print('ir al detallado');
-          },
+          onTap: () {},
           child: Stack(
             children: <Widget>[
               _wrapperImage(),

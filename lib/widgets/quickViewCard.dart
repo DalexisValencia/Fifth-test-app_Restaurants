@@ -43,7 +43,6 @@ class _QuickViewState extends State<QuickView> {
           padding: EdgeInsets.all(0),
           splashColor: Colors.red,
           onPressed: () {
-            print(widget.dish);
             // blocProduct.add(ProductdetailsCurrent(product: 'detallado'));
             // Navigator.of(context)
             //     .push(MaterialPageRoute<ProductdetailsBloc>(builder: (context) {
@@ -121,9 +120,7 @@ class _QuickViewState extends State<QuickView> {
                                 Material(
                                     color: Colors.transparent,
                                     child: InkWell(
-                                        onTap: () {
-                                          print('Ir al detallado del producto');
-                                        },
+                                        onTap: () {},
                                         splashColor:
                                             Theme.of(context).buttonColor,
                                         child: IconAndText(

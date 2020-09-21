@@ -96,9 +96,7 @@ class SeeAllCommentsCard extends StatelessWidget {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         minWidth: 10,
         height: 10,
-        onPressed: () {
-          print('Ver todos los comentarios de un plato');
-        },
+        onPressed: () {},
         child: Text(
           "See All",
           style: TextStyle(

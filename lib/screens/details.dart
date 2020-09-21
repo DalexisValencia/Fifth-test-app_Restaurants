@@ -12,7 +12,6 @@ class DetailsWrapper extends StatelessWidget {
         // child: Text(""),
         child: BlocBuilder<ProductdetailsBloc, ProductdetailsState>(
             builder: (context, state) {
-          print(state.props);
           return Center(child: Text("$state"));
         }),
       ),

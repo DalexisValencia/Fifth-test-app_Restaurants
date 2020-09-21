@@ -23,5 +23,6 @@ findInDishes(name) {
   Iterable<Dishes> dish = dishes.where((element) {
     return element.name == name;
   });
-  return dish;
+  Dishes finalDish = dish.map((e) => e).toList()[0];
+  return finalDish;
 }

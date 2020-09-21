@@ -10,7 +10,7 @@ abstract class DishState extends Equatable {
 class DishInitial extends DishState {}
 
 class DishCurrent extends DishState {
-  final Iterable<Dishes> dish;
+  final Dishes dish;
   DishCurrent({this.dish});
 
   @override

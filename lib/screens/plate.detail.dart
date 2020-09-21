@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/aditional.dart';
 import 'package:fith_app__restaurant/interfaces/summaryStep.dart';
 import 'package:fith_app__restaurant/widgets/AditionalsExpansions.dart';
@@ -11,28 +12,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PlateDetailWrapper extends StatefulWidget {
-  @override
-  _PlateDetailWrapperState createState() => _PlateDetailWrapperState();
-}
-
-class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
+class PlateDetailWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: SingleChildScrollView(child: BlocBuilder<DishBloc, DishState>(
-          builder: (context, state) {
-            return Column(
-              children: <Widget>[Text("Estoy dentro de las posibilidades")],
-            );
-          },
-        )),
-      ),
-    );
+    return Scaffold(body: BlocBuilder<DishBloc, DishState>(
+        builder: (BuildContext context, state) {
+      print(state.props);
+      return Text('La info');
+    }));
   }
 }
-
 // class PlateDetailWrapper extends StatefulWidget {
 //   @override
 //   _PlateDetailWrapperState createState() => _PlateDetailWrapperState();
@@ -91,90 +80,116 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//         body: AnimatedOpacity(
-//             duration: Duration(milliseconds: animationOpacityTime),
-//             opacity: animatedOpacity ? 0 : 1,
-//             child: CustomContainerAnimation(
-//               animationChildren: animationChildren,
-//               children: Container(
-//                 width: MediaQuery.of(context).size.width,
-//                 height: MediaQuery.of(context).size.height,
-//                 child: Stack(
-//                   children: <Widget>[
-//                     Container(
-//                       width: MediaQuery.of(context).size.width,
-//                       height: MediaQuery.of(context).size.height,
-//                       child: Column(
-//                         children: <Widget>[
-//                           Expanded(
-//                             child: Container(
-//                               width: MediaQuery.of(context).size.width,
-//                               child: SingleChildScrollView(
-//                                 controller: _controller,
-//                                 child: Column(
-//                                   children: <Widget>[
-//                                     HeaderPlateDetails(),
-//                                     GroupPlateBasicDetails(),
-//                                     AmountProduct(),
-//                                     Aditionals(),
-//                                     SummaryIngredients(),
-//                                     PreparationTime(),
-//                                     SizedBox(
-//                                       height: 60,
-//                                     ),
-//                                   ],
-//                                 ),
-//                               ),
-//                             ),
-//                           ),
-//                         ],
-//                       ),
-//                     ),
-//                     Positioned(
-//                       top: 0,
-//                       child: AnimatedContainer(
-//                           decoration: BoxDecoration(
-//                               color: minSizeReached
-//                                   ? Colors.white
-//                                   : Colors.transparent,
-//                               boxShadow: [
-//                                 BoxShadow(
-//                                     blurRadius: 0.5,
-//                                     color: minSizeReached
-//                                         ? Theme.of(context).primaryColor
-//                                         : Colors.transparent,
-//                                     offset: Offset(2, 0))
-//                               ]),
-//                           duration: Duration(milliseconds: 500),
-//                           curve: Curves.ease,
-//                           padding: EdgeInsets.only(
-//                               top: MediaQuery.of(context).padding.top + 10,
-//                               bottom: 10),
-//                           width: MediaQuery.of(context).size.width,
-//                           child: StackTopHeader(
-//                             iconColors: minSizeReached
-//                                 ? Theme.of(context).primaryColorDark
-//                                 : Theme.of(context).primaryColorLight,
-//                           )),
-//                     ),
-//                     Positioned(
-//                       bottom: 0,
-//                       child: Container(
-//                         width: MediaQuery.of(context).size.width,
-//                         child: Container(
-//                             margin: EdgeInsets.all(0),
-//                             padding: EdgeInsets.all(0),
-//                             width: MediaQuery.of(context).size.width,
-//                             height: 50,
-//                             child: SizedBox.expand(
-//                               child: AddtoCar(),
-//                             )),
-//                       ),
-//                     )
-//                   ],
-//                 ),
-//               ),
-//             )));
+//       body: BlocBuilder<DishBloc, DishState>(
+//           builder: (BuildContext context, state) {
+//         return Text('La info');
+//       }),
+//     );
+//     // return Scaffold(
+//     //   body: BlocBuilder<DishBloc, DishState>(
+//     //       builder: (BuildContext context, state) {
+//     //     return Text('La info');
+//     //   }),
+//     // );
+//     // return Scaffold(
+//     //     body: AnimatedOpacity(
+//     //         duration: Duration(milliseconds: animationOpacityTime),
+//     //         opacity: animatedOpacity ? 0 : 1,
+//     //         child: CustomContainerAnimation(
+//     //           animationChildren: animationChildren,
+//     //           children: BlocBuilder<DishBloc, DishState>(
+//     //               builder: (BuildContext context, state) {
+//     //             print(state);
+//     //             // Dishes dish = state.props[0];
+//     //             return Container(
+//     //               width: MediaQuery.of(context).size.width,
+//     //               height: MediaQuery.of(context).size.height,
+//     //               child: Stack(
+//     //                 children: <Widget>[
+//     //                   Container(
+//     //                     width: MediaQuery.of(context).size.width,
+//     //                     height: MediaQuery.of(context).size.height,
+//     //                     child: Column(
+//     //                       children: <Widget>[
+//     //                         Expanded(
+//     //                           child: Container(
+//     //                             width: MediaQuery.of(context).size.width,
+//     //                             child: SingleChildScrollView(
+//     //                               controller: _controller,
+//     //                               child: Column(
+//     //                                 children: <Widget>[
+//     //                                   Text("es la info??"),
+//     //                                   // HeaderPlateDetails(image: dish.image),
+//     //                                   // GroupPlateBasicDetails(dish: dish),
+//     //                                   // AmountProduct(
+//     //                                   //     price: dish.price,
+//     //                                   //     promos: dish.pricePromotions),
+//     //                                   // Aditionals(),
+//     //                                   // SummaryIngredients(),
+//     //                                   // PreparationTime(),
+//     //                                   // SizedBox(
+//     //                                   //   height: 60,
+//     //                                   // ),
+//     //                                 ],
+//     //                               ),
+//     //                             ),
+//     //                           ),
+//     //                         ),
+//     //                       ],
+//     //                     ),
+//     //                   ),
+//     //                   // Positioned(
+//     //                   //   top: 0,
+//     //                   //   child: AnimatedContainer(
+//     //                   //       decoration: BoxDecoration(
+//     //                   //           color: minSizeReached
+//     //                   //               ? Colors.white
+//     //                   //               : Colors.transparent,
+//     //                   //           boxShadow: [
+//     //                   //             BoxShadow(
+//     //                   //                 blurRadius: 0.5,
+//     //                   //                 color: minSizeReached
+//     //                   //                     ? Theme.of(context).primaryColor
+//     //                   //                     : Colors.transparent,
+//     //                   //                 offset: Offset(2, 0))
+//     //                   //           ]),
+//     //                   //       duration: Duration(milliseconds: 500),
+//     //                   //       curve: Curves.ease,
+//     //                   //       padding: EdgeInsets.only(
+//     //                   //           top:
+//     //                   //               MediaQuery.of(context).padding.top + 10,
+//     //                   //           bottom: 10),
+//     //                   //       width: MediaQuery.of(context).size.width,
+//     //                   //       child: StackTopHeader(
+//     //                   //         iconColors: minSizeReached
+//     //                   //             ? Theme.of(context).primaryColorDark
+//     //                   //             : Theme.of(context).primaryColorLight,
+//     //                   //       )),
+//     //                   // ),
+//     //                   // Positioned(
+//     //                   //   bottom: 0,
+//     //                   //   child: Container(
+//     //                   //     width: MediaQuery.of(context).size.width,
+//     //                   //     child: Container(
+//     //                   //         margin: EdgeInsets.all(0),
+//     //                   //         padding: EdgeInsets.all(0),
+//     //                   //         width: MediaQuery.of(context).size.width,
+//     //                   //         height: 50,
+//     //                   //         child: SizedBox.expand(
+//     //                   //           child: AddtoCar(),
+//     //                   //         )),
+//     //                   //   ),
+//     //                   // )
+//     //                 ],
+//     //               ),
+//     //             );
+//     //           }),
+//     //           // )
+//     //         )
+//     //         //
+//     //         )
+//     //     //
+//     //     );
 //   }
 // }
 
@@ -223,13 +238,14 @@ class _StackTopHeaderState extends State<StackTopHeader> {
 }
 
 class HeaderPlateDetails extends StatelessWidget {
+  final String image;
+  HeaderPlateDetails({this.image});
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              fit: BoxFit.cover,
-              image: ExactAssetImage('assets/banner/french-food.png'))),
+              fit: BoxFit.cover, image: ExactAssetImage(image))),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.40,
     );
@@ -237,6 +253,8 @@ class HeaderPlateDetails extends StatelessWidget {
 }
 
 class GroupPlateBasicDetails extends StatelessWidget {
+  final Dishes dish;
+  GroupPlateBasicDetails({this.dish});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -271,7 +289,7 @@ class GroupPlateBasicDetails extends StatelessWidget {
                 EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
             child: Center(
               child: Text(
-                'House of Blues San Diego',
+                dish.name,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5.copyWith(
                     color: Theme.of(context).primaryColorDark,
@@ -281,7 +299,7 @@ class GroupPlateBasicDetails extends StatelessWidget {
           ),
           Container(
             child: Text(
-              "\$29.00",
+              "\$${dish.price}",
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline6.copyWith(
                   color: Theme.of(context).primaryColorDark,
@@ -296,7 +314,7 @@ class GroupPlateBasicDetails extends StatelessWidget {
                 top: MediaQuery.of(context).size.height * 0.008),
             // color: Colors.white,
             child: Text(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque auctor odio et dignissim consectetur. In hac habitasse platea dictumst. In vel ligula nec velit tincidunt ultricies',
+              dish.details,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.button.copyWith(
                   color: Theme.of(context).primaryColorDark,
@@ -304,36 +322,36 @@ class GroupPlateBasicDetails extends StatelessWidget {
             ),
           ),
           Container(
-              margin: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.012),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Icon(
-                    Icons.star,
-                    size: 22,
-                    color: Theme.of(context).buttonColor,
-                  ),
-                  Icon(
-                    Icons.star,
-                    size: 22,
-                    color: Theme.of(context).buttonColor,
-                  ),
-                  Icon(
-                    Icons.star,
-                    size: 22,
-                    color: Theme.of(context).buttonColor,
-                  ),
-                  Icon(
-                    Icons.star,
-                    size: 22,
-                    color: Theme.of(context).buttonColor,
-                  ),
-                  Icon(
-                    Icons.star,
-                    size: 22,
-                    color: Theme.of(context).accentColor,
-                  ),
+            margin: EdgeInsets.only(
+                top: MediaQuery.of(context).size.height * 0.012),
+            child: Builder(
+              builder: (BuildContext context) {
+                int rating = dish.rating.toInt();
+                List repeat = new List(5);
+                List<Widget> stars = [];
+                repeat.asMap().entries.map((e) {
+                  int index = (e.key + 1);
+                  if (index <= rating) {
+                    stars.add(
+                      Icon(
+                        Icons.star,
+                        size: 22,
+                        color: Theme.of(context).buttonColor,
+                      ),
+                    );
+                  }
+                  if (index > rating) {
+                    stars.add(
+                      Icon(
+                        Icons.star,
+                        size: 22,
+                        color: Theme.of(context).accentColor,
+                      ),
+                    );
+                  }
+                }).toList();
+
+                stars.add(
                   Container(
                     margin: EdgeInsets.only(left: 10),
                     child: Text(
@@ -344,8 +362,14 @@ class GroupPlateBasicDetails extends StatelessWidget {
                           .copyWith(color: Theme.of(context).primaryColorDark),
                     ),
                   ),
-                ],
-              )),
+                );
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: stars,
+                );
+              },
+            ),
+          ),
         ],
       ),
     );
@@ -431,18 +455,23 @@ class AditionalsState extends State<Aditionals> {
 }
 
 class AmountProduct extends StatefulWidget {
+  final double price;
+  final List promos;
+  AmountProduct({this.price, this.promos});
   @override
   _AmountProductState createState() => _AmountProductState();
 }
 
 class _AmountProductState extends State<AmountProduct> {
   int amount = 1;
-  double priceOrigin = 29.00;
-  double price = 29.00;
+  double priceOrigin = 0;
+  double price = 0;
 
   @override
   void initState() {
     super.initState();
+    priceOrigin = widget.price;
+    price = widget.price;
   }
 
   void _amountproduct(type) {
