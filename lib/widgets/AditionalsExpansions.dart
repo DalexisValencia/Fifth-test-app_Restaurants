@@ -78,6 +78,7 @@ class _AditionalExpansionPanelState extends State<AditionalExpansionPanel> {
                   optionsExpansion.add(AditionalCheckBoxTile(
                       index: option.key,
                       name: option.value.name,
+                      price: option.value.price,
                       active: widget.isMulti
                           ? option.value.isActive
                           : currentActive == option.key,
@@ -100,12 +101,18 @@ class _AditionalExpansionPanelState extends State<AditionalExpansionPanel> {
 class AditionalCheckBoxTile extends StatefulWidget {
   final int index;
   final String name;
+  final int price;
   final bool active;
   final Function callBackClick;
   final bool isMulti;
 
   AditionalCheckBoxTile(
-      {this.index, this.name, this.active, this.callBackClick, this.isMulti});
+      {this.index,
+      this.name,
+      this.active,
+      this.callBackClick,
+      this.isMulti,
+      this.price});
   @override
   _AditionalCheckBoxTileState createState() => _AditionalCheckBoxTileState();
 }
@@ -150,12 +157,25 @@ class _AditionalCheckBoxTileState extends State<AditionalCheckBoxTile> {
                   width: 1,
                   color: Theme.of(context).primaryColorDark.withOpacity(0.2)))),
       child: CheckboxListTile(
-        title: Text(
-          widget.name,
-          style: Theme.of(context)
-              .textTheme
-              .caption
-              .copyWith(color: Theme.of(context).primaryColorDark),
+        title: Container(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                widget.name,
+                style: Theme.of(context)
+                    .textTheme
+                    .caption
+                    .copyWith(color: Theme.of(context).primaryColorDark),
+              ),
+              Text(
+                "\$" + widget.price.toString(),
+                style: Theme.of(context).textTheme.caption.copyWith(
+                    color: Theme.of(context).primaryColorDark,
+                    fontWeight: FontWeight.w700),
+              ),
+            ],
+          ),
         ),
         activeColor: Theme.of(context).buttonColor,
         value: isCurrentCheckActive,

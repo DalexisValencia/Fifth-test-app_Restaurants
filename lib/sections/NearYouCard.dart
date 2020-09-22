@@ -10,7 +10,7 @@ class NearYouCard extends StatelessWidget {
   NearYouCard({this.dish, this.index});
   @override
   Widget build(BuildContext context) {
-    final blocDish = BlocProvider.of<DishBloc>(context);
+    // final blocDish = BlocProvider.of<DishBloc>(context);
     return Container(
       margin: EdgeInsets.only(
           right: index < 9 ? MediaQuery.of(context).size.width * 0.04 : 5),
@@ -18,23 +18,17 @@ class NearYouCard extends StatelessWidget {
       child: RaisedButton(
         elevation: 0,
         onPressed: () {
-          blocDish.add(DishStart(dishName: dish.name));
+          // blocDish.add(DishStart(dishName: dish.name));
           Navigator.of(context)
               .push(MaterialPageRoute<PlateDetailWrapper>(builder: (context) {
-            // return BlocProvider.value(
-            //   value: blocDish,
-            //   child: PlateDetailWrapper(),
-            // );
-            return BlocProvider<DishBloc>(
-              create: (BuildContext context) => DishBloc(),
-              child: PlateDetailWrapper(),
+            return PlateDetailWrapper(
+              dish: dish,
             );
           }));
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
-        // padding: EdgeInsets.symmetric(horizontal: 3),
         padding: EdgeInsets.all(0),
         color: Theme.of(context).primaryColorLight,
         splashColor: Colors.red,

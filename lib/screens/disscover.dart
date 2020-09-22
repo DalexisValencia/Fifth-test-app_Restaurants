@@ -79,11 +79,11 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
   }
 
   Widget _nearYouContainer(nearYou) {
-    // return BlocProvider<DishBloc>(
-    //   create: (BuildContext context) => DishBloc(),
-    //   child: NearYou(nearYou: nearYou),
-    // );
-    return NearYou(nearYou: nearYou);
+    return BlocProvider<DishBloc>(
+      create: (BuildContext context) => DishBloc(),
+      child: NearYou(nearYou: nearYou),
+    );
+    // return NearYou(nearYou: nearYou);
   }
 
   Widget _newLaunch(List<Dishes> recents) {
@@ -222,23 +222,20 @@ class _NearYouState extends State<NearYou> {
   }
 
   Widget _suggestions() {
-    return BlocProvider<DishBloc>(
-        create: (BuildContext context) => DishBloc(),
-        child: Container(
-          height: 160,
-          width: MediaQuery.of(context).size.width,
-          padding:
-              EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: widget.nearYou.length,
-              itemBuilder: (BuildContext context, int index) {
-                return NearYouCard(
-                  dish: widget.nearYou[index],
-                  index: index,
-                );
-              }),
-        ));
+    return Container(
+      height: 160,
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: widget.nearYou.length,
+          itemBuilder: (BuildContext context, int index) {
+            return NearYouCard(
+              dish: widget.nearYou[index],
+              index: index,
+            );
+          }),
+    );
   }
 
   _sectionBody() {

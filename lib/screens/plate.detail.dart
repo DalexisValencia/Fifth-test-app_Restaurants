@@ -12,186 +12,177 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class PlateDetailWrapper extends StatelessWidget {
+class PlateDetailWrapper extends StatefulWidget {
+  final Dishes dish;
+  PlateDetailWrapper({this.dish});
+  @override
+  _PlateDetailWrapperState createState() => _PlateDetailWrapperState();
+}
+
+class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
+  bool minSizeReached = false;
+  bool animatedOpacity = true;
+  bool animationChildren = true;
+
+  ScrollController _controller;
+  @override
+  void initState() {
+    _controller = ScrollController();
+    _controller.addListener(_scrollListener);
+    super.initState();
+    this.startAnimationScreen();
+  }
+
+  void startAnimationScreen() {
+    Timer(Duration(milliseconds: animationStartTime), () {
+      setState(() {
+        animatedOpacity = false;
+      });
+    });
+    startAnimationChildren();
+  }
+
+  void startAnimationChildren() {
+    Timer(Duration(milliseconds: animationStartTime), () {
+      setState(() {
+        animationChildren = false;
+      });
+    });
+  }
+
+  _changeStatusBarThemeColor(SystemUiOverlayStyle style) {
+    SystemChrome.setSystemUIOverlayStyle(style);
+  }
+
+  _scrollListener() {
+    if (_controller.offset > 100 && !minSizeReached) {
+      setState(() {
+        minSizeReached = true;
+      });
+      _changeStatusBarThemeColor(SystemUiOverlayStyle.dark);
+    }
+    if (_controller.offset < 100 && minSizeReached) {
+      setState(() {
+        minSizeReached = false;
+      });
+      _changeStatusBarThemeColor(SystemUiOverlayStyle.light);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: BlocBuilder<DishBloc, DishState>(
-        builder: (BuildContext context, state) {
-      print(state.props);
-      return Text('La info');
-    }));
+    print("::Soy el build de una vista que no se debre renderizar:::");
+    return Scaffold(
+        body: widget.dish == null
+            ? SizedBox()
+            : AnimatedOpacity(
+                duration: Duration(milliseconds: animationOpacityTime),
+                opacity: animatedOpacity ? 0 : 1,
+                child: CustomContainerAnimation(
+                    animationChildren: animationChildren,
+                    children: Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                      child: Stack(
+                        children: <Widget>[
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            height: MediaQuery.of(context).size.height,
+                            child: Column(
+                              children: <Widget>[
+                                Expanded(
+                                  child: Container(
+                                    width: MediaQuery.of(context).size.width,
+                                    child: SingleChildScrollView(
+                                      controller: _controller,
+                                      child: Column(
+                                        children: <Widget>[
+                                          HeaderPlateDetails(
+                                              image: widget.dish.image == null
+                                                  ? ''
+                                                  : widget.dish.image),
+                                          GroupPlateBasicDetails(
+                                              dish: widget.dish),
+                                          AmountProduct(
+                                              price: widget.dish.price,
+                                              promos:
+                                                  widget.dish.pricePromotions),
+                                          Aditionals(
+                                              aditionals:
+                                                  widget.dish.additions),
+                                          // widget.dish.additions.length >= 1
+                                          //     ? Aditionals(
+                                          //         aditionals: widget.dish.additions)
+                                          //     : SizedBox(
+                                          //         height: 0,
+                                          //         width: 0,
+                                          //       ),
+                                          SummaryIngredients(),
+                                          PreparationTime(),
+                                          SizedBox(
+                                            height: 60,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Positioned(
+                            top: 0,
+                            child: AnimatedContainer(
+                                decoration: BoxDecoration(
+                                    color: minSizeReached
+                                        ? Colors.white
+                                        : Colors.transparent,
+                                    boxShadow: [
+                                      BoxShadow(
+                                          blurRadius: 0.5,
+                                          color: minSizeReached
+                                              ? Theme.of(context).primaryColor
+                                              : Colors.transparent,
+                                          offset: Offset(2, 0))
+                                    ]),
+                                duration: Duration(milliseconds: 500),
+                                curve: Curves.ease,
+                                padding: EdgeInsets.only(
+                                    top:
+                                        MediaQuery.of(context).padding.top + 10,
+                                    bottom: 10),
+                                width: MediaQuery.of(context).size.width,
+                                child: StackTopHeader(
+                                  iconColors: minSizeReached
+                                      ? Theme.of(context).primaryColorDark
+                                      : Theme.of(context).primaryColorLight,
+                                )),
+                          ),
+                          Positioned(
+                            bottom: 0,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              child: Container(
+                                  margin: EdgeInsets.all(0),
+                                  padding: EdgeInsets.all(0),
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 50,
+                                  child: SizedBox.expand(
+                                    child: AddtoCar(),
+                                  )),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                    // )
+                    )
+                //
+                )
+        //
+        );
   }
 }
-// class PlateDetailWrapper extends StatefulWidget {
-//   @override
-//   _PlateDetailWrapperState createState() => _PlateDetailWrapperState();
-// }
-
-// class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
-//   bool minSizeReached = false;
-//   bool animatedOpacity = true;
-//   bool animationChildren = true;
-
-//   ScrollController _controller;
-//   @override
-//   void initState() {
-//     _controller = ScrollController();
-//     _controller.addListener(_scrollListener);
-//     super.initState();
-//     this.startAnimationScreen();
-//   }
-
-//   void startAnimationScreen() {
-//     Timer(Duration(milliseconds: animationStartTime), () {
-//       setState(() {
-//         animatedOpacity = false;
-//       });
-//     });
-//     startAnimationChildren();
-//   }
-
-//   void startAnimationChildren() {
-//     Timer(Duration(milliseconds: animationStartTime), () {
-//       setState(() {
-//         animationChildren = false;
-//       });
-//     });
-//   }
-
-//   _changeStatusBarThemeColor(SystemUiOverlayStyle style) {
-//     SystemChrome.setSystemUIOverlayStyle(style);
-//   }
-
-//   _scrollListener() {
-//     if (_controller.offset > 100 && !minSizeReached) {
-//       setState(() {
-//         minSizeReached = true;
-//       });
-//       _changeStatusBarThemeColor(SystemUiOverlayStyle.dark);
-//     }
-//     if (_controller.offset < 100 && minSizeReached) {
-//       setState(() {
-//         minSizeReached = false;
-//       });
-//       _changeStatusBarThemeColor(SystemUiOverlayStyle.light);
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: BlocBuilder<DishBloc, DishState>(
-//           builder: (BuildContext context, state) {
-//         return Text('La info');
-//       }),
-//     );
-//     // return Scaffold(
-//     //   body: BlocBuilder<DishBloc, DishState>(
-//     //       builder: (BuildContext context, state) {
-//     //     return Text('La info');
-//     //   }),
-//     // );
-//     // return Scaffold(
-//     //     body: AnimatedOpacity(
-//     //         duration: Duration(milliseconds: animationOpacityTime),
-//     //         opacity: animatedOpacity ? 0 : 1,
-//     //         child: CustomContainerAnimation(
-//     //           animationChildren: animationChildren,
-//     //           children: BlocBuilder<DishBloc, DishState>(
-//     //               builder: (BuildContext context, state) {
-//     //             print(state);
-//     //             // Dishes dish = state.props[0];
-//     //             return Container(
-//     //               width: MediaQuery.of(context).size.width,
-//     //               height: MediaQuery.of(context).size.height,
-//     //               child: Stack(
-//     //                 children: <Widget>[
-//     //                   Container(
-//     //                     width: MediaQuery.of(context).size.width,
-//     //                     height: MediaQuery.of(context).size.height,
-//     //                     child: Column(
-//     //                       children: <Widget>[
-//     //                         Expanded(
-//     //                           child: Container(
-//     //                             width: MediaQuery.of(context).size.width,
-//     //                             child: SingleChildScrollView(
-//     //                               controller: _controller,
-//     //                               child: Column(
-//     //                                 children: <Widget>[
-//     //                                   Text("es la info??"),
-//     //                                   // HeaderPlateDetails(image: dish.image),
-//     //                                   // GroupPlateBasicDetails(dish: dish),
-//     //                                   // AmountProduct(
-//     //                                   //     price: dish.price,
-//     //                                   //     promos: dish.pricePromotions),
-//     //                                   // Aditionals(),
-//     //                                   // SummaryIngredients(),
-//     //                                   // PreparationTime(),
-//     //                                   // SizedBox(
-//     //                                   //   height: 60,
-//     //                                   // ),
-//     //                                 ],
-//     //                               ),
-//     //                             ),
-//     //                           ),
-//     //                         ),
-//     //                       ],
-//     //                     ),
-//     //                   ),
-//     //                   // Positioned(
-//     //                   //   top: 0,
-//     //                   //   child: AnimatedContainer(
-//     //                   //       decoration: BoxDecoration(
-//     //                   //           color: minSizeReached
-//     //                   //               ? Colors.white
-//     //                   //               : Colors.transparent,
-//     //                   //           boxShadow: [
-//     //                   //             BoxShadow(
-//     //                   //                 blurRadius: 0.5,
-//     //                   //                 color: minSizeReached
-//     //                   //                     ? Theme.of(context).primaryColor
-//     //                   //                     : Colors.transparent,
-//     //                   //                 offset: Offset(2, 0))
-//     //                   //           ]),
-//     //                   //       duration: Duration(milliseconds: 500),
-//     //                   //       curve: Curves.ease,
-//     //                   //       padding: EdgeInsets.only(
-//     //                   //           top:
-//     //                   //               MediaQuery.of(context).padding.top + 10,
-//     //                   //           bottom: 10),
-//     //                   //       width: MediaQuery.of(context).size.width,
-//     //                   //       child: StackTopHeader(
-//     //                   //         iconColors: minSizeReached
-//     //                   //             ? Theme.of(context).primaryColorDark
-//     //                   //             : Theme.of(context).primaryColorLight,
-//     //                   //       )),
-//     //                   // ),
-//     //                   // Positioned(
-//     //                   //   bottom: 0,
-//     //                   //   child: Container(
-//     //                   //     width: MediaQuery.of(context).size.width,
-//     //                   //     child: Container(
-//     //                   //         margin: EdgeInsets.all(0),
-//     //                   //         padding: EdgeInsets.all(0),
-//     //                   //         width: MediaQuery.of(context).size.width,
-//     //                   //         height: 50,
-//     //                   //         child: SizedBox.expand(
-//     //                   //           child: AddtoCar(),
-//     //                   //         )),
-//     //                   //   ),
-//     //                   // )
-//     //                 ],
-//     //               ),
-//     //             );
-//     //           }),
-//     //           // )
-//     //         )
-//     //         //
-//     //         )
-//     //     //
-//     //     );
-//   }
-// }
 
 class StackTopHeader extends StatefulWidget {
   final Color iconColors;
@@ -377,6 +368,8 @@ class GroupPlateBasicDetails extends StatelessWidget {
 }
 
 class Aditionals extends StatefulWidget {
+  final List<Adittional> aditionals;
+  Aditionals({this.aditionals});
   @override
   AditionalsState createState() => AditionalsState();
 }
@@ -398,34 +391,12 @@ class AditionalsState extends State<Aditionals> {
   }
 
   Widget _expansionAdittional() {
-    List<Adittional> aditionals = [
-      Adittional(title: 'Cubiertos', isMulti: false, children: [
-        AditionalsOptions(name: 'Con Cubiertos', isActive: true),
-        AditionalsOptions(name: 'Con Palillos chinos', isActive: false)
-      ]),
-      Adittional(title: 'Salsa', isMulti: true, children: [
-        AditionalsOptions(name: '... de tomate', isActive: false),
-        AditionalsOptions(name: '... terillaki', isActive: false),
-        AditionalsOptions(name: '... de guacamole', isActive: false)
-      ]),
-      Adittional(title: 'Naruto', isMulti: true, children: [
-        AditionalsOptions(name: 'Shikamaru', isActive: false),
-        AditionalsOptions(name: 'Shouji', isActive: false),
-        AditionalsOptions(name: 'Ino', isActive: false),
-        AditionalsOptions(name: 'Shikamaru', isActive: false),
-        AditionalsOptions(name: 'Shouji', isActive: false),
-        AditionalsOptions(name: 'Ino', isActive: false),
-        AditionalsOptions(name: 'Shikamaru', isActive: false),
-        AditionalsOptions(name: 'Shouji', isActive: false),
-        AditionalsOptions(name: 'Ino', isActive: false)
-      ])
-    ];
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Builder(
         builder: (BuildContext context) {
           List<Widget> expandible = [];
-          aditionals.map((item) {
+          widget.aditionals.map((item) {
             expandible.add(AditionalExpansionPanel(
                 title: item.title,
                 isMulti: item.isMulti,

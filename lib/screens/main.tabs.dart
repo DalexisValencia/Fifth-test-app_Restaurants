@@ -52,13 +52,22 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                         controller: _tabController, animateScreen: true),
                   ),
                   Container(
-                    child: ScaffoldSearch(),
+                    // child: ScaffoldSearch(),
+                    child: Container(
+                      child: Text("Busqueda"),
+                    ),
                   ),
                   Container(
-                    child: RestaurantDetailWrapper(),
+                    child: Container(
+                      child: Text("Favoritos"),
+                    ),
+                    // child: RestaurantDetailWrapper(),
                   ),
                   Container(
-                    child: PlateDetailWrapper(),
+                    // child: PlateDetailWrapper(),
+                    child: Container(
+                      child: Text("Reservas"),
+                    ),
                   ),
                   Container(
                     child: DiscoverScaffold(),

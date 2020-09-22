@@ -2,6 +2,7 @@ import 'package:fith_app__restaurant/interfaces/Comments.dart';
 import 'package:fith_app__restaurant/interfaces/ContactMeans.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
+import 'package:fith_app__restaurant/interfaces/aditional.dart';
 import 'package:fith_app__restaurant/interfaces/categories.dart';
 import 'package:flutter/material.dart';
 
@@ -63,7 +64,23 @@ List<Dishes> dishes = [
       ],
       category: [categories[0].name, categories[2].name],
       promotion: true,
-      pricePromotions: [10000, 20000, 30000]
+      pricePromotions: [10000, 20000, 30000],
+      additions: [
+        Adittional(title: 'Cubiertos', isMulti: false, children: [
+          AditionalsOptions(name: 'Con Cubiertos', isActive: false, price: 0),
+        ]),
+        Adittional(title: 'Bebida Personal', isMulti: false, children: [
+          AditionalsOptions(name: 'Coca Cola', isActive: false, price: 3000),
+          AditionalsOptions(name: 'Pepsi', isActive: false, price: 3000),
+          AditionalsOptions(
+              name: 'Jugo de Naranja', isActive: false, price: 4000),
+          AditionalsOptions(
+              name: 'Jugo de Guanabana', isActive: false, price: 4000),
+          AditionalsOptions(
+              name: 'Jugo de Mango', isActive: false, price: 4000),
+          AditionalsOptions(name: 'Limonada', isActive: false, price: 4000),
+        ])
+      ]
       //
       ),
   Dishes(

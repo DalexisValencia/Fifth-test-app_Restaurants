@@ -8,5 +8,6 @@ class Adittional {
 class AditionalsOptions {
   final String name;
   final bool isActive;
-  AditionalsOptions({this.name, this.isActive});
+  final int price;
+  AditionalsOptions({this.name, this.isActive, this.price});
 }
