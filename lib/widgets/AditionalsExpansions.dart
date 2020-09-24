@@ -15,6 +15,13 @@ class _AditionalExpansionPanelState extends State<AditionalExpansionPanel> {
   int currentActive = 0;
   bool isActivePanel = false;
 
+  @override
+  initState() {
+    currentActive = widget.children.length +
+        1; //Desactiva el primer elemento seleccionado por defecto
+    super.initState();
+  }
+
   checkFlowCheckBox(val, inx) {
     if (!val) {
       setState(() {
@@ -168,12 +175,17 @@ class _AditionalCheckBoxTileState extends State<AditionalCheckBoxTile> {
                     .caption
                     .copyWith(color: Theme.of(context).primaryColorDark),
               ),
-              Text(
-                "\$" + widget.price.toString(),
-                style: Theme.of(context).textTheme.caption.copyWith(
-                    color: Theme.of(context).primaryColorDark,
-                    fontWeight: FontWeight.w700),
-              ),
+              widget.price.toString() != '0'
+                  ? Text(
+                      "\$" + widget.price.toString(),
+                      style: Theme.of(context).textTheme.caption.copyWith(
+                          color: Theme.of(context).primaryColorDark,
+                          fontWeight: FontWeight.w700),
+                    )
+                  : SizedBox(
+                      width: 10,
+                      height: 0,
+                    ),
             ],
           ),
         ),

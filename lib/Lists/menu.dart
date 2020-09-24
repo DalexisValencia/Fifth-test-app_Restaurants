@@ -1,6 +1,7 @@
 import 'package:fith_app__restaurant/interfaces/Comments.dart';
 import 'package:fith_app__restaurant/interfaces/ContactMeans.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
+import 'package:fith_app__restaurant/interfaces/Ingredients.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
 import 'package:fith_app__restaurant/interfaces/aditional.dart';
 import 'package:fith_app__restaurant/interfaces/categories.dart';
@@ -80,6 +81,17 @@ List<Dishes> dishes = [
               name: 'Jugo de Mango', isActive: false, price: 4000),
           AditionalsOptions(name: 'Limonada', isActive: false, price: 4000),
         ])
+      ],
+      ingredients: [
+        Ingredients(name: 'Beef', amountGrams: '40G'),
+        Ingredients(name: 'Onion', amountGrams: '50G'),
+        Ingredients(name: 'Garlic', amountGrams: '50G'),
+        Ingredients(name: 'Carrot', amountGrams: '8G'),
+        Ingredients(name: 'Flour', amountGrams: '15G'),
+        Ingredients(name: 'Salt', amountGrams: '5G'),
+        Ingredients(name: 'Parsley', amountGrams: '0.2G'),
+        Ingredients(name: 'Tomato Paste', amountGrams: '2G'),
+        Ingredients(name: 'Red Wine', amountGrams: '0.5ml'),
       ]
       //
       ),
@@ -107,7 +119,13 @@ List<Dishes> dishes = [
       ],
       category: [categories[1].name, categories[3].name],
       promotion: true,
-      pricePromotions: []
+      pricePromotions: [],
+      additions: [],
+      ingredients: [
+        Ingredients(name: 'Beef', amountGrams: '40G'),
+        Ingredients(name: 'Potatoe', amountGrams: '50G'),
+        Ingredients(name: 'Carrot', amountGrams: '30G'),
+      ]
       //
       ),
   Dishes(
@@ -133,7 +151,13 @@ List<Dishes> dishes = [
         categories[3].name
       ],
       promotion: true,
-      pricePromotions: []
+      pricePromotions: [],
+      additions: [],
+      ingredients: [
+        Ingredients(name: 'Beef', amountGrams: '40G'),
+        Ingredients(name: 'Potatoe', amountGrams: '50G'),
+        Ingredients(name: 'Carrot', amountGrams: '30G'),
+      ]
       //
       ),
 ];

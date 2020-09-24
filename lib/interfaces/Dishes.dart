@@ -1,6 +1,7 @@
 import 'package:fith_app__restaurant/interfaces/Comments.dart';
+import 'package:fith_app__restaurant/interfaces/Ingredients.dart';
 import 'package:fith_app__restaurant/interfaces/aditional.dart';
-import 'package:fith_app__restaurant/interfaces/categories.dart';
+// import 'package:fith_app__restaurant/interfaces/categories.dart';
 
 class Dishes {
   final String name;
@@ -15,6 +16,7 @@ class Dishes {
   final List<double>
       pricePromotions; // Por ahora solo tres precios por promocion
   final List<Adittional> additions;
+  final List<Ingredients> ingredients;
 
   Dishes(
       {this.name,
@@ -27,7 +29,8 @@ class Dishes {
       this.category,
       this.promotion,
       this.pricePromotions,
-      this.additions
+      this.additions,
+      this.ingredients
       //
       });
 }

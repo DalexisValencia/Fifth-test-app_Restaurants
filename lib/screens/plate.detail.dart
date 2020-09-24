@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
+// import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
+import 'package:fith_app__restaurant/interfaces/Ingredients.dart';
 import 'package:fith_app__restaurant/interfaces/aditional.dart';
 import 'package:fith_app__restaurant/interfaces/summaryStep.dart';
 import 'package:fith_app__restaurant/widgets/AditionalsExpansions.dart';
@@ -10,7 +11,7 @@ import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PlateDetailWrapper extends StatefulWidget {
   final Dishes dish;
@@ -71,7 +72,6 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    print("::Soy el build de una vista que no se debre renderizar:::");
     return Scaffold(
         body: widget.dish == null
             ? SizedBox()
@@ -107,20 +107,21 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
                                               price: widget.dish.price,
                                               promos:
                                                   widget.dish.pricePromotions),
-                                          Aditionals(
-                                              aditionals:
-                                                  widget.dish.additions),
-                                          // widget.dish.additions.length >= 1
-                                          //     ? Aditionals(
-                                          //         aditionals: widget.dish.additions)
-                                          //     : SizedBox(
-                                          //         height: 0,
-                                          //         width: 0,
-                                          //       ),
-                                          SummaryIngredients(),
-                                          PreparationTime(),
+                                          widget.dish.additions.length >= 1
+                                              ? Aditionals(
+                                                  aditionals:
+                                                      widget.dish.additions)
+                                              : SizedBox(
+                                                  height: 0,
+                                                  width: 0,
+                                                ),
+                                          SummaryIngredients(
+                                              ingredients:
+                                                  widget.dish.ingredients),
+                                          // PreparationTime(),
+                                          PreparationSummary(),
                                           SizedBox(
-                                            height: 60,
+                                            height: 80,
                                           ),
                                         ],
                                       ),
@@ -166,7 +167,7 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
                                   margin: EdgeInsets.all(0),
                                   padding: EdgeInsets.all(0),
                                   width: MediaQuery.of(context).size.width,
-                                  height: 50,
+                                  height: 60,
                                   child: SizedBox.expand(
                                     child: AddtoCar(),
                                   )),
@@ -545,6 +546,8 @@ class _AmountProductState extends State<AmountProduct> {
 }
 
 class SummaryIngredients extends StatefulWidget {
+  final List<Ingredients> ingredients;
+  SummaryIngredients({this.ingredients});
   @override
   _SummaryIngredientsState createState() => _SummaryIngredientsState();
 }
@@ -557,7 +560,7 @@ class _SummaryIngredientsState extends State<SummaryIngredients> {
         child: FittedBox(
           fit: BoxFit.scaleDown,
           child: Text(
-            'Ingreddients',
+            'Ingreddients for plate',
             textAlign: TextAlign.left,
             style: Theme.of(context).textTheme.subtitle1.copyWith(
                 fontWeight: FontWeight.bold,
@@ -572,15 +575,15 @@ class _SummaryIngredientsState extends State<SummaryIngredients> {
       width: MediaQuery.of(context).size.width,
       height: 80,
       child: ListView.builder(
-          itemCount: 20,
+          itemCount: widget.ingredients.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (BuildContext context, int index) {
-            return _cardIngredients();
+            return _cardIngredients(widget.ingredients[index]);
           }),
     );
   }
 
-  Widget _cardIngredients() {
+  Widget _cardIngredients(Ingredients ingredient) {
     return Container(
         decoration: BoxDecoration(
             color: Theme.of(context).primaryColorLight,
@@ -601,7 +604,7 @@ class _SummaryIngredientsState extends State<SummaryIngredients> {
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  "435G",
+                  ingredient.amountGrams,
                   style: Theme.of(context).textTheme.subtitle1.copyWith(
                       fontWeight: FontWeight.w500,
                       color: Theme.of(context).primaryColorDark),
@@ -613,7 +616,7 @@ class _SummaryIngredientsState extends State<SummaryIngredients> {
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  "TOMATTOES",
+                  ingredient.name,
                   style: Theme.of(context).textTheme.caption.copyWith(
                       fontSize: 9,
                       fontWeight: FontWeight.normal,
@@ -630,7 +633,7 @@ class _SummaryIngredientsState extends State<SummaryIngredients> {
     return Container(
       margin: EdgeInsets.only(
           bottom: MediaQuery.of(context).size.height * 0.018,
-          top: MediaQuery.of(context).size.height * 0.015),
+          top: MediaQuery.of(context).size.height * 0.025),
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.only(
           left: MediaQuery.of(context).size.width * 0.07,
@@ -652,20 +655,69 @@ class _AddtoCarState extends State<AddtoCar> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 100,
-        width: MediaQuery.of(context).size.width,
-        child: SizedBox(
-          child: RaisedButton(
-            onPressed: () {},
+      decoration: BoxDecoration(
+        border: Border(
+            top: BorderSide(color: Theme.of(context).accentColor, width: 1)),
+        color: Theme.of(context).primaryColorLight,
+      ),
+      padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * defaultPadding),
+      width: MediaQuery.of(context).size.width,
+      // child: Text("la info")
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            flex: 1,
             child: Text(
-              "Añadir Al Carrito",
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyText1
-                  .copyWith(color: Theme.of(context).primaryColorLight),
+              "\$12.000",
+              style: Theme.of(context).textTheme.bodyText1.copyWith(
+                  fontSize: 22,
+                  color: Theme.of(context).buttonColor,
+                  //
+                  fontWeight: FontWeight.w900),
             ),
           ),
-        ));
+          Spacer(),
+          // Expanded(
+          //     flex: 1,
+          SizedBox(
+              height: 41,
+              width: 120,
+              child: RaisedButton.icon(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)),
+                onPressed: () {},
+                elevation: 0,
+                icon: Icon(
+                  Icons.add_shopping_cart,
+                  size: 18,
+                  color: Theme.of(context).primaryColorLight,
+                ),
+                label: Text(
+                  "Añadir",
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1
+                      .copyWith(color: Theme.of(context).primaryColorLight),
+                ),
+                //),
+              ))
+        ],
+      ),
+      // SizedBox(
+      //   child: RaisedButton(
+      //     onPressed: () {},
+      //     child: Text(
+      //       "Añadir Al Carrito",
+      //       style: Theme.of(context)
+      //           .textTheme
+      //           .bodyText1
+      //           .copyWith(color: Theme.of(context).primaryColorLight),
+      //     ),
+      //   ),
+      // )
+      //
+    );
   }
 }
 
@@ -792,6 +844,91 @@ class _PreparationTimeState extends State<PreparationTime> {
           child: _buildSummarySteps(),
         )
       ],
+    );
+  }
+}
+
+class PreparationSummary extends StatefulWidget {
+  @override
+  _PreparationSummaryState createState() => _PreparationSummaryState();
+}
+
+class _PreparationSummaryState extends State<PreparationSummary> {
+  Widget _header() {
+    return Container(
+        width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.only(
+            left: MediaQuery.of(context).size.width * 0.07,
+            right: MediaQuery.of(context).size.width * 0.07,
+            bottom: 10),
+        child: Text(
+          "Summary",
+          textAlign: TextAlign.left,
+          style: Theme.of(context).textTheme.subtitle1.copyWith(
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).primaryColorDark),
+        ));
+  }
+
+  Widget _body() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * defaultPadding
+          //
+          ),
+      // decoration: BoxDecoration(color: Colors.blue),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          _card('Cooking', '20 min', Icons.watch_later),
+          // Text("Cooking"),
+          _card('Extra', '\$10.000', Icons.monetization_on),
+          _card('Discount', '-\$5.000', Icons.remove_circle),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[_header(), _body()],
+    );
+  }
+
+  Widget _card(name, value, icon) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              Icon(
+                icon,
+                size: 12,
+                color: Theme.of(context).accentColor,
+              ),
+              SizedBox(
+                width: 2,
+              ),
+              Text(
+                name,
+                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                    color: Theme.of(context).accentColor,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w400),
+              ),
+            ],
+          ),
+          Text(
+            value,
+            style: Theme.of(context).textTheme.bodyText1.copyWith(
+                color: Theme.of(context).primaryColorDark,
+                fontWeight: FontWeight.w800),
+          ),
+        ],
+      ),
     );
   }
 }
