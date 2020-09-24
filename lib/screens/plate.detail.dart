@@ -721,133 +721,6 @@ class _AddtoCarState extends State<AddtoCar> {
   }
 }
 
-class PreparationTime extends StatefulWidget {
-  @override
-  _PreparationTimeState createState() => _PreparationTimeState();
-}
-
-class _PreparationTimeState extends State<PreparationTime> {
-  List<SummaryStepsInterface> listSummmarySteps = [
-    SummaryStepsInterface(
-        title: 'Preparation time for plates',
-        subTitle: '50 minutes',
-        icon: Icons.access_time),
-    SummaryStepsInterface(
-        title: 'Preparation time for # plates',
-        subTitle: '50 minutes',
-        icon: Icons.access_time),
-    SummaryStepsInterface(
-        title: '# Plates', subTitle: '\$150.000', icon: Icons.attach_money),
-    SummaryStepsInterface(
-        title: 'Aditionals', subTitle: '\$13.000', icon: Icons.attach_money),
-    SummaryStepsInterface(
-        title: 'TOTAL',
-        subTitle: '\$150.000 + \$13.000',
-        icon: Icons.attach_money)
-  ];
-  Widget _header() {
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.07,
-            right: MediaQuery.of(context).size.width * 0.07,
-            bottom: 10),
-        child: Text(
-          "Summary",
-          textAlign: TextAlign.left,
-          style: Theme.of(context).textTheme.subtitle1.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).primaryColorDark),
-        ));
-  }
-
-  Widget summaryContainer(title, subtitle, icon, withBorderBottom) {
-    return Container(
-      margin: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.05,
-          right: MediaQuery.of(context).size.width * 0.05),
-      decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(
-                  color: Theme.of(context)
-                      .primaryColor
-                      .withOpacity(withBorderBottom ? 0 : 0.3)))),
-      child: ListTile(
-          contentPadding: EdgeInsets.all(0),
-          leading: SizedBox(
-            height: 50,
-            width: 50,
-            child: Container(
-              child: Center(
-                child: Icon(
-                  icon,
-                  size: 30,
-                  color: Theme.of(context).primaryColor,
-                ),
-              ),
-            ),
-          ),
-          title: Container(
-            transform: Matrix4.translationValues(-10, 0, 0),
-            child: Text(
-              title,
-              style: Theme.of(context).textTheme.subtitle1.copyWith(
-                    color: Theme.of(context).primaryColorDark,
-                    fontWeight: FontWeight.w600,
-                  ),
-            ),
-          ),
-          subtitle: Container(
-            transform: Matrix4.translationValues(-10, 0, 0),
-            child: Text(subtitle,
-                style: Theme.of(context).textTheme.caption.copyWith(
-                    color: Theme.of(context).primaryColor.withOpacity(0.6),
-                    fontWeight: FontWeight.w500)),
-          )),
-    );
-  }
-
-  Widget _buildSummarySteps() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Builder(
-        builder: (BuildContext context) {
-          List<Widget> _summarySteps = [];
-          listSummmarySteps.asMap().entries.map((item) {
-            int idx = item.key;
-            bool noBorderBottom = (idx + 1) == listSummmarySteps.length;
-            SummaryStepsInterface val = item.value;
-            _summarySteps.add(summaryContainer(
-                val.title, val.subTitle, val.icon, noBorderBottom));
-          }).toList();
-          return Column(
-            children: _summarySteps,
-          );
-        },
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        _header(),
-        Container(
-          margin: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.07,
-              right: MediaQuery.of(context).size.width * 0.07),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(5),
-              border: Border.all(
-                  color: Theme.of(context).primaryColor.withOpacity(0.3))),
-          child: _buildSummarySteps(),
-        )
-      ],
-    );
-  }
-}
-
 class PreparationSummary extends StatefulWidget {
   @override
   _PreparationSummaryState createState() => _PreparationSummaryState();
@@ -874,15 +747,11 @@ class _PreparationSummaryState extends State<PreparationSummary> {
     return Container(
       width: MediaQuery.of(context).size.width,
       margin: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * defaultPadding
-          //
-          ),
-      // decoration: BoxDecoration(color: Colors.blue),
+          horizontal: MediaQuery.of(context).size.width * defaultPadding),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: <Widget>[
           _card('Cooking', '20 min', Icons.watch_later),
-          // Text("Cooking"),
           _card('Extra', '\$10.000', Icons.monetization_on),
           _card('Discount', '-\$5.000', Icons.remove_circle),
         ],
