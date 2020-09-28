@@ -1,16 +1,18 @@
 import 'dart:async';
 
 // import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
+// import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/Ingredients.dart';
 import 'package:fith_app__restaurant/interfaces/aditional.dart';
-import 'package:fith_app__restaurant/interfaces/summaryStep.dart';
+// import 'package:fith_app__restaurant/interfaces/summaryStep.dart';
 import 'package:fith_app__restaurant/widgets/AditionalsExpansions.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PlateDetailWrapper extends StatefulWidget {
@@ -24,6 +26,7 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
   bool minSizeReached = false;
   bool animatedOpacity = true;
   bool animationChildren = true;
+  // DishBloc counterBloc;
 
   ScrollController _controller;
   @override
@@ -32,6 +35,11 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
     _controller.addListener(_scrollListener);
     super.initState();
     this.startAnimationScreen();
+    // counterBloc = BlocProvider.of<DishBloc>(context);
+    // counterBloc.add(DishStart(dishName: widget.dish.name));
+    // print("__________");
+    // print(counterBloc.state);
+    // print("__________");
   }
 
   void startAnimationScreen() {
