@@ -13,16 +13,16 @@ class DishBloc extends Bloc<DishEvent, DishState> {
   @override
   Stream<DishState> mapEventToState(DishEvent event) async* {
     if (event is DishStart) {
-      var foundDish = findInDishes(event.dishName);
-      yield DishCurrent(dish: foundDish);
+      // var foundDish = findInDishes(event.currentDish);
+      yield DishCurrent(dish: event.currentDish);
     }
   }
 }
 
-findInDishes(name) {
-  Iterable<Dishes> dish = dishes.where((element) {
-    return element.name == name;
-  });
-  Dishes finalDish = dish.map((e) => e).toList()[0];
-  return finalDish;
-}
+// findInDishes(name) {
+//   Iterable<Dishes> dish = dishes.where((element) {
+//     return element.name == name;
+//   });
+//   Dishes finalDish = dish.map((e) => e).toList()[0];
+//   return finalDish;
+// }

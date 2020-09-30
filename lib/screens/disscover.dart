@@ -222,20 +222,23 @@ class _NearYouState extends State<NearYou> {
   }
 
   Widget _suggestions() {
-    return Container(
-      height: 160,
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
-      child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: widget.nearYou.length,
-          itemBuilder: (BuildContext context, int index) {
-            return NearYouCard(
-              dish: widget.nearYou[index],
-              index: index,
-            );
-          }),
-    );
+    return BlocProvider(
+        create: (BuildContext context) => DishBloc(),
+        child: Container(
+          height: 160,
+          width: MediaQuery.of(context).size.width,
+          padding:
+              EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: widget.nearYou.length,
+              itemBuilder: (BuildContext context, int index) {
+                return NearYouCard(
+                  dish: widget.nearYou[index],
+                  index: index,
+                );
+              }),
+        ));
   }
 
   _sectionBody() {

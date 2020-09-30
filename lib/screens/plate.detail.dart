@@ -2,6 +2,7 @@ import 'dart:async';
 
 // import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 // import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/Ingredients.dart';
@@ -12,12 +13,18 @@ import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:flutter_bloc/flutter_bloc.dart';
 
+// class PlateDetailWrapper extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Container(child: );
+//   }
+// }
 class PlateDetailWrapper extends StatefulWidget {
-  final Dishes dish;
-  PlateDetailWrapper({this.dish});
+  PlateDetailWrapper();
   @override
   _PlateDetailWrapperState createState() => _PlateDetailWrapperState();
 }
@@ -26,8 +33,6 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
   bool minSizeReached = false;
   bool animatedOpacity = true;
   bool animationChildren = true;
-  // DishBloc counterBloc;
-
   ScrollController _controller;
   @override
   void initState() {
@@ -35,11 +40,6 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
     _controller.addListener(_scrollListener);
     super.initState();
     this.startAnimationScreen();
-    // counterBloc = BlocProvider.of<DishBloc>(context);
-    // counterBloc.add(DishStart(dishName: widget.dish.name));
-    // print("__________");
-    // print(counterBloc.state);
-    // print("__________");
   }
 
   void startAnimationScreen() {
@@ -80,114 +80,111 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: widget.dish == null
-            ? SizedBox()
-            : AnimatedOpacity(
-                duration: Duration(milliseconds: animationOpacityTime),
-                opacity: animatedOpacity ? 0 : 1,
-                child: CustomContainerAnimation(
-                    animationChildren: animationChildren,
-                    children: Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      child: Stack(
-                        children: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height,
-                            child: Column(
-                              children: <Widget>[
-                                Expanded(
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    child: SingleChildScrollView(
-                                      controller: _controller,
-                                      child: Column(
-                                        children: <Widget>[
-                                          HeaderPlateDetails(
-                                              image: widget.dish.image == null
-                                                  ? ''
-                                                  : widget.dish.image),
-                                          GroupPlateBasicDetails(
-                                              dish: widget.dish),
-                                          AmountProduct(
-                                              price: widget.dish.price,
-                                              promos:
-                                                  widget.dish.pricePromotions),
-                                          widget.dish.additions.length >= 1
-                                              ? Aditionals(
-                                                  aditionals:
-                                                      widget.dish.additions)
-                                              : SizedBox(
-                                                  height: 0,
-                                                  width: 0,
-                                                ),
-                                          SummaryIngredients(
-                                              ingredients:
-                                                  widget.dish.ingredients),
-                                          // PreparationTime(),
-                                          PreparationSummary(),
-                                          SizedBox(
-                                            height: 80,
-                                          ),
-                                        ],
+    return Scaffold(body: BlocBuilder<DishBloc, DishState>(
+      builder: (context, state) {
+        Dishes dish = state.props[0];
+        return AnimatedOpacity(
+            duration: Duration(milliseconds: animationOpacityTime),
+            opacity: animatedOpacity ? 0 : 1,
+            child: CustomContainerAnimation(
+                animationChildren: animationChildren,
+                children: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height,
+                  child: Stack(
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        child: Column(
+                          children: <Widget>[
+                            Expanded(
+                              child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: SingleChildScrollView(
+                                  controller: _controller,
+                                  child: Column(
+                                    children: <Widget>[
+                                      HeaderPlateDetails(
+                                          image: dish.image == null
+                                              ? ''
+                                              : dish.image),
+                                      GroupPlateBasicDetails(dish: dish),
+                                      AmountProduct(
+                                          price: dish.price,
+                                          promos: dish.pricePromotions),
+                                      dish.additions.length >= 1
+                                          ? Aditionals(
+                                              aditionals: dish.additions)
+                                          : SizedBox(
+                                              height: 0,
+                                              width: 0,
+                                            ),
+                                      SummaryIngredients(
+                                          ingredients: dish.ingredients),
+                                      // PreparationTime(),
+                                      PreparationSummary(),
+                                      SizedBox(
+                                        height: 80,
                                       ),
-                                    ),
+                                    ],
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
-                          ),
-                          Positioned(
-                            top: 0,
-                            child: AnimatedContainer(
-                                decoration: BoxDecoration(
-                                    color: minSizeReached
-                                        ? Colors.white
-                                        : Colors.transparent,
-                                    boxShadow: [
-                                      BoxShadow(
-                                          blurRadius: 0.5,
-                                          color: minSizeReached
-                                              ? Theme.of(context).primaryColor
-                                              : Colors.transparent,
-                                          offset: Offset(2, 0))
-                                    ]),
-                                duration: Duration(milliseconds: 500),
-                                curve: Curves.ease,
-                                padding: EdgeInsets.only(
-                                    top:
-                                        MediaQuery.of(context).padding.top + 10,
-                                    bottom: 10),
-                                width: MediaQuery.of(context).size.width,
-                                child: StackTopHeader(
-                                  iconColors: minSizeReached
-                                      ? Theme.of(context).primaryColorDark
-                                      : Theme.of(context).primaryColorLight,
-                                )),
-                          ),
-                          Positioned(
-                            bottom: 0,
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              child: Container(
-                                  margin: EdgeInsets.all(0),
-                                  padding: EdgeInsets.all(0),
-                                  width: MediaQuery.of(context).size.width,
-                                  height: 60,
-                                  child: SizedBox.expand(
-                                    child: AddtoCar(),
-                                  )),
-                            ),
-                          )
-                        ],
+                          ],
+                        ),
                       ),
-                    )
-                    // )
-                    )
-                //
+                      Positioned(
+                        top: 0,
+                        child: AnimatedContainer(
+                            decoration: BoxDecoration(
+                                color: minSizeReached
+                                    ? Colors.white
+                                    : Colors.transparent,
+                                boxShadow: [
+                                  BoxShadow(
+                                      blurRadius: 0.5,
+                                      color: minSizeReached
+                                          ? Theme.of(context).primaryColor
+                                          : Colors.transparent,
+                                      offset: Offset(2, 0))
+                                ]),
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.ease,
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).padding.top + 10,
+                                bottom: 10),
+                            width: MediaQuery.of(context).size.width,
+                            child: StackTopHeader(
+                              iconColors: minSizeReached
+                                  ? Theme.of(context).primaryColorDark
+                                  : Theme.of(context).primaryColorLight,
+                            )),
+                      ),
+                      Positioned(
+                        bottom: 0,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Container(
+                              margin: EdgeInsets.all(0),
+                              padding: EdgeInsets.all(0),
+                              width: MediaQuery.of(context).size.width,
+                              height: 60,
+                              child: SizedBox.expand(
+                                child: AddtoCar(),
+                              )),
+                        ),
+                      )
+                    ],
+                  ),
                 )
+                // )
+                )
+            //
+            );
+      },
+    )
         //
         );
   }

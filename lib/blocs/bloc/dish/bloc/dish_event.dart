@@ -8,6 +8,6 @@ abstract class DishEvent extends Equatable {
 }
 
 class DishStart extends DishEvent {
-  final String dishName;
-  DishStart({this.dishName});
+  final Dishes currentDish;
+  DishStart({this.currentDish});
 }
