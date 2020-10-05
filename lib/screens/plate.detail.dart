@@ -1,28 +1,19 @@
 import 'dart:async';
+import 'dart:math';
 
-// import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
-// import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/Ingredients.dart';
 import 'package:fith_app__restaurant/interfaces/aditional.dart';
-// import 'package:fith_app__restaurant/interfaces/summaryStep.dart';
 import 'package:fith_app__restaurant/widgets/AditionalsExpansions.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
 
-// class PlateDetailWrapper extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(child: );
-//   }
-// }
 class PlateDetailWrapper extends StatefulWidget {
   PlateDetailWrapper();
   @override
@@ -105,17 +96,17 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
                                   controller: _controller,
                                   child: Column(
                                     children: <Widget>[
-                                      HeaderPlateDetails(
-                                          image: dish.image == null
-                                              ? ''
-                                              : dish.image),
+                                      HeaderPlateDetails(image: dish.image),
                                       GroupPlateBasicDetails(dish: dish),
                                       AmountProduct(
                                           price: dish.price,
                                           promos: dish.pricePromotions),
                                       dish.additions.length >= 1
-                                          ? Aditionals(
-                                              aditionals: dish.additions)
+                                          ? BlocProvider(
+                                              create: (BuildContext context) =>
+                                                  AdditionalsBloc(),
+                                              child: Aditionals(
+                                                  aditionals: dish.additions))
                                           : SizedBox(
                                               height: 0,
                                               width: 0,
@@ -373,6 +364,13 @@ class GroupPlateBasicDetails extends StatelessWidget {
   }
 }
 
+String generateRandomString(int len) {
+  var r = Random();
+  const _chars =
+      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+  return List.generate(len, (index) => _chars[r.nextInt(_chars.length)]).join();
+}
+
 class Aditionals extends StatefulWidget {
   final List<Adittional> aditionals;
   Aditionals({this.aditionals});
@@ -381,6 +379,13 @@ class Aditionals extends StatefulWidget {
 }
 
 class AditionalsState extends State<Aditionals> {
+  @override
+  initState() {
+    super.initState();
+    print("el init state");
+    final additionalsBloc = BlocProvider.of<AdditionalsBloc>(context);
+  }
+
   Widget _header() {
     return Container(
       margin: EdgeInsets.only(
@@ -397,24 +402,81 @@ class AditionalsState extends State<Aditionals> {
   }
 
   Widget _expansionAdittional() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Builder(
-        builder: (BuildContext context) {
-          List<Widget> expandible = [];
-          widget.aditionals.map((item) {
-            expandible.add(AditionalExpansionPanel(
-                title: item.title,
-                isMulti: item.isMulti,
-                children: item.children));
-          }).toList();
-
-          return Column(
-            children: expandible,
-          );
-        },
-      ),
+    return BlocBuilder<AdditionalsBloc, AdditionalsState>(
+      builder: (BuildContext context, state) {
+        List<String> states = state.props[0];
+        print(state);
+        // BlocProvider.of<AdditionalsBloc>(context)
+        //     .add(AdditionalsPopulate(additionals: states));
+        return states.length == 0
+            ? Text("loading")
+            : Container(child: Builder(builder: (BuildContext context) {
+                List<Widget> expandible = [];
+                states.asMap().entries.map((item) {
+                  expandible.add(Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text("item - " + item.key.toString()),
+                      RaisedButton(
+                        onPressed: () {
+                          context.bloc<AdditionalsBloc>()
+                            ..add(UpdateAditionalState(
+                                additional: generateRandomString(5),
+                                rid: item.key));
+                        },
+                        child: Text(item.value),
+                      )
+                    ],
+                  ));
+                }).toList();
+                return Column(
+                  children: expandible,
+                );
+              }));
+      },
     );
+    // return Container(child: BlocBuilder<AdditionalsBloc, AdditionalsState>(
+    //   builder: (context, state) {
+    //     print(state.props[0]);
+    // return Builder(builder: (BuildContext context) {
+    //   List<Widget> expandible = [];
+    //   widget.aditionals[0].children.asMap().entries.map((item) {
+    //     expandible.add(Row(
+    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //       children: <Widget>[
+    //         Text(item.value.name),
+    //         RaisedButton(
+    //           onPressed: () {
+    //             print("los clicks");
+    //             //additionalsBloc.add(UpdateAditionalState(additional: e));
+    //           },
+    //           child: Text("cambiar name"),
+    //         )
+    //       ],
+    //     ));
+    //   }).toList();
+    //   return Column(
+    //     children: expandible,
+    //   );
+    // });
+
+    //     // Text('info');
+    //   },
+    // )
+
+    // width: MediaQuery.of(context).size.width,
+    // child: Builder(
+    //   builder: (BuildContext context) {
+    //     List<Widget> expandible = [];
+    //     widget.aditionals.asMap().entries.map((item) {
+    //       expandible.add(AdditionalExample());
+    //     }).toList();
+
+    //     return Column(
+    //       children: expandible,
+    //     );
+    //   },
+    // ),
   }
 
   @override
@@ -428,6 +490,12 @@ class AditionalsState extends State<Aditionals> {
         children: <Widget>[_header(), _expansionAdittional()],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // additionalsBloc.close()
+    super.dispose();
   }
 }
 
@@ -481,7 +549,6 @@ class _AmountProductState extends State<AmountProduct> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Container(
-                    // color: Colors.blue,
                     child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
@@ -683,8 +750,6 @@ class _AddtoCarState extends State<AddtoCar> {
             ),
           ),
           Spacer(),
-          // Expanded(
-          //     flex: 1,
           SizedBox(
               height: 41,
               width: 120,
@@ -705,23 +770,9 @@ class _AddtoCarState extends State<AddtoCar> {
                       .bodyText1
                       .copyWith(color: Theme.of(context).primaryColorLight),
                 ),
-                //),
               ))
         ],
       ),
-      // SizedBox(
-      //   child: RaisedButton(
-      //     onPressed: () {},
-      //     child: Text(
-      //       "Añadir Al Carrito",
-      //       style: Theme.of(context)
-      //           .textTheme
-      //           .bodyText1
-      //           .copyWith(color: Theme.of(context).primaryColorLight),
-      //     ),
-      //   ),
-      // )
-      //
     );
   }
 }

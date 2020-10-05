@@ -11,3 +11,8 @@ class DishStart extends DishEvent {
   final Dishes currentDish;
   DishStart({this.currentDish});
 }
+
+class DishModifierEdit extends DishEvent {
+  final AditionalsOptions currentModifier;
+  DishModifierEdit({this.currentModifier});
+}
