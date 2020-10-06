@@ -384,6 +384,8 @@ class AditionalsState extends State<Aditionals> {
     super.initState();
     print("el init state");
     final additionalsBloc = BlocProvider.of<AdditionalsBloc>(context);
+    additionalsBloc
+        .add(AdditionalsPopulate(additionals: ['nuevo 1', 'nuevo 2']));
   }
 
   Widget _header() {

@@ -1,3 +1,4 @@
+import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/plate.detail.dart';
@@ -18,8 +19,8 @@ class NearYouCard extends StatelessWidget {
       child: RaisedButton(
         elevation: 0,
         onPressed: () {
-          print(dish);
-          print('aqui esta todo el plato');
+          // print(dish);
+          // print('aqui esta todo el plato');
           blocDish.add(DishStart(currentDish: dish));
           Navigator.of(context)
               .push(MaterialPageRoute<PlateDetailWrapper>(builder: (context) {

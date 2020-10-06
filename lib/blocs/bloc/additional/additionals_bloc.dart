@@ -3,37 +3,43 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/aditional.dart';
 
 part 'additionals_event.dart';
 part 'additionals_state.dart';
 
 List<String> unapruebaTonta = [
-  'uno',
-  'dos',
-  'tres',
-  'pwKhV',
-  'swbsI',
-  'x5mLZ',
-  'moJt3',
-  'TmLdi',
-  'yAJ9I',
-  'bPeVG'
+  'Uno',
+  'Dos',
+  'Tres',
+  'Cuatro',
+  'Cinco',
+  'Seis',
+  'Siete',
+  'Ocho',
+  'Nueve',
+  'Diez'
 ];
 
 class AdditionalsBloc extends Bloc<AdditionalsEvent, AdditionalsState> {
-  AdditionalsBloc() : super(AdditionalsInitial(initial: unapruebaTonta));
+  AdditionalsBloc() : super(AdditionalsInitial(initial: []));
+
+  //final DishBloc dishBloc;
+  //StreamSubscription subscription;
 
   @override
   Stream<AdditionalsState> mapEventToState(
     AdditionalsEvent event,
   ) async* {
     if (event is AdditionalsPopulate) {
-      yield AdditionalsCurrent(additionals: unapruebaTonta);
+      print('event.additionals');
+      print(event.additionals);
+      yield AdditionalsCurrent(additionals: event.additionals);
     }
 
     if (event is AdditionalsStart) {
-      yield AdditionalsInitial(initial: unapruebaTonta);
+      yield AdditionalsInitial(initial: []);
     }
 
     if (event is UpdateAditionalState) {

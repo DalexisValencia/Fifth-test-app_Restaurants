@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
@@ -239,6 +240,30 @@ class _NearYouState extends State<NearYou> {
                 );
               }),
         ));
+    // return MultiBlocProvider(
+    //     providers: [
+    //       BlocProvider<DishBloc>(
+    //         create: (BuildContext context) => DishBloc(),
+    //       ),
+    //       BlocProvider<AdditionalsBloc>(
+    //         create: (BuildContext context) => AdditionalsBloc(),
+    //       )
+    //     ],
+    //     child: Container(
+    //       height: 160,
+    //       width: MediaQuery.of(context).size.width,
+    //       padding:
+    //           EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
+    //       child: ListView.builder(
+    //           scrollDirection: Axis.horizontal,
+    //           itemCount: widget.nearYou.length,
+    //           itemBuilder: (BuildContext context, int index) {
+    //             return NearYouCard(
+    //               dish: widget.nearYou[index],
+    //               index: index,
+    //             );
+    //           }),
+    //     ));
   }
 
   _sectionBody() {
