@@ -382,10 +382,9 @@ class AditionalsState extends State<Aditionals> {
   @override
   initState() {
     super.initState();
-    print("el init state");
-    final additionalsBloc = BlocProvider.of<AdditionalsBloc>(context);
-    additionalsBloc
-        .add(AdditionalsPopulate(additionals: ['nuevo 1', 'nuevo 2']));
+    // print(widget.aditionals);
+    BlocProvider.of<AdditionalsBloc>(context)
+        .add(AdditionalsPopulate(additionals: widget.aditionals));
   }
 
   Widget _header() {
@@ -406,35 +405,53 @@ class AditionalsState extends State<Aditionals> {
   Widget _expansionAdittional() {
     return BlocBuilder<AdditionalsBloc, AdditionalsState>(
       builder: (BuildContext context, state) {
-        List<String> states = state.props[0];
-        print(state);
-        // BlocProvider.of<AdditionalsBloc>(context)
-        //     .add(AdditionalsPopulate(additionals: states));
+        List<Adittional> states = state.props[0];
         return states.length == 0
             ? Text("loading")
-            : Container(child: Builder(builder: (BuildContext context) {
-                List<Widget> expandible = [];
-                states.asMap().entries.map((item) {
-                  expandible.add(Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text("item - " + item.key.toString()),
-                      RaisedButton(
-                        onPressed: () {
-                          context.bloc<AdditionalsBloc>()
-                            ..add(UpdateAditionalState(
-                                additional: generateRandomString(5),
-                                rid: item.key));
-                        },
-                        child: Text(item.value),
-                      )
-                    ],
-                  ));
-                }).toList();
-                return Column(
-                  children: expandible,
-                );
-              }));
+            : Builder(
+                builder: (BuildContext context) {
+                  List<Widget> expandible = [];
+                  //widget.aditionals
+                  states.asMap().entries.map((item) {
+                    // print(":::item:::");
+                    // print(item.key);
+                    expandible.add(AditionalExpansionPanel(
+                      index: item.key,
+                      additional: item.value,
+                    ));
+                  }).toList();
+
+                  return Column(
+                    children: expandible,
+                  );
+                },
+              );
+        //
+        // Container(child: Builder(builder: (BuildContext context) {
+        //     List<Widget> expandible = [];
+        //     states.asMap().entries.map((item) {
+        //       expandible.add(Row(
+        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        //         children: <Widget>[
+        //           Text("item - " + item.key.toString()),
+        //           RaisedButton(
+        //             onPressed: () {
+        //               context.bloc<AdditionalsBloc>()
+        //                 ..add(UpdateAditionalState(
+        //                     additional: generateRandomString(5),
+        //                     rid: item.key));
+        //             },
+        //             child: Text(item.value),
+        //           )
+        //         ],
+        //       ));
+        //     }).toList();
+        //     return Column(
+        //       children: expandible,
+        //     );
+        //   })
+        // //
+        // );
       },
     );
     // return Container(child: BlocBuilder<AdditionalsBloc, AdditionalsState>(

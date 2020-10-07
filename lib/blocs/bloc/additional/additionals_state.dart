@@ -8,7 +8,7 @@ abstract class AdditionalsState extends Equatable {
 }
 
 class AdditionalsInitial extends AdditionalsState {
-  final List<String> initial;
+  final List<Adittional> initial;
   AdditionalsInitial({this.initial});
 
   @override
@@ -19,7 +19,7 @@ class AdditionalsInitial extends AdditionalsState {
 }
 
 class AdditionalsCurrent extends AdditionalsState {
-  final List<String> additionals;
+  final List<Adittional> additionals;
   AdditionalsCurrent({this.additionals});
 
   @override
@@ -31,7 +31,7 @@ class AdditionalsCurrent extends AdditionalsState {
 
 class AdditionalsUpdated extends AdditionalsState {
   // final List<Adittional> additionals;
-  final List<String> additionals;
+  final List<Adittional> additionals;
   AdditionalsUpdated({this.additionals});
 
   @override
@@ -46,4 +46,9 @@ class UpdateAdditional extends AdditionalsState {
   final String additional;
 
   UpdateAdditional({this.additional});
+}
+
+class AdditionalLoaded extends AdditionalsState {
+  final List<Adittional> additionals;
+  AdditionalLoaded({this.additionals});
 }

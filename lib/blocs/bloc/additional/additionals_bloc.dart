@@ -3,38 +3,19 @@ import 'dart:math';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/aditional.dart';
 
 part 'additionals_event.dart';
 part 'additionals_state.dart';
 
-List<String> unapruebaTonta = [
-  'Uno',
-  'Dos',
-  'Tres',
-  'Cuatro',
-  'Cinco',
-  'Seis',
-  'Siete',
-  'Ocho',
-  'Nueve',
-  'Diez'
-];
-
 class AdditionalsBloc extends Bloc<AdditionalsEvent, AdditionalsState> {
   AdditionalsBloc() : super(AdditionalsInitial(initial: []));
-
-  //final DishBloc dishBloc;
-  //StreamSubscription subscription;
 
   @override
   Stream<AdditionalsState> mapEventToState(
     AdditionalsEvent event,
   ) async* {
     if (event is AdditionalsPopulate) {
-      print('event.additionals');
-      print(event.additionals);
       yield AdditionalsCurrent(additionals: event.additionals);
     }
 
@@ -56,7 +37,35 @@ class AdditionalsBloc extends Bloc<AdditionalsEvent, AdditionalsState> {
       // print(elementos);
       // yield AdditionalsCurrent(
       //     additionals: List.from(elementos)..add(generateRandomString(6)));
-      yield AdditionalsCurrent(additionals: newsElement);
+      // yield AdditionalsCurrent(additionals: newsElement);
+    }
+
+    if (event is ToggleModifier) {
+      //Lista de todos los adicionales
+      List<Adittional> stateAditionals = state.props[0];
+      //Adicional actual encontrado por el indice
+      Adittional currentAddional = stateAditionals[event.parent];
+      //Lista de los los valores del adicional
+      List<AditionalsOptions> additionalOptions = currentAddional.children;
+      //Buscamos el elemento dentro de la lista
+      AditionalsOptions currentOption = additionalOptions[event.rid];
+      //Cambiamos el estado
+      currentOption.isActive = !currentOption.isActive;
+
+      List<Adittional> finalStateAditionals = List.from(stateAditionals);
+      finalStateAditionals[event.parent].children
+        ..removeAt(event.rid)
+        ..insert(event.rid, currentOption);
+
+      Adittional additionalFinal = Adittional(
+          isMulti: finalStateAditionals[event.parent].isMulti,
+          title: finalStateAditionals[event.parent].title,
+          children: finalStateAditionals[event.parent].children);
+
+      List<Adittional> finalAdditionals = List.from(stateAditionals)
+        ..removeAt(event.parent)
+        ..insert(event.parent, additionalFinal);
+      yield AdditionalsCurrent(additionals: finalAdditionals);
     }
   }
 
@@ -65,7 +74,7 @@ class AdditionalsBloc extends Bloc<AdditionalsEvent, AdditionalsState> {
     if (state is AdditionalsCurrent) {
       List<String> elementos = state.props[0];
       elementos.add(generateRandomString(6));
-      yield AdditionalsCurrent(additionals: elementos);
+      // yield AdditionalsCurrent(additionals: elementos);
     }
   }
 
