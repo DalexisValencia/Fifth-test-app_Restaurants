@@ -67,19 +67,22 @@ List<Dishes> dishes = [
       promotion: true,
       pricePromotions: [10000, 20000, 30000],
       additions: [
-        Adittional(title: 'Cubiertos', isMulti: false, children: [
-          AditionalsOptions(name: 'Con Cubiertos', isActive: false, price: 0),
+        Adittional(title: 'Cookware', isMulti: false, children: [
+          AditionalsOptions(name: 'With Cookware', isActive: true, price: 0),
         ]),
-        Adittional(title: 'Bebida Personal', isMulti: false, children: [
+        Adittional(title: 'Personal drink', isMulti: false, children: [
           AditionalsOptions(name: 'Coca Cola', isActive: false, price: 3000),
           AditionalsOptions(name: 'Pepsi', isActive: false, price: 3000),
+          AditionalsOptions(name: 'Orange Juice', isActive: false, price: 4000),
           AditionalsOptions(
-              name: 'Jugo de Naranja', isActive: false, price: 4000),
-          AditionalsOptions(
-              name: 'Jugo de Guanabana', isActive: false, price: 4000),
-          AditionalsOptions(
-              name: 'Jugo de Mango', isActive: false, price: 4000),
-          AditionalsOptions(name: 'Limonada', isActive: false, price: 4000),
+              name: 'Soursop Juice', isActive: false, price: 4000),
+          AditionalsOptions(name: 'Mango Juice', isActive: false, price: 4000),
+          AditionalsOptions(name: 'Limonade', isActive: false, price: 4000),
+        ]),
+        Adittional(title: 'Sauces', isMulti: true, children: [
+          AditionalsOptions(name: 'Beef', isActive: false, price: 500),
+          AditionalsOptions(name: 'Tomato', isActive: false, price: 0),
+          AditionalsOptions(name: 'Steak', isActive: false, price: 0),
         ])
       ],
       ingredients: [
@@ -91,7 +94,7 @@ List<Dishes> dishes = [
         Ingredients(name: 'Salt', amountGrams: '5G'),
         Ingredients(name: 'Parsley', amountGrams: '0.2G'),
         Ingredients(name: 'Tomato Paste', amountGrams: '2G'),
-        Ingredients(name: 'Red Wine', amountGrams: '0.5ml'),
+        Ingredients(name: 'Red Wine', amountGrams: '0.5Ml'),
       ]
       //
       ),

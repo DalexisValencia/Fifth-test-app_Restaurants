@@ -62,230 +62,121 @@ class AditionalExpansionPanel extends StatefulWidget {
 }
 
 class _AditionalExpansionPanelState extends State<AditionalExpansionPanel> {
-  int currentActive = 0;
   bool isActivePanel = false;
 
   @override
   initState() {
-    currentActive = widget.additional.children.length +
-        1; //Desactiva el primer elemento seleccionado por defecto
     super.initState();
-  }
-
-  checkFlowCheckBox(val, inx) {
-    if (!val) {
-      setState(() {
-        currentActive = 100;
-      });
-    }
-
-    if (val) {
-      setState(() {
-        currentActive = inx;
-      });
-    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Column(children: <Widget>[
-      Text(widget.additional.title),
-      BlocBuilder<AdditionalsBloc, AdditionalsState>(
-        builder: (BuildContext context, AdditionalsState state) {
-          List<Adittional> aditionals = state.props[0];
-          List<Widget> children = [];
-          // print(aditionals[widget.index]);
-          // print(state.props[0]);
-          //widget.additional
-          aditionals[widget.index].children.asMap().entries.map((option) {
-            AditionalsOptions adicionalOption = option.value;
-            print(adicionalOption.isActive);
-            children.add(Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(adicionalOption.name),
-                  RaisedButton(
-                    onPressed: () {
-                      BlocProvider.of<AdditionalsBloc>(context).add(
-                          ToggleModifier(
-                              parent: widget.index,
-                              item: option.value,
-                              rid: option.key));
-                    },
-                    child: Text(adicionalOption.isActive.toString()),
-                  )
-                ]));
-          }).toList();
-          return Column(
-            children: children,
-          );
-        },
-      )
-    ]));
-
-    // return BlocProvider.value(
-    //   value: AdditionalsBloc(),
-    //   child: Container(
-    //     child: Column(
-    //       children: <Widget>[
-    //         Text(widget.additional.title),
-    //         Builder(builder: (BuildContext context) {
-    //           List<Widget> children = [];
-    //           widget.additional.children.asMap().entries.map((option) {
-    //             AditionalsOptions adicionalOption = option.value;
-    //             children.add(Row(
-    //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                 children: <Widget>[
-    //                   Text(adicionalOption.name),
-    //                   RaisedButton(
-    //                     onPressed: () {
-    //                       BlocProvider.of<AdditionalsBloc>(context).add(
-    //                           ToggleModifier(
-    //                               parent: widget.index,
-    //                               item: option.value,
-    //                               rid: option.key));
-    //                     },
-    //                     child: Text("activar"),
-    //                   )
-    //                 ]));
-    //           }).toList();
-    //           return Column(
-    //             children: children,
-    //           );
-    //         })
-    //       ],
-    //     ),
-    //   ),
-    // );
-    // return BlocBuilder<AdditionalsBloc, AdditionalsState>(
-    //   builder: (context, state) {
-    //     print(state.props);
-    //     return Container(
-    //       child: Column(
-    //         children: <Widget>[
-    //           Text(widget.additional.title),
-    //           Builder(
-    //             builder: (BuildContext context) {
-    //               List<Widget> children = [];
-    //               widget.additional.children.asMap().entries.map((option) {
-    //                 AditionalsOptions adiotional = option.value;
-    //                 children.add(Row(
-    //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                   children: <Widget>[
-    //                     Text(adiotional.name),
-    //                     RaisedButton(
-    //                       onPressed: () {
-    //                         // dishBloc
-    //                         //     .add(DishModifierEdit(currentModifier: adiotional));
-    //                       },
-    //                       child: Text("activar"),
-    //                     )
-    //                   ],
-    //                 ));
-    //               }).toList();
-    //               return Column(
-    //                 children: children,
-    //               );
-    //             },
-    //           )
-    //         ],
-    //       ),
-    //     );
-    //   },
-    // );
-
-    // return BlocBuilder<DishBloc, DishState>(builder: (context, state) {
-    //   Dishes dish = state.props[0];
-    //   Adittional aditionalEdit = dish.additions[widget.index];
-    //   print("costados");
-    //   return Container(
-    //     decoration: BoxDecoration(
-    //         border: isActivePanel
-    //             ? Border(
-    //                 top: BorderSide(
-    //                     color:
-    //                         Theme.of(context).primaryColorDark.withOpacity(0.5),
-    //                     width: 1),
-    //                 left: BorderSide(
-    //                     color:
-    //                         Theme.of(context).primaryColorDark.withOpacity(0.5),
-    //                     width: 1),
-    //                 right: BorderSide(
-    //                     color:
-    //                         Theme.of(context).primaryColorDark.withOpacity(0.5),
-    //                     width: 1),
-    //                 bottom: BorderSide(color: Colors.red, width: 0),
+    // return Container(
+    //     child: Column(children: <Widget>[
+    //   Text(widget.additional.title),
+    //   BlocBuilder<AdditionalsBloc, AdditionalsState>(
+    //     builder: (BuildContext context, AdditionalsState state) {
+    //       List<Adittional> aditionals = state.props[0];
+    //       List<Widget> children = [];
+    //       // print(aditionals[widget.index]);
+    //       // print(state.props[0]);
+    //       //widget.additional
+    //       aditionals[widget.index].children.asMap().entries.map((option) {
+    //         AditionalsOptions adicionalOption = option.value;
+    //         // print(adicionalOption.isActive);
+    //         children.add(Row(
+    //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //             children: <Widget>[
+    //               Text(adicionalOption.name),
+    //               RaisedButton(
+    //                 onPressed: () {
+    //                   BlocProvider.of<AdditionalsBloc>(context).add(
+    //                       ToggleModifier(
+    //                           parent: widget.index,
+    //                           item: option.value,
+    //                           rid: option.key));
+    //                 },
+    //                 child: Text(adicionalOption.isActive.toString()),
     //               )
-    //             : Border.all(
-    //                 width: 1,
-    //                 color: isActivePanel
-    //                     ? Colors.red
-    //                     : Theme.of(context).primaryColorDark.withOpacity(0.5)),
-    //         color: Theme.of(context).primaryColorLight),
-    //     child: ExpansionTile(
-    //       onExpansionChanged: (val) {
-    //         setState(() {
-    //           isActivePanel = val;
-    //         });
-    //       },
-    //       backgroundColor: Theme.of(context).primaryColorLight,
-    //       title: Text(
-    //         widget.additional.title,
-    //         style: Theme.of(context)
-    //             .textTheme
-    //             .button
-    //             .copyWith(color: Theme.of(context).primaryColorDark),
-    //       ),
-    //       children: <Widget>[
-    //         Container(
-    //           child: Builder(
-    //             builder: (BuildContext context) {
-    //               List<Widget> optionsExpansion = [];
-    //               widget.additional.children.asMap().entries.map((option) {
-    //                 optionsExpansion.add(AditionalCheckBoxTile(
-    //                   index: option.key,
-    //                   name: option.value.name,
-    //                   price: option.value.price,
-    //                   active: widget.additional.isMulti
-    //                       ? option.value.isActive
-    //                       : currentActive == option.key,
-    //                   isMulti: widget.additional.isMulti,
-    //                   // callBackClick: (val, inx) =>
-    //                   //     checkFlowCheckBox(val, inx)
-    //                   callBackClick: (val, inx) {
-    //                     // AditionalsOptions optionAditional =
-    //                     //     aditionalEdit.children[inx];
-    //                     // dishBloc.add(
-    //                     //     DishModifierEdit(currentModifier: optionAditional));
-    //                     // print(aditionalEdit.);
-    //                     // if (!val) {
-    //                     //   setState(() {
-    //                     //     currentActive = 100;
-    //                     //   });
-    //                     // }
+    //             ]));
+    //       }).toList();
+    //       return Column(
+    //         children: children,
+    //       );
+    //     },
+    //   )
+    // ]));
 
-    //                     // if (val) {
-    //                     //   setState(() {
-    //                     //     currentActive = inx;
-    //                     //   });
-    //                     //   print("amori lorch");
-    //                     // }
-    //                   },
-    //                 )
-    //                     //
-    //                     );
-    //               }).toList();
-    //               return Column(
-    //                 children: optionsExpansion,
-    //               );
-    //             },
-    //           ),
-    //         )
-    //       ],
-    //     ),
-    //   );
-    // });
+    return Container(
+      decoration: BoxDecoration(
+          border: isActivePanel
+              ? Border(
+                  top: BorderSide(
+                      color:
+                          Theme.of(context).primaryColorDark.withOpacity(0.5),
+                      width: 1),
+                  left: BorderSide(
+                      color:
+                          Theme.of(context).primaryColorDark.withOpacity(0.5),
+                      width: 1),
+                  right: BorderSide(
+                      color:
+                          Theme.of(context).primaryColorDark.withOpacity(0.5),
+                      width: 1),
+                  bottom: BorderSide(color: Colors.red, width: 0),
+                )
+              : Border.all(
+                  width: 1,
+                  color: isActivePanel
+                      ? Colors.red
+                      : Theme.of(context).primaryColorDark.withOpacity(0.5)),
+          color: Theme.of(context).primaryColorLight),
+      child: ExpansionTile(
+        onExpansionChanged: (val) {
+          setState(() {
+            isActivePanel = val;
+          });
+        },
+        backgroundColor: Theme.of(context).primaryColorLight,
+        title: Text(
+          widget.additional.title,
+          style: Theme.of(context)
+              .textTheme
+              .button
+              .copyWith(color: Theme.of(context).primaryColorDark),
+        ),
+        children: <Widget>[
+          Container(child: BlocBuilder<AdditionalsBloc, AdditionalsState>(
+              builder: (BuildContext context, AdditionalsState state) {
+            List<Adittional> aditionals = state.props[0];
+            List<Widget> optionsExpansion = [];
+            aditionals[widget.index].children.asMap().entries.map((option) {
+              optionsExpansion.add(AditionalCheckBoxTile(
+                index: option.key,
+                name: option.value.name,
+                price: option.value.price,
+                active: option.value.isActive,
+                // active: widget.additional.isMulti
+                //     ? option.value.isActive
+                //     : currentActive == option.key,
+                isMulti: widget.additional.isMulti,
+                callBackClick: (val, inx) {
+                  // print('its me?');
+                  BlocProvider.of<AdditionalsBloc>(context).add(ToggleModifier(
+                      parent: widget.index,
+                      item: option.value,
+                      rid: option.key));
+                },
+              ));
+            }).toList();
+
+            return Column(
+              children: optionsExpansion,
+            );
+          }))
+        ],
+      ),
+    );
   }
 }
 
@@ -317,19 +208,17 @@ class _AditionalCheckBoxTileState extends State<AditionalCheckBoxTile> {
     }
     // Si la seleccion es multiple
     if (widget.isMulti) {
-      setState(() {
-        this.isCurrentCheckActive = val;
-      });
+      widget.callBackClick(val, widget.index);
     }
   }
 
   changeNotifierWidgetParent() {
     // solo si la seleccion no es multiple
-    if (!widget.isMulti) {
-      setState(() {
-        isCurrentCheckActive = widget.active;
-      });
-    }
+    // if (!widget.isMulti) {
+    setState(() {
+      isCurrentCheckActive = widget.active;
+    });
+    // }
   }
 
   @override

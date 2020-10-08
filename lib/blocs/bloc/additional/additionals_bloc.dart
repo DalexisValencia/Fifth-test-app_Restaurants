@@ -49,8 +49,30 @@ class AdditionalsBloc extends Bloc<AdditionalsEvent, AdditionalsState> {
       List<AditionalsOptions> additionalOptions = currentAddional.children;
       //Buscamos el elemento dentro de la lista
       AditionalsOptions currentOption = additionalOptions[event.rid];
-      //Cambiamos el estado
+      // si el multiple colocamos todos es falso
+      if (currentAddional.isMulti == false) {
+        // print("aqui??");
+        currentAddional.children.map((e) {
+          if (e.name != currentOption.name) {
+            e.isActive = false;
+          }
+        }).toList();
+      }
       currentOption.isActive = !currentOption.isActive;
+      print(currentOption.isActive);
+      //Cambiamos el estado
+      // currentOption.isActive = !currentOption.isActive;
+
+      //print(currentAddional.isMulti.toString() + " - Es multiple?");
+      //Segunda opcion
+      // currentOption = AditionalsOptions(
+      //   isActive: !currentOption.isActive,
+      //   name: currentOption.name,
+      //   price: currentOption.price
+      // );
+
+      // additionalOptions..removeAt(event.rid)
+      //   ..insert(event.rid, currentOption);
 
       List<Adittional> finalStateAditionals = List.from(stateAditionals);
       finalStateAditionals[event.parent].children
@@ -65,6 +87,7 @@ class AdditionalsBloc extends Bloc<AdditionalsEvent, AdditionalsState> {
       List<Adittional> finalAdditionals = List.from(stateAditionals)
         ..removeAt(event.parent)
         ..insert(event.parent, additionalFinal);
+      print(finalAdditionals);
       yield AdditionalsCurrent(additionals: finalAdditionals);
     }
   }
