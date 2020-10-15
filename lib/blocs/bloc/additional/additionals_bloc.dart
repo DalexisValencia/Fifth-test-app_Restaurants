@@ -59,20 +59,7 @@ class AdditionalsBloc extends Bloc<AdditionalsEvent, AdditionalsState> {
         }).toList();
       }
       currentOption.isActive = !currentOption.isActive;
-      print(currentOption.isActive);
-      //Cambiamos el estado
-      // currentOption.isActive = !currentOption.isActive;
-
-      //print(currentAddional.isMulti.toString() + " - Es multiple?");
-      //Segunda opcion
-      // currentOption = AditionalsOptions(
-      //   isActive: !currentOption.isActive,
-      //   name: currentOption.name,
-      //   price: currentOption.price
-      // );
-
-      // additionalOptions..removeAt(event.rid)
-      //   ..insert(event.rid, currentOption);
+      // print(currentOption.isActive);
 
       List<Adittional> finalStateAditionals = List.from(stateAditionals);
       finalStateAditionals[event.parent].children
@@ -92,18 +79,8 @@ class AdditionalsBloc extends Bloc<AdditionalsEvent, AdditionalsState> {
     }
   }
 
-  Stream<AdditionalsState> _mapTodoAddedToState(
-      UpdateAditionalState event) async* {
-    if (state is AdditionalsCurrent) {
-      List<String> elementos = state.props[0];
-      elementos.add(generateRandomString(6));
-      // yield AdditionalsCurrent(additionals: elementos);
-    }
-  }
-
   @override
   void onChange(Change<AdditionalsState> change) {
-    print(change);
     super.onChange(change);
   }
 }

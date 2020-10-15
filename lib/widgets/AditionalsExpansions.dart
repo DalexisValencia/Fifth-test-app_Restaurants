@@ -1,56 +1,7 @@
 import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/aditional.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-// class AdditionalExample extends StatefulWidget {
-//   @override
-//   _AdditionalExampleState createState() => _AdditionalExampleState();
-// }
-
-// class _AdditionalExampleState extends State<AdditionalExample> {
-//   @override
-//   Widget build(BuildContext context) {
-//     final additionalsBloc = BlocProvider.of<AdditionalsBloc>(context);
-//     return BlocBuilder<AdditionalsBloc, AdditionalsState>(
-//       builder: (BuildContext context, AdditionalsState state) {
-//         List<String> bune = state.props[0];
-//         print(bune.length);
-//         return Builder(
-//           builder: (BuildContext context) {
-//             List<Widget> left = [];
-//             bune.map((e) {
-//               left.add(Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                 children: <Widget>[
-//                   Text(e),
-//                   RaisedButton(
-//                     onPressed: () {
-//                       additionalsBloc.add(UpdateAditionalState(additional: e));
-//                     },
-//                     child: Text("cambiar name"),
-//                   )
-//                 ],
-//               ));
-//             }).toList();
-//             return Column(
-//               children: left,
-//             );
-//           },
-//         );
-//         // return ListView.builder(
-//         //     scrollDirection: Axis.vertical,
-//         //     itemCount: bune.length,
-//         //     itemBuilder: (BuildContext context, int ind) {
-//         //       return Text("la iunfo");
-//         //       // return Text("${state.props[0][ind]}");
-//         //     });
-//       },
-//     );
-//   }
-// }
 
 class AditionalExpansionPanel extends StatefulWidget {
   final int index;
@@ -71,42 +22,6 @@ class _AditionalExpansionPanelState extends State<AditionalExpansionPanel> {
 
   @override
   Widget build(BuildContext context) {
-    // return Container(
-    //     child: Column(children: <Widget>[
-    //   Text(widget.additional.title),
-    //   BlocBuilder<AdditionalsBloc, AdditionalsState>(
-    //     builder: (BuildContext context, AdditionalsState state) {
-    //       List<Adittional> aditionals = state.props[0];
-    //       List<Widget> children = [];
-    //       // print(aditionals[widget.index]);
-    //       // print(state.props[0]);
-    //       //widget.additional
-    //       aditionals[widget.index].children.asMap().entries.map((option) {
-    //         AditionalsOptions adicionalOption = option.value;
-    //         // print(adicionalOption.isActive);
-    //         children.add(Row(
-    //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //             children: <Widget>[
-    //               Text(adicionalOption.name),
-    //               RaisedButton(
-    //                 onPressed: () {
-    //                   BlocProvider.of<AdditionalsBloc>(context).add(
-    //                       ToggleModifier(
-    //                           parent: widget.index,
-    //                           item: option.value,
-    //                           rid: option.key));
-    //                 },
-    //                 child: Text(adicionalOption.isActive.toString()),
-    //               )
-    //             ]));
-    //       }).toList();
-    //       return Column(
-    //         children: children,
-    //       );
-    //     },
-    //   )
-    // ]));
-
     return Container(
       decoration: BoxDecoration(
           border: isActivePanel

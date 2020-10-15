@@ -95,7 +95,8 @@ List<Dishes> dishes = [
         Ingredients(name: 'Parsley', amountGrams: '0.2G'),
         Ingredients(name: 'Tomato Paste', amountGrams: '2G'),
         Ingredients(name: 'Red Wine', amountGrams: '0.5Ml'),
-      ]
+      ],
+      amount: 1
       //
       ),
   Dishes(
@@ -128,7 +129,8 @@ List<Dishes> dishes = [
         Ingredients(name: 'Beef', amountGrams: '40G'),
         Ingredients(name: 'Potatoe', amountGrams: '50G'),
         Ingredients(name: 'Carrot', amountGrams: '30G'),
-      ]
+      ],
+      amount: 1
       //
       ),
   Dishes(
@@ -160,7 +162,8 @@ List<Dishes> dishes = [
         Ingredients(name: 'Beef', amountGrams: '40G'),
         Ingredients(name: 'Potatoe', amountGrams: '50G'),
         Ingredients(name: 'Carrot', amountGrams: '30G'),
-      ]
+      ],
+      amount: 1
       //
       ),
 ];

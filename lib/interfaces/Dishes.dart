@@ -17,6 +17,7 @@ class Dishes {
       pricePromotions; // Por ahora solo tres precios por promocion
   final List<Adittional> additions;
   final List<Ingredients> ingredients;
+  final int amount;
 
   Dishes(
       {this.name,
@@ -30,7 +31,8 @@ class Dishes {
       this.promotion,
       this.pricePromotions,
       this.additions,
-      this.ingredients
+      this.ingredients,
+      this.amount
       //
       });
 }

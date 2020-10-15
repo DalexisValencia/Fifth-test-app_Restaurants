@@ -1,15 +1,14 @@
 import 'dart:async';
-import 'dart:math';
 
 import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/interfaces/Ingredients.dart';
-import 'package:fith_app__restaurant/interfaces/aditional.dart';
-import 'package:fith_app__restaurant/widgets/AditionalsExpansions.dart';
+import 'package:fith_app__restaurant/sections/Additionals.dart';
+import 'package:fith_app__restaurant/sections/CustomHeader.dart';
+import 'package:fith_app__restaurant/sections/SummaryIngredients.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
-import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
+import 'package:fith_app__restaurant/widgets/DishSummary.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -96,8 +95,8 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
                                   controller: _controller,
                                   child: Column(
                                     children: <Widget>[
-                                      HeaderPlateDetails(image: dish.image),
-                                      GroupPlateBasicDetails(dish: dish),
+                                      DishPortrait(image: dish.image),
+                                      DishFeatures(dish: dish),
                                       AmountProduct(
                                           price: dish.price,
                                           promos: dish.pricePromotions),
@@ -113,8 +112,7 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
                                             ),
                                       SummaryIngredients(
                                           ingredients: dish.ingredients),
-                                      // PreparationTime(),
-                                      PreparationSummary(),
+                                      DishSummary(),
                                       SizedBox(
                                         height: 80,
                                       ),
@@ -147,7 +145,7 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
                                 top: MediaQuery.of(context).padding.top + 10,
                                 bottom: 10),
                             width: MediaQuery.of(context).size.width,
-                            child: StackTopHeader(
+                            child: CustomHeader(
                               iconColors: minSizeReached
                                   ? Theme.of(context).primaryColorDark
                                   : Theme.of(context).primaryColorLight,
@@ -181,53 +179,10 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
   }
 }
 
-class StackTopHeader extends StatefulWidget {
-  final Color iconColors;
-  StackTopHeader({this.iconColors});
-  @override
-  _StackTopHeaderState createState() => _StackTopHeaderState();
-}
-
-class _StackTopHeaderState extends State<StackTopHeader> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.07,
-          right: MediaQuery.of(context).size.width * 0.07),
-      width: MediaQuery.of(context).size.width,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Container(
-            width: 40,
-            height: 40,
-            child: CircleIconButton(
-              icon: Icons.arrow_back,
-              color: widget.iconColors,
-              bgColor: Theme.of(context).primaryColorDark.withOpacity(0.2),
-              trigger: () {},
-            ),
-          ),
-          Container(
-            width: 40,
-            height: 40,
-            child: CircleIconButton(
-              icon: Icons.favorite,
-              color: widget.iconColors,
-              bgColor: Theme.of(context).primaryColorDark.withOpacity(0.2),
-              trigger: () {},
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class HeaderPlateDetails extends StatelessWidget {
+//Imagen principal del plato
+class DishPortrait extends StatelessWidget {
   final String image;
-  HeaderPlateDetails({this.image});
+  DishPortrait({this.image});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -240,9 +195,10 @@ class HeaderPlateDetails extends StatelessWidget {
   }
 }
 
-class GroupPlateBasicDetails extends StatelessWidget {
+//Especificaciones del plato. Icono - Nombre - Descripción y calificaciones
+class DishFeatures extends StatelessWidget {
   final Dishes dish;
-  GroupPlateBasicDetails({this.dish});
+  DishFeatures({this.dish});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -364,160 +320,6 @@ class GroupPlateBasicDetails extends StatelessWidget {
   }
 }
 
-String generateRandomString(int len) {
-  var r = Random();
-  const _chars =
-      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-  return List.generate(len, (index) => _chars[r.nextInt(_chars.length)]).join();
-}
-
-class Aditionals extends StatefulWidget {
-  final List<Adittional> aditionals;
-  Aditionals({this.aditionals});
-  @override
-  AditionalsState createState() => AditionalsState();
-}
-
-class AditionalsState extends State<Aditionals> {
-  @override
-  initState() {
-    super.initState();
-    // print(widget.aditionals);
-    BlocProvider.of<AdditionalsBloc>(context)
-        .add(AdditionalsPopulate(additionals: widget.aditionals));
-  }
-
-  Widget _header() {
-    return Container(
-      margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).size.height * 0.018,
-          top: MediaQuery.of(context).size.height * 0.005),
-      width: MediaQuery.of(context).size.width,
-      child: Text(
-        "Aditionals",
-        style: Theme.of(context).textTheme.subtitle1.copyWith(
-            fontWeight: FontWeight.bold,
-            color: Theme.of(context).primaryColorDark),
-      ),
-    );
-  }
-
-  Widget _expansionAdittional() {
-    return BlocBuilder<AdditionalsBloc, AdditionalsState>(
-      builder: (BuildContext context, state) {
-        List<Adittional> states = state.props[0];
-        return states.length == 0
-            ? Text("loading")
-            : Builder(
-                builder: (BuildContext context) {
-                  List<Widget> expandible = [];
-                  //widget.aditionals
-                  states.asMap().entries.map((item) {
-                    // print(":::item:::");
-                    // print(item.key);
-                    expandible.add(AditionalExpansionPanel(
-                      index: item.key,
-                      additional: item.value,
-                    ));
-                  }).toList();
-
-                  return Column(
-                    children: expandible,
-                  );
-                },
-              );
-        //
-        // Container(child: Builder(builder: (BuildContext context) {
-        //     List<Widget> expandible = [];
-        //     states.asMap().entries.map((item) {
-        //       expandible.add(Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        //         children: <Widget>[
-        //           Text("item - " + item.key.toString()),
-        //           RaisedButton(
-        //             onPressed: () {
-        //               context.bloc<AdditionalsBloc>()
-        //                 ..add(UpdateAditionalState(
-        //                     additional: generateRandomString(5),
-        //                     rid: item.key));
-        //             },
-        //             child: Text(item.value),
-        //           )
-        //         ],
-        //       ));
-        //     }).toList();
-        //     return Column(
-        //       children: expandible,
-        //     );
-        //   })
-        // //
-        // );
-      },
-    );
-    // return Container(child: BlocBuilder<AdditionalsBloc, AdditionalsState>(
-    //   builder: (context, state) {
-    //     print(state.props[0]);
-    // return Builder(builder: (BuildContext context) {
-    //   List<Widget> expandible = [];
-    //   widget.aditionals[0].children.asMap().entries.map((item) {
-    //     expandible.add(Row(
-    //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //       children: <Widget>[
-    //         Text(item.value.name),
-    //         RaisedButton(
-    //           onPressed: () {
-    //             print("los clicks");
-    //             //additionalsBloc.add(UpdateAditionalState(additional: e));
-    //           },
-    //           child: Text("cambiar name"),
-    //         )
-    //       ],
-    //     ));
-    //   }).toList();
-    //   return Column(
-    //     children: expandible,
-    //   );
-    // });
-
-    //     // Text('info');
-    //   },
-    // )
-
-    // width: MediaQuery.of(context).size.width,
-    // child: Builder(
-    //   builder: (BuildContext context) {
-    //     List<Widget> expandible = [];
-    //     widget.aditionals.asMap().entries.map((item) {
-    //       expandible.add(AdditionalExample());
-    //     }).toList();
-
-    //     return Column(
-    //       children: expandible,
-    //     );
-    //   },
-    // ),
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.07,
-          right: MediaQuery.of(context).size.width * 0.07),
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        children: <Widget>[_header(), _expansionAdittional()],
-      ),
-    );
-  }
-
-  @override
-  void dispose() {
-    // additionalsBloc.close()
-    super.dispose();
-  }
-}
-
 class AmountProduct extends StatefulWidget {
   final double price;
   final List promos;
@@ -615,7 +417,6 @@ class _AmountProductState extends State<AmountProduct> {
                         elevation: 0,
                         color: Theme.of(context).buttonColor,
                         padding: EdgeInsets.all(0),
-                        // shape: CircleBorder(),
                         onPressed: () => _amountproduct('add'),
                         child: Text(
                           "+",
@@ -631,107 +432,6 @@ class _AmountProductState extends State<AmountProduct> {
             ),
           )
         ],
-      ),
-    );
-  }
-}
-
-class SummaryIngredients extends StatefulWidget {
-  final List<Ingredients> ingredients;
-  SummaryIngredients({this.ingredients});
-  @override
-  _SummaryIngredientsState createState() => _SummaryIngredientsState();
-}
-
-class _SummaryIngredientsState extends State<SummaryIngredients> {
-  Widget _header() {
-    return Container(
-        margin:
-            EdgeInsets.only(bottom: MediaQuery.of(context).size.height * 0.015),
-        child: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(
-            'Ingreddients for plate',
-            textAlign: TextAlign.left,
-            style: Theme.of(context).textTheme.subtitle1.copyWith(
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).primaryColorDark),
-          ),
-        ));
-  }
-
-  Widget _ingredientsList() {
-    return Container(
-      // color: Colors.amber,
-      width: MediaQuery.of(context).size.width,
-      height: 80,
-      child: ListView.builder(
-          itemCount: widget.ingredients.length,
-          scrollDirection: Axis.horizontal,
-          itemBuilder: (BuildContext context, int index) {
-            return _cardIngredients(widget.ingredients[index]);
-          }),
-    );
-  }
-
-  Widget _cardIngredients(Ingredients ingredient) {
-    return Container(
-        decoration: BoxDecoration(
-            color: Theme.of(context).primaryColorLight,
-            border: Border.all(
-                color: Theme.of(context).primaryColor.withOpacity(0.3)),
-            borderRadius: BorderRadius.circular(5)),
-        margin:
-            EdgeInsets.only(right: MediaQuery.of(context).size.width * 0.010),
-        width: (MediaQuery.of(context).size.width / 4) -
-            MediaQuery.of(context).size.width * 0.028,
-        child: Card(
-          elevation: 0,
-          color: Colors.transparent,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  ingredient.amountGrams,
-                  style: Theme.of(context).textTheme.subtitle1.copyWith(
-                      fontWeight: FontWeight.w500,
-                      color: Theme.of(context).primaryColorDark),
-                ),
-              ),
-              SizedBox(
-                height: 3,
-              ),
-              FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  ingredient.name,
-                  style: Theme.of(context).textTheme.caption.copyWith(
-                      fontSize: 9,
-                      fontWeight: FontWeight.normal,
-                      color: Theme.of(context).primaryColorDark),
-                ),
-              )
-            ],
-          ),
-        ));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(
-          bottom: MediaQuery.of(context).size.height * 0.018,
-          top: MediaQuery.of(context).size.height * 0.025),
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.07,
-          right: MediaQuery.of(context).size.width * 0.07),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[_header(), _ingredientsList()],
       ),
     );
   }
@@ -790,87 +490,6 @@ class _AddtoCarState extends State<AddtoCar> {
                       .copyWith(color: Theme.of(context).primaryColorLight),
                 ),
               ))
-        ],
-      ),
-    );
-  }
-}
-
-class PreparationSummary extends StatefulWidget {
-  @override
-  _PreparationSummaryState createState() => _PreparationSummaryState();
-}
-
-class _PreparationSummaryState extends State<PreparationSummary> {
-  Widget _header() {
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.07,
-            right: MediaQuery.of(context).size.width * 0.07,
-            bottom: 10),
-        child: Text(
-          "Summary",
-          textAlign: TextAlign.left,
-          style: Theme.of(context).textTheme.subtitle1.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).primaryColorDark),
-        ));
-  }
-
-  Widget _body() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * defaultPadding),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          _card('Cooking', '20 min', Icons.watch_later),
-          _card('Extra', '\$10.000', Icons.monetization_on),
-          _card('Discount', '-\$5.000', Icons.remove_circle),
-        ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[_header(), _body()],
-    );
-  }
-
-  Widget _card(name, value, icon) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            children: <Widget>[
-              Icon(
-                icon,
-                size: 12,
-                color: Theme.of(context).accentColor,
-              ),
-              SizedBox(
-                width: 2,
-              ),
-              Text(
-                name,
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    color: Theme.of(context).accentColor,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400),
-              ),
-            ],
-          ),
-          Text(
-            value,
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
-                color: Theme.of(context).primaryColorDark,
-                fontWeight: FontWeight.w800),
-          ),
         ],
       ),
     );
