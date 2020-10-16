@@ -1,7 +1,7 @@
 import 'package:fith_app__restaurant/interfaces/Comments.dart';
 import 'package:fith_app__restaurant/interfaces/ContactMeans.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/interfaces/categories.dart';
+// import 'package:fith_app__restaurant/interfaces/categories.dart';
 import 'package:flutter/material.dart';
 
 class Restaurants {

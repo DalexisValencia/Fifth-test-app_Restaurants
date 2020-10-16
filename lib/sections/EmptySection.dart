@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
+// import 'package:fith_app__restaurant/constants/contansts.dart';
 
 class EmptySections extends StatelessWidget {
   @override

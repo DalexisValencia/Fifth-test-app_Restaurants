@@ -1,11 +1,7 @@
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/screens/details.dart';
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 // Bloc pattern:
-import 'package:bloc/bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 
 class QuickView extends StatefulWidget {
   final Dishes dish;

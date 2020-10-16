@@ -13,7 +13,7 @@ class Dishes {
   final List<Comments> comments;
   final List<String> category;
   final bool promotion;
-  final List<double>
+  final List<PricePromotions>
       pricePromotions; // Por ahora solo tres precios por promocion
   final List<Adittional> additions;
   final List<Ingredients> ingredients;
@@ -35,4 +35,10 @@ class Dishes {
       this.amount
       //
       });
+}
+
+class PricePromotions {
+  final amount;
+  final price;
+  PricePromotions({this.amount, this.price});
 }

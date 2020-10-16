@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
+// import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
+// import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Discovery.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
@@ -13,7 +13,7 @@ import 'package:fith_app__restaurant/sections/NewLauched.dart';
 import 'package:fith_app__restaurant/sections/TopRestaurants.dart';
 import 'package:fith_app__restaurant/sections/EmptySection.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
-import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
+// import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 // import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';

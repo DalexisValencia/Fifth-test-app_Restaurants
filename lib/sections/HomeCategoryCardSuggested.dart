@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
+// import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/categories.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

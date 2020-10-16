@@ -1,9 +1,9 @@
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/screens/disscover.dart';
 import 'package:fith_app__restaurant/screens/home.dart';
-import 'package:fith_app__restaurant/screens/plate.detail.dart';
-import 'package:fith_app__restaurant/screens/restaurant.details.dart';
-import 'package:fith_app__restaurant/screens/search.dart';
+// import 'package:fith_app__restaurant/screens/plate.detail.dart';
+// import 'package:fith_app__restaurant/screens/restaurant.details.dart';
+// import 'package:fith_app__restaurant/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

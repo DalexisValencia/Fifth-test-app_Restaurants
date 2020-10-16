@@ -65,7 +65,11 @@ List<Dishes> dishes = [
       ],
       category: [categories[0].name, categories[2].name],
       promotion: true,
-      pricePromotions: [10000, 20000, 30000],
+      pricePromotions: [
+        PricePromotions(amount: 2, price: 18000),
+        PricePromotions(amount: 4, price: 35000),
+        PricePromotions(amount: 8, price: 68000),
+      ],
       additions: [
         Adittional(title: 'Cookware', isMulti: false, children: [
           AditionalsOptions(name: 'With Cookware', isActive: true, price: 0),

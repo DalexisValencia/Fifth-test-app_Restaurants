@@ -24,10 +24,10 @@ class AdditionalsBloc extends Bloc<AdditionalsEvent, AdditionalsState> {
     }
 
     if (event is UpdateAditionalState) {
-      List<String> elementos = state.props[0];
-      List<String> newsElement = List.from(elementos)
-        ..removeAt(event.rid)
-        ..insert(event.rid, elementos[event.rid] == "true" ? "false" : "true");
+      // List<String> elementos = state.props[0];
+      // List<String> newsElement = List.from(elementos)
+      //   ..removeAt(event.rid)
+      //   ..insert(event.rid, elementos[event.rid] == "true" ? "false" : "true");
       // elementos..removeAt(event.rid);
       // elementos..insert(event.rid, "Cambiado");
       // print(event.additional);
