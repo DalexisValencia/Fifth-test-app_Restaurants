@@ -342,7 +342,7 @@ class DishFeatures extends StatelessWidget {
 }
 
 class AddtoCar extends StatefulWidget {
-  Dishes dish;
+  final Dishes dish;
   AddtoCar({this.dish});
   @override
   _AddtoCarState createState() => _AddtoCarState();
@@ -367,11 +367,8 @@ class _AddtoCarState extends State<AddtoCar> {
 
   @override
   Widget build(BuildContext context) {
-    // final DishamountBloc amountDishesBloc =
-    //     BlocProvider.of<DishamountBloc>(context);
-    final AdditionalsBloc additionalsBloc =
-        BlocProvider.of<AdditionalsBloc>(context);
-    // int amountDishes = amountDishesBloc.state.props[0];
+    // final AdditionalsBloc additionalsBloc =
+    //     BlocProvider.of<AdditionalsBloc>(context);
     return Container(
       decoration: BoxDecoration(
         border: Border(
@@ -410,7 +407,9 @@ class _AddtoCarState extends State<AddtoCar> {
                     print(BlocProvider.of<DishamountBloc>(context)
                         .state
                         .props[0]);
-                    print(additionalsBloc.state.props[0]);
+                    print(BlocProvider.of<AdditionalsBloc>(context)
+                        .state
+                        .props[0]);
                   },
                   elevation: 0,
                   icon: Icon(
