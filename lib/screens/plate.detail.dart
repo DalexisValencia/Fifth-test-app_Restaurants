@@ -349,8 +349,29 @@ class AddtoCar extends StatefulWidget {
 }
 
 class _AddtoCarState extends State<AddtoCar> {
+  String finalPrice(amount) {
+    //
+    List<PricePromotions> specialPrice;
+    if (widget.dish.pricePromotions.length >= 1) {
+      specialPrice = widget.dish.pricePromotions.where((element) {
+        PricePromotions promos = element;
+        return promos.amount == amount;
+      }).toList();
+    }
+    return specialPrice == null
+        ? (widget.dish.price * amount).toString()
+        : specialPrice.length >= 1
+            ? specialPrice[0].price.toString()
+            : (widget.dish.price * amount).toString();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // final DishamountBloc amountDishesBloc =
+    //     BlocProvider.of<DishamountBloc>(context);
+    final AdditionalsBloc additionalsBloc =
+        BlocProvider.of<AdditionalsBloc>(context);
+    // int amountDishes = amountDishesBloc.state.props[0];
     return Container(
       decoration: BoxDecoration(
         border: Border(
@@ -360,20 +381,21 @@ class _AddtoCarState extends State<AddtoCar> {
       padding: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width * defaultPadding),
       width: MediaQuery.of(context).size.width,
-      // child: Text("la info")
       child: Row(
         children: <Widget>[
           Expanded(
-            flex: 1,
-            child: Text(
-              "\$12.000",
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  fontSize: 22,
-                  color: Theme.of(context).buttonColor,
-                  //
-                  fontWeight: FontWeight.w900),
-            ),
-          ),
+              flex: 2,
+              child: BlocBuilder<DishamountBloc, DishamountState>(
+                builder: (BuildContext context, DishamountState state) {
+                  return Text(
+                    "\$${finalPrice(state.props[0])}",
+                    style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        fontSize: 22,
+                        color: Theme.of(context).buttonColor,
+                        fontWeight: FontWeight.w900),
+                  );
+                },
+              )),
           Spacer(),
           SizedBox(
               height: 41,
@@ -384,14 +406,10 @@ class _AddtoCarState extends State<AddtoCar> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                   onPressed: () {
-                    final DishamountBloc amountDishes =
-                        BlocProvider.of<DishamountBloc>(context);
-
-                    final AdditionalsBloc additionalsBloc =
-                        BlocProvider.of<AdditionalsBloc>(context);
-
                     print(widget.dish);
-                    print(amountDishes.state);
+                    print(BlocProvider.of<DishamountBloc>(context)
+                        .state
+                        .props[0]);
                     print(additionalsBloc.state.props[0]);
                   },
                   elevation: 0,
