@@ -56,7 +56,9 @@ class _DishSummaryState extends State<DishSummary> {
           margin: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width * defaultPadding),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: price != 0
+                ? MainAxisAlignment.spaceAround
+                : MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               _card('Cooking', '20 min', Icons.watch_later),
               price != 0

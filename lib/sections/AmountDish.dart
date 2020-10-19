@@ -42,9 +42,11 @@ class _AmountDishesState extends State<AmountDishes> {
         return promos.amount == amount;
       }).toList();
     }
-    return specialPrice.length >= 1
-        ? specialPrice[0].price.toString()
-        : (price * amount).toString();
+    return specialPrice == null
+        ? (price * amount).toString()
+        : specialPrice.length >= 1
+            ? specialPrice[0].price.toString()
+            : (price * amount).toString();
   }
 
   @override
