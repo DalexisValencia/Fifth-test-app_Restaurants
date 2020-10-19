@@ -54,7 +54,6 @@ class _AmountDishesState extends State<AmountDishes> {
   Widget build(BuildContext context) {
     return BlocBuilder<DishamountBloc, DishamountState>(
       builder: (BuildContext context, DishamountState state) {
-        // return Text("${state.props[0].toString()}");
         return Container(
           padding: EdgeInsets.only(
               left: MediaQuery.of(context).size.width * 0.07,
@@ -71,7 +70,6 @@ class _AmountDishesState extends State<AmountDishes> {
                         child: FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        // "\$${price * state.props[0]}",
                         "\$${_priceDish(state.props[0])}",
                         style: Theme.of(context).textTheme.headline5.copyWith(
                             color: Theme.of(context).buttonColor,

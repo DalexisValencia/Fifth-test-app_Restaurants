@@ -74,7 +74,6 @@ class AditionalsState extends State<Aditionals> {
 
   @override
   void dispose() {
-    // additionalsBloc.close()
     super.dispose();
   }
 }

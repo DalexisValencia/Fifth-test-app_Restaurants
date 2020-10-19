@@ -1,9 +1,7 @@
 import 'dart:async';
 
-// import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
-// import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Discovery.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
@@ -13,8 +11,6 @@ import 'package:fith_app__restaurant/sections/NewLauched.dart';
 import 'package:fith_app__restaurant/sections/TopRestaurants.dart';
 import 'package:fith_app__restaurant/sections/EmptySection.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
-// import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
-// import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -84,7 +80,6 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
       create: (BuildContext context) => DishBloc(),
       child: NearYou(nearYou: nearYou),
     );
-    // return NearYou(nearYou: nearYou);
   }
 
   Widget _newLaunch(List<Dishes> recents) {
@@ -240,30 +235,6 @@ class _NearYouState extends State<NearYou> {
                 );
               }),
         ));
-    // return MultiBlocProvider(
-    //     providers: [
-    //       BlocProvider<DishBloc>(
-    //         create: (BuildContext context) => DishBloc(),
-    //       ),
-    //       BlocProvider<AdditionalsBloc>(
-    //         create: (BuildContext context) => AdditionalsBloc(),
-    //       )
-    //     ],
-    //     child: Container(
-    //       height: 160,
-    //       width: MediaQuery.of(context).size.width,
-    //       padding:
-    //           EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
-    //       child: ListView.builder(
-    //           scrollDirection: Axis.horizontal,
-    //           itemCount: widget.nearYou.length,
-    //           itemBuilder: (BuildContext context, int index) {
-    //             return NearYouCard(
-    //               dish: widget.nearYou[index],
-    //               index: index,
-    //             );
-    //           }),
-    //     ));
   }
 
   _sectionBody() {
