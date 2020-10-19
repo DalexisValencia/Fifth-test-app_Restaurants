@@ -359,10 +359,10 @@ class _AddtoCarState extends State<AddtoCar> {
       }).toList();
     }
     return specialPrice == null
-        ? (widget.dish.price * amount).toString()
+        ? formatterPrice(widget.dish.price * amount).toString()
         : specialPrice.length >= 1
-            ? specialPrice[0].price.toString()
-            : (widget.dish.price * amount).toString();
+            ? formatterPrice(specialPrice[0].price).toString()
+            : formatterPrice((widget.dish.price * amount)).toString();
   }
 
   @override

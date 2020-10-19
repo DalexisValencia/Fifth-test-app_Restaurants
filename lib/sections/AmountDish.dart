@@ -1,4 +1,5 @@
 import 'package:fith_app__restaurant/blocs/bloc/dishAmount/bloc/dishamount_bloc.dart';
+import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
@@ -43,10 +44,10 @@ class _AmountDishesState extends State<AmountDishes> {
       }).toList();
     }
     return specialPrice == null
-        ? (price * amount).toString()
+        ? formatterPrice((price * amount)).toString()
         : specialPrice.length >= 1
-            ? specialPrice[0].price.toString()
-            : (price * amount).toString();
+            ? formatterPrice(specialPrice[0].price).toString()
+            : formatterPrice((price * amount)).toString();
   }
 
   @override

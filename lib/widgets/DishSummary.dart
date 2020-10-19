@@ -62,8 +62,8 @@ class _DishSummaryState extends State<DishSummary> {
             children: <Widget>[
               _card('Cooking', '20 min', Icons.watch_later),
               price != 0
-                  ? _card(
-                      'Extra', '\$${price.toString()}', Icons.monetization_on)
+                  ? _card('Extra', '\$${formatterPrice(price).toString()}',
+                      Icons.monetization_on)
                   : SizedBox(
                       height: 0,
                       width: 0,
