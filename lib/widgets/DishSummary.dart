@@ -11,21 +11,25 @@ class DishSummary extends StatefulWidget {
 
 class _DishSummaryState extends State<DishSummary> {
   List<Adittional> allAdditionals;
+  int price;
   @override
   initState() {
-    final additionalsBloc = BlocProvider.of<AdditionalsBloc>(context);
-    // print(additionalsBloc.state);
-    // print(additionalsBloc.state.props);
-    // allAdditionals = additionalsBloc.state.props;
-    // _exampleSearch();
     super.initState();
   }
 
-  // _exampleSearch() {
-  //   print("empezamos la busqueda");
-
-  //   print(allAdditionals);
-  // }
+  _exampleSearch(state) {
+    price = 0;
+    List<Adittional> additional = state;
+    additional.forEach((element) {
+      element.children.forEach((additinalEl) {
+        if (additinalEl.isActive) {
+          if (additinalEl.price != 0) {
+            price += additinalEl.price;
+          }
+        }
+      });
+    });
+  }
 
   Widget _header() {
     return Container(
@@ -44,18 +48,29 @@ class _DishSummaryState extends State<DishSummary> {
   }
 
   Widget _body() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * defaultPadding),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          _card('Cooking', '20 min', Icons.watch_later),
-          _card('Extra', '\$10.000', Icons.monetization_on),
-          _card('Discount', '-\$5.000', Icons.remove_circle),
-        ],
-      ),
+    return BlocBuilder<AdditionalsBloc, AdditionalsState>(
+      builder: (BuildContext context, AdditionalsState state) {
+        _exampleSearch(state.props[0]);
+        return Container(
+          width: MediaQuery.of(context).size.width,
+          margin: EdgeInsets.symmetric(
+              horizontal: MediaQuery.of(context).size.width * defaultPadding),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              _card('Cooking', '20 min', Icons.watch_later),
+              price != 0
+                  ? _card(
+                      'Extra', '\$${price.toString()}', Icons.monetization_on)
+                  : SizedBox(
+                      height: 0,
+                      width: 0,
+                    ),
+              _card('Discount', '-\$5.000', Icons.remove_circle),
+            ],
+          ),
+        );
+      },
     );
   }
 
