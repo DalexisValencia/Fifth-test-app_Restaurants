@@ -1,4 +1,3 @@
-// import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/plate.detail.dart';
@@ -19,8 +18,6 @@ class NearYouCard extends StatelessWidget {
       child: RaisedButton(
         elevation: 0,
         onPressed: () {
-          // print(dish);
-          // print('aqui esta todo el plato');
           blocDish.add(DishStart(currentDish: dish));
           Navigator.of(context)
               .push(MaterialPageRoute<PlateDetailWrapper>(builder: (context) {
@@ -42,12 +39,9 @@ class NearYouCard extends StatelessWidget {
               width: MediaQuery.of(context).size.width / 2.6,
               height: 110,
               decoration: BoxDecoration(
-                  // color: Colors.amberAccent,
                   borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
-                      fit: BoxFit.cover, image: ExactAssetImage(dish.image)
-                      // image: ExactAssetImage('assets/banner/sould-food.png')
-                      )),
+                      fit: BoxFit.cover, image: ExactAssetImage(dish.image))),
               child: Stack(
                 children: <Widget>[
                   Positioned(
@@ -83,8 +77,6 @@ class NearYouCard extends StatelessWidget {
               width: MediaQuery.of(context).size.width / 2.6,
               padding: EdgeInsets.only(top: 6, left: 6),
               child: Column(
-                // mainAxisAlignment: ,
-                // mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
@@ -98,7 +90,6 @@ class NearYouCard extends StatelessWidget {
                       fit: BoxFit.scaleDown,
                       child: Text(
                         dish.details.substring(1, 25) + '...',
-                        // 'detail product small text',
                         style: Theme.of(context).textTheme.caption.copyWith(
                             wordSpacing: 0.5,
                             fontSize: 10,

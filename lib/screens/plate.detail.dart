@@ -83,96 +83,110 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
                 children: Container(
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height,
-                  child: Stack(
-                    children: <Widget>[
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height,
-                        child: Column(
-                          children: <Widget>[
-                            Expanded(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width,
-                                child: SingleChildScrollView(
-                                  controller: _controller,
-                                  child: Column(
-                                    children: <Widget>[
-                                      DishPortrait(image: dish.image),
-                                      DishFeatures(dish: dish),
-                                      BlocProvider(
-                                        create: (BuildContext context) =>
-                                            DishamountBloc(),
-                                        child: AmountDishes(
+                  child: MultiBlocProvider(
+                    providers: [
+                      BlocProvider<AdditionalsBloc>(
+                        create: (BuildContext context) => AdditionalsBloc(),
+                      ),
+                      BlocProvider<DishamountBloc>(
+                        create: (BuildContext context) => DishamountBloc(),
+                      ),
+                    ],
+                    child: Stack(
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: SingleChildScrollView(
+                                    controller: _controller,
+                                    child: Column(
+                                      children: <Widget>[
+                                        DishPortrait(image: dish.image),
+                                        DishFeatures(dish: dish),
+                                        // BlocProvider(
+                                        //   create: (BuildContext context) =>
+                                        //       DishamountBloc(),
+                                        //   child:
+                                        AmountDishes(
                                             amount: dish.amount,
                                             price: dish.price,
                                             promos: dish.pricePromotions),
-                                      ),
-                                      dish.additions.length >= 1
-                                          ? BlocProvider(
-                                              create: (BuildContext context) =>
-                                                  AdditionalsBloc(),
-                                              child: Aditionals(
-                                                  aditionals: dish.additions))
-                                          : SizedBox(
-                                              height: 0,
-                                              width: 0,
-                                            ),
-                                      SummaryIngredients(
-                                          ingredients: dish.ingredients),
-                                      DishSummary(),
-                                      SizedBox(
-                                        height: 80,
-                                      ),
-                                    ],
+                                        // ),
+                                        dish.additions.length >= 1
+                                            ? Aditionals(
+                                                aditionals: dish.additions)
+                                            // BlocProvider(
+                                            //     create:
+                                            //         (BuildContext context) =>
+                                            //             AdditionalsBloc(),
+                                            //     child: Aditionals(
+                                            //         aditionals: dish.additions))
+                                            : SizedBox(
+                                                height: 0,
+                                                width: 0,
+                                              ),
+                                        SummaryIngredients(
+                                            ingredients: dish.ingredients),
+                                        DishSummary(),
+                                        SizedBox(
+                                          height: 80,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      Positioned(
-                        top: 0,
-                        child: AnimatedContainer(
-                            decoration: BoxDecoration(
-                                color: minSizeReached
-                                    ? Colors.white
-                                    : Colors.transparent,
-                                boxShadow: [
-                                  BoxShadow(
-                                      blurRadius: 0.5,
-                                      color: minSizeReached
-                                          ? Theme.of(context).primaryColor
-                                          : Colors.transparent,
-                                      offset: Offset(2, 0))
-                                ]),
-                            duration: Duration(milliseconds: 500),
-                            curve: Curves.ease,
-                            padding: EdgeInsets.only(
-                                top: MediaQuery.of(context).padding.top + 10,
-                                bottom: 10),
-                            width: MediaQuery.of(context).size.width,
-                            child: CustomHeader(
-                              iconColors: minSizeReached
-                                  ? Theme.of(context).primaryColorDark
-                                  : Theme.of(context).primaryColorLight,
-                            )),
-                      ),
-                      Positioned(
-                        bottom: 0,
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: Container(
-                              margin: EdgeInsets.all(0),
-                              padding: EdgeInsets.all(0),
+                        Positioned(
+                          top: 0,
+                          child: AnimatedContainer(
+                              decoration: BoxDecoration(
+                                  color: minSizeReached
+                                      ? Colors.white
+                                      : Colors.transparent,
+                                  boxShadow: [
+                                    BoxShadow(
+                                        blurRadius: 0.5,
+                                        color: minSizeReached
+                                            ? Theme.of(context).primaryColor
+                                            : Colors.transparent,
+                                        offset: Offset(2, 0))
+                                  ]),
+                              duration: Duration(milliseconds: 500),
+                              curve: Curves.ease,
+                              padding: EdgeInsets.only(
+                                  top: MediaQuery.of(context).padding.top + 10,
+                                  bottom: 10),
                               width: MediaQuery.of(context).size.width,
-                              height: 60,
-                              child: SizedBox.expand(
-                                child: AddtoCar(),
+                              child: CustomHeader(
+                                iconColors: minSizeReached
+                                    ? Theme.of(context).primaryColorDark
+                                    : Theme.of(context).primaryColorLight,
                               )),
                         ),
-                      )
-                    ],
+                        Positioned(
+                          bottom: 0,
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Container(
+                                margin: EdgeInsets.all(0),
+                                padding: EdgeInsets.all(0),
+                                width: MediaQuery.of(context).size.width,
+                                height: 60,
+                                child: SizedBox.expand(
+                                  child: AddtoCar(dish: dish),
+                                )),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 )
                 // )
@@ -328,6 +342,8 @@ class DishFeatures extends StatelessWidget {
 }
 
 class AddtoCar extends StatefulWidget {
+  Dishes dish;
+  AddtoCar({this.dish});
   @override
   _AddtoCarState createState() => _AddtoCarState();
 }
@@ -362,24 +378,37 @@ class _AddtoCarState extends State<AddtoCar> {
           SizedBox(
               height: 41,
               width: 120,
-              child: RaisedButton.icon(
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                onPressed: () {},
-                elevation: 0,
-                icon: Icon(
-                  Icons.add_shopping_cart,
-                  size: 18,
-                  color: Theme.of(context).primaryColorLight,
-                ),
-                label: Text(
-                  "Añadir",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1
-                      .copyWith(color: Theme.of(context).primaryColorLight),
-                ),
-              ))
+              child: BlocBuilder<DishamountBloc, DishamountState>(
+                  builder: (BuildContext context, DishamountState state) {
+                return RaisedButton.icon(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20)),
+                  onPressed: () {
+                    final DishamountBloc amountDishes =
+                        BlocProvider.of<DishamountBloc>(context);
+
+                    final AdditionalsBloc additionalsBloc =
+                        BlocProvider.of<AdditionalsBloc>(context);
+
+                    print(widget.dish);
+                    print(amountDishes.state);
+                    print(additionalsBloc.state.props[0]);
+                  },
+                  elevation: 0,
+                  icon: Icon(
+                    Icons.add_shopping_cart,
+                    size: 18,
+                    color: Theme.of(context).primaryColorLight,
+                  ),
+                  label: Text(
+                    "Añadir",
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyText1
+                        .copyWith(color: Theme.of(context).primaryColorLight),
+                  ),
+                );
+              }))
         ],
       ),
     );

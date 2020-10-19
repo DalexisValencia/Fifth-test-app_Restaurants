@@ -1,5 +1,8 @@
+import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:fith_app__restaurant/interfaces/aditional.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DishSummary extends StatefulWidget {
   @override
@@ -7,6 +10,23 @@ class DishSummary extends StatefulWidget {
 }
 
 class _DishSummaryState extends State<DishSummary> {
+  List<Adittional> allAdditionals;
+  @override
+  initState() {
+    final additionalsBloc = BlocProvider.of<AdditionalsBloc>(context);
+    // print(additionalsBloc.state);
+    // print(additionalsBloc.state.props);
+    // allAdditionals = additionalsBloc.state.props;
+    // _exampleSearch();
+    super.initState();
+  }
+
+  // _exampleSearch() {
+  //   print("empezamos la busqueda");
+
+  //   print(allAdditionals);
+  // }
+
   Widget _header() {
     return Container(
         width: MediaQuery.of(context).size.width,
