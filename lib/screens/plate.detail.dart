@@ -350,7 +350,6 @@ class AddtoCar extends StatefulWidget {
 
 class _AddtoCarState extends State<AddtoCar> {
   String finalPrice(amount) {
-    //
     List<PricePromotions> specialPrice;
     if (widget.dish.pricePromotions.length >= 1) {
       specialPrice = widget.dish.pricePromotions.where((element) {
@@ -367,8 +366,6 @@ class _AddtoCarState extends State<AddtoCar> {
 
   @override
   Widget build(BuildContext context) {
-    // final AdditionalsBloc additionalsBloc =
-    //     BlocProvider.of<AdditionalsBloc>(context);
     return Container(
       decoration: BoxDecoration(
         border: Border(
@@ -384,6 +381,8 @@ class _AddtoCarState extends State<AddtoCar> {
               flex: 2,
               child: BlocBuilder<DishamountBloc, DishamountState>(
                 builder: (BuildContext context, DishamountState state) {
+                  print(
+                      BlocProvider.of<AdditionalsBloc>(context).state.props[1]);
                   return Text(
                     "\$${finalPrice(state.props[0])}",
                     style: Theme.of(context).textTheme.bodyText1.copyWith(

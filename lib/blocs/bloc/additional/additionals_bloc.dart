@@ -9,18 +9,18 @@ part 'additionals_event.dart';
 part 'additionals_state.dart';
 
 class AdditionalsBloc extends Bloc<AdditionalsEvent, AdditionalsState> {
-  AdditionalsBloc() : super(AdditionalsInitial(initial: []));
+  AdditionalsBloc() : super(AdditionalsInitial(initial: [], prices: 0));
 
   @override
   Stream<AdditionalsState> mapEventToState(
     AdditionalsEvent event,
   ) async* {
     if (event is AdditionalsPopulate) {
-      yield AdditionalsCurrent(additionals: event.additionals);
+      yield AdditionalsCurrent(additionals: event.additionals, prices: 0);
     }
 
     if (event is AdditionalsStart) {
-      yield AdditionalsInitial(initial: []);
+      yield AdditionalsInitial(initial: [], prices: 0);
     }
 
     if (event is UpdateAditionalState) {
@@ -49,9 +49,8 @@ class AdditionalsBloc extends Bloc<AdditionalsEvent, AdditionalsState> {
       List<AditionalsOptions> additionalOptions = currentAddional.children;
       //Buscamos el elemento dentro de la lista
       AditionalsOptions currentOption = additionalOptions[event.rid];
-      // si el multiple colocamos todos es falso
+      // si no es multiple colocamos todos es falso
       if (currentAddional.isMulti == false) {
-        // print("aqui??");
         currentAddional.children.map((e) {
           if (e.name != currentOption.name) {
             e.isActive = false;
@@ -59,7 +58,6 @@ class AdditionalsBloc extends Bloc<AdditionalsEvent, AdditionalsState> {
         }).toList();
       }
       currentOption.isActive = !currentOption.isActive;
-      // print(currentOption.isActive);
 
       List<Adittional> finalStateAditionals = List.from(stateAditionals);
       finalStateAditionals[event.parent].children
@@ -74,8 +72,9 @@ class AdditionalsBloc extends Bloc<AdditionalsEvent, AdditionalsState> {
       List<Adittional> finalAdditionals = List.from(stateAditionals)
         ..removeAt(event.parent)
         ..insert(event.parent, additionalFinal);
-      print(finalAdditionals);
-      yield AdditionalsCurrent(additionals: finalAdditionals);
+      yield AdditionalsCurrent(
+          additionals: finalAdditionals,
+          prices: _getAdditionalPrices(finalAdditionals));
     }
   }
 
@@ -85,9 +84,18 @@ class AdditionalsBloc extends Bloc<AdditionalsEvent, AdditionalsState> {
   }
 }
 
-String generateRandomString(int len) {
-  var r = Random();
-  const _chars =
-      'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
-  return List.generate(len, (index) => _chars[r.nextInt(_chars.length)]).join();
+int _getAdditionalPrices(additionals) {
+  int price = 0;
+  List<Adittional> additional = additionals;
+  additional.forEach((element) {
+    element.children.forEach((additinalEl) {
+      if (additinalEl.isActive) {
+        if (additinalEl.price != 0) {
+          price += additinalEl.price;
+        }
+      }
+    });
+  });
+
+  return price;
 }

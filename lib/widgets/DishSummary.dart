@@ -11,24 +11,9 @@ class DishSummary extends StatefulWidget {
 
 class _DishSummaryState extends State<DishSummary> {
   List<Adittional> allAdditionals;
-  int price;
   @override
   initState() {
     super.initState();
-  }
-
-  _exampleSearch(state) {
-    price = 0;
-    List<Adittional> additional = state;
-    additional.forEach((element) {
-      element.children.forEach((additinalEl) {
-        if (additinalEl.isActive) {
-          if (additinalEl.price != 0) {
-            price += additinalEl.price;
-          }
-        }
-      });
-    });
   }
 
   Widget _header() {
@@ -50,19 +35,20 @@ class _DishSummaryState extends State<DishSummary> {
   Widget _body() {
     return BlocBuilder<AdditionalsBloc, AdditionalsState>(
       builder: (BuildContext context, AdditionalsState state) {
-        _exampleSearch(state.props[0]);
         return Container(
           width: MediaQuery.of(context).size.width,
           margin: EdgeInsets.symmetric(
               horizontal: MediaQuery.of(context).size.width * defaultPadding),
           child: Row(
-            mainAxisAlignment: price != 0
+            mainAxisAlignment: state.props[1] != 0
                 ? MainAxisAlignment.spaceAround
                 : MainAxisAlignment.spaceEvenly,
             children: <Widget>[
               _card('Cooking', '20 min', Icons.watch_later),
-              price != 0
-                  ? _card('Extra', '\$${formatterPrice(price).toString()}',
+              state.props[1] != 0
+                  ? _card(
+                      'Extra',
+                      '\$${formatterPrice(state.props[1]).toString()}',
                       Icons.monetization_on)
                   : SizedBox(
                       height: 0,

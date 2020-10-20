@@ -9,46 +9,24 @@ abstract class AdditionalsState extends Equatable {
 
 class AdditionalsInitial extends AdditionalsState {
   final List<Adittional> initial;
-  AdditionalsInitial({this.initial});
+  final int prices;
+  AdditionalsInitial({this.initial, this.prices});
 
   @override
-  List<Object> get props => [initial];
+  List<Object> get props => [initial, prices];
 
   @override
-  String toString() => 'AdditionalsCurrent {Search by: $initial}';
+  String toString() => 'AdditionalsCurrent {Search by: $initial, $prices}';
 }
 
 class AdditionalsCurrent extends AdditionalsState {
   final List<Adittional> additionals;
-  AdditionalsCurrent({this.additionals});
+  final int prices;
+  AdditionalsCurrent({this.additionals, this.prices});
 
   @override
-  List<Object> get props => [additionals];
+  List<Object> get props => [additionals, prices];
 
   @override
-  String toString() => 'AdditionalsCurrent {Search by: $additionals}';
-}
-
-class AdditionalsUpdated extends AdditionalsState {
-  // final List<Adittional> additionals;
-  final List<Adittional> additionals;
-  AdditionalsUpdated({this.additionals});
-
-  @override
-  List<Object> get props => [additionals];
-
-  @override
-  String toString() => 'AdditionalsUpdated {Search by: $additionals}';
-}
-
-class UpdateAdditional extends AdditionalsState {
-  // final Adittional additional;
-  final String additional;
-
-  UpdateAdditional({this.additional});
-}
-
-class AdditionalLoaded extends AdditionalsState {
-  final List<Adittional> additionals;
-  AdditionalLoaded({this.additionals});
+  String toString() => 'AdditionalsCurrent {Search by: $additionals, $prices}';
 }
