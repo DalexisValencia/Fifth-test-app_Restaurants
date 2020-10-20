@@ -349,7 +349,7 @@ class AddtoCar extends StatefulWidget {
 }
 
 class _AddtoCarState extends State<AddtoCar> {
-  String finalPrice(amount) {
+  String finalPrice(amount, additionals) {
     List<PricePromotions> specialPrice;
     if (widget.dish.pricePromotions.length >= 1) {
       specialPrice = widget.dish.pricePromotions.where((element) {
@@ -358,75 +358,125 @@ class _AddtoCarState extends State<AddtoCar> {
       }).toList();
     }
     return specialPrice == null
-        ? formatterPrice(widget.dish.price * amount).toString()
+        ? formatterPrice((widget.dish.price * amount) + additionals).toString()
         : specialPrice.length >= 1
-            ? formatterPrice(specialPrice[0].price).toString()
-            : formatterPrice((widget.dish.price * amount)).toString();
+            ? formatterPrice((specialPrice[0].price) + additionals).toString()
+            : formatterPrice((widget.dish.price * amount) + additionals)
+                .toString();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        border: Border(
-            top: BorderSide(color: Theme.of(context).accentColor, width: 1)),
-        color: Theme.of(context).primaryColorLight,
-      ),
-      padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * defaultPadding),
-      width: MediaQuery.of(context).size.width,
-      child: Row(
-        children: <Widget>[
-          Expanded(
-              flex: 2,
-              child: BlocBuilder<DishamountBloc, DishamountState>(
-                builder: (BuildContext context, DishamountState state) {
-                  print(
-                      BlocProvider.of<AdditionalsBloc>(context).state.props[1]);
-                  return Text(
-                    "\$${finalPrice(state.props[0])}",
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        fontSize: 22,
-                        color: Theme.of(context).buttonColor,
-                        fontWeight: FontWeight.w900),
-                  );
-                },
-              )),
-          Spacer(),
-          SizedBox(
-              height: 41,
-              width: 120,
-              child: BlocBuilder<DishamountBloc, DishamountState>(
-                  builder: (BuildContext context, DishamountState state) {
-                return RaisedButton.icon(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  onPressed: () {
-                    print(widget.dish);
-                    print(BlocProvider.of<DishamountBloc>(context)
-                        .state
-                        .props[0]);
-                    print(BlocProvider.of<AdditionalsBloc>(context)
-                        .state
-                        .props[0]);
-                  },
-                  elevation: 0,
-                  icon: Icon(
-                    Icons.add_shopping_cart,
-                    size: 18,
-                    color: Theme.of(context).primaryColorLight,
-                  ),
-                  label: Text(
-                    "Añadir",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyText1
-                        .copyWith(color: Theme.of(context).primaryColorLight),
-                  ),
-                );
-              }))
-        ],
-      ),
-    );
+        decoration: BoxDecoration(
+          border: Border(
+              top: BorderSide(color: Theme.of(context).accentColor, width: 1)),
+          color: Theme.of(context).primaryColorLight,
+        ),
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * defaultPadding),
+        width: MediaQuery.of(context).size.width,
+        child: BlocBuilder<DishamountBloc, DishamountState>(
+          builder: (BuildContext context, DishamountState stateAmount) {
+            return Row(
+              children: <Widget>[
+                Expanded(
+                    flex: 2,
+                    child: BlocBuilder<AdditionalsBloc, AdditionalsState>(
+                      builder: (BuildContext context, AdditionalsState state) {
+                        return Text(
+                          "\$${finalPrice(stateAmount.props[0], state.props[1])}",
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              fontSize: 22,
+                              color: Theme.of(context).buttonColor,
+                              fontWeight: FontWeight.w900),
+                        );
+                      },
+                    )),
+                Spacer(),
+                SizedBox(
+                    height: 41,
+                    width: 120,
+                    child: RaisedButton.icon(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20)),
+                      onPressed: () {
+                        print(widget.dish);
+                        print(BlocProvider.of<DishamountBloc>(context)
+                            .state
+                            .props[0]);
+                        print(BlocProvider.of<AdditionalsBloc>(context)
+                            .state
+                            .props[0]);
+                      },
+                      elevation: 0,
+                      icon: Icon(
+                        Icons.add_shopping_cart,
+                        size: 18,
+                        color: Theme.of(context).primaryColorLight,
+                      ),
+                      label: Text(
+                        "Añadir",
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            color: Theme.of(context).primaryColorLight),
+                      ),
+                    ))
+              ],
+            );
+          },
+        )
+        // Row(
+        //   children: <Widget>[
+        //     Expanded(
+        //         flex: 2,
+        //         child: BlocBuilder<DishamountBloc, DishamountState>(
+        //           builder: (BuildContext context, DishamountState state) {
+        //             print(
+        //                 BlocProvider.of<AdditionalsBloc>(context).state.props[1]);
+        //             return Text(
+        //               "\$${finalPrice(state.props[0])}",
+        //               style: Theme.of(context).textTheme.bodyText1.copyWith(
+        //                   fontSize: 22,
+        //                   color: Theme.of(context).buttonColor,
+        //                   fontWeight: FontWeight.w900),
+        //             );
+        //           },
+        //         )),
+        //     Spacer(),
+        //     SizedBox(
+        //         height: 41,
+        //         width: 120,
+        //         child: BlocBuilder<DishamountBloc, DishamountState>(
+        //             builder: (BuildContext context, DishamountState state) {
+        //           return RaisedButton.icon(
+        //             shape: RoundedRectangleBorder(
+        //                 borderRadius: BorderRadius.circular(20)),
+        //             onPressed: () {
+        //               print(widget.dish);
+        //               print(BlocProvider.of<DishamountBloc>(context)
+        //                   .state
+        //                   .props[0]);
+        //               print(BlocProvider.of<AdditionalsBloc>(context)
+        //                   .state
+        //                   .props[0]);
+        //             },
+        //             elevation: 0,
+        //             icon: Icon(
+        //               Icons.add_shopping_cart,
+        //               size: 18,
+        //               color: Theme.of(context).primaryColorLight,
+        //             ),
+        //             label: Text(
+        //               "Añadir",
+        //               style: Theme.of(context)
+        //                   .textTheme
+        //                   .bodyText1
+        //                   .copyWith(color: Theme.of(context).primaryColorLight),
+        //             ),
+        //           );
+        //         }))
+        //   ],
+        // ),
+        );
   }
 }
