@@ -349,6 +349,7 @@ class AddtoCar extends StatefulWidget {
 }
 
 class _AddtoCarState extends State<AddtoCar> {
+  bool _addingCar = false;
   String finalPrice(amount, additionals) {
     List<PricePromotions> specialPrice;
     if (widget.dish.pricePromotions.length >= 1) {
@@ -365,14 +366,49 @@ class _AddtoCarState extends State<AddtoCar> {
                 .toString();
   }
 
+  void addingCardIndication() {
+    setState(() {
+      _addingCar = true;
+    });
+    //Solo por prueba, después de unos segundos oculto
+    Timer(Duration(seconds: 2), () {
+      setState(() {
+        _addingCar = false;
+      });
+      showSnackBar();
+    });
+  }
+
+  void showSnackBar() {
+    final snackBarCar = SnackBar(
+        backgroundColor: Theme.of(context).primaryColorDark,
+        // elevation: MediaQuery.of(context).size.height * 0.50,
+        content: RichText(
+            text: TextSpan(
+                text: '${widget.dish.name}',
+                style: TextStyle(
+                    color: Theme.of(context).primaryColorLight,
+                    fontWeight: FontWeight.bold),
+                children: <TextSpan>[
+              TextSpan(
+                text: ' Se ha añadido al carrito',
+                style: TextStyle(fontWeight: FontWeight.w400),
+              )
+            ])));
+
+    Scaffold.of(context).showSnackBar(snackBarCar);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
         decoration: BoxDecoration(
-          border: Border(
-              top: BorderSide(color: Theme.of(context).accentColor, width: 1)),
-          color: Theme.of(context).primaryColorLight,
-        ),
+            border: Border(
+                top:
+                    BorderSide(color: Theme.of(context).accentColor, width: 1)),
+            color: Theme.of(context)
+                .buttonColor // Theme.of(context).primaryColorLight,
+            ),
         padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * defaultPadding),
         width: MediaQuery.of(context).size.width,
@@ -388,7 +424,7 @@ class _AddtoCarState extends State<AddtoCar> {
                           "\$${finalPrice(stateAmount.props[0], state.props[1])}",
                           style: Theme.of(context).textTheme.bodyText1.copyWith(
                               fontSize: 22,
-                              color: Theme.of(context).buttonColor,
+                              color: Theme.of(context).primaryColorLight,
                               fontWeight: FontWeight.w900),
                         );
                       },
@@ -398,85 +434,51 @@ class _AddtoCarState extends State<AddtoCar> {
                     height: 41,
                     width: 120,
                     child: RaisedButton.icon(
+                      color: Theme.of(context).primaryColorLight,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20)),
-                      onPressed: () {
-                        print(widget.dish);
-                        print(BlocProvider.of<DishamountBloc>(context)
-                            .state
-                            .props[0]);
-                        print(BlocProvider.of<AdditionalsBloc>(context)
-                            .state
-                            .props[0]);
-                      },
+                      onPressed: _addingCar
+                          ? null
+                          : () {
+                              print(widget.dish);
+                              print(BlocProvider.of<DishamountBloc>(context)
+                                  .state
+                                  .props[0]);
+                              print(BlocProvider.of<AdditionalsBloc>(context)
+                                  .state
+                                  .props[0]);
+                              addingCardIndication();
+                            },
                       elevation: 0,
-                      icon: Icon(
-                        Icons.add_shopping_cart,
-                        size: 18,
-                        color: Theme.of(context).primaryColorLight,
-                      ),
-                      label: Text(
-                        "Añadir",
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: Theme.of(context).primaryColorLight),
-                      ),
+                      icon: _addingCar
+                          ? SizedBox()
+                          : Icon(
+                              Icons.add_shopping_cart,
+                              size: 18,
+                              color: Theme.of(context).buttonColor,
+                            ),
+                      label: _addingCar
+                          ? Container(
+                              width: 20,
+                              height: 20,
+                              child: CircularProgressIndicator(
+                                //valueColor: Theme.of(context).primaryColorLight,
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                    Theme.of(context).primaryColorLight),
+                              ),
+                            )
+                          : Text(
+                              "Añadir",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1
+                                  .copyWith(
+                                      color: Theme.of(context).buttonColor),
+                            ),
                     ))
               ],
             );
           },
-        )
-        // Row(
-        //   children: <Widget>[
-        //     Expanded(
-        //         flex: 2,
-        //         child: BlocBuilder<DishamountBloc, DishamountState>(
-        //           builder: (BuildContext context, DishamountState state) {
-        //             print(
-        //                 BlocProvider.of<AdditionalsBloc>(context).state.props[1]);
-        //             return Text(
-        //               "\$${finalPrice(state.props[0])}",
-        //               style: Theme.of(context).textTheme.bodyText1.copyWith(
-        //                   fontSize: 22,
-        //                   color: Theme.of(context).buttonColor,
-        //                   fontWeight: FontWeight.w900),
-        //             );
-        //           },
-        //         )),
-        //     Spacer(),
-        //     SizedBox(
-        //         height: 41,
-        //         width: 120,
-        //         child: BlocBuilder<DishamountBloc, DishamountState>(
-        //             builder: (BuildContext context, DishamountState state) {
-        //           return RaisedButton.icon(
-        //             shape: RoundedRectangleBorder(
-        //                 borderRadius: BorderRadius.circular(20)),
-        //             onPressed: () {
-        //               print(widget.dish);
-        //               print(BlocProvider.of<DishamountBloc>(context)
-        //                   .state
-        //                   .props[0]);
-        //               print(BlocProvider.of<AdditionalsBloc>(context)
-        //                   .state
-        //                   .props[0]);
-        //             },
-        //             elevation: 0,
-        //             icon: Icon(
-        //               Icons.add_shopping_cart,
-        //               size: 18,
-        //               color: Theme.of(context).primaryColorLight,
-        //             ),
-        //             label: Text(
-        //               "Añadir",
-        //               style: Theme.of(context)
-        //                   .textTheme
-        //                   .bodyText1
-        //                   .copyWith(color: Theme.of(context).primaryColorLight),
-        //             ),
-        //           );
-        //         }))
-        //   ],
-        // ),
-        );
+        ));
   }
 }
