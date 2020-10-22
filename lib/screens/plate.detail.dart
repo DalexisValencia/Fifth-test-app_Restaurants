@@ -382,7 +382,6 @@ class _AddtoCarState extends State<AddtoCar> {
   void showSnackBar() {
     final snackBarCar = SnackBar(
         backgroundColor: Theme.of(context).primaryColorDark,
-        // elevation: MediaQuery.of(context).size.height * 0.50,
         content: RichText(
             text: TextSpan(
                 text: '${widget.dish.name}',
