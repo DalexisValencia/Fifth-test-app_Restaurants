@@ -1,3 +1,4 @@
+import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
@@ -7,6 +8,7 @@ import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
 import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainTopRestaurant extends StatefulWidget {
   final Restaurants restaurant;
@@ -29,7 +31,11 @@ class _MainTopRestaurantState extends State<MainTopRestaurant> {
                   RoundedCustomButton(title: 'See all', callPressed: () {}),
             ),
             widget.restaurant.menu.length >= 1
-                ? RelatedProductsInThisRestaurant(menu: widget.restaurant.menu)
+                ? BlocProvider(
+                    create: (BuildContext context) => DishBloc(),
+                    child: RelatedProductsInThisRestaurant(
+                        menu: widget.restaurant.menu),
+                  )
                 : Container(
                     margin: EdgeInsets.only(
                         right:
@@ -46,20 +52,6 @@ class _MainTopRestaurantState extends State<MainTopRestaurant> {
                       bottom: BorderSide(
                           color: Theme.of(context).accentColor, width: 1))),
             )
-            // widget.restaurant.menu.length >= 1
-            //     ? Container(
-            //         margin: EdgeInsets.only(
-            //             top: 20,
-            //             right:
-            //                 MediaQuery.of(context).size.width * defaultPadding,
-            //             bottom: 20),
-            //         decoration: BoxDecoration(
-            //             border: Border(
-            //                 bottom: BorderSide(
-            //                     color: Theme.of(context).buttonColor,
-            //                     width: 3))),
-            //       )
-            //     : Text("")
           ],
         ));
   }

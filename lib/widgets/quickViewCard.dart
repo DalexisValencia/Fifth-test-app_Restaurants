@@ -1,6 +1,9 @@
+import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
+import 'package:fith_app__restaurant/screens/plate.detail.dart';
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 // Bloc pattern:
 
 class QuickView extends StatefulWidget {
@@ -11,21 +14,19 @@ class QuickView extends StatefulWidget {
 }
 
 class _QuickViewState extends State<QuickView> {
-  // ProductdetailsBloc blocProduct;
   @override
   void initState() {
-    // blocProduct = BlocProvider.of<ProductdetailsBloc>(context);
     super.initState();
   }
 
   @override
   void dispose() {
-    // blocProduct.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final blocDish = BlocProvider.of<DishBloc>(context);
     return Container(
       decoration: BoxDecoration(
           border:
@@ -39,14 +40,16 @@ class _QuickViewState extends State<QuickView> {
           padding: EdgeInsets.all(0),
           splashColor: Colors.red,
           onPressed: () {
-            // blocProduct.add(ProductdetailsCurrent(product: 'detallado'));
-            // Navigator.of(context)
-            //     .push(MaterialPageRoute<ProductdetailsBloc>(builder: (context) {
-            //   return BlocProvider.value(
-            //     value: blocProduct,
-            //     child: DetailsWrapper(),
-            //   );
-            // }));
+            blocDish.add(DishStart(currentDish: widget.dish));
+
+            Navigator.of(context)
+                .push(MaterialPageRoute<PlateDetailWrapper>(builder: (context) {
+              return BlocProvider.value(
+                value: blocDish,
+                child: PlateDetailWrapper(),
+              );
+            }));
+            print('iremos al detalle del producto');
           },
           child: Container(
             margin: EdgeInsets.symmetric(vertical: 5),
