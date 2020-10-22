@@ -176,7 +176,7 @@ List<Restaurants> restaurants = [
   Restaurants(
     name: 'First Resturant',
     description: 'a little description',
-    image: '',
+    image: 'assets/banner/break-fast.png',
     rating: 4,
     type: Icons.access_alarm,
     location: [0.0, 0.0],
@@ -216,7 +216,7 @@ List<Restaurants> restaurants = [
   Restaurants(
     name: 'Second Resturant',
     description: 'a little description',
-    image: '',
+    image: 'assets/banner/break-fast.png',
     rating: 3,
     type: Icons.access_alarm,
     location: [0.0, 0.0],
@@ -246,7 +246,7 @@ List<Restaurants> restaurants = [
   Restaurants(
     name: 'Third Resturant',
     description: 'a little description',
-    image: '',
+    image: 'assets/banner/break-fast.png',
     rating: 3,
     type: Icons.access_alarm,
     location: [0.0, 0.0],

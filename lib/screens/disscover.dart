@@ -93,44 +93,46 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
   @override
   Widget build(BuildContext context) {
     _changeStatusBarThemeColor();
-    return SafeArea(child: BlocBuilder<DiscoveryBloc, DiscoveryState>(
-      builder: (BuildContext context, state) {
-        Discovery discoveryPropsBloc = state.props[0];
-        return AnimatedOpacity(
-          duration: Duration(milliseconds: animationOpacityTime),
-          opacity: animatedOpacity ? 0 : 1,
-          child: CustomContainerAnimation(
-            animationChildren: animationChildren,
-            children: Container(
-              height: MediaQuery.of(context).size.height,
-              width: MediaQuery.of(context).size.width,
-              child: Stack(
-                children: <Widget>[
-                  Container(
-                      padding: EdgeInsets.only(top: heightAppBar),
-                      color: Theme.of(context).primaryColorLight,
-                      width: MediaQuery.of(context).size.width,
-                      height: MediaQuery.of(context).size.height,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: <Widget>[
-                            _screenTitle(discoveryPropsBloc.name),
-                            _nearYouContainer(discoveryPropsBloc.near),
-                            _newLaunch(discoveryPropsBloc.newLaunch),
-                            _topRestaurants(discoveryPropsBloc.restaurants)
-                          ],
-                        ),
-                      )),
-                  Positioned(
-                    top: 0,
-                    child: MainTopHeader(myheight: heightAppBar),
-                  ),
-                ],
+    return Scaffold(body: SafeArea(
+      child: BlocBuilder<DiscoveryBloc, DiscoveryState>(
+        builder: (BuildContext context, state) {
+          Discovery discoveryPropsBloc = state.props[0];
+          return AnimatedOpacity(
+            duration: Duration(milliseconds: animationOpacityTime),
+            opacity: animatedOpacity ? 0 : 1,
+            child: CustomContainerAnimation(
+              animationChildren: animationChildren,
+              children: Container(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: Stack(
+                  children: <Widget>[
+                    Container(
+                        padding: EdgeInsets.only(top: heightAppBar),
+                        color: Theme.of(context).primaryColorLight,
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: <Widget>[
+                              _screenTitle(discoveryPropsBloc.name),
+                              _nearYouContainer(discoveryPropsBloc.near),
+                              _newLaunch(discoveryPropsBloc.newLaunch),
+                              _topRestaurants(discoveryPropsBloc.restaurants)
+                            ],
+                          ),
+                        )),
+                    Positioned(
+                      top: 0,
+                      child: MainTopHeader(myheight: heightAppBar),
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     ));
   }
 }

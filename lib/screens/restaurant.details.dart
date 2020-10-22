@@ -1,16 +1,18 @@
 import 'dart:async';
 
+import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/ContactInterface.dart';
 import 'package:fith_app__restaurant/sections/CardAvailableForLunch.dart';
 import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
-import 'package:fith_app__restaurant/sections/CardsHighlightRestaurants.dart';
+// import 'package:fith_app__restaurant/sections/CardsHighlightRestaurants.dart';
 import 'package:fith_app__restaurant/sections/RoundedOptions.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
 import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class RestaurantDetailWrapper extends StatefulWidget {
@@ -106,57 +108,67 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
             height: MediaQuery.of(context).size.height - lessHeight,
             child: SingleChildScrollView(
                 controller: _controller,
-                child: Column(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(
-                          top: MediaQuery.of(context).size.width * 0.03),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: withDefaultPadding),
-                      width: MediaQuery.of(context).size.width,
-                      // color: Colors.red,
-                      child: TitleAndShortDescription(),
-                    ),
-                    CustomContainerAnimation(
-                      animationChildren: animationScreenContainer,
-                      children: WrapperMap(),
-                    ),
-                    CustomContainerAnimation(
-                      animationChildren: animationScreenContainer,
-                      children: DetailHighlightProduct(),
-                    ),
-                    CustomContainerAnimation(
-                      animationChildren: animationScreenContainer,
-                      children: ExploreTheMenu(),
-                    ),
-                    CustomContainerAnimation(
-                      animationChildren: animationScreenContainer,
-                      children: CardCategorySuggested(),
-                    ),
-                    CustomContainerAnimation(
-                      animationChildren: animationScreenContainer,
-                      children: HightlightResturantsWrapper(),
-                    ),
-                    CustomContainerAnimation(
-                      animationChildren: animationScreenContainer,
-                      children: RoundedOptionsContactWrapper(),
-                    ),
-                    CustomContainerAnimation(
-                      animationChildren: animationScreenContainer,
-                      children: ContactMethods(),
-                    ),
-                  ],
+                child:
+                    BlocBuilder<DetailsrestaurantBloc, DetailsrestaurantState>(
+                  builder:
+                      (BuildContext context, DetailsrestaurantState state) {
+                    print("::::::: below is the state :::::::");
+                    print(state.props);
+                    print("::::::: above is the state :::::::");
+                    return Column(
+                      children: <Widget>[
+                        Container(
+                          margin: EdgeInsets.only(
+                              top: MediaQuery.of(context).size.width * 0.03),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: withDefaultPadding),
+                          width: MediaQuery.of(context).size.width,
+                          // color: Colors.red,
+                          child: TitleAndShortDescription(),
+                        ),
+                        CustomContainerAnimation(
+                          animationChildren: animationScreenContainer,
+                          children: WrapperMap(),
+                        ),
+                        CustomContainerAnimation(
+                          animationChildren: animationScreenContainer,
+                          children: DetailHighlightProduct(),
+                        ),
+                        CustomContainerAnimation(
+                          animationChildren: animationScreenContainer,
+                          children: ExploreTheMenu(),
+                        ),
+                        CustomContainerAnimation(
+                          animationChildren: animationScreenContainer,
+                          children: CardCategorySuggested(),
+                        ),
+                        // CustomContainerAnimation(
+                        //   animationChildren: animationScreenContainer,
+                        //   children: HightlightResturantsWrapper(),
+                        // ),
+                        CustomContainerAnimation(
+                          animationChildren: animationScreenContainer,
+                          children: RoundedOptionsContactWrapper(),
+                        ),
+                        CustomContainerAnimation(
+                          animationChildren: animationScreenContainer,
+                          children: ContactMethods(),
+                        ),
+                      ],
+                    );
+                  },
                 ))));
   }
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
+        child: Scaffold(
+      body: Column(
         children: <Widget>[_headerCustom(), _bodyRestaurantsDetail()],
         //children: <Widget>[Text("solo info!")],
       ),
-    );
+    ));
   }
 }
 

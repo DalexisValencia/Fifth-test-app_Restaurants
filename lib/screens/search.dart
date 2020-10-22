@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
 import 'package:fith_app__restaurant/sections/CardsHighlightRestaurants.dart';
@@ -9,10 +10,8 @@ import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
-// Bloc pattern:
-// import 'package:bloc/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScaffoldSearch extends StatefulWidget {
   @override
@@ -23,11 +22,9 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
   bool animatedOpacity = true;
   bool animateOpacity = true;
   bool animatedChildren = true;
-  // ProductdetailsBloc detailBloc;
   @override
   void initState() {
     super.initState();
-    // detailBloc = BlocProvider.of<ProductdetailsBloc>(context);
     this.startAnimationScreen();
   }
 
@@ -93,18 +90,10 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      resizeToAvoidBottomPadding: false,
-      resizeToAvoidBottomInset: false,
-      backgroundColor: Theme.of(context).primaryColorLight,
-      body: BlocProvider(
-        create: (BuildContext context) => ProductdetailsBloc(),
-        child: _bodyScaffold(),
-      ),
-      // body: _bodyScaffold(),
-      //
-    )
-        //
-        );
+            resizeToAvoidBottomPadding: false,
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Theme.of(context).primaryColorLight,
+            body: _bodyScaffold()));
   }
 
   @override
@@ -254,7 +243,10 @@ class _SearchScreenState extends State<SearchScreen> {
         CustomContainerAnimation(
           animationChildren: animateScreenChildrenContainer,
           children: Container(
-            child: HightlightResturantsWrapper(),
+            child: BlocProvider(
+              create: (BuildContext context) => DetailsrestaurantBloc(),
+              child: HightlightResturantsWrapper(),
+            ),
           ),
         ),
         SizedBox(

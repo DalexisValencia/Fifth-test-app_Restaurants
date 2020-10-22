@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 // import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/categories.dart';
+import 'package:fith_app__restaurant/screens/disscover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,12 +25,6 @@ class _HomeCardCategorySuggestedState extends State<HomeCardCategorySuggested> {
     super.initState();
   }
 
-  // @override
-  // void dispose() {
-  //   blocDiscovery.close();
-  //   super.dispose();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
@@ -37,9 +32,15 @@ class _HomeCardCategorySuggestedState extends State<HomeCardCategorySuggested> {
       onPressed: () {
         Timer(Duration(milliseconds: 200), () {
           blocDiscovery.add(DiscoveryStart(category: widget.category.name));
-          widget.controller.animateTo(4);
-          // Timer(Duration(seconds: 8), () {
-          // });
+          // widget.controller.animateTo(4);
+          Navigator.of(context).push(MaterialPageRoute<DiscoverScaffold>(
+            builder: (BuildContext context) {
+              return BlocProvider.value(
+                value: blocDiscovery,
+                child: DiscoverScaffold(),
+              );
+            },
+          ));
         });
       },
       color: Theme.of(context).primaryColorLight,
