@@ -1,6 +1,8 @@
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/screens/disscover.dart';
 import 'package:fith_app__restaurant/screens/home.dart';
+import 'package:fith_app__restaurant/screens/restaurant.details.dart';
+import 'package:fith_app__restaurant/screens/search.dart';
 // import 'package:fith_app__restaurant/screens/plate.detail.dart';
 // import 'package:fith_app__restaurant/screens/restaurant.details.dart';
 // import 'package:fith_app__restaurant/screens/search.dart';
@@ -31,11 +33,12 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
   @override
   void dispose() {
     _tabController.dispose();
-    // detailBloc.close();
     super.dispose();
   }
 
   Widget _tabsController() {
+    print('Verificar:::');
+    print(tabStateInit);
     return DefaultTabController(
       length: 5,
       child: Scaffold(
@@ -52,25 +55,22 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                         controller: _tabController, animateScreen: true),
                   ),
                   Container(
-                    // child: ScaffoldSearch(),
-                    child: Container(
-                      child: Text("Busqueda"),
+                    child: tabStateInit == 1 ? ScaffoldSearch() : SizedBox(),
+                  ),
+                  Container(
+                    child: tabStateInit == 2
+                        ? RestaurantDetailWrapper()
+                        : SizedBox(),
+                  ),
+                  Container(
+                    child: Center(
+                      child: Text('En construcción'),
                     ),
                   ),
                   Container(
-                    child: Container(
-                      child: Text("Favoritos"),
+                    child: Center(
+                      child: Text('En construcción'),
                     ),
-                    // child: RestaurantDetailWrapper(),
-                  ),
-                  Container(
-                    // child: PlateDetailWrapper(),
-                    child: Container(
-                      child: Text("Reservas"),
-                    ),
-                  ),
-                  Container(
-                    child: DiscoverScaffold(),
                   )
                 ],
               )),
