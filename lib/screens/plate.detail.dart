@@ -166,6 +166,8 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
                                   bottom: 10),
                               width: MediaQuery.of(context).size.width,
                               child: CustomHeader(
+                                firstAction: 'goBack',
+                                secondAction: 'favorite',
                                 iconColors: minSizeReached
                                     ? Theme.of(context).primaryColorDark
                                     : Theme.of(context).primaryColorLight,

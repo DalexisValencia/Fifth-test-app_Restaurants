@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/ContactInterface.dart';
+import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
 import 'package:fith_app__restaurant/sections/CardAvailableForLunch.dart';
 import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
+import 'package:fith_app__restaurant/sections/CustomHeader.dart';
 // import 'package:fith_app__restaurant/sections/CardsHighlightRestaurants.dart';
 import 'package:fith_app__restaurant/sections/RoundedOptions.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
@@ -68,8 +70,6 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
   }
 
   Widget _headerCustom() {
-    double withDefaultPadding =
-        MediaQuery.of(context).size.width * defaultPadding;
     return AnimatedContainer(
       decoration: BoxDecoration(
           border: Border(
@@ -89,9 +89,12 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
           ]),
       duration: Duration(milliseconds: 500),
       height: defaultHeaderCustomHeight,
-      padding: EdgeInsets.symmetric(horizontal: withDefaultPadding - 10),
       width: MediaQuery.of(context).size.width,
-      child: FixedTopDetailRestaurant(),
+      child: CustomHeader(
+        firstAction: 'goBack',
+        secondAction: 'search',
+        iconColors: Theme.of(context).primaryColorDark,
+      ),
     );
   }
 
@@ -99,7 +102,7 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
     double lessHeight =
-        (MediaQuery.of(context).padding.top + defaultHeaderCustomHeight) + 60;
+        (MediaQuery.of(context).padding.top + defaultHeaderCustomHeight);
     return AnimatedOpacity(
         duration:
             Duration(milliseconds: animationOpacityTime), //animationOpacityTime
@@ -112,9 +115,7 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
                     BlocBuilder<DetailsrestaurantBloc, DetailsrestaurantState>(
                   builder:
                       (BuildContext context, DetailsrestaurantState state) {
-                    print("::::::: below is the state :::::::");
-                    print(state.props);
-                    print("::::::: above is the state :::::::");
+                    Restaurants currentRestaurant = state.props[0];
                     return Column(
                       children: <Widget>[
                         Container(
@@ -123,8 +124,9 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
                           padding: EdgeInsets.symmetric(
                               horizontal: withDefaultPadding),
                           width: MediaQuery.of(context).size.width,
-                          // color: Colors.red,
-                          child: TitleAndShortDescription(),
+                          child: TitleAndShortDescription(
+                              title: currentRestaurant.name,
+                              description: currentRestaurant.description),
                         ),
                         CustomContainerAnimation(
                           animationChildren: animationScreenContainer,
@@ -164,39 +166,18 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      body: Column(
+            body: SafeArea(
+      child: Column(
         children: <Widget>[_headerCustom(), _bodyRestaurantsDetail()],
-        //children: <Widget>[Text("solo info!")],
       ),
-    ));
-  }
-}
-
-//Header con icono de regresar y lupa de busqueda
-class FixedTopDetailRestaurant extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        CircleIconButton(
-          icon: Icons.arrow_back,
-          color: Theme.of(context).primaryColorDark,
-          bgColor: Theme.of(context).highlightColor,
-          trigger: () {},
-        ),
-        CircleIconButton(
-          icon: Icons.search,
-          color: Theme.of(context).primaryColorDark,
-          bgColor: Theme.of(context).highlightColor,
-          trigger: () {},
-        )
-      ],
-    );
+    )));
   }
 }
 
 class TitleAndShortDescription extends StatelessWidget {
+  final String title;
+  final String description;
+  TitleAndShortDescription({this.title, this.description});
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -208,7 +189,7 @@ class TitleAndShortDescription extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                "FOR COUPLE",
+                title,
                 style: Theme.of(context)
                     .textTheme
                     .headline5
@@ -217,14 +198,14 @@ class TitleAndShortDescription extends StatelessWidget {
               SizedBox(
                 height: 2,
               ),
-              Text("New York, America")
+              Text(description)
             ],
           ),
         ),
         Expanded(
           flex: 1,
           child: CircleIconButton(
-            icon: Icons.my_location,
+            icon: Icons.favorite_border,
             color: Theme.of(context).primaryColorDark,
             bgColor: Colors.transparent,
             trigger: () {},
