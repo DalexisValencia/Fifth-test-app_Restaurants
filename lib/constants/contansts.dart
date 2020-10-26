@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 const defaultPadding = 0.07;
-const int animationStartTime = 100; // time in milliseconds
+const int animationStartTime = 50; // time in milliseconds
 const int animationOpacityTime = 500; // time in milliseconds
 const double defaultRadius = 15;
 const double defaultHeaderCustomHeight = 50;

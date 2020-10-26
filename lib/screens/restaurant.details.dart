@@ -110,56 +110,43 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
         child: Container(
             height: MediaQuery.of(context).size.height - lessHeight,
             child: SingleChildScrollView(
-                controller: _controller,
-                child:
-                    BlocBuilder<DetailsrestaurantBloc, DetailsrestaurantState>(
-                  builder:
-                      (BuildContext context, DetailsrestaurantState state) {
-                    Restaurants currentRestaurant = state.props[0];
-                    return Column(
-                      children: <Widget>[
-                        Container(
-                          margin: EdgeInsets.only(
-                              top: MediaQuery.of(context).size.width * 0.03),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: withDefaultPadding),
-                          width: MediaQuery.of(context).size.width,
-                          child: TitleAndShortDescription(
-                              title: currentRestaurant.name,
-                              description: currentRestaurant.description),
-                        ),
-                        CustomContainerAnimation(
-                          animationChildren: animationScreenContainer,
-                          children: WrapperMap(),
-                        ),
-                        CustomContainerAnimation(
-                          animationChildren: animationScreenContainer,
-                          children: DetailHighlightProduct(),
-                        ),
-                        CustomContainerAnimation(
-                          animationChildren: animationScreenContainer,
-                          children: ExploreTheMenu(),
-                        ),
-                        CustomContainerAnimation(
-                          animationChildren: animationScreenContainer,
-                          children: CardCategorySuggested(),
-                        ),
-                        // CustomContainerAnimation(
-                        //   animationChildren: animationScreenContainer,
-                        //   children: HightlightResturantsWrapper(),
-                        // ),
-                        CustomContainerAnimation(
-                          animationChildren: animationScreenContainer,
-                          children: RoundedOptionsContactWrapper(),
-                        ),
-                        CustomContainerAnimation(
-                          animationChildren: animationScreenContainer,
-                          children: ContactMethods(),
-                        ),
-                      ],
-                    );
-                  },
-                ))));
+              controller: _controller,
+              child: CustomContainerAnimation(
+                  animationChildren: animationScreenContainer,
+                  children: BlocBuilder<DetailsrestaurantBloc,
+                      DetailsrestaurantState>(
+                    builder:
+                        (BuildContext context, DetailsrestaurantState state) {
+                      Restaurants currentRestaurant = state.props[0];
+                      return Column(
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.only(
+                                top: MediaQuery.of(context).size.width * 0.03),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: withDefaultPadding),
+                            width: MediaQuery.of(context).size.width,
+                            child: TitleAndShortDescription(
+                                title: currentRestaurant.name,
+                                description: currentRestaurant.description),
+                          ),
+                          WrapperMap(),
+                          DetailHighlightProduct(),
+                          ExploreTheMenu(),
+                          CardCategorySuggested(),
+                          // CustomContainerAnimation(
+                          //   animationChildren: animationScreenContainer,
+                          //   children: HightlightResturantsWrapper(),
+                          // ),
+                          RoundedOptionsContactWrapper(),
+                          ContactMethods(),
+                        ],
+                      );
+                    },
+                  )
+                  //
+                  ),
+            )));
   }
 
   @override
