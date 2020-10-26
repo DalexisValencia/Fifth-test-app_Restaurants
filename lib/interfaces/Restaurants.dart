@@ -13,7 +13,7 @@ class Restaurants {
   final List location;
   final String distance;
   final List<Dishes> lunchNow;
-  final List tagsMenu; // champiñones
+  final List<String> tagsMenu; // Restaurant Tags
   final List<Dishes> menu; // All menu
   final List<Dishes> suggestions; // menu sections importants
   final List<Dishes> highlight; // menu best ratings

@@ -10,10 +10,8 @@ class _RoundedOptionsContactState extends State<RoundedOptionsContactWrapper> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.02,
-            right: MediaQuery.of(context).size.width * 0.02),
-        // color: Colors.red,
+        padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * 0.02, vertical: 15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[

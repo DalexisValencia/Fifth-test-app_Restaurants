@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/ContactInterface.dart';
+import 'package:fith_app__restaurant/interfaces/ContactMeans.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
 import 'package:fith_app__restaurant/sections/CardAvailableForLunch.dart';
 import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
@@ -131,15 +132,27 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
                                 description: currentRestaurant.description),
                           ),
                           WrapperMap(),
-                          DetailHighlightProduct(),
-                          ExploreTheMenu(),
-                          CardCategorySuggested(),
+                          currentRestaurant.lunchNow.length >= 1
+                              ? DetailHighlightProduct()
+                              : SizedBox(),
+                          currentRestaurant.tagsMenu.length >= 1
+                              ? ExploreTheMenu(tags: currentRestaurant.tagsMenu)
+                              : SizedBox(),
+                          currentRestaurant.suggestions.length >= 1
+                              ? CardCategorySuggested()
+                              : SizedBox(),
                           // CustomContainerAnimation(
                           //   animationChildren: animationScreenContainer,
                           //   children: HightlightResturantsWrapper(),
                           // ),
                           RoundedOptionsContactWrapper(),
-                          ContactMethods(),
+                          currentRestaurant.contact.length >= 1
+                              ? ContactMethods(
+                                  contact: currentRestaurant.contact)
+                              : SizedBox(),
+                          SizedBox(
+                            height: 40,
+                          ),
                         ],
                       );
                     },
@@ -259,6 +272,8 @@ class _DetailHighlightProductState extends State<DetailHighlightProduct> {
 }
 
 class ExploreTheMenu extends StatefulWidget {
+  final List<String> tags;
+  ExploreTheMenu({this.tags});
   @override
   _ExploreTheMenuState createState() => _ExploreTheMenuState();
 }
@@ -273,14 +288,6 @@ class _ExploreTheMenuState extends State<ExploreTheMenu> {
             RoundedCustomButton(title: 'See all', callPressed: () {}),
       ));
 
-  List _chipsLikeMenuList = [
-    'Champiñones (100)',
-    'Ensaladas (200)',
-    'Frescos (120)',
-    'Almuerzos (123)',
-    'Comida Rapida (10)'
-  ];
-
   Widget _chipsAsMenu() {
     return Container(
         width: MediaQuery.of(context).size.width,
@@ -288,7 +295,7 @@ class _ExploreTheMenuState extends State<ExploreTheMenu> {
             left: MediaQuery.of(context).size.width * defaultPadding),
         child: Builder(builder: (BuildContext context) {
           List<Widget> chips = [];
-          _chipsLikeMenuList.map((e) {
+          widget.tags.map((e) {
             chips.add(Container(
                 child: Chip(
                     label: Text(
@@ -320,6 +327,8 @@ class _ExploreTheMenuState extends State<ExploreTheMenu> {
 }
 
 class ContactMethods extends StatefulWidget {
+  final List<ContactMeans> contact;
+  ContactMethods({this.contact});
   @override
   ContactMethodsState createState() => ContactMethodsState();
 }
@@ -344,7 +353,7 @@ class ContactMethodsState extends State<ContactMethods> {
       padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
       child: Builder(builder: (BuildContext context) {
         List<Widget> contacts = [];
-        _contactPhones.map((e) {
+        widget.contact.map((e) {
           contacts.add(Container(
             height: 40,
             decoration: BoxDecoration(
@@ -357,7 +366,7 @@ class ContactMethodsState extends State<ContactMethods> {
                 const String url = 'tel://7153914';
                 bool showSnackBar = false;
                 String alertSnackBar = '';
-                if (e.action == 'call') {
+                if (e.type == 'call') {
                   if (await canLaunch(url)) {
                     launch(url);
                   } else {
@@ -365,11 +374,11 @@ class ContactMethodsState extends State<ContactMethods> {
                     alertSnackBar = 'Ha ocurrido un error';
                   }
                 }
-                if (e.action == 'mail') {
+                if (e.type == 'mail') {
                   if (await canLaunch(url)) {
                     final Uri _emailLaunchUri = Uri(
                         scheme: 'mailto',
-                        path: e.phone,
+                        path: e.value,
                         queryParameters: {'suject': 'Username and lastName'});
 
                     launch(_emailLaunchUri.toString());
@@ -378,14 +387,13 @@ class ContactMethodsState extends State<ContactMethods> {
                     alertSnackBar = 'No hemos podido abrir el email ';
                   }
                 }
-                if (e.action == 'whatsapp') {
-                  var whatsappUrl = "whatsapp://send?phone=3107127993";
+                if (e.type == 'whatsapp') {
+                  var whatsappUrl = "whatsapp://send?phone=" + e.key;
                   if (await canLaunch(url)) {
                     launch(whatsappUrl);
                   } else {
                     showSnackBar = true;
-                    alertSnackBar =
-                        '¿Puede revisar si whatsapp esta instalado?';
+                    alertSnackBar = 'please check if whatsapp is installed';
                   }
                 }
                 if (showSnackBar) {
@@ -405,10 +413,10 @@ class ContactMethodsState extends State<ContactMethods> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(e.name),
+                  Text(e.value),
                   FittedBox(
                       child: Text(
-                    e.phone,
+                    e.key,
                     style: Theme.of(context).textTheme.bodyText1.copyWith(
                         color: Theme.of(context).buttonColor,
                         fontWeight: FontWeight.w500),

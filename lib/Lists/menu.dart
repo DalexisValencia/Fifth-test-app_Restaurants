@@ -181,14 +181,21 @@ List<Restaurants> restaurants = [
     type: Icons.access_alarm,
     location: [0.0, 0.0],
     distance: '4km',
-    lunchNow: [], //List Dishes
-    tagsMenu: ['tag1', 'tag2', 'tag3', 'tag4'],
+    lunchNow: dishes, //List Dishes
+    tagsMenu: [
+      'champignons (100)',
+      'Beef Roast (10)',
+      'Pieces of Meat (5)',
+      'Chicken (67)'
+    ],
     menu: dishes, //List Dishes
     suggestions: [],
     highlight: [],
     socialShare: ['Whatsapp', 'Pinterest', 'Instagram'],
     contact: [
-      ContactMeans(value: 'Correo', key: 'contact@mail.com', type: 'email')
+      ContactMeans(value: 'Correo', key: 'contact@mail.com', type: 'email'),
+      ContactMeans(value: 'Whatsapp', key: '3015023400', type: 'whatsapp'),
+      ContactMeans(value: 'Teléfono', key: '3015023400', type: 'call')
     ],
     comments: [
       Comments(
@@ -221,8 +228,8 @@ List<Restaurants> restaurants = [
     type: Icons.access_alarm,
     location: [0.0, 0.0],
     distance: '4km',
-    lunchNow: [], //List Dishes
-    tagsMenu: ['tag1', 'tag2', 'tag3', 'tag4'],
+    lunchNow: dishes, //List Dishes
+    tagsMenu: ['Pork Chops (15)', 'Ham (5)', 'Potatoes (10)', 'Sauces (39)'],
     menu: dishes, //List Dishes
     suggestions: [],
     highlight: [],
@@ -251,8 +258,13 @@ List<Restaurants> restaurants = [
     type: Icons.access_alarm,
     location: [0.0, 0.0],
     distance: '4km',
-    lunchNow: [], //List Dishes
-    tagsMenu: ['tag1', 'tag2', 'tag3', 'tag4'],
+    lunchNow: dishes, //List Dishes
+    tagsMenu: [
+      'champignons (100)',
+      'Wine (20)',
+      'Grilled Fish(4)',
+      'Roast Fish (6)'
+    ],
     menu: [], //List Dishes
     suggestions: [],
     highlight: [],
