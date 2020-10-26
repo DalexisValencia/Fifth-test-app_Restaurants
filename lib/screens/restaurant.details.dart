@@ -271,8 +271,11 @@ class _DetailHighlightProductState extends State<DetailHighlightProduct> {
                 child: AspectRatio(
                   aspectRatio: 2 / 2.030,
                   child: Container(
-                    child: CompleteListAvailablePlates(
-                        dishes: widget.highlishDishes),
+                    child: BlocProvider(
+                      create: (BuildContext context) => DishBloc(),
+                      child: CompleteListAvailablePlates(
+                          dishes: widget.highlishDishes),
+                    ),
                   ),
                 ),
               )),

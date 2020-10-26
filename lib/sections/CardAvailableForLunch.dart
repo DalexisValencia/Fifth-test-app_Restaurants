@@ -1,56 +1,11 @@
+import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/interfaces/availableForLunch.dart';
+import 'package:fith_app__restaurant/screens/plate.detail.dart';
+// import 'package:fith_app__restaurant/interfaces/availableForLunch.dart';
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
 import 'package:flutter/material.dart';
-
-List<AvailablePlatesForLunch> availablePlates = [
-  AvailablePlatesForLunch(
-      flagLabelText: 'Ready In Seconds',
-      flagLabelColor: Color(0xFFE76D6F),
-      imagePlate: 'assets/banner/mexican-food.png',
-      price: '\$12.000  -  \$10.000',
-      plateName: 'House of ilumin san diego',
-      starts: 3,
-      qualifiers: '3.5',
-      votes: '210 votes',
-      preparationTime: 'Preparation: 12 minutes',
-      prices: [
-        PricesShip(amount: 1, price: '\$12.000', active: true),
-        PricesShip(amount: 2, price: '\$21.000', active: false),
-        PricesShip(amount: 3, price: '\$30.000', active: false)
-      ]),
-  AvailablePlatesForLunch(
-      flagLabelText: 'Special For You',
-      flagLabelColor: Color(0xFF4F57D5),
-      imagePlate: 'assets/banner/mexican-food.png',
-      price: '\$22.000  -  \$55.000',
-      plateName: 'House of ilumin san diego',
-      starts: 4,
-      qualifiers: '4.0',
-      votes: '150 votes',
-      preparationTime: 'Preparation: 5 minutes',
-      prices: [
-        PricesShip(amount: 1, price: '\$22.000', active: false),
-        PricesShip(amount: 2, price: '\$41.000', active: true),
-        PricesShip(amount: 3, price: '\$55.000', active: false)
-      ]),
-  AvailablePlatesForLunch(
-      flagLabelText: 'Best Promotion',
-      flagLabelColor: Color(0xFFFFB60E),
-      imagePlate: 'assets/banner/mexican-food.png',
-      price: '\$44.000  -  \$150.000',
-      plateName: 'House of ilumin san diego',
-      starts: 4,
-      qualifiers: '4.0',
-      votes: '150 votes',
-      preparationTime: 'Preparation: 15 minutes',
-      prices: [
-        PricesShip(amount: 1, price: '\$44.000', active: false),
-        PricesShip(amount: 2, price: '\$80.000', active: false),
-        PricesShip(amount: 3, price: '\$150.000', active: true)
-      ])
-];
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CompleteListAvailablePlates extends StatefulWidget {
   final List<Dishes> dishes;
@@ -64,216 +19,235 @@ class _CompleteListAvailablePlatesState
     extends State<CompleteListAvailablePlates> {
   @override
   Widget build(BuildContext context) {
+    final dishBloc = BlocProvider.of<DishBloc>(context);
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: widget.dishes.length,
       itemBuilder: (BuildContext context, int index) {
-        return Container(
-          margin: EdgeInsets.only(
-            top: MediaQuery.of(context).size.height * 0.02,
-            right: MediaQuery.of(context).size.width * 0.03,
-            left: MediaQuery.of(context).size.width * 0.025,
-            bottom: MediaQuery.of(context).size.height * 0.02,
-          ),
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 2,
-                    blurRadius: 3,
-                    offset: Offset(0, 0))
-              ]),
-          width: MediaQuery.of(context).size.width * 0.70,
-          child: Column(
-            children: <Widget>[
-              Expanded(
-                flex: 6,
-                child: Container(
-                  decoration: BoxDecoration(
+        return GestureDetector(
+          onTap: () {
+            // print('ir al detalle');
+            dishBloc.add(DishStart(currentDish: widget.dishes[index]));
+            Navigator.of(context)
+                .push(MaterialPageRoute<PlateDetailWrapper>(builder: (context) {
+              return BlocProvider.value(
+                value: dishBloc,
+                child: PlateDetailWrapper(),
+              );
+            }));
+          },
+          child: Container(
+            margin: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.02,
+              right: MediaQuery.of(context).size.width * 0.03,
+              left: MediaQuery.of(context).size.width * 0.025,
+              bottom: MediaQuery.of(context).size.height * 0.02,
+            ),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 3,
+                      offset: Offset(0, 0))
+                ]),
+            width: MediaQuery.of(context).size.width * 0.70,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  flex: 6,
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                        color: Colors.yellow,
+                        image: DecorationImage(
+                            fit: BoxFit.cover,
+                            image:
+                                ExactAssetImage(widget.dishes[index].image))),
+                    child: Stack(
+                      children: <Widget>[
+                        Positioned(
+                            top: MediaQuery.of(context).size.height * 0.02,
+                            left: MediaQuery.of(context).size.width * 0.03,
+                            child: Container(
+                              padding: EdgeInsets.fromLTRB(
+                                  MediaQuery.of(context).size.width * 0.05,
+                                  MediaQuery.of(context).size.height * 0.01,
+                                  MediaQuery.of(context).size.width * 0.05,
+                                  MediaQuery.of(context).size.height * 0.01),
+                              decoration: BoxDecoration(
+                                  color:
+                                      widget.dishes[index].promotionLabel.color,
+                                  borderRadius: BorderRadius.circular(50)),
+                              child: Text(
+                                widget.dishes[index].promotionLabel.label,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .button
+                                    .copyWith(
+                                        color:
+                                            Theme.of(context).primaryColorLight,
+                                        fontSize: 12),
+                              ),
+                            ))
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 5,
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.width * 0.03,
+                        left: MediaQuery.of(context).size.width * 0.04,
+                        right: MediaQuery.of(context).size.width * 0.02),
+                    decoration: BoxDecoration(
                       borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(20),
-                        topRight: Radius.circular(20),
-                      ),
-                      color: Colors.yellow,
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: ExactAssetImage(widget.dishes[index].image))),
-                  child: Stack(
-                    children: <Widget>[
-                      Positioned(
-                          top: MediaQuery.of(context).size.height * 0.02,
-                          left: MediaQuery.of(context).size.width * 0.03,
-                          child: Container(
-                            padding: EdgeInsets.fromLTRB(
-                                MediaQuery.of(context).size.width * 0.05,
-                                MediaQuery.of(context).size.height * 0.01,
-                                MediaQuery.of(context).size.width * 0.05,
-                                MediaQuery.of(context).size.height * 0.01),
-                            decoration: BoxDecoration(
-                                color:
-                                    widget.dishes[index].promotionLabel.color,
-                                borderRadius: BorderRadius.circular(50)),
-                            child: Text(
-                              widget.dishes[index].promotionLabel.label,
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .button
-                                  .copyWith(
-                                      color:
-                                          Theme.of(context).primaryColorLight,
-                                      fontSize: 12),
-                            ),
-                          ))
-                    ],
-                  ),
-                ),
-              ),
-              Expanded(
-                flex: 5,
-                child: Container(
-                  padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).size.width * 0.03,
-                      left: MediaQuery.of(context).size.width * 0.04,
-                      right: MediaQuery.of(context).size.width * 0.02),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(20),
-                        bottomRight: Radius.circular(20)),
-                    color: Theme.of(context).primaryColorLight,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      IconAndText(
-                          icon: Icons.monetization_on,
-                          iconColor: Theme.of(context).primaryColor,
-                          iconSize: 14,
-                          text:
-                              "\$${formatterPrice(widget.dishes[index].price)}",
-                          textColor: Theme.of(context).primaryColor,
-                          textSize: 12),
-                      SizedBox(height: 5),
-                      Text(
-                        widget.dishes[index].name,
-                        style: Theme.of(context)
-                            .textTheme
-                            .button
-                            .copyWith(fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(height: 5),
-                      Row(
-                        children: <Widget>[
-                          Builder(builder: (BuildContext context) {
-                            List<Widget> starts = [];
-                            var obj = [
-                              1,
-                              2,
-                              3,
-                              4,
-                              5
-                            ]; // Calificamos las 5 estrellas
-                            for (var prop in obj) {
-                              Color _startColor = Theme.of(context).accentColor;
-                              if (prop <= widget.dishes[index].rating.toInt()) {
-                                _startColor = Theme.of(context).buttonColor;
+                          bottomLeft: Radius.circular(20),
+                          bottomRight: Radius.circular(20)),
+                      color: Theme.of(context).primaryColorLight,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        IconAndText(
+                            icon: Icons.monetization_on,
+                            iconColor: Theme.of(context).primaryColor,
+                            iconSize: 14,
+                            text:
+                                "\$${formatterPrice(widget.dishes[index].price)}",
+                            textColor: Theme.of(context).primaryColor,
+                            textSize: 12),
+                        SizedBox(height: 5),
+                        Text(
+                          widget.dishes[index].name,
+                          style: Theme.of(context)
+                              .textTheme
+                              .button
+                              .copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(height: 5),
+                        Row(
+                          children: <Widget>[
+                            Builder(builder: (BuildContext context) {
+                              List<Widget> starts = [];
+                              var obj = [
+                                1,
+                                2,
+                                3,
+                                4,
+                                5
+                              ]; // Calificamos las 5 estrellas
+                              for (var prop in obj) {
+                                Color _startColor =
+                                    Theme.of(context).accentColor;
+                                if (prop <=
+                                    widget.dishes[index].rating.toInt()) {
+                                  _startColor = Theme.of(context).buttonColor;
+                                }
+                                if (prop >
+                                    widget.dishes[index].rating.toInt()) {
+                                  _startColor = Theme.of(context).accentColor;
+                                }
+                                starts.add(
+                                  Icon(
+                                    Icons.star,
+                                    color: _startColor,
+                                    size: 18,
+                                  ),
+                                );
                               }
-                              if (prop > widget.dishes[index].rating.toInt()) {
-                                _startColor = Theme.of(context).accentColor;
-                              }
-                              starts.add(
-                                Icon(
-                                  Icons.star,
-                                  color: _startColor,
-                                  size: 18,
-                                ),
-                              );
-                            }
-                            return Row(
-                              children: starts,
-                            );
-                          }),
-                          SizedBox(
-                            width: 8,
-                          ),
-                          RichText(
-                              text: TextSpan(
-                                  text: 'Average ',
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context).primaryColor),
-                                  children: <TextSpan>[
-                                TextSpan(
-                                    text: '${widget.dishes[index].rating}%',
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w400,
-                                        color: Theme.of(context).primaryColor))
-                              ]))
-                        ],
-                      ),
-                      SizedBox(height: 7),
-                      IconAndText(
-                          icon: Icons.access_time,
-                          iconColor: Theme.of(context).primaryColor,
-                          iconSize: 14,
-                          text:
-                              "Preparation: ${widget.dishes[index].preparation}",
-                          textColor: Theme.of(context).primaryColor,
-                          textSize: 12),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      widget.dishes[index].promotionLabel.active == true
-                          ? Builder(builder: (BuildContext context) {
-                              List<Widget> _shipPrices = [];
-                              widget
-                                  .dishes[index].promotionLabel.pricePromotions
-                                  .asMap()
-                                  .entries
-                                  .map((item) => {
-                                        _shipPrices.add(
-                                          Expanded(
-                                              child: Container(
-                                            margin: EdgeInsets.only(
-                                                right: MediaQuery.of(context)
-                                                        .size
-                                                        .width *
-                                                    0.02),
-                                            child: Chip(
-                                                backgroundColor: item.key == 0
-                                                    ? Theme.of(context)
-                                                        .buttonColor
-                                                    : Theme.of(context)
-                                                        .accentColor,
-                                                label: FittedBox(
-                                                    fit: BoxFit.scaleDown,
-                                                    child: Text(
-                                                      '${item.value.amount}-\$${formatterPrice(item.value.price)}',
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyText1
-                                                          .copyWith(
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .primaryColorLight),
-                                                    ))),
-                                          )),
-                                        )
-                                      })
-                                  .toList();
                               return Row(
-                                children: _shipPrices,
+                                children: starts,
                               );
-                            })
-                          : SizedBox()
-                    ],
+                            }),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            RichText(
+                                text: TextSpan(
+                                    text: 'Average ',
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: Theme.of(context).primaryColor),
+                                    children: <TextSpan>[
+                                  TextSpan(
+                                      text: '${widget.dishes[index].rating}%',
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          color:
+                                              Theme.of(context).primaryColor))
+                                ]))
+                          ],
+                        ),
+                        SizedBox(height: 7),
+                        IconAndText(
+                            icon: Icons.access_time,
+                            iconColor: Theme.of(context).primaryColor,
+                            iconSize: 14,
+                            text:
+                                "Preparation: ${widget.dishes[index].preparation}",
+                            textColor: Theme.of(context).primaryColor,
+                            textSize: 12),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        widget.dishes[index].promotionLabel.active == true
+                            ? Builder(builder: (BuildContext context) {
+                                List<Widget> _shipPrices = [];
+                                widget.dishes[index].promotionLabel
+                                    .pricePromotions
+                                    .asMap()
+                                    .entries
+                                    .map((item) => {
+                                          _shipPrices.add(
+                                            Expanded(
+                                                child: Container(
+                                              margin: EdgeInsets.only(
+                                                  right: MediaQuery.of(context)
+                                                          .size
+                                                          .width *
+                                                      0.02),
+                                              child: Chip(
+                                                  backgroundColor: item.key == 0
+                                                      ? Theme.of(context)
+                                                          .buttonColor
+                                                      : Theme.of(context)
+                                                          .accentColor,
+                                                  label: FittedBox(
+                                                      fit: BoxFit.scaleDown,
+                                                      child: Text(
+                                                        '${item.value.amount}-\$${formatterPrice(item.value.price)}',
+                                                        style: Theme.of(context)
+                                                            .textTheme
+                                                            .bodyText1
+                                                            .copyWith(
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .primaryColorLight),
+                                                      ))),
+                                            )),
+                                          )
+                                        })
+                                    .toList();
+                                return Row(
+                                  children: _shipPrices,
+                                );
+                              })
+                            : SizedBox()
+                      ],
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         );
       },
