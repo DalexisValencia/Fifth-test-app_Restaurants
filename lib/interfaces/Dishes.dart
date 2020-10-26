@@ -1,6 +1,7 @@
 import 'package:fith_app__restaurant/interfaces/Comments.dart';
 import 'package:fith_app__restaurant/interfaces/Ingredients.dart';
 import 'package:fith_app__restaurant/interfaces/aditional.dart';
+import 'package:flutter/material.dart';
 // import 'package:fith_app__restaurant/interfaces/categories.dart';
 
 class Dishes {
@@ -18,6 +19,7 @@ class Dishes {
   final List<Adittional> additions;
   final List<Ingredients> ingredients;
   final int amount;
+  final Promotions promotionLabel;
 
   Dishes(
       {this.name,
@@ -32,9 +34,18 @@ class Dishes {
       this.pricePromotions,
       this.additions,
       this.ingredients,
-      this.amount
+      this.amount,
+      this.promotionLabel
       //
       });
+}
+
+class Promotions {
+  final Color color;
+  final String label;
+  final bool active;
+  final List<PricePromotions> pricePromotions;
+  Promotions({this.color, this.label, this.active, this.pricePromotions});
 }
 
 class PricePromotions {

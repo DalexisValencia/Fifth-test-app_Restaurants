@@ -1,3 +1,5 @@
+import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/availableForLunch.dart';
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +53,8 @@ List<AvailablePlatesForLunch> availablePlates = [
 ];
 
 class CompleteListAvailablePlates extends StatefulWidget {
+  final List<Dishes> dishes;
+  CompleteListAvailablePlates({this.dishes});
   @override
   _CompleteListAvailablePlatesState createState() =>
       _CompleteListAvailablePlatesState();
@@ -62,7 +66,7 @@ class _CompleteListAvailablePlatesState
   Widget build(BuildContext context) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: availablePlates.length,
+      itemCount: widget.dishes.length,
       itemBuilder: (BuildContext context, int index) {
         return Container(
           margin: EdgeInsets.only(
@@ -94,8 +98,7 @@ class _CompleteListAvailablePlatesState
                       color: Colors.yellow,
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: ExactAssetImage(
-                              availablePlates[index].imagePlate))),
+                          image: ExactAssetImage(widget.dishes[index].image))),
                   child: Stack(
                     children: <Widget>[
                       Positioned(
@@ -108,10 +111,11 @@ class _CompleteListAvailablePlatesState
                                 MediaQuery.of(context).size.width * 0.05,
                                 MediaQuery.of(context).size.height * 0.01),
                             decoration: BoxDecoration(
-                                color: availablePlates[index].flagLabelColor,
+                                color:
+                                    widget.dishes[index].promotionLabel.color,
                                 borderRadius: BorderRadius.circular(50)),
                             child: Text(
-                              availablePlates[index].flagLabelText,
+                              widget.dishes[index].promotionLabel.label,
                               style: Theme.of(context)
                                   .textTheme
                                   .button
@@ -145,12 +149,13 @@ class _CompleteListAvailablePlatesState
                           icon: Icons.monetization_on,
                           iconColor: Theme.of(context).primaryColor,
                           iconSize: 14,
-                          text: availablePlates[index].price,
+                          text:
+                              "\$${formatterPrice(widget.dishes[index].price)}",
                           textColor: Theme.of(context).primaryColor,
                           textSize: 12),
                       SizedBox(height: 5),
                       Text(
-                        availablePlates[index].plateName,
+                        widget.dishes[index].name,
                         style: Theme.of(context)
                             .textTheme
                             .button
@@ -170,10 +175,10 @@ class _CompleteListAvailablePlatesState
                             ]; // Calificamos las 5 estrellas
                             for (var prop in obj) {
                               Color _startColor = Theme.of(context).accentColor;
-                              if (prop <= availablePlates[index].starts) {
+                              if (prop <= widget.dishes[index].rating.toInt()) {
                                 _startColor = Theme.of(context).buttonColor;
                               }
-                              if (prop > availablePlates[index].starts) {
+                              if (prop > widget.dishes[index].rating.toInt()) {
                                 _startColor = Theme.of(context).accentColor;
                               }
                               starts.add(
@@ -193,13 +198,13 @@ class _CompleteListAvailablePlatesState
                           ),
                           RichText(
                               text: TextSpan(
-                                  text: availablePlates[index].qualifiers,
+                                  text: 'Average ',
                                   style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Theme.of(context).primaryColor),
                                   children: <TextSpan>[
                                 TextSpan(
-                                    text: '  ${availablePlates[index].votes}',
+                                    text: '${widget.dishes[index].rating}%',
                                     style: TextStyle(
                                         fontWeight: FontWeight.w400,
                                         color: Theme.of(context).primaryColor))
@@ -211,50 +216,59 @@ class _CompleteListAvailablePlatesState
                           icon: Icons.access_time,
                           iconColor: Theme.of(context).primaryColor,
                           iconSize: 14,
-                          text: availablePlates[index].preparationTime,
+                          text:
+                              "Preparation: ${widget.dishes[index].preparation}",
                           textColor: Theme.of(context).primaryColor,
                           textSize: 12),
                       SizedBox(
                         height: 5,
                       ),
-                      Builder(builder: (BuildContext context) {
-                        List<Widget> _shipPrices = [];
-                        availablePlates[index]
-                            .prices
-                            .map((item) => {
-                                  _shipPrices.add(
-                                    Expanded(
-                                        child: Container(
-                                      margin: EdgeInsets.only(
-                                          right: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.02),
-                                      child: Chip(
-                                          backgroundColor: item.active
-                                              ? Theme.of(context).buttonColor
-                                              : Theme.of(context).accentColor,
-                                          label: FittedBox(
-                                              fit: BoxFit.scaleDown,
-                                              child: Text(
-                                                '${item.amount} - ${item.price}',
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyText1
-                                                    .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Theme.of(context)
-                                                            .primaryColorLight),
-                                              ))),
-                                    )),
-                                  )
-                                })
-                            .toList();
-                        return Row(
-                          children: _shipPrices,
-                        );
-                      })
+                      widget.dishes[index].promotionLabel.active == true
+                          ? Builder(builder: (BuildContext context) {
+                              List<Widget> _shipPrices = [];
+                              widget
+                                  .dishes[index].promotionLabel.pricePromotions
+                                  .asMap()
+                                  .entries
+                                  .map((item) => {
+                                        _shipPrices.add(
+                                          Expanded(
+                                              child: Container(
+                                            margin: EdgeInsets.only(
+                                                right: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.02),
+                                            child: Chip(
+                                                backgroundColor: item.key == 0
+                                                    ? Theme.of(context)
+                                                        .buttonColor
+                                                    : Theme.of(context)
+                                                        .accentColor,
+                                                label: FittedBox(
+                                                    fit: BoxFit.scaleDown,
+                                                    child: Text(
+                                                      '${item.value.amount}-\$${formatterPrice(item.value.price)}',
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodyText1
+                                                          .copyWith(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColorLight),
+                                                    ))),
+                                          )),
+                                        )
+                                      })
+                                  .toList();
+                              return Row(
+                                children: _shipPrices,
+                              );
+                            })
+                          : SizedBox()
                     ],
                   ),
                 ),

@@ -100,7 +100,16 @@ List<Dishes> dishes = [
         Ingredients(name: 'Tomato Paste', amountGrams: '2G'),
         Ingredients(name: 'Red Wine', amountGrams: '0.5Ml'),
       ],
-      amount: 1
+      amount: 1,
+      promotionLabel: Promotions(
+          active: true,
+          color: Color(0xFFE76D6F),
+          label: 'Ready In Seconds',
+          pricePromotions: [
+            PricePromotions(amount: 2, price: 18000),
+            PricePromotions(amount: 4, price: 35000),
+            PricePromotions(amount: 8, price: 68000),
+          ])
       //
       ),
   Dishes(
@@ -134,7 +143,12 @@ List<Dishes> dishes = [
         Ingredients(name: 'Potatoe', amountGrams: '50G'),
         Ingredients(name: 'Carrot', amountGrams: '30G'),
       ],
-      amount: 1
+      amount: 1,
+      promotionLabel: Promotions(
+          active: false,
+          color: Color(0xFF4F57D5),
+          label: 'Special For You',
+          pricePromotions: [])
       //
       ),
   Dishes(
@@ -167,7 +181,12 @@ List<Dishes> dishes = [
         Ingredients(name: 'Potatoe', amountGrams: '50G'),
         Ingredients(name: 'Carrot', amountGrams: '30G'),
       ],
-      amount: 1
+      amount: 1,
+      promotionLabel: Promotions(
+          active: false,
+          color: Color(0xFFFFB60E),
+          label: 'Best Promotion',
+          pricePromotions: [])
       //
       ),
 ];

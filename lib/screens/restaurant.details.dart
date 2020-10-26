@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
 import 'package:fith_app__restaurant/sections/CardAvailableForLunch.dart';
@@ -134,7 +135,8 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
                           ),
                           WrapperMap(),
                           currentRestaurant.lunchNow.length >= 1
-                              ? DetailHighlightProduct()
+                              ? DetailHighlightProduct(
+                                  highlishDishes: currentRestaurant.lunchNow)
                               : SizedBox(),
                           currentRestaurant.tagsMenu.length >= 1
                               ? ExploreTheMenu(tags: currentRestaurant.tagsMenu)
@@ -235,6 +237,8 @@ class WrapperMap extends StatelessWidget {
 }
 
 class DetailHighlightProduct extends StatefulWidget {
+  final List<Dishes> highlishDishes;
+  DetailHighlightProduct({this.highlishDishes});
   @override
   _DetailHighlightProductState createState() => _DetailHighlightProductState();
 }
@@ -267,7 +271,8 @@ class _DetailHighlightProductState extends State<DetailHighlightProduct> {
                 child: AspectRatio(
                   aspectRatio: 2 / 2.030,
                   child: Container(
-                    child: CompleteListAvailablePlates(),
+                    child: CompleteListAvailablePlates(
+                        dishes: widget.highlishDishes),
                   ),
                 ),
               )),
