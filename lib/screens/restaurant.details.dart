@@ -1,12 +1,13 @@
 import 'dart:async';
 
+import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/ContactInterface.dart';
-import 'package:fith_app__restaurant/interfaces/ContactMeans.dart';
+
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
 import 'package:fith_app__restaurant/sections/CardAvailableForLunch.dart';
 import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
+import 'package:fith_app__restaurant/sections/ContactMethods.dart';
 import 'package:fith_app__restaurant/sections/CustomHeader.dart';
 // import 'package:fith_app__restaurant/sections/CardsHighlightRestaurants.dart';
 import 'package:fith_app__restaurant/sections/RoundedOptions.dart';
@@ -16,7 +17,6 @@ import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class RestaurantDetailWrapper extends StatefulWidget {
   @override
@@ -139,7 +139,12 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
                               ? ExploreTheMenu(tags: currentRestaurant.tagsMenu)
                               : SizedBox(),
                           currentRestaurant.suggestions.length >= 1
-                              ? CardCategorySuggested()
+                              ? BlocProvider(
+                                  create: (BuildContext context) => DishBloc(),
+                                  child: CardCategorySuggested(
+                                      suggestions:
+                                          currentRestaurant.suggestions),
+                                )
                               : SizedBox(),
                           // CustomContainerAnimation(
                           //   animationChildren: animationScreenContainer,
@@ -322,115 +327,6 @@ class _ExploreTheMenuState extends State<ExploreTheMenu> {
           _chipsAsMenu(),
         ],
       ),
-    );
-  }
-}
-
-class ContactMethods extends StatefulWidget {
-  final List<ContactMeans> contact;
-  ContactMethods({this.contact});
-  @override
-  ContactMethodsState createState() => ContactMethodsState();
-}
-
-class ContactMethodsState extends State<ContactMethods> {
-  List<ContactInterface> _contactPhones = [
-    ContactInterface(name: 'Phone', phone: '7153914', action: 'call'),
-    ContactInterface(
-        name: 'Mail', phone: 'company@contact.com', action: 'mail'),
-    ContactInterface(name: 'Whatsapp', phone: '7153914', action: 'whatsapp'),
-    ContactInterface(
-        name: 'Average Cost', phone: '\$12.00 - \$44.00', action: 'none')
-  ];
-  @override
-  Widget build(BuildContext context) {
-    double withDefaultPadding =
-        MediaQuery.of(context).size.width * defaultPadding;
-
-    return Container(
-      margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.02),
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
-      child: Builder(builder: (BuildContext context) {
-        List<Widget> contacts = [];
-        widget.contact.map((e) {
-          contacts.add(Container(
-            height: 40,
-            decoration: BoxDecoration(
-                border: Border(
-                    bottom: BorderSide(
-                        width: 0.3, color: Theme.of(context).primaryColor))),
-            child: SizedBox.expand(
-                child: MaterialButton(
-              onPressed: () async {
-                const String url = 'tel://7153914';
-                bool showSnackBar = false;
-                String alertSnackBar = '';
-                if (e.type == 'call') {
-                  if (await canLaunch(url)) {
-                    launch(url);
-                  } else {
-                    showSnackBar = true;
-                    alertSnackBar = 'Ha ocurrido un error';
-                  }
-                }
-                if (e.type == 'mail') {
-                  if (await canLaunch(url)) {
-                    final Uri _emailLaunchUri = Uri(
-                        scheme: 'mailto',
-                        path: e.value,
-                        queryParameters: {'suject': 'Username and lastName'});
-
-                    launch(_emailLaunchUri.toString());
-                  } else {
-                    showSnackBar = true;
-                    alertSnackBar = 'No hemos podido abrir el email ';
-                  }
-                }
-                if (e.type == 'whatsapp') {
-                  var whatsappUrl = "whatsapp://send?phone=" + e.key;
-                  if (await canLaunch(url)) {
-                    launch(whatsappUrl);
-                  } else {
-                    showSnackBar = true;
-                    alertSnackBar = 'please check if whatsapp is installed';
-                  }
-                }
-                if (showSnackBar) {
-                  final snackBar = SnackBar(
-                    content: Text(
-                      alertSnackBar,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyText1
-                          .copyWith(color: Theme.of(context).primaryColorLight),
-                    ),
-                    backgroundColor: Theme.of(context).primaryColorDark,
-                  );
-                  Scaffold.of(context).showSnackBar(snackBar);
-                }
-              },
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Text(e.value),
-                  FittedBox(
-                      child: Text(
-                    e.key,
-                    style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        color: Theme.of(context).buttonColor,
-                        fontWeight: FontWeight.w500),
-                  ))
-                ],
-              ),
-            )),
-          ));
-        }).toList();
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: contacts,
-        );
-      }),
     );
   }
 }

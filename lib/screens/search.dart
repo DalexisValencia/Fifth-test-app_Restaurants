@@ -229,11 +229,14 @@ class _SearchScreenState extends State<SearchScreen> {
             child: RelatedCategories(),
           ),
         ),
-        CustomContainerAnimation(
-            animationChildren: animateScreenChildrenContainer,
-            children: Container(
-              child: CardCategorySuggested(),
-            )),
+        Container(
+          child: Text("AQUI VAN LAS CATEGORIAS SUGERIDAS!!!"),
+        ),
+        // CustomContainerAnimation(
+        //     animationChildren: animateScreenChildrenContainer,
+        //     children: Container(
+        //       child: CardCategorySuggested(),
+        //     )),
         CustomContainerAnimation(
           animationChildren: animateScreenChildrenContainer,
           children: Container(

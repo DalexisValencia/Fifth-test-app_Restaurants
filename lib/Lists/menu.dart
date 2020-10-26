@@ -189,7 +189,7 @@ List<Restaurants> restaurants = [
       'Chicken (67)'
     ],
     menu: dishes, //List Dishes
-    suggestions: [],
+    suggestions: dishes,
     highlight: [],
     socialShare: ['Whatsapp', 'Pinterest', 'Instagram'],
     contact: [
@@ -231,7 +231,7 @@ List<Restaurants> restaurants = [
     lunchNow: dishes, //List Dishes
     tagsMenu: ['Pork Chops (15)', 'Ham (5)', 'Potatoes (10)', 'Sauces (39)'],
     menu: dishes, //List Dishes
-    suggestions: [],
+    suggestions: dishes,
     highlight: [],
     socialShare: ['Whatsapp', 'Pinterest', 'Instagram'],
     contact: [
@@ -266,7 +266,7 @@ List<Restaurants> restaurants = [
       'Roast Fish (6)'
     ],
     menu: [], //List Dishes
-    suggestions: [],
+    suggestions: dishes,
     highlight: [],
     socialShare: ['Whatsapp', 'Pinterest'],
     contact: [
