@@ -108,24 +108,14 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
                                       children: <Widget>[
                                         DishPortrait(image: dish.image),
                                         DishFeatures(dish: dish),
-                                        // BlocProvider(
-                                        //   create: (BuildContext context) =>
-                                        //       DishamountBloc(),
-                                        //   child:
                                         AmountDishes(
                                             amount: dish.amount,
                                             price: dish.price,
-                                            promos: dish.pricePromotions),
-                                        // ),
+                                            promos: dish.promotionLabel
+                                                .pricePromotions),
                                         dish.additions.length >= 1
                                             ? Aditionals(
                                                 aditionals: dish.additions)
-                                            // BlocProvider(
-                                            //     create:
-                                            //         (BuildContext context) =>
-                                            //             AdditionalsBloc(),
-                                            //     child: Aditionals(
-                                            //         aditionals: dish.additions))
                                             : SizedBox(
                                                 height: 0,
                                                 width: 0,
@@ -266,7 +256,7 @@ class DishFeatures extends StatelessWidget {
           ),
           Container(
             child: Text(
-              "\$${dish.price}",
+              "\$${formatterPrice(dish.price)}",
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.headline6.copyWith(
                   color: Theme.of(context).primaryColorDark,
@@ -354,8 +344,10 @@ class _AddtoCarState extends State<AddtoCar> {
   bool _addingCar = false;
   String finalPrice(amount, additionals) {
     List<PricePromotions> specialPrice;
-    if (widget.dish.pricePromotions.length >= 1) {
-      specialPrice = widget.dish.pricePromotions.where((element) {
+    List<PricePromotions> promotionsPrices =
+        widget.dish.promotionLabel.pricePromotions;
+    if (promotionsPrices.length >= 1) {
+      specialPrice = promotionsPrices.where((element) {
         PricePromotions promos = element;
         return promos.amount == amount;
       }).toList();

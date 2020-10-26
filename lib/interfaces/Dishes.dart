@@ -13,9 +13,6 @@ class Dishes {
   final String preparation;
   final List<Comments> comments;
   final List<String> category;
-  final bool promotion;
-  final List<PricePromotions>
-      pricePromotions; // Por ahora solo tres precios por promocion
   final List<Adittional> additions;
   final List<Ingredients> ingredients;
   final int amount;
@@ -30,8 +27,6 @@ class Dishes {
       this.preparation,
       this.comments,
       this.category,
-      this.promotion,
-      this.pricePromotions,
       this.additions,
       this.ingredients,
       this.amount,

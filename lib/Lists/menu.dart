@@ -64,12 +64,6 @@ List<Dishes> dishes = [
         )
       ],
       category: [categories[0].name, categories[2].name],
-      promotion: true,
-      pricePromotions: [
-        PricePromotions(amount: 2, price: 18000),
-        PricePromotions(amount: 4, price: 35000),
-        PricePromotions(amount: 8, price: 68000),
-      ],
       additions: [
         Adittional(title: 'Cookware', isMulti: false, children: [
           AditionalsOptions(name: 'With Cookware', isActive: true, price: 0),
@@ -135,8 +129,6 @@ List<Dishes> dishes = [
         )
       ],
       category: [categories[1].name, categories[3].name],
-      promotion: true,
-      pricePromotions: [],
       additions: [],
       ingredients: [
         Ingredients(name: 'Beef', amountGrams: '40G'),
@@ -173,8 +165,6 @@ List<Dishes> dishes = [
         categories[2].name,
         categories[3].name
       ],
-      promotion: true,
-      pricePromotions: [],
       additions: [],
       ingredients: [
         Ingredients(name: 'Beef', amountGrams: '40G'),
