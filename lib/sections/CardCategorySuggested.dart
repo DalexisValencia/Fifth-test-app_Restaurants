@@ -46,80 +46,84 @@ class CardCategorySuggestedState extends State<CardCategorySuggested> {
                 itemBuilder: (BuildContext context, int index) {
                   return Card(
                       margin: EdgeInsets.only(right: totalWidth * 0.04),
-                      child: Container(
-                          width: totalWidth * 0.41,
-                          height: totalHeight * 0.25,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              image: DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: ExactAssetImage(
-                                      widget.suggestions[index].image))),
-                          child: RawMaterialButton(
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(12)),
-                              padding: EdgeInsets.only(
-                                  bottom: totalHeight * 0.03,
-                                  left: (totalWidth * 0.03) + 5,
-                                  right: totalWidth * 0.03),
-                              elevation: 0,
-                              onPressed: () {
-                                dishBloc.add(DishStart(
-                                    currentDish: widget.suggestions[index]));
-                                Navigator.of(context).push(
-                                    MaterialPageRoute<PlateDetailWrapper>(
-                                        builder: (context) {
-                                  return BlocProvider.value(
-                                      value: dishBloc,
-                                      child: PlateDetailWrapper());
-                                }));
-                              },
-                              fillColor: Color(0x000000),
-                              splashColor: Theme.of(context).buttonColor,
-                              child: Align(
-                                alignment: Alignment.bottomLeft,
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      widget.suggestions[index].name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .button
-                                          .copyWith(
-                                              color: Theme.of(context)
-                                                  .primaryColorLight,
-                                              fontWeight: FontWeight.w800,
-                                              shadows: [
-                                            Shadow(
-                                                blurRadius: 3.0,
-                                                color: Colors.black,
-                                                offset: Offset(0, 0))
-                                          ]),
-                                    ),
-                                    FittedBox(
-                                        fit: BoxFit.scaleDown,
-                                        child: Text(
-                                          widget.suggestions[index].details
-                                                  .substring(0, 15) +
-                                              '...',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .caption
-                                              .copyWith(
-                                                  color: Theme.of(context)
-                                                      .primaryColorLight,
-                                                  shadows: [
-                                                Shadow(
-                                                    blurRadius: 3.0,
-                                                    color: Colors.black,
-                                                    offset: Offset(0, 0))
-                                              ]),
-                                        ))
-                                  ],
-                                ),
-                              ))));
+                      child: InkWell(
+                        splashColor: Colors.red,
+                        child: Container(
+                            width: totalWidth * 0.41,
+                            height: totalHeight * 0.25,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: ExactAssetImage(
+                                        widget.suggestions[index].image))),
+                            child: RawMaterialButton(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(12)),
+                                padding: EdgeInsets.only(
+                                    bottom: totalHeight * 0.03,
+                                    left: (totalWidth * 0.03) + 5,
+                                    right: totalWidth * 0.03),
+                                elevation: 0,
+                                onPressed: () {
+                                  dishBloc.add(DishStart(
+                                      currentDish: widget.suggestions[index]));
+                                  Navigator.of(context).push(
+                                      MaterialPageRoute<PlateDetailWrapper>(
+                                          builder: (context) {
+                                    return BlocProvider.value(
+                                        value: dishBloc,
+                                        child: PlateDetailWrapper());
+                                  }));
+                                },
+                                fillColor: Color(0x000000),
+                                splashColor: Theme.of(context).buttonColor,
+                                child: Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        widget.suggestions[index].name,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .button
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                    .primaryColorLight,
+                                                fontWeight: FontWeight.w800,
+                                                shadows: [
+                                              Shadow(
+                                                  blurRadius: 3.0,
+                                                  color: Colors.black,
+                                                  offset: Offset(0, 0))
+                                            ]),
+                                      ),
+                                      FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text(
+                                            widget.suggestions[index].details
+                                                    .substring(0, 15) +
+                                                '...',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .caption
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .primaryColorLight,
+                                                    shadows: [
+                                                  Shadow(
+                                                      blurRadius: 3.0,
+                                                      color: Colors.black,
+                                                      offset: Offset(0, 0))
+                                                ]),
+                                          ))
+                                    ],
+                                  ),
+                                ))),
+                      ));
                 },
               ))
         ],
