@@ -1,4 +1,5 @@
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 // import 'package:fith_app__restaurant/interfaces/CategorySuggested.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
@@ -7,6 +8,7 @@ import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
 import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fith_app__restaurant/screens/seemoreDishesInRestaurant.dart';
 
 class CardCategorySuggested extends StatefulWidget {
   final List<Dishes> suggestions;
@@ -19,6 +21,7 @@ class CardCategorySuggestedState extends State<CardCategorySuggested> {
   @override
   Widget build(BuildContext context) {
     final dishBloc = BlocProvider.of<DishBloc>(context);
+    final restaurantBloc = BlocProvider.of<DetailsrestaurantBloc>(context);
     double totalWidth = MediaQuery.of(context).size.width;
     double totalHeight = MediaQuery.of(context).size.height;
     double withDefaultPadding =
@@ -35,8 +38,16 @@ class CardCategorySuggestedState extends State<CardCategorySuggested> {
               rightContainer: RoundedCustomButton(
                   title: 'See all',
                   callPressed: () {
-                    print('lunchNow');
-                    print('lista de intancia de blocrestaurant');
+                    // print('Suggestions');
+                    Navigator.of(context).push(
+                        MaterialPageRoute<SeeMoreDishesByRestaurant>(
+                            builder: (BuildContext context) {
+                      return BlocProvider.value(
+                        value: restaurantBloc,
+                        child:
+                            SeeMoreDishesByRestaurant(searchKey: 'suggestions'),
+                      );
+                    }));
                   }),
             ),
           ),

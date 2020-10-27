@@ -60,6 +60,7 @@ class _SeeMoreDishesByRestaurantState extends State<SeeMoreDishesByRestaurant> {
               Restaurants restaurantState = state.props[0];
               List<Dishes> completeList;
               String screenTitle = '';
+              print(widget.searchKey);
               switch (widget.searchKey) {
                 case 'lunchNow':
                   completeList = restaurantState.lunchNow;
