@@ -17,17 +17,14 @@ class _RoundedCustomButtonState extends State<RoundedCustomButton> {
         splashColor: Theme.of(context).buttonColor,
         height: 25,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(defaultRadius)
-        ),
-        onPressed: () => widget.callPressed,
+            borderRadius: BorderRadius.circular(defaultRadius)),
+        onPressed: () => widget.callPressed(),
         child: Text(
           widget.title,
           style: Theme.of(context).textTheme.bodyText1.copyWith(
-            color: Theme.of(context).buttonColor,
-            fontWeight: FontWeight.w700,
-            decoration: TextDecoration.underline
-          ),
-        )
-      );
+              color: Theme.of(context).buttonColor,
+              fontWeight: FontWeight.w700,
+              decoration: TextDecoration.underline),
+        ));
   }
 }

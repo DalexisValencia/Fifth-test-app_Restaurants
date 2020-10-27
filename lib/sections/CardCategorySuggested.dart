@@ -32,8 +32,12 @@ class CardCategorySuggestedState extends State<CardCategorySuggested> {
             padding: EdgeInsets.only(left: withDefaultPadding),
             child: FullSectionTitle(
               title: 'Suggestions',
-              rightContainer:
-                  RoundedCustomButton(title: 'See all', callPressed: () {}),
+              rightContainer: RoundedCustomButton(
+                  title: 'See all',
+                  callPressed: () {
+                    print('lunchNow');
+                    print('lista de intancia de blocrestaurant');
+                  }),
             ),
           ),
           Container(

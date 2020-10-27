@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 class ExploreTheMenu extends StatefulWidget {
   final List<String> tags;
-  ExploreTheMenu({this.tags});
+  final String restaurantName;
+  ExploreTheMenu({this.tags, this.restaurantName});
   @override
   _ExploreTheMenuState createState() => _ExploreTheMenuState();
 }
@@ -16,8 +17,13 @@ class _ExploreTheMenuState extends State<ExploreTheMenu> {
           left: MediaQuery.of(context).size.width * defaultPadding),
       child: FullSectionTitle(
         title: 'Explore the Menu',
-        rightContainer:
-            RoundedCustomButton(title: 'See all', callPressed: () {}),
+        rightContainer: RoundedCustomButton(
+            title: 'See all',
+            callPressed: () {
+              print('termino busqueda: lunchNow');
+              print('Which Restaurant?: ' + widget.restaurantName);
+              print('ir a la lista completa');
+            }),
       ));
 
   Widget _chipsAsMenu() {
@@ -29,11 +35,17 @@ class _ExploreTheMenuState extends State<ExploreTheMenu> {
           List<Widget> chips = [];
           widget.tags.map((e) {
             chips.add(Container(
-                child: Chip(
+                child: ActionChip(
+                    shadowColor: Colors.red,
+                    onPressed: () {
+                      print('termino busqueda: ' + e);
+                      print('Which Restaurant?: ' + widget.restaurantName);
+                      print('ir a la lista completa');
+                    },
                     label: Text(
-              '$e',
-              maxLines: 1,
-            ))));
+                      '$e',
+                      maxLines: 1,
+                    ))));
           }).toList();
           return Wrap(
             runSpacing: -8,

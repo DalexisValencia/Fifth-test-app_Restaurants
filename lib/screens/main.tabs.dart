@@ -34,8 +34,7 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
   }
 
   Widget _tabsController() {
-    print('Verificar:::');
-    print(tabStateInit);
+    print('Tab - $tabStateInit');
     return DefaultTabController(
       length: 5,
       child: Scaffold(

@@ -6,6 +6,7 @@ import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
+import 'package:fith_app__restaurant/screens/seemoreDishesInRestaurant.dart';
 import 'package:fith_app__restaurant/sections/CardAvailableForLunch.dart';
 import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
 import 'package:fith_app__restaurant/sections/ContactMethods.dart';
@@ -139,7 +140,10 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
                                   highlishDishes: currentRestaurant.lunchNow)
                               : SizedBox(),
                           currentRestaurant.tagsMenu.length >= 1
-                              ? ExploreTheMenu(tags: currentRestaurant.tagsMenu)
+                              ? ExploreTheMenu(
+                                  tags: currentRestaurant.tagsMenu,
+                                  restaurantName: currentRestaurant.name,
+                                )
                               : SizedBox(),
                           currentRestaurant.suggestions.length >= 1
                               ? BlocProvider(
@@ -244,11 +248,29 @@ class DetailHighlightProduct extends StatefulWidget {
 }
 
 class _DetailHighlightProductState extends State<DetailHighlightProduct> {
-  Widget _wrapperHeader() => FullSectionTitle(
-        title: 'Available for lunch now',
-        rightContainer:
-            RoundedCustomButton(title: 'See all', callPressed: () {}),
-      );
+  @override
+  initState() {
+    super.initState();
+  }
+
+  Widget _wrapperHeader() {
+    final restaurantBloc = BlocProvider.of<DetailsrestaurantBloc>(context);
+    return FullSectionTitle(
+      title: 'Available for lunch now',
+      rightContainer: RoundedCustomButton(
+          title: 'See all',
+          callPressed: () {
+            Navigator.of(context).push(
+                MaterialPageRoute<SeeMoreDishesByRestaurant>(
+                    builder: (context) {
+              return BlocProvider.value(
+                value: restaurantBloc,
+                child: SeeMoreDishesByRestaurant(searchKey: 'lunchNow'),
+              );
+            }));
+          }),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
