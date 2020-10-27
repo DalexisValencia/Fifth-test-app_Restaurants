@@ -59,11 +59,9 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
   Widget _screenTitle(name) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height * 0.015,
-        left: MediaQuery.of(context).size.width * 0.07,
-        right: MediaQuery.of(context).size.width * 0.07,
-        bottom: MediaQuery.of(context).size.height * 0.015,
+      padding: EdgeInsets.symmetric(
+        vertical: MediaQuery.of(context).size.height * 0.015,
+        horizontal: MediaQuery.of(context).size.width * defaultPadding,
       ),
       child: Text(
         name.toString().toUpperCase(),
@@ -150,8 +148,8 @@ class _MainTopHeaderState extends State<MainTopHeader> {
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.only(
-          left: MediaQuery.of(context).size.width * 0.07,
-          right: MediaQuery.of(context).size.width * 0.07),
+          left: MediaQuery.of(context).size.width * defaultPadding,
+          right: MediaQuery.of(context).size.width * defaultPadding),
       height: widget.myheight,
       color: Theme.of(context).primaryColorLight,
       child: Row(
@@ -186,7 +184,7 @@ class _NearYouState extends State<NearYou> {
   Widget _header() {
     return Container(
       padding: EdgeInsets.fromLTRB(
-          MediaQuery.of(context).size.width * 0.07,
+          MediaQuery.of(context).size.width * defaultPadding,
           MediaQuery.of(context).size.height * 0.002,
           0,
           MediaQuery.of(context).size.height * 0.002),
@@ -225,8 +223,8 @@ class _NearYouState extends State<NearYou> {
         child: Container(
           height: 160,
           width: MediaQuery.of(context).size.width,
-          padding:
-              EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
+          padding: EdgeInsets.only(
+              left: MediaQuery.of(context).size.width * defaultPadding),
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: widget.nearYou.length,
@@ -268,7 +266,7 @@ class _NewLaunchState extends State<NewLaunch> {
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * 0.07),
+          horizontal: MediaQuery.of(context).size.width * defaultPadding),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -370,7 +368,8 @@ class _TopRestaurantsState extends State<TopRestaurants> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.07),
+      margin: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width * defaultPadding),
       child: Column(
         children: <Widget>[
           _header(),
