@@ -260,38 +260,12 @@ class _DetailHighlightProductState extends State<DetailHighlightProduct> {
       rightContainer: RoundedCustomButton(
           title: 'See all',
           callPressed: () {
-            // Navigator.of(context).push(
-            //     MaterialPageRoute<SeeMoreDishesByRestaurant>(
-            //         builder: (context) {
-            //   return BlocProvider.value(
-            //     value: restaurantBloc,
-            //     child: SeeMoreDishesByRestaurant(searchKey: 'lunchNow'),
-            //   );
-            // }));
-            Navigator.of(context).push(PageRouteBuilder(
-                //
-                transitionDuration: Duration(milliseconds: 500),
-                pageBuilder: (BuildContext context, Animation animation,
-                    Animation secondaryAnimation) {
-                  return BlocProvider.value(
-                    value: restaurantBloc,
-                    child: SeeMoreDishesByRestaurant(searchKey: 'lunchNow'),
-                  );
-                },
-                transitionsBuilder: (BuildContext context, Animation animation,
-                    Animation secondaryAnimation, Widget child) {
-                  var begin = Offset(1.0, 0.0);
-                  var end = Offset.zero;
-                  var curve = Curves.easeInSine;
-
-                  var tween = Tween(begin: begin, end: end)
-                      .chain(CurveTween(curve: curve));
-
-                  return SlideTransition(
-                    position: animation.drive(tween),
-                    child: child,
-                  );
-                }));
+            customAnimateNavigation(
+                context,
+                BlocProvider.value(
+                  value: restaurantBloc,
+                  child: SeeMoreDishesByRestaurant(searchKey: 'lunchNow'),
+                ));
           }),
     );
   }

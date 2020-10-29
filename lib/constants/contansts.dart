@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 const defaultPadding = 0.07;
@@ -15,3 +16,37 @@ final formatter =
 String formatterPrice(price) {
   return formatter.format(price.toInt()).replaceAll(',00', '');
 }
+
+//Navegacion animada
+customAnimateNavigation(BuildContext context, Widget blocinstance) {
+  Navigator.of(context).push(PageRouteBuilder(
+      //
+      transitionDuration: Duration(milliseconds: 500),
+      pageBuilder: (BuildContext context, Animation animation,
+          Animation secondaryAnimation) {
+        return blocinstance;
+      },
+      transitionsBuilder: (BuildContext context, Animation animation,
+          Animation secondaryAnimation, Widget child) {
+        var begin = Offset(1.0, 0.0);
+        var end = Offset.zero;
+        var curve = Curves.easeInSine;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      }));
+}
+
+// Navigator.of(context).push(
+//     MaterialPageRoute<SeeMoreDishesByRestaurant>(
+//         builder: (context) {
+//   return BlocProvider.value(
+//     value: restaurantBloc,
+//     child: SeeMoreDishesByRestaurant(searchKey: 'lunchNow'),
+//   );
+// }));
