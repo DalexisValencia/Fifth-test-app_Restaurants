@@ -126,23 +126,11 @@ class _SeeMoreDishesByRestaurantState extends State<SeeMoreDishesByRestaurant> {
     return Scaffold(
         backgroundColor: Theme.of(context).primaryColorLight,
         body: SafeArea(
-          //     child: CustomContainerAnimation(
-          //   animationChildren: animationState,
-          //   children: _seeMoreBody(),
-          // )
-          child: _seeMoreBody(),
-        ));
+            child: CustomContainerAnimation(
+          animationChildren: animationState,
+          children: _seeMoreBody(),
+        )
+            // child: _seeMoreBody(),
+            ));
   }
 }
-
-// child: AnimatedOpacity(
-//     curve: Curves.easeInCubic,
-//     opacity: !animationState ? 0 : 1,
-//     duration: Duration(milliseconds: 500),
-//     child: Column(
-//       children: <Widget>[
-//         _header(),
-//         _body(),
-//       ],
-//     ))
-//
