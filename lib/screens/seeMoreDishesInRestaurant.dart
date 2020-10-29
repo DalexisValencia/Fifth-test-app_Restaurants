@@ -29,28 +29,46 @@ class _SeeMoreDishesByRestaurantState extends State<SeeMoreDishesByRestaurant> {
         animationState = false;
       });
     });
-    // this.animationState = false;
   }
 
   @override
   dispose() {
     super.dispose();
-    // this.animationState = true;
   }
 
-  Widget _screenTitle(name) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).size.height * 0.015,
-      ),
-      child: Text(
-        name.toString().toUpperCase(),
-        textAlign: TextAlign.left,
-        style: Theme.of(context).textTheme.headline5.copyWith(
-            color: Theme.of(context).primaryColorDark,
-            fontWeight: FontWeight.w600),
-      ),
+  Widget _screenTitle(name, results) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          width: MediaQuery.of(context).size.width,
+          child: Text(
+            name.toString().toUpperCase(),
+            textAlign: TextAlign.left,
+            style: Theme.of(context).textTheme.headline5.copyWith(
+                color: Theme.of(context).primaryColorDark,
+                fontWeight: FontWeight.w600),
+          ),
+        ),
+        Container(
+          padding: EdgeInsets.only(
+            bottom: MediaQuery.of(context).size.height * 0.015,
+          ),
+          child: RichText(
+            text: TextSpan(
+                text: "Registros totales: ",
+                style: Theme.of(context).textTheme.button.copyWith(
+                    color: Theme.of(context).primaryColorDark,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w300),
+                children: <TextSpan>[
+                  TextSpan(
+                      text: results.toString(),
+                      style: TextStyle(fontWeight: FontWeight.w400))
+                ]),
+          ),
+        )
+      ],
     );
   }
 
@@ -81,7 +99,7 @@ class _SeeMoreDishesByRestaurantState extends State<SeeMoreDishesByRestaurant> {
               }
               return Column(
                 children: <Widget>[
-                  _screenTitle(screenTitle),
+                  _screenTitle(screenTitle, completeList.length),
                   Builder(
                     builder: (BuildContext context) {
                       return BlocProvider(
@@ -129,8 +147,6 @@ class _SeeMoreDishesByRestaurantState extends State<SeeMoreDishesByRestaurant> {
             child: CustomContainerAnimation(
           animationChildren: animationState,
           children: _seeMoreBody(),
-        )
-            // child: _seeMoreBody(),
-            ));
+        )));
   }
 }
