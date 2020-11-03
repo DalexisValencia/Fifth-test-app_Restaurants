@@ -240,6 +240,9 @@ class _SearchScreenState extends State<SearchScreen> {
         CustomContainerAnimation(
           animationChildren: animateScreenChildrenContainer,
           children: Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: MediaQuery.of(context).size.width * defaultPadding,
+            ),
             child: PopularSuggestedWrapper(),
           ),
         ),

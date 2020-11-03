@@ -5,9 +5,10 @@ import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestauran
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
+import 'package:fith_app__restaurant/sections/CardProductWithComments.dart';
 import 'package:fith_app__restaurant/sections/CustomHeader.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
-import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
+// import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -100,16 +101,20 @@ class _SeeMoreDishesByRestaurantState extends State<SeeMoreDishesByRestaurant> {
               return Column(
                 children: <Widget>[
                   _screenTitle(screenTitle, completeList.length),
-                  Builder(
-                    builder: (BuildContext context) {
-                      return BlocProvider(
-                          create: (BuildContext context) => DishBloc(),
-                          child: Column(
-                              children: completeList
-                                  .map((item) => new QuickView(dish: item))
-                                  .toList()));
-                    },
-                  ),
+                  BlocProvider(
+                    create: (BuildContext context) => DishBloc(),
+                    child: Builder(
+                      builder: (BuildContext context) {
+                        return BlocProvider(
+                            create: (BuildContext context) => DishBloc(),
+                            child: Column(
+                                children: completeList
+                                    .map((item) =>
+                                        new CardProductWithComments(dish: item))
+                                    .toList()));
+                      },
+                    ),
+                  )
                 ],
               );
             },

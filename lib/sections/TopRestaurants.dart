@@ -1,7 +1,9 @@
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
+import 'package:fith_app__restaurant/screens/restaurant.details.dart';
 import 'package:fith_app__restaurant/sections/EmptySection.dart';
 import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
 import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
@@ -65,6 +67,13 @@ class RestaurantTopSummary extends StatefulWidget {
 }
 
 class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
+  DetailsrestaurantBloc blocDetailResturant;
+  @override
+  initState() {
+    super.initState();
+    blocDetailResturant = BlocProvider.of<DetailsrestaurantBloc>(context);
+  }
+
   Widget _cardHeader() {
     return Container(
       decoration: BoxDecoration(
@@ -178,7 +187,7 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
           color: Colors.amber,
           image: DecorationImage(
               fit: BoxFit.cover,
-              image: ExactAssetImage('assets/banner/mexican-food.png'))),
+              image: ExactAssetImage(widget.resturant.image))),
       child: MaterialButton(
         elevation: 0,
         color: Colors.transparent,
@@ -206,7 +215,17 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
                 )),
           ],
         ),
-        onPressed: () {},
+        onPressed: () {
+          blocDetailResturant
+              .add(DetailsresturantSetCurrent(restaurant: widget.resturant));
+
+          customAnimateNavigation(
+              context,
+              BlocProvider.value(
+                value: blocDetailResturant,
+                child: RestaurantDetailWrapper(),
+              ));
+        },
       ),
     );
   }

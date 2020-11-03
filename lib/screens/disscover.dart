@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Discovery.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
@@ -364,6 +365,22 @@ class _TopRestaurantsState extends State<TopRestaurants> {
     );
   }
 
+  Widget _body() {
+    return BlocProvider(
+        create: (BuildContext context) => DetailsrestaurantBloc(),
+        child: Builder(
+          builder: (BuildContext context) {
+            List<Widget> restaurants = [];
+            widget.restaurants.asMap().entries.map((e) {
+              restaurants.add(MainTopRestaurant(restaurant: e.value));
+            }).toList();
+            return Column(
+              children: restaurants,
+            );
+          },
+        ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -371,22 +388,7 @@ class _TopRestaurantsState extends State<TopRestaurants> {
       margin: EdgeInsets.only(
           left: MediaQuery.of(context).size.width * defaultPadding),
       child: Column(
-        children: <Widget>[
-          _header(),
-          Builder(
-            builder: (BuildContext context) {
-              List<Widget> restaurants = [];
-              widget.restaurants.asMap().entries.map((e) {
-                restaurants.add(MainTopRestaurant(restaurant: e.value));
-              }).toList();
-              return Column(
-                children: restaurants,
-              );
-            },
-          )
-          // _topRestaurant(),
-          // _nextTops()
-        ],
+        children: <Widget>[_header(), _body()],
       ),
     );
   }

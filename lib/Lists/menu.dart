@@ -42,10 +42,10 @@ List<Dishes> dishes = [
       image: 'assets/populars/Boeuf-bourguignon.jpg',
       price: 10000,
       rating: 4.5,
-      preparation: '20 Minutos',
+      preparation: '20 Min',
       comments: [
         Comments(
-          name: 'Jessica Simons',
+          name: 'Mark Pepers',
           comment:
               'It is a special place to visit in family. The neighborhood is nice',
           image: '',
@@ -57,7 +57,7 @@ List<Dishes> dishes = [
           image: '',
         ),
         Comments(
-          name: 'Jessica Simons',
+          name: 'Simon Brand',
           comment:
               'It is a special place to visit in family. The neighborhood is nice',
           image: '',
@@ -116,7 +116,7 @@ List<Dishes> dishes = [
       preparation: '15 min',
       comments: [
         Comments(
-          name: 'Jessica Simons',
+          name: 'Michael White',
           comment:
               'It is a special place to visit in family. The neighborhood is nice',
           image: '',
@@ -185,7 +185,7 @@ List<Restaurants> restaurants = [
   Restaurants(
     name: 'First Resturant',
     description: 'a little description',
-    image: 'assets/banner/break-fast.png',
+    image: 'assets/banner/french-food.png',
     rating: 4,
     type: Icons.access_alarm,
     location: [0.0, 0.0],
@@ -232,7 +232,7 @@ List<Restaurants> restaurants = [
   Restaurants(
     name: 'Second Resturant',
     description: 'a little description',
-    image: 'assets/banner/break-fast.png',
+    image: 'assets/banner/mexican-food.png',
     rating: 3,
     type: Icons.access_alarm,
     location: [0.0, 0.0],
@@ -262,7 +262,7 @@ List<Restaurants> restaurants = [
   Restaurants(
     name: 'Third Resturant',
     description: 'a little description',
-    image: 'assets/banner/break-fast.png',
+    image: 'assets/banner/fast-food.png',
     rating: 3,
     type: Icons.access_alarm,
     location: [0.0, 0.0],
