@@ -56,7 +56,7 @@ class _SeeMoreDishesByRestaurantState extends State<SeeMoreDishesByRestaurant> {
           ),
           child: RichText(
             text: TextSpan(
-                text: "Registros totales: ",
+                text: "Total Registers: ",
                 style: Theme.of(context).textTheme.button.copyWith(
                     color: Theme.of(context).primaryColorDark,
                     fontSize: 12,

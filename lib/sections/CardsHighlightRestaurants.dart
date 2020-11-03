@@ -1,6 +1,6 @@
 import 'package:fith_app__restaurant/Lists/menu.dart';
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
-import 'package:fith_app__restaurant/interfaces/HightlightResturantsInterface.dart';
+// import 'package:fith_app__restaurant/interfaces/HightlightResturantsInterface.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
 import 'package:fith_app__restaurant/screens/restaurant.details.dart';
 import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
@@ -70,22 +70,60 @@ class _HightlightResturantsState extends State<HightlightResturants> {
     detailsRestaurant = BlocProvider.of<DetailsrestaurantBloc>(context);
   }
 
+  Widget seeMoreHeader() {
+    double totalWidth = MediaQuery.of(context).size.width;
+    return Container(
+      width: totalWidth,
+      child: Align(
+        alignment: Alignment.bottomRight,
+        child: MaterialButton(
+          padding: EdgeInsets.zero,
+          onPressed: () {},
+          color: Theme.of(context).buttonColor,
+          elevation: 0,
+          child: Text(
+            'See more',
+            style: Theme.of(context).textTheme.caption.copyWith(
+                color: Theme.of(context).primaryColorLight,
+                fontWeight: FontWeight.w500),
+          ),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     double totalWidth = MediaQuery.of(context).size.width;
     double totalHeight = MediaQuery.of(context).size.height;
-    return GestureDetector(
-      child: Container(
-        margin: EdgeInsets.only(bottom: totalHeight * 0.03),
+    return Container(
+      margin: EdgeInsets.only(bottom: totalHeight * 0.03),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          color: Colors.red,
+          image: DecorationImage(
+              fit: BoxFit.cover,
+              image: ExactAssetImage(widget.hightlight.image))),
+      width: totalWidth,
+      height: MediaQuery.of(context).size.height * 0.30,
+      child: RaisedButton(
         padding: EdgeInsets.fromLTRB(12, 18, 12, 18),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.red,
-            image: DecorationImage(
-                fit: BoxFit.cover,
-                image: ExactAssetImage(widget.hightlight.image))),
-        width: totalWidth,
-        height: MediaQuery.of(context).size.height * 0.30,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        onPressed: () {
+          detailsRestaurant
+              .add(DetailsresturantSetCurrent(restaurant: widget.hightlight));
+
+          customAnimateNavigation(
+              context,
+              BlocProvider.value(
+                value: detailsRestaurant,
+                child: RestaurantDetailWrapper(),
+              ));
+        },
+        color: Colors.transparent,
+        splashColor: Theme.of(context).buttonColor,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -155,41 +193,9 @@ class _HightlightResturantsState extends State<HightlightResturants> {
                 )
               ],
             ),
-            Container(
-              width: totalWidth,
-              child: Align(
-                alignment: Alignment.bottomRight,
-                child: MaterialButton(
-                  padding: EdgeInsets.zero,
-                  onPressed: () {},
-                  color: Theme.of(context).buttonColor,
-                  elevation: 0,
-                  child: Text(
-                    'See more',
-                    style: Theme.of(context).textTheme.caption.copyWith(
-                        color: Theme.of(context).primaryColorLight,
-                        fontWeight: FontWeight.w500),
-                  ),
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(15)),
-                ),
-              ),
-            )
           ],
         ),
       ),
-      onTap: () {
-        // print(widget.hightlight);
-        detailsRestaurant
-            .add(DetailsresturantSetCurrent(restaurant: widget.hightlight));
-        Navigator.of(context).push(MaterialPageRoute<RestaurantDetailWrapper>(
-            builder: (BuildContext context) {
-          return BlocProvider.value(
-            value: detailsRestaurant,
-            child: RestaurantDetailWrapper(),
-          );
-        }));
-      },
     );
   }
 }

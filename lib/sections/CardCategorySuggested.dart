@@ -38,16 +38,13 @@ class CardCategorySuggestedState extends State<CardCategorySuggested> {
               rightContainer: RoundedCustomButton(
                   title: 'See all',
                   callPressed: () {
-                    // print('Suggestions');
-                    Navigator.of(context).push(
-                        MaterialPageRoute<SeeMoreDishesByRestaurant>(
-                            builder: (BuildContext context) {
-                      return BlocProvider.value(
-                        value: restaurantBloc,
-                        child:
-                            SeeMoreDishesByRestaurant(searchKey: 'suggestions'),
-                      );
-                    }));
+                    customAnimateNavigation(
+                        context,
+                        BlocProvider.value(
+                          value: restaurantBloc,
+                          child: SeeMoreDishesByRestaurant(
+                              searchKey: 'suggestions'),
+                        ));
                   }),
             ),
           ),
