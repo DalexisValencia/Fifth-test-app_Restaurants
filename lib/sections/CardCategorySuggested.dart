@@ -18,19 +18,16 @@ class CardCategorySuggested extends StatefulWidget {
 }
 
 class CardCategorySuggestedState extends State<CardCategorySuggested> {
-  DishBloc instanceDishBloc;
   DetailsrestaurantBloc instancerestaurantBloc;
   @override
   void initState() {
     super.initState();
-    instanceDishBloc = BlocProvider.of<DishBloc>(context);
     instancerestaurantBloc = BlocProvider.of<DetailsrestaurantBloc>(context);
   }
 
   @override
   Widget build(BuildContext context) {
     double totalWidth = MediaQuery.of(context).size.width;
-    double totalHeight = MediaQuery.of(context).size.height;
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
     return Container(
@@ -55,98 +52,140 @@ class CardCategorySuggestedState extends State<CardCategorySuggested> {
                   }),
             ),
           ),
-          Container(
-              margin: EdgeInsets.only(left: withDefaultPadding),
-              width: totalWidth,
-              height: totalHeight * 0.25,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: widget.suggestions.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return Card(
-                      margin: EdgeInsets.only(right: totalWidth * 0.04),
-                      child: InkWell(
-                        splashColor: Colors.red,
-                        child: Container(
-                            width: totalWidth * 0.41,
-                            height: totalHeight * 0.25,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(12),
-                                image: DecorationImage(
-                                    fit: BoxFit.cover,
-                                    image: ExactAssetImage(
-                                        widget.suggestions[index].image))),
-                            child: RawMaterialButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12)),
-                                padding: EdgeInsets.only(
-                                    bottom: totalHeight * 0.03,
-                                    left: (totalWidth * 0.03) + 5,
-                                    right: totalWidth * 0.03),
-                                elevation: 0,
-                                onPressed: () {
-                                  instanceDishBloc.add(DishStart(
-                                      currentDish: widget.suggestions[index]));
-                                  Navigator.of(context).push(
-                                      MaterialPageRoute<PlateDetailWrapper>(
-                                          builder: (context) {
-                                    return BlocProvider.value(
-                                        value: instanceDishBloc,
-                                        child: PlateDetailWrapper());
-                                  }));
-                                },
-                                fillColor: Color(0x000000),
-                                splashColor: Theme.of(context).buttonColor,
-                                child: Align(
-                                  alignment: Alignment.bottomLeft,
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      Text(
-                                        widget.suggestions[index].name,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .button
-                                            .copyWith(
-                                                color: Theme.of(context)
-                                                    .primaryColorLight,
-                                                fontWeight: FontWeight.w800,
-                                                shadows: [
-                                              Shadow(
-                                                  blurRadius: 3.0,
-                                                  color: Colors.black,
-                                                  offset: Offset(0, 0))
-                                            ]),
-                                      ),
-                                      FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          child: Text(
-                                            widget.suggestions[index].details
-                                                    .substring(0, 15) +
-                                                '...',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .caption
-                                                .copyWith(
-                                                    color: Theme.of(context)
-                                                        .primaryColorLight,
-                                                    shadows: [
-                                                  Shadow(
-                                                      blurRadius: 3.0,
-                                                      color: Colors.black,
-                                                      offset: Offset(0, 0))
-                                                ]),
-                                          ))
-                                    ],
-                                  ),
-                                ))),
-                      ));
-                },
-              ))
+          WrapperSuggestions(suggestions: widget.suggestions)
         ],
       ),
     );
+  }
+}
+
+class WrapperSuggestions extends StatefulWidget {
+  final List<Dishes> suggestions;
+  WrapperSuggestions({this.suggestions});
+  @override
+  _WrapperSuggestionsState createState() => _WrapperSuggestionsState();
+}
+
+class _WrapperSuggestionsState extends State<WrapperSuggestions> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double totalWidth = MediaQuery.of(context).size.width;
+    double totalHeight = MediaQuery.of(context).size.height;
+    double withDefaultPadding =
+        MediaQuery.of(context).size.width * defaultPadding;
+    return BlocProvider(
+        create: (BuildContext context) => DishBloc(),
+        child: Container(
+            margin: EdgeInsets.only(left: withDefaultPadding),
+            width: totalWidth,
+            height: totalHeight * 0.25,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: widget.suggestions.length,
+              itemBuilder: (BuildContext context, int index) {
+                return SuggestionCard(suggestion: widget.suggestions[index]);
+              },
+            )
+            //
+            ));
+  }
+}
+
+class SuggestionCard extends StatefulWidget {
+  final Dishes suggestion;
+  SuggestionCard({this.suggestion});
+  @override
+  _SuggestionCardState createState() => _SuggestionCardState();
+}
+
+class _SuggestionCardState extends State<SuggestionCard> {
+  DishBloc instanceDishBloc;
+  @override
+  void initState() {
+    super.initState();
+    instanceDishBloc = BlocProvider.of<DishBloc>(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double totalWidth = MediaQuery.of(context).size.width;
+    double totalHeight = MediaQuery.of(context).size.height;
+    return Card(
+        margin: EdgeInsets.only(right: totalWidth * 0.04),
+        child: InkWell(
+          splashColor: Colors.red,
+          child: Container(
+              width: totalWidth * 0.41,
+              height: totalHeight * 0.25,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: ExactAssetImage(widget.suggestion.image))),
+              child: RawMaterialButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                  padding: EdgeInsets.only(
+                      bottom: totalHeight * 0.03,
+                      left: (totalWidth * 0.03) + 5,
+                      right: totalWidth * 0.03),
+                  elevation: 0,
+                  onPressed: () {
+                    instanceDishBloc
+                        .add(DishStart(currentDish: widget.suggestion));
+                    Navigator.of(context).push(
+                        MaterialPageRoute<PlateDetailWrapper>(
+                            builder: (context) {
+                      return BlocProvider.value(
+                          value: instanceDishBloc, child: PlateDetailWrapper());
+                    }));
+                  },
+                  fillColor: Color(0x000000),
+                  splashColor: Theme.of(context).buttonColor,
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          widget.suggestion.name,
+                          style: Theme.of(context).textTheme.button.copyWith(
+                              color: Theme.of(context).primaryColorLight,
+                              fontWeight: FontWeight.w800,
+                              shadows: [
+                                Shadow(
+                                    blurRadius: 3.0,
+                                    color: Colors.black,
+                                    offset: Offset(0, 0))
+                              ]),
+                        ),
+                        FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              widget.suggestion.details.substring(0, 15) +
+                                  '...',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption
+                                  .copyWith(
+                                      color:
+                                          Theme.of(context).primaryColorLight,
+                                      shadows: [
+                                    Shadow(
+                                        blurRadius: 3.0,
+                                        color: Colors.black,
+                                        offset: Offset(0, 0))
+                                  ]),
+                            ))
+                      ],
+                    ),
+                  ))),
+        ));
   }
 }

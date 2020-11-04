@@ -146,17 +146,9 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
                                 )
                               : SizedBox(),
                           currentRestaurant.suggestions.length >= 1
-                              ? BlocProvider(
-                                  create: (BuildContext context) => DishBloc(),
-                                  child: CardCategorySuggested(
-                                      suggestions:
-                                          currentRestaurant.suggestions),
-                                )
+                              ? CardCategorySuggested(
+                                  suggestions: currentRestaurant.suggestions)
                               : SizedBox(),
-                          // CustomContainerAnimation(
-                          //   animationChildren: animationScreenContainer,
-                          //   children: HightlightResturantsWrapper(),
-                          // ),
                           RoundedOptionsContactWrapper(),
                           currentRestaurant.contact.length >= 1
                               ? ContactMethods(

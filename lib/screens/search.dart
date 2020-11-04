@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:fith_app__restaurant/Lists/menu.dart';
-import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
@@ -9,11 +8,12 @@ import 'package:fith_app__restaurant/sections/CardsHighlightRestaurants.dart';
 import 'package:fith_app__restaurant/sections/ChipCategoriesSuggested.dart';
 import 'package:fith_app__restaurant/sections/PopularsSuggested.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
+import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
+import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
 import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScaffoldSearch extends StatefulWidget {
   @override
@@ -77,10 +77,7 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
               child: SingleChildScrollView(
                   child: CustomContainerAnimation(
                       animationChildren: animatedChildren,
-                      // children: ActiveFocus(),
-                      children: SearchScreen(animateScreen: animatedChildren))
-                  //child: SearchScreen(animateScreen: widget.animationScreen),
-                  ),
+                      children: SearchScreen(animateScreen: animatedChildren))),
             )),
           ),
         ),
@@ -105,14 +102,12 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
 }
 
 class FixedTopHeader extends StatefulWidget {
-  //Contenedor del buscador
   @override
   FixedTopHeaderState createState() => FixedTopHeaderState();
 }
 
 class FixedTopHeaderState extends State<FixedTopHeader> {
   bool isFocusActive = false;
-  // final _searchForm = GlobalKey<FormState>();
   FocusNode _focus = new FocusNode();
 
   @override
@@ -228,19 +223,7 @@ class _SearchScreenState extends State<SearchScreen> {
           height: 40,
           child: RelatedCategories(),
         ),
-        MultiBlocProvider(
-          providers: [
-            BlocProvider<DetailsrestaurantBloc>(
-              create: (BuildContext context) => DetailsrestaurantBloc(),
-            ),
-            BlocProvider<DishBloc>(
-              create: (BuildContext context) => DishBloc(),
-            ),
-          ],
-          child: CardCategorySuggested(
-            suggestions: restaurants[0].suggestions,
-          ),
-        ),
+        WrapperSuggestionSearch(),
         Container(
           padding: EdgeInsets.symmetric(
             horizontal: MediaQuery.of(context).size.width * defaultPadding,
@@ -265,6 +248,55 @@ class _SearchScreenState extends State<SearchScreen> {
     return CustomContainerAnimation(
       animationChildren: animateScreenChildrenContainer,
       children: _bodySearch(),
+    );
+  }
+}
+
+class WrapperSuggestionSearch extends StatefulWidget {
+  @override
+  _WrapperSuggestionSearchState createState() =>
+      _WrapperSuggestionSearchState();
+}
+
+class _WrapperSuggestionSearchState extends State<WrapperSuggestionSearch> {
+  Widget _header() {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * defaultPadding),
+      child: FullSectionTitle(
+        title: 'Suggestions',
+        rightContainer: RoundedCustomButton(
+            title: 'See all',
+            callPressed: () {
+              print('SEE ALL SUGESTIONS');
+              // customAnimateNavigation(
+              //     context,
+              //     BlocProvider.value(
+              //       value: instancerestaurantBloc,
+              //       child: SeeMoreDishesByRestaurant(
+              //           searchKey: 'suggestions'),
+              //     ));
+            }),
+      ),
+    );
+  }
+
+  Widget _body() {
+    return Container(
+      child: WrapperSuggestions(
+        suggestions: restaurants[0].suggestions,
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(top: 8),
+      width: MediaQuery.of(context).size.width,
+      child: Column(
+        children: <Widget>[_header(), _body()],
+      ),
     );
   }
 }
