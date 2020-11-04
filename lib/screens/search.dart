@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:fith_app__restaurant/Lists/menu.dart';
+import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
@@ -219,40 +221,36 @@ class _SearchScreenState extends State<SearchScreen> {
     double withDefaultPadding = totalWidth * defaultPadding;
     return Column(
       children: <Widget>[
-        CustomContainerAnimation(
-          animationChildren: animateScreenChildrenContainer,
-          children: Container(
-            margin: EdgeInsets.only(
-                top: totalWidth * 0.03, left: withDefaultPadding),
-            width: totalWidth,
-            height: 40,
-            child: RelatedCategories(),
+        Container(
+          margin:
+              EdgeInsets.only(top: totalWidth * 0.03, left: withDefaultPadding),
+          width: totalWidth,
+          height: 40,
+          child: RelatedCategories(),
+        ),
+        MultiBlocProvider(
+          providers: [
+            BlocProvider<DetailsrestaurantBloc>(
+              create: (BuildContext context) => DetailsrestaurantBloc(),
+            ),
+            BlocProvider<DishBloc>(
+              create: (BuildContext context) => DishBloc(),
+            ),
+          ],
+          child: CardCategorySuggested(
+            suggestions: restaurants[0].suggestions,
           ),
         ),
         Container(
-          child: Text("AQUI VAN LAS CATEGORIAS SUGERIDAS!!!"),
-        ),
-        // CustomContainerAnimation(
-        //     animationChildren: animateScreenChildrenContainer,
-        //     children: Container(
-        //       child: CardCategorySuggested(),
-        //     )),
-        CustomContainerAnimation(
-          animationChildren: animateScreenChildrenContainer,
-          children: Container(
-            padding: EdgeInsets.symmetric(
-              horizontal: MediaQuery.of(context).size.width * defaultPadding,
-            ),
-            child: PopularSuggestedWrapper(),
+          padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * defaultPadding,
           ),
+          child: PopularSuggestedWrapper(),
         ),
-        CustomContainerAnimation(
-          animationChildren: animateScreenChildrenContainer,
-          children: Container(
-            child: BlocProvider(
-              create: (BuildContext context) => DetailsrestaurantBloc(),
-              child: HightlightResturantsWrapper(),
-            ),
+        Container(
+          child: BlocProvider(
+            create: (BuildContext context) => DetailsrestaurantBloc(),
+            child: HightlightResturantsWrapper(),
           ),
         ),
         SizedBox(
@@ -264,7 +262,10 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return _bodySearch();
+    return CustomContainerAnimation(
+      animationChildren: animateScreenChildrenContainer,
+      children: _bodySearch(),
+    );
   }
 }
 

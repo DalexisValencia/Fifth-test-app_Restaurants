@@ -18,10 +18,17 @@ class CardCategorySuggested extends StatefulWidget {
 }
 
 class CardCategorySuggestedState extends State<CardCategorySuggested> {
+  DishBloc instanceDishBloc;
+  DetailsrestaurantBloc instancerestaurantBloc;
+  @override
+  void initState() {
+    super.initState();
+    instanceDishBloc = BlocProvider.of<DishBloc>(context);
+    instancerestaurantBloc = BlocProvider.of<DetailsrestaurantBloc>(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final dishBloc = BlocProvider.of<DishBloc>(context);
-    final restaurantBloc = BlocProvider.of<DetailsrestaurantBloc>(context);
     double totalWidth = MediaQuery.of(context).size.width;
     double totalHeight = MediaQuery.of(context).size.height;
     double withDefaultPadding =
@@ -41,7 +48,7 @@ class CardCategorySuggestedState extends State<CardCategorySuggested> {
                     customAnimateNavigation(
                         context,
                         BlocProvider.value(
-                          value: restaurantBloc,
+                          value: instancerestaurantBloc,
                           child: SeeMoreDishesByRestaurant(
                               searchKey: 'suggestions'),
                         ));
@@ -78,13 +85,13 @@ class CardCategorySuggestedState extends State<CardCategorySuggested> {
                                     right: totalWidth * 0.03),
                                 elevation: 0,
                                 onPressed: () {
-                                  dishBloc.add(DishStart(
+                                  instanceDishBloc.add(DishStart(
                                       currentDish: widget.suggestions[index]));
                                   Navigator.of(context).push(
                                       MaterialPageRoute<PlateDetailWrapper>(
                                           builder: (context) {
                                     return BlocProvider.value(
-                                        value: dishBloc,
+                                        value: instanceDishBloc,
                                         child: PlateDetailWrapper());
                                   }));
                                 },

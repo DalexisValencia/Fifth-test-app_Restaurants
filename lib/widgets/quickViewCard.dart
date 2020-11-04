@@ -14,9 +14,11 @@ class QuickView extends StatefulWidget {
 }
 
 class _QuickViewState extends State<QuickView> {
+  DishBloc instanceBlocDish;
   @override
   void initState() {
     super.initState();
+    instanceBlocDish = BlocProvider.of<DishBloc>(context);
   }
 
   @override
@@ -26,7 +28,6 @@ class _QuickViewState extends State<QuickView> {
 
   @override
   Widget build(BuildContext context) {
-    final blocDish = BlocProvider.of<DishBloc>(context);
     return Container(
       decoration: BoxDecoration(
           border:
@@ -40,12 +41,12 @@ class _QuickViewState extends State<QuickView> {
           padding: EdgeInsets.all(0),
           splashColor: Colors.red,
           onPressed: () {
-            blocDish.add(DishStart(currentDish: widget.dish));
+            instanceBlocDish.add(DishStart(currentDish: widget.dish));
 
             Navigator.of(context)
                 .push(MaterialPageRoute<PlateDetailWrapper>(builder: (context) {
               return BlocProvider.value(
-                value: blocDish,
+                value: instanceBlocDish,
                 child: PlateDetailWrapper(),
               );
             }));

@@ -17,9 +17,15 @@ class CompleteListAvailablePlates extends StatefulWidget {
 
 class _CompleteListAvailablePlatesState
     extends State<CompleteListAvailablePlates> {
+  DishBloc instanceDishBloc;
+  @override
+  void initState() {
+    super.initState();
+    instanceDishBloc = BlocProvider.of<DishBloc>(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final dishBloc = BlocProvider.of<DishBloc>(context);
     return ListView.builder(
       scrollDirection: Axis.horizontal,
       itemCount: widget.dishes.length,
@@ -27,11 +33,11 @@ class _CompleteListAvailablePlatesState
         return GestureDetector(
           onTap: () {
             // print('ir al detalle');
-            dishBloc.add(DishStart(currentDish: widget.dishes[index]));
+            instanceDishBloc.add(DishStart(currentDish: widget.dishes[index]));
             Navigator.of(context)
                 .push(MaterialPageRoute<PlateDetailWrapper>(builder: (context) {
               return BlocProvider.value(
-                value: dishBloc,
+                value: instanceDishBloc,
                 child: PlateDetailWrapper(),
               );
             }));

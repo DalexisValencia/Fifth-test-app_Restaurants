@@ -94,7 +94,6 @@ class _CardProductWithCommentsState extends State<CardProductWithComments> {
                                           width: 30,
                                           height: 18,
                                           decoration: BoxDecoration(
-                                              // color: widget.dish.shipColor,
                                               color:
                                                   Theme.of(context).buttonColor,
                                               borderRadius:
@@ -211,22 +210,15 @@ class _CardProductWithCommentsState extends State<CardProductWithComments> {
           ),
         )
         //
-
         );
   }
 
   splitName(String name) {
     String firtsLetter = name.split(' ')[0].substring(0, 1).toUpperCase();
     String secondLetter = name.split(' ')[1].substring(0, 1).toUpperCase();
-    // print(firtsLetter.substring(0, 1));
-    // print(secondLetter);
     return firtsLetter + secondLetter;
   }
 }
-
-// class CardProductWithComments extends StatelessWidget {
-
-// }
 
 class CustomChip extends StatelessWidget {
   final String name;
@@ -243,7 +235,6 @@ class CustomChip extends StatelessWidget {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(top: 1),
-              // color: Colors.red,
               child:
                   Icon(icon, size: 13, color: Theme.of(context).primaryColor),
             ),

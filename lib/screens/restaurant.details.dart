@@ -248,13 +248,14 @@ class DetailHighlightProduct extends StatefulWidget {
 }
 
 class _DetailHighlightProductState extends State<DetailHighlightProduct> {
+  DetailsrestaurantBloc restaurantBloc;
   @override
   initState() {
     super.initState();
+    restaurantBloc = BlocProvider.of<DetailsrestaurantBloc>(context);
   }
 
   Widget _wrapperHeader() {
-    final restaurantBloc = BlocProvider.of<DetailsrestaurantBloc>(context);
     return FullSectionTitle(
       title: 'Available for lunch now',
       rightContainer: RoundedCustomButton(

@@ -4,25 +4,37 @@ import 'package:fith_app__restaurant/screens/plate.detail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class NearYouCard extends StatelessWidget {
+class NearYouCard extends StatefulWidget {
   final Dishes dish;
   final int index;
   NearYouCard({this.dish, this.index});
   @override
+  _NearYouCardState createState() => _NearYouCardState();
+}
+
+class _NearYouCardState extends State<NearYouCard> {
+  DishBloc instanceBlocDish;
+  @override
+  void initState() {
+    super.initState();
+    instanceBlocDish = BlocProvider.of<DishBloc>(context);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final blocDish = BlocProvider.of<DishBloc>(context);
     return Container(
       margin: EdgeInsets.only(
-          right: index < 9 ? MediaQuery.of(context).size.width * 0.04 : 5),
+          right:
+              widget.index < 9 ? MediaQuery.of(context).size.width * 0.04 : 5),
       width: MediaQuery.of(context).size.width / 2.6,
       child: RaisedButton(
         elevation: 0,
         onPressed: () {
-          blocDish.add(DishStart(currentDish: dish));
+          instanceBlocDish.add(DishStart(currentDish: widget.dish));
           Navigator.of(context)
               .push(MaterialPageRoute<PlateDetailWrapper>(builder: (context) {
             return BlocProvider.value(
-              value: blocDish,
+              value: instanceBlocDish,
               child: PlateDetailWrapper(),
             );
           }));
@@ -41,7 +53,8 @@ class NearYouCard extends StatelessWidget {
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
                   image: DecorationImage(
-                      fit: BoxFit.cover, image: ExactAssetImage(dish.image))),
+                      fit: BoxFit.cover,
+                      image: ExactAssetImage(widget.dish.image))),
               child: Stack(
                 children: <Widget>[
                   Positioned(
@@ -60,7 +73,7 @@ class NearYouCard extends StatelessWidget {
                             size: 11,
                           ),
                           Text(
-                            dish.rating.toString(),
+                            widget.dish.rating.toString(),
                             style: Theme.of(context).textTheme.caption.copyWith(
                                 fontWeight: FontWeight.w600,
                                 fontSize: 11,
@@ -80,7 +93,7 @@ class NearYouCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    dish.name,
+                    widget.dish.name,
                     textAlign: TextAlign.start,
                     style: Theme.of(context).textTheme.caption.copyWith(
                         color: Theme.of(context).primaryColorDark,
@@ -89,7 +102,7 @@ class NearYouCard extends StatelessWidget {
                   FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        dish.details.substring(1, 25) + '...',
+                        widget.dish.details.substring(1, 25) + '...',
                         style: Theme.of(context).textTheme.caption.copyWith(
                             wordSpacing: 0.5,
                             fontSize: 10,
