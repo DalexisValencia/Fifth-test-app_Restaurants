@@ -11,30 +11,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HightlightResturantsWrapper extends StatelessWidget {
+  final restaurantSuggestions;
+  HightlightResturantsWrapper({this.restaurantSuggestions});
   @override
   Widget build(BuildContext context) {
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
-    return Column(
-      children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(left: withDefaultPadding),
-          child: FullSectionTitle(
-            title: 'Highlight Restaurants',
-            rightContainer:
-                RoundedCustomButton(title: 'See all', callPressed: () {}),
-          ),
+    return Container(
+      child: BlocProvider(
+        create: (BuildContext context) => DetailsrestaurantBloc(),
+        child: Column(
+          children: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(left: withDefaultPadding),
+              child: FullSectionTitle(
+                title: 'Highlight Restaurants',
+                rightContainer:
+                    RoundedCustomButton(title: 'See all', callPressed: () {}),
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: withDefaultPadding),
+              child:
+                  HightLightRestaurantsList(suggestions: restaurantSuggestions),
+            )
+          ],
         ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: withDefaultPadding),
-          child: HightLightRestaurantsList(),
-        )
-      ],
+      ),
     );
   }
 }
 
 class HightLightRestaurantsList extends StatefulWidget {
+  final List<Restaurants> suggestions;
+  HightLightRestaurantsList({this.suggestions});
   @override
   _HightLightRestaurantsListState createState() =>
       _HightLightRestaurantsListState();
@@ -46,7 +56,7 @@ class _HightLightRestaurantsListState extends State<HightLightRestaurantsList> {
     return Builder(
       builder: (BuildContext context) {
         return Column(
-          children: restaurants
+          children: widget.suggestions
               .map((item) => new HightlightResturants(hightlight: item))
               .toList(),
         );

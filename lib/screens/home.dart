@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fith_app__restaurant/Lists/menu.dart';
+import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/sections/HomeCategoryCardSuggested.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
@@ -8,6 +9,7 @@ import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:fith_app__restaurant/screens/search.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatefulWidget {
   final TabController controller;
@@ -102,16 +104,18 @@ class _HomePageState extends State<HomePage>
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
     return CustomContainerAnimation(
-      animationChildren: animationChildren,
-      children: Container(
-          padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(),
-          child: Hero(
-            tag: 'mainSearch',
-            child: WhatAreYouLookinForForm(),
-          )),
-    );
+        animationChildren: animationChildren,
+        children: BlocProvider(
+          create: (BuildContext context) => SearchBloc()..add(SearchInit()),
+          child: Container(
+              padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(),
+              child: Hero(
+                tag: 'mainSearch',
+                child: WhatAreYouLookinForForm(),
+              )),
+        ));
   }
 
   Widget _categoryContainerSuggested() {
@@ -249,6 +253,13 @@ class WhatAreYouLookinForForm extends StatefulWidget {
 }
 
 class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
+  // SearchBloc searchBloc;
+  @override
+  void initState() {
+    // searchBloc = BlocProvider.of<SearchBloc>(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
@@ -258,11 +269,20 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
       padding: EdgeInsets.fromLTRB(14, 13, 10, 13),
       color: Theme.of(context).primaryColorLight,
       onPressed: () {
-        Timer(Duration(milliseconds: 250), () {
-          Navigator.push(context, MaterialPageRoute(builder: (_) {
-            return ScaffoldSearch();
-          }));
-        });
+        final searchBloc = BlocProvider.of<SearchBloc>(context);
+        // Timer(Duration(milliseconds: 250), () {
+        //   Navigator.push(context, MaterialPageRoute(builder: (_) {
+        //     return ScaffoldSearch();
+        //   }));
+        // });
+        Navigator.of(context)
+            .push(MaterialPageRoute<ScaffoldSearch>(builder: (context) {
+          return BlocProvider.value(
+            value: searchBloc,
+            child: ScaffoldSearch(),
+          );
+        }));
+        print("ir a la busqueda");
       },
       child: Row(
         children: <Widget>[

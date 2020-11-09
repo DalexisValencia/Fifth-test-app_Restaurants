@@ -1,19 +1,19 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/Lists/menu.dart';
-import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
+import 'package:fith_app__restaurant/interfaces/search.dart';
 import 'package:fith_app__restaurant/sections/CardsHighlightRestaurants.dart';
 import 'package:fith_app__restaurant/sections/ChipCategoriesSuggested.dart';
+import 'package:fith_app__restaurant/sections/DishSuggestionInSearch.dart';
 import 'package:fith_app__restaurant/sections/PopularsSuggested.dart';
+import 'package:fith_app__restaurant/sections/ResultsSearch.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
-import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
-import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
-import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
+// import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 class ScaffoldSearch extends StatefulWidget {
   @override
@@ -24,10 +24,21 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
   bool animatedOpacity = true;
   bool animateOpacity = true;
   bool animatedChildren = true;
+  bool activeResults = false;
   @override
   void initState() {
     super.initState();
     this.startAnimationScreen();
+    // _focus.addListener(isfocusActive);
+
+    KeyboardVisibilityNotification().addNewListener(
+      onChange: (bool visible) {
+        setState(() {
+          this.activeResults = visible;
+        });
+        print(this.activeResults);
+      },
+    );
   }
 
   void startAnimationScreen() {
@@ -35,11 +46,11 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
       setState(() {
         this.animateOpacity = false;
       });
-      startChildAnimartion();
+      startChildAnimation();
     });
   }
 
-  void startChildAnimartion() {
+  void startChildAnimation() {
     Timer(Duration(milliseconds: animationStartTime), () {
       setState(() {
         animatedChildren = false;
@@ -52,47 +63,71 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
     double totalHeight = MediaQuery.of(context).size.height;
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
-    return Column(
-      children: <Widget>[
-        Container(
-          child: Container(
-              padding:
-                  EdgeInsets.symmetric(horizontal: withDefaultPadding - 10),
-              height: defaultHeaderCustomHeight,
-              width: totalWidth,
-              child: Hero(
-                tag: 'mainSearch',
-                child: FixedTopHeader(),
-              )),
-        ),
-        AnimatedOpacity(
-          duration: Duration(milliseconds: 500),
-          opacity: animateOpacity ? 0 : 1,
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: totalHeight - (defaultHeaderCustomHeight + 90),
-            child: SingleChildScrollView(
+    return Container(
+      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+      child: BlocBuilder<SearchBloc, SearchState>(
+        builder: (context, state) {
+          SearchInitInterface suggestedSearches = state.props[0];
+          return Column(
+            children: <Widget>[
+              Container(
                 child: Container(
-              width: totalWidth,
-              child: SingleChildScrollView(
-                  child: CustomContainerAnimation(
-                      animationChildren: animatedChildren,
-                      children: SearchScreen(animateScreen: animatedChildren))),
-            )),
-          ),
-        ),
-      ],
+                    padding: EdgeInsets.symmetric(
+                        horizontal: withDefaultPadding - 10),
+                    height: defaultHeaderCustomHeight,
+                    width: totalWidth,
+                    child: Hero(
+                      tag: 'mainSearch',
+                      child: FixedTopHeader(),
+                    )),
+              ),
+              AnimatedOpacity(
+                duration: Duration(milliseconds: 500),
+                opacity: animateOpacity ? 0 : 1,
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: totalHeight -
+                      (withDefaultPadding + defaultHeaderCustomHeight),
+                  child: SingleChildScrollView(
+                      child: Container(
+                          width: totalWidth,
+                          child: CustomContainerAnimation(
+                              animationChildren: animatedChildren,
+                              children: !activeResults
+                                  ? SearchScreen(
+                                      suggestedSearches: suggestedSearches)
+                                  : SearchResults()
+                              //
+                              )
+                          // children: !activeResults
+                          //     ? AnimatedOpacity(
+                          //         duration: Duration(seconds: 2),
+                          //         opacity: activeResults ? 0 : 1,
+                          //         child: SearchScreen(
+                          //             suggestedSearches: suggestedSearches),
+                          //       )
+                          //     : AnimatedOpacity(
+                          //         duration: Duration(seconds: 2),
+                          //         opacity: !activeResults ? 0 : 1,
+                          //         child: SearchResults( ),
+                          //       )),
+                          )),
+                ),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-        child: Scaffold(
-            resizeToAvoidBottomPadding: false,
-            resizeToAvoidBottomInset: false,
-            backgroundColor: Theme.of(context).primaryColorLight,
-            body: _bodyScaffold()));
+    return Scaffold(
+        resizeToAvoidBottomPadding: false,
+        resizeToAvoidBottomInset: false,
+        backgroundColor: Theme.of(context).primaryColorLight,
+        body: _bodyScaffold());
   }
 
   @override
@@ -107,19 +142,13 @@ class FixedTopHeader extends StatefulWidget {
 }
 
 class FixedTopHeaderState extends State<FixedTopHeader> {
-  bool isFocusActive = false;
   FocusNode _focus = new FocusNode();
 
   @override
   void initState() {
     super.initState();
-    _focus.addListener(_onFocusChange);
-  }
-
-  _onFocusChange() {
-    setState(() {
-      isFocusActive = _focus.hasFocus;
-    });
+    //_focus.hasFocus
+    // _focus.addListener(widget.onfocusSearch);
   }
 
   OutlineInputBorder defaulBorderInput() {
@@ -189,26 +218,35 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
 }
 
 class SearchScreen extends StatefulWidget {
-  final bool animateScreen;
-  SearchScreen({this.animateScreen});
+  final SearchInitInterface suggestedSearches;
+  SearchScreen({this.suggestedSearches});
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  bool animateScreenChildrenContainer = true;
-  @override
-  void initState() {
-    super.initState();
-    startAnimationContainer();
-  }
+  bool loading = true;
 
-  void startAnimationContainer() {
-    Timer(Duration(milliseconds: 1000), () {
+  @override
+  initState() {
+    super.initState();
+    Timer(Duration(milliseconds: 200), () {
       setState(() {
-        animateScreenChildrenContainer = false;
+        loading = false;
       });
     });
+  }
+
+  Widget loadingWidget() {
+    return Container(
+        margin: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.40),
+        width: MediaQuery.of(context).size.width,
+        child: Center(
+          child: CircularProgressIndicator(
+            backgroundColor: Theme.of(context).buttonColor,
+            strokeWidth: 4,
+          ),
+        ));
   }
 
   Widget _bodySearch() {
@@ -223,19 +261,20 @@ class _SearchScreenState extends State<SearchScreen> {
           height: 40,
           child: RelatedCategories(),
         ),
-        WrapperSuggestionSearch(),
-        Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * defaultPadding,
-          ),
-          child: PopularSuggestedWrapper(),
-        ),
-        Container(
-          child: BlocProvider(
-            create: (BuildContext context) => DetailsrestaurantBloc(),
-            child: HightlightResturantsWrapper(),
-          ),
-        ),
+        widget.suggestedSearches.suggestions.length >= 1
+            ? WrapperSuggestionSearch(
+                suggestions: widget.suggestedSearches.suggestions)
+            : SizedBox(),
+        widget.suggestedSearches.popular.length >= 1
+            ? PopularSuggestedWrapper(
+                popularSuggestions: widget.suggestedSearches.popular)
+            : SizedBox(),
+        widget.suggestedSearches.highlightRestaurants.length >= 1
+            ? HightlightResturantsWrapper(
+                restaurantSuggestions:
+                    widget.suggestedSearches.highlightRestaurants)
+            : SizedBox(),
+        Text("Cuando se busca desde la vista de resurante"),
         SizedBox(
           height: 20,
         )
@@ -245,215 +284,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomContainerAnimation(
-      animationChildren: animateScreenChildrenContainer,
-      children: _bodySearch(),
-    );
-  }
-}
-
-class WrapperSuggestionSearch extends StatefulWidget {
-  @override
-  _WrapperSuggestionSearchState createState() =>
-      _WrapperSuggestionSearchState();
-}
-
-class _WrapperSuggestionSearchState extends State<WrapperSuggestionSearch> {
-  Widget _header() {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * defaultPadding),
-      child: FullSectionTitle(
-        title: 'Suggestions',
-        rightContainer: RoundedCustomButton(
-            title: 'See all',
-            callPressed: () {
-              print('SEE ALL SUGESTIONS');
-              // customAnimateNavigation(
-              //     context,
-              //     BlocProvider.value(
-              //       value: instancerestaurantBloc,
-              //       child: SeeMoreDishesByRestaurant(
-              //           searchKey: 'suggestions'),
-              //     ));
-            }),
-      ),
-    );
-  }
-
-  Widget _body() {
-    return Container(
-      child: WrapperSuggestions(
-        suggestions: restaurants[0].suggestions,
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(top: 8),
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        children: <Widget>[_header(), _body()],
-      ),
-    );
-  }
-}
-
-class ActiveFocus extends StatefulWidget {
-  @override
-  _ActiveFocusState createState() => _ActiveFocusState();
-}
-
-class _ActiveFocusState extends State<ActiveFocus> {
-  @override
-  initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  Widget _seeAll(title, to) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Align(
-        child: MaterialButton(
-          elevation: 0,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-          color: Colors.transparent,
-          splashColor: Theme.of(context).splashColor,
-          onPressed: () {},
-          child: Text(
-            title,
-            style: Theme.of(context).textTheme.caption.copyWith(
-                decoration: TextDecoration.underline,
-                color: Theme.of(context).primaryColorDark),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _totalregisters(registers) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.only(bottom: 5),
-      child: Align(
-          alignment: Alignment.topRight,
-          child: Text(registers,
-              style: Theme.of(context).textTheme.button.copyWith(
-                  color: Theme.of(context).buttonColor,
-                  fontWeight: FontWeight.w400))),
-    );
-  }
-
-  Widget _recentSearch() {
-    var recentsSearchs = [1, 2, 3];
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
-            child: Text(
-              "Recientes",
-              textAlign: TextAlign.start,
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    color: Theme.of(context).primaryColorDark,
-                    fontWeight: FontWeight.w800,
-                  ),
-            ),
-          ),
-          Builder(
-            builder: (BuildContext context) {
-              List<Widget> recent = [];
-              recent.add(_totalregisters('Recents 3 of 20'));
-              recentsSearchs.map((e) {
-                recent.add(Container(
-                  padding: EdgeInsets.symmetric(horizontal: 2),
-                  //color: Colors.blue[400],
-                  child: QuickView(),
-                ));
-              }).toList();
-
-              recent.add(_seeAll('See all recents', 'recente-search'));
-
-              return Column(
-                children: recent,
-              );
-            },
-          )
-        ],
-      ),
-    );
-  }
-
-  Widget _results() {
-    var recentsSearchs = [1, 2, 3];
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
-            child: Text(
-              "Results",
-              textAlign: TextAlign.start,
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    color: Theme.of(context).primaryColorDark,
-                    fontWeight: FontWeight.w800,
-                  ),
-            ),
-          ),
-          Builder(
-            builder: (BuildContext context) {
-              List<Widget> recent = [];
-              recent.add(_totalregisters('Results 3 of 40'));
-              recentsSearchs.map((e) {
-                recent.add(Container(
-                  padding: EdgeInsets.symmetric(horizontal: 2),
-                  child: QuickView(),
-                ));
-              }).toList();
-              recent.add(_seeAll('See all results', 'recente-search'));
-              return Column(
-                children: recent,
-              );
-            },
-          )
-        ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    double totalWidth = MediaQuery.of(context).size.width;
-    double withDefaultPadding = totalWidth * defaultPadding;
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
-      height: MediaQuery.of(context).viewInsets.bottom > 1
-          ? MediaQuery.of(context).viewInsets.bottom
-          : MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: SingleChildScrollView(
-          child: Column(
-        children: <Widget>[
-          _recentSearch(),
-          _results(),
-          // _recentSearch(),
-          SizedBox(
-            height: 50,
-          )
-        ],
-      )),
+    return Column(
+      // children: <Widget>[loadingWidget()],
+      children: <Widget>[loading ? loadingWidget() : _bodySearch()],
     );
   }
 }
