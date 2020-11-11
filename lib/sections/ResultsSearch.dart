@@ -1,6 +1,9 @@
+import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:fith_app__restaurant/interfaces/search.dart';
 import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SearchResults extends StatefulWidget {
   @override
@@ -95,41 +98,47 @@ class _SearchResultsState extends State<SearchResults> {
 
   Widget _results() {
     var recentsSearchs = [1, 2, 3];
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 10),
-            child: Text(
-              "Results",
-              textAlign: TextAlign.start,
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
-                    color: Theme.of(context).primaryColorDark,
-                    fontWeight: FontWeight.w800,
-                  ),
-            ),
+    return BlocBuilder<SearchBloc, SearchState>(
+      builder: (context, state) {
+        SearchInitInterface stateSearchResults = state.props[0];
+        print(stateSearchResults.results);
+        return Container(
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
+                child: Text(
+                  "Results",
+                  textAlign: TextAlign.start,
+                  style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        color: Theme.of(context).primaryColorDark,
+                        fontWeight: FontWeight.w800,
+                      ),
+                ),
+              ),
+              Builder(
+                builder: (BuildContext context) {
+                  List<Widget> recent = [];
+                  recent.add(_totalregisters('Results 3 of 40'));
+                  recentsSearchs.map((e) {
+                    recent.add(Container(
+                      padding: EdgeInsets.symmetric(horizontal: 2),
+                      child: Text("resultads"),
+                      // child: QuickView(),
+                    ));
+                  }).toList();
+                  recent.add(_seeAll('See all results', 'recente-search'));
+                  return Column(
+                    children: recent,
+                  );
+                },
+              )
+            ],
           ),
-          Builder(
-            builder: (BuildContext context) {
-              List<Widget> recent = [];
-              recent.add(_totalregisters('Results 3 of 40'));
-              recentsSearchs.map((e) {
-                recent.add(Container(
-                  padding: EdgeInsets.symmetric(horizontal: 2),
-                  child: Text("resultads"),
-                  // child: QuickView(),
-                ));
-              }).toList();
-              recent.add(_seeAll('See all results', 'recente-search'));
-              return Column(
-                children: recent,
-              );
-            },
-          )
-        ],
-      ),
+        );
+      },
     );
   }
 

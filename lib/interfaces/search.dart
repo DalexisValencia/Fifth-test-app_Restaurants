@@ -5,6 +5,12 @@ class SearchInitInterface {
   List<Dishes> suggestions;
   List<Dishes> popular;
   List<Restaurants> highlightRestaurants;
+  List<Dishes> results;
+  String findIn;
   SearchInitInterface(
-      {this.suggestions, this.popular, this.highlightRestaurants});
+      {this.suggestions,
+      this.popular,
+      this.highlightRestaurants,
+      this.results,
+      this.findIn});
 }

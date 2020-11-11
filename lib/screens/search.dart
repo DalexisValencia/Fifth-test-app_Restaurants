@@ -9,7 +9,6 @@ import 'package:fith_app__restaurant/sections/DishSuggestionInSearch.dart';
 import 'package:fith_app__restaurant/sections/PopularsSuggested.dart';
 import 'package:fith_app__restaurant/sections/ResultsSearch.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
-// import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -93,7 +92,8 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
                           width: totalWidth,
                           child: CustomContainerAnimation(
                               animationChildren: animatedChildren,
-                              children: !activeResults
+                              children: !activeResults &&
+                                      suggestedSearches.results.length == 0
                                   ? SearchScreen(
                                       suggestedSearches: suggestedSearches)
                                   : SearchResults()
@@ -143,50 +143,97 @@ class FixedTopHeader extends StatefulWidget {
 
 class FixedTopHeaderState extends State<FixedTopHeader> {
   FocusNode _focus = new FocusNode();
-
+  final TextEditingController searcController = new TextEditingController();
+  SearchBloc searchBloc;
   @override
   void initState() {
     super.initState();
     //_focus.hasFocus
     // _focus.addListener(widget.onfocusSearch);
+    searchBloc = BlocProvider.of<SearchBloc>(context);
   }
 
   OutlineInputBorder defaulBorderInput() {
     return OutlineInputBorder(
-        borderRadius: BorderRadius.circular(5),
+        borderRadius: BorderRadius.only(
+            bottomRight: Radius.circular(5), topRight: Radius.circular(5)),
         borderSide:
             new BorderSide(color: Theme.of(context).cardColor, width: 0));
   }
 
-  Widget _inputSearch() {
-    return Container(
-        height: 40,
-        child: Material(
-            child: Form(
-          // key: _searchForm,
+  Widget _iconTextFormField() {
+    return BlocBuilder<SearchBloc, SearchState>(
+      builder: (BuildContext context, SearchState state) {
+        SearchInitInterface modelSearch = state.props[0];
+        return GestureDetector(
           child: Container(
-              child: TextFormField(
-            onFieldSubmitted: (e) {},
-            focusNode: _focus,
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Theme.of(context).highlightColor, // .withOpacity(0.7)
-              contentPadding: EdgeInsets.all(0),
-              prefixIcon: Icon(Icons.search),
-              prefixStyle: TextStyle(
-                  color: Theme.of(context).buttonColor,
-                  fontWeight: FontWeight.w700),
-              hintText: 'Search ...',
-              hintStyle: TextStyle(
+            width: 40,
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            child: GestureDetector(
+                child: Icon(
+                  modelSearch.results.length >= 1 && searcController.text != ''
+                      ? Icons.close
+                      : Icons.search,
+                  size: 16,
                   color: Theme.of(context).primaryColor.withOpacity(0.8),
-                  fontWeight: FontWeight.w600),
-              border: defaulBorderInput(),
-              focusedBorder: defaulBorderInput(),
-              enabledBorder: defaulBorderInput(),
-              disabledBorder: defaulBorderInput(),
-            ),
-          )),
-        )));
+                ),
+                onTap: () {
+                  print(modelSearch.results.length);
+                  if (modelSearch.results.length >= 1) {
+                    print("Limpiar los resultados");
+                  }
+                }),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _inputSearch() {
+    return Expanded(
+      flex: 1,
+      child: Material(
+          child: Form(
+        child: Container(
+            child: TextFormField(
+          onChanged: (val) {
+            searchBloc.add(Searching(term: val));
+          },
+          controller: searcController,
+          onFieldSubmitted: (e) {},
+          focusNode: _focus,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Theme.of(context).highlightColor, // .withOpacity(0.7)
+            contentPadding: EdgeInsets.all(0),
+            // prefixIcon: Icon(Icons.search),
+            // prefixStyle: TextStyle(
+            //     color: Theme.of(context).buttonColor,
+            //     fontWeight: FontWeight.w700),
+            hintText: 'Search ...',
+            hintStyle: TextStyle(
+                color: Theme.of(context).primaryColor.withOpacity(0.8),
+                fontWeight: FontWeight.w600),
+            border: defaulBorderInput(),
+            focusedBorder: defaulBorderInput(),
+            enabledBorder: defaulBorderInput(),
+            disabledBorder: defaulBorderInput(),
+          ),
+        )),
+      )),
+    );
+  }
+
+  Widget _searchWrapper() {
+    return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          color: Theme.of(context).highlightColor,
+        ),
+        height: 40,
+        child: Row(
+          children: <Widget>[_iconTextFormField(), _inputSearch()],
+        ));
   }
 
   @override
@@ -204,7 +251,7 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
           },
         ),
         Expanded(
-          child: _inputSearch(),
+          child: _searchWrapper(),
         ),
         CircleIconButton(
           icon: Icons.more_vert,
@@ -214,6 +261,12 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
         ),
       ],
     );
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    this.searcController.dispose();
   }
 }
 

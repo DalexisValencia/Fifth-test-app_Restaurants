@@ -106,7 +106,8 @@ class _HomePageState extends State<HomePage>
     return CustomContainerAnimation(
         animationChildren: animationChildren,
         children: BlocProvider(
-          create: (BuildContext context) => SearchBloc()..add(SearchInit()),
+          create: (BuildContext context) =>
+              SearchBloc()..add(SearchInit(findIn: 'all')),
           child: Container(
               padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
               width: MediaQuery.of(context).size.width,

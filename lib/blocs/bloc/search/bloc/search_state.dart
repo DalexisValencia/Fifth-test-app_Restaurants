@@ -12,6 +12,10 @@ class SearchInitial extends SearchState {
 
   SearchInitial({this.initial});
 
+  SearchInitial copyWith({SearchInitInterface initial}) {
+    return SearchInitial(initial: this.initial ?? this.initial);
+  }
+
   @override
   List<Object> get props => [this.initial];
 
