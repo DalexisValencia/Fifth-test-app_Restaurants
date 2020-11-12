@@ -101,7 +101,6 @@ class _SearchResultsState extends State<SearchResults> {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
         SearchInitInterface stateSearchResults = state.props[0];
-        print(stateSearchResults.results);
         return Container(
           width: MediaQuery.of(context).size.width,
           child: Column(
@@ -144,13 +143,16 @@ class _SearchResultsState extends State<SearchResults> {
   Widget build(BuildContext context) {
     double totalWidth = MediaQuery.of(context).size.width;
     double withDefaultPadding = totalWidth * defaultPadding;
+    //print();
     return BlocProvider(
       create: (BuildContext context) => DishBloc(),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
         height: MediaQuery.of(context).viewInsets.bottom > 1
-            ? MediaQuery.of(context).viewInsets.bottom
-            : MediaQuery.of(context).size.height,
+            ? (MediaQuery.of(context).viewInsets.bottom -
+                    (MediaQuery.of(context).size.height - 40))
+                .abs()
+            : MediaQuery.of(context).size.height - 40,
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
             child: Column(

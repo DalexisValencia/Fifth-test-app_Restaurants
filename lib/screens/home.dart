@@ -269,22 +269,43 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
       elevation: 4,
       padding: EdgeInsets.fromLTRB(14, 13, 10, 13),
       color: Theme.of(context).primaryColorLight,
-      onPressed: () {
-        final searchBloc = BlocProvider.of<SearchBloc>(context);
-        // Timer(Duration(milliseconds: 250), () {
-        //   Navigator.push(context, MaterialPageRoute(builder: (_) {
-        //     return ScaffoldSearch();
-        //   }));
-        // });
-        Navigator.of(context)
-            .push(MaterialPageRoute<ScaffoldSearch>(builder: (context) {
-          return BlocProvider.value(
-            value: searchBloc,
-            child: ScaffoldSearch(),
-          );
-        }));
-        print("ir a la busqueda");
+      onHighlightChanged: (value) {
+        //print(value);
+        if (value == false) {
+          //print("ahora vamos");
+          final searchBloc = BlocProvider.of<SearchBloc>(context);
+          // Timer(Duration(milliseconds: 250), () {
+          //   Navigator.push(context, MaterialPageRoute(builder: (_) {
+          //     return ScaffoldSearch();
+          //   }));
+          // });
+          Navigator.of(context)
+              .push(MaterialPageRoute<ScaffoldSearch>(builder: (context) {
+            return BlocProvider.value(
+              value: searchBloc,
+              child: ScaffoldSearch(),
+            );
+          }));
+          //print("ir a la busqueda");
+        }
       },
+      onPressed: () {},
+      // onPressed: () {
+      //   final searchBloc = BlocProvider.of<SearchBloc>(context);
+      //   // Timer(Duration(milliseconds: 250), () {
+      //   //   Navigator.push(context, MaterialPageRoute(builder: (_) {
+      //   //     return ScaffoldSearch();
+      //   //   }));
+      //   // });
+      //   Navigator.of(context)
+      //       .push(MaterialPageRoute<ScaffoldSearch>(builder: (context) {
+      //     return BlocProvider.value(
+      //       value: searchBloc,
+      //       child: ScaffoldSearch(),
+      //     );
+      //   }));
+      //   print("ir a la busqueda");
+      // },
       child: Row(
         children: <Widget>[
           Icon(
