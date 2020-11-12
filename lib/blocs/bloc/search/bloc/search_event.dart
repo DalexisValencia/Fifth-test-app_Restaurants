@@ -16,3 +16,5 @@ class Searching extends SearchEvent {
   final String term;
   Searching({this.term});
 }
+
+class ClearSearch extends SearchEvent {}

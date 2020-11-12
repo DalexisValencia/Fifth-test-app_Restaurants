@@ -28,14 +28,11 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
   void initState() {
     super.initState();
     this.startAnimationScreen();
-    // _focus.addListener(isfocusActive);
-
     KeyboardVisibilityNotification().addNewListener(
       onChange: (bool visible) {
         setState(() {
           this.activeResults = visible;
         });
-        print(this.activeResults);
       },
     );
   }
@@ -169,7 +166,11 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
           child: Container(
             width: 40,
             padding: EdgeInsets.symmetric(horizontal: 5),
-            child: GestureDetector(
+            child: RaisedButton(
+                padding: EdgeInsets.all(0),
+                elevation: 0,
+                color: Colors.transparent,
+                splashColor: Colors.red,
                 child: Icon(
                   modelSearch.results.length >= 1 && searcController.text != ''
                       ? Icons.close
@@ -177,10 +178,19 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
                   size: 16,
                   color: Theme.of(context).primaryColor.withOpacity(0.8),
                 ),
-                onTap: () {
-                  print(modelSearch.results.length);
-                  if (modelSearch.results.length >= 1) {
-                    print("Limpiar los resultados");
+                onPressed: () {
+                  // si no hay nada en el campo de busqueda
+                  if (searcController.value.text == '') {
+                    _focus.requestFocus();
+                  }
+                  // si existe algo en el campo de busqueda independiente de si tiene resultados o no
+                  else if (searcController.value.text != '') {
+                    //si hay resultados limpiamos
+                    if (modelSearch.results.length >= 1) {
+                      searchBloc.add(ClearSearch());
+                    }
+                    FocusScope.of(context).unfocus();
+                    searcController.clear();
                   }
                 }),
           ),
@@ -197,7 +207,11 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
         child: Container(
             child: TextFormField(
           onChanged: (val) {
-            searchBloc.add(Searching(term: val));
+            if (val.length >= 1) {
+              searchBloc.add(Searching(term: val));
+            } else if (val.length == 0) {
+              searchBloc.add(ClearSearch());
+            }
           },
           controller: searcController,
           onFieldSubmitted: (e) {},

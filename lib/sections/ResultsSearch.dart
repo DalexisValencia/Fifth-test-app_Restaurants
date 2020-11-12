@@ -1,3 +1,5 @@
+import 'package:fith_app__restaurant/Lists/menu.dart';
+import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/search.dart';
@@ -57,7 +59,6 @@ class _SearchResultsState extends State<SearchResults> {
   }
 
   Widget _recentSearch() {
-    var recentsSearchs = [1, 2, 3];
     return Container(
       width: MediaQuery.of(context).size.width,
       child: Column(
@@ -78,11 +79,11 @@ class _SearchResultsState extends State<SearchResults> {
             builder: (BuildContext context) {
               List<Widget> recent = [];
               recent.add(_totalregisters('Recents 3 of 20'));
-              recentsSearchs.map((e) {
+              dishes.map((e) {
                 recent.add(Container(
                   padding: EdgeInsets.symmetric(horizontal: 2),
-                  child: Text("busquedas recientes"),
-                  // child: QuickView(),
+                  // child: AsaCard(color: Colors.blue),
+                  child: QuickView(dish: e),
                 ));
               }).toList();
               recent.add(_seeAll('See all recents', 'recente-search'));
@@ -97,7 +98,6 @@ class _SearchResultsState extends State<SearchResults> {
   }
 
   Widget _results() {
-    var recentsSearchs = [1, 2, 3];
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
         SearchInitInterface stateSearchResults = state.props[0];
@@ -122,12 +122,10 @@ class _SearchResultsState extends State<SearchResults> {
                 builder: (BuildContext context) {
                   List<Widget> recent = [];
                   recent.add(_totalregisters('Results 3 of 40'));
-                  recentsSearchs.map((e) {
+                  dishes.map((e) {
                     recent.add(Container(
-                      padding: EdgeInsets.symmetric(horizontal: 2),
-                      child: Text("resultads"),
-                      // child: QuickView(),
-                    ));
+                        padding: EdgeInsets.symmetric(horizontal: 2),
+                        child: QuickView(dish: e)));
                   }).toList();
                   recent.add(_seeAll('See all results', 'recente-search'));
                   return Column(
@@ -146,23 +144,25 @@ class _SearchResultsState extends State<SearchResults> {
   Widget build(BuildContext context) {
     double totalWidth = MediaQuery.of(context).size.width;
     double withDefaultPadding = totalWidth * defaultPadding;
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
-      height: MediaQuery.of(context).viewInsets.bottom > 1
-          ? MediaQuery.of(context).viewInsets.bottom
-          : MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: SingleChildScrollView(
-          child: Column(
-        children: <Widget>[
-          _recentSearch(),
-          _results(),
-          // _recentSearch(),
-          SizedBox(
-            height: 50,
-          )
-        ],
-      )),
+    return BlocProvider(
+      create: (BuildContext context) => DishBloc(),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
+        height: MediaQuery.of(context).viewInsets.bottom > 1
+            ? MediaQuery.of(context).viewInsets.bottom
+            : MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        child: SingleChildScrollView(
+            child: Column(
+          children: <Widget>[
+            _recentSearch(),
+            _results(),
+            SizedBox(
+              height: 50,
+            )
+          ],
+        )),
+      ),
     );
   }
 }

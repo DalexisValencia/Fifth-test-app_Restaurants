@@ -20,14 +20,24 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       yield SearchInitial(initial: assembleInitial(event.findIn));
     }
     if (event is Searching) {
-      print(event.term);
-      print(searchState.findIn);
+      // print(event.term);
+      // print(searchState.findIn);
       yield SearchInitial(
           initial: SearchInitInterface(
               suggestions: dishes,
               popular: dishes,
               highlightRestaurants: restaurants,
               results: dishes,
+              findIn: searchState.findIn));
+    }
+    if (event is ClearSearch) {
+      print(searchState);
+      yield SearchInitial(
+          initial: SearchInitInterface(
+              suggestions: dishes,
+              popular: dishes,
+              highlightRestaurants: restaurants,
+              results: [],
               findIn: searchState.findIn));
     }
   }
