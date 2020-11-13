@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/sections/CardProductWithComments.dart';
+import 'package:fith_app__restaurant/sections/BookingCard.dart';
 import 'package:fith_app__restaurant/sections/CustomHeader.dart';
+import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:flutter/material.dart';
 
 class BookingsScreen extends StatefulWidget {
@@ -9,6 +12,28 @@ class BookingsScreen extends StatefulWidget {
 }
 
 class _BookingsScreenState extends State<BookingsScreen> {
+  bool opacityActive = true;
+  bool customAnimationActive = true;
+
+  @override
+  initState() {
+    super.initState();
+    Timer(Duration(milliseconds: animationStartTime), () {
+      setState(() {
+        opacityActive = false;
+      });
+      startAnimationCustom();
+    });
+  }
+
+  startAnimationCustom() {
+    Timer(Duration(milliseconds: animationStartTime), () {
+      setState(() {
+        customAnimationActive = false;
+      });
+    });
+  }
+
   Widget _header() {
     return Container(
       margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
@@ -22,30 +47,36 @@ class _BookingsScreenState extends State<BookingsScreen> {
     );
   }
 
+  Widget _wrapperBookingCard() {
+    List<String> allBookingCard = [
+      'no-price',
+      'price',
+      'cancel',
+      'today',
+      'tomorrow',
+      'next-week'
+    ];
+    return Container(
+      child: Builder(
+        builder: (BuildContext context) {
+          List<Widget> bookingCards = [];
+          allBookingCard.map((e) {
+            bookingCards.add(BookingCard(booking: e));
+          }).toList();
+          return Column(
+            children: bookingCards,
+          );
+        },
+      ),
+    );
+  }
+
   Widget _body() {
     return Expanded(
       child: Container(
         child: SingleChildScrollView(
           child: Column(
-            children: <Widget>[
-              BookingTitle(),
-              BookingCard(),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 300,
-                color: Colors.blue,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 300,
-                color: Colors.blue[50],
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 300,
-                color: Colors.blue[100],
-              )
-            ],
+            children: <Widget>[BookingTitle(), _wrapperBookingCard()],
           ),
         ),
       ),
@@ -55,11 +86,20 @@ class _BookingsScreenState extends State<BookingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColorLight,
-      body: Column(
-        children: <Widget>[_header(), _body()],
-      ),
-    );
+        backgroundColor: Theme.of(context).primaryColorLight,
+        body: AnimatedOpacity(
+          duration: Duration(milliseconds: animationOpacityTime),
+          opacity: opacityActive ? 0 : 1,
+          child: CustomContainerAnimation(
+            animationChildren: customAnimationActive,
+            children: Column(
+              children: <Widget>[_header(), _body()],
+            ),
+          ),
+          // child: Column(
+          //   children: <Widget>[_header(), _body()],
+          // ),
+        ));
   }
 }
 
@@ -72,70 +112,20 @@ class BookingTitle extends StatelessWidget {
         vertical: MediaQuery.of(context).size.height * 0.015,
         horizontal: MediaQuery.of(context).size.width * defaultPadding,
       ),
-      child: Text(
-        'Bookings',
-        textAlign: TextAlign.left,
-        style: Theme.of(context).textTheme.headline4.copyWith(
-            color: Theme.of(context).primaryColorDark,
-            fontWeight: FontWeight.w600),
-      ),
-    );
-  }
-}
-
-class BookingCard extends StatefulWidget {
-  @override
-  _BookingCardState createState() => _BookingCardState();
-}
-
-class _BookingCardState extends State<BookingCard> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(7),
-      decoration: BoxDecoration(
-          color: Colors.blue[200],
-          borderRadius: BorderRadius.circular(borderRadiusCards)),
-      margin: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * defaultPadding),
-      width: MediaQuery.of(context).size.width,
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width * 0.30,
-            height: MediaQuery.of(context).size.width * 0.30,
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(borderRadiusImages),
-                color: Colors.black,
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: ExactAssetImage('assets/banner/fast-food.png'))),
+          Text(
+            'Bookings',
+            textAlign: TextAlign.left,
+            style: Theme.of(context).textTheme.headline4.copyWith(
+                color: Theme.of(context).primaryColorDark,
+                fontWeight: FontWeight.w600),
           ),
-          Expanded(
-            child: Container(
-              margin: EdgeInsets.only(left: 5),
-              padding: EdgeInsets.only(left: 5),
-              height: MediaQuery.of(context).size.width * 0.30,
-              color: Colors.amber,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      CustomChip(name: '12:30 pm', icon: Icons.timer),
-                      CustomChip(name: 'Hoy', icon: Icons.timer),
-                    ],
-                  ),
-                  Container(
-                    color: Colors.red,
-                    child: Text('lo lleno todo?'),
-                  ),
-                  Text('Restaurant Name'),
-                  Text('Time reservation')
-                ],
-              ),
-            ),
-          )
+          Text('Custom your Bookings',
+              style: Theme.of(context).textTheme.button.copyWith(
+                  color: Theme.of(context).primaryColorDark,
+                  fontWeight: FontWeight.w300))
         ],
       ),
     );

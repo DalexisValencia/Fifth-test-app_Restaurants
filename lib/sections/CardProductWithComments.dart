@@ -2,6 +2,7 @@ import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/plate.detail.dart';
+import 'package:fith_app__restaurant/widgets/CustomChip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -83,11 +84,19 @@ class _CardProductWithCommentsState extends State<CardProductWithComments> {
                                     children: <Widget>[
                                       CustomChip(
                                           name: widget.dish.preparation,
-                                          icon: Icons.timer),
+                                          nameColor:
+                                              Theme.of(context).primaryColor,
+                                          icon: Icons.timer,
+                                          iconColor:
+                                              Theme.of(context).primaryColor),
                                       CustomChip(
                                           name:
                                               formatterPrice(widget.dish.price),
-                                          icon: Icons.monetization_on),
+                                          nameColor:
+                                              Theme.of(context).primaryColor,
+                                          icon: Icons.monetization_on,
+                                          iconColor:
+                                              Theme.of(context).primaryColor),
                                       Expanded(
                                         child: Container(
                                           padding: EdgeInsets.only(top: 1.8),
@@ -217,36 +226,5 @@ class _CardProductWithCommentsState extends State<CardProductWithComments> {
     String firtsLetter = name.split(' ')[0].substring(0, 1).toUpperCase();
     String secondLetter = name.split(' ')[1].substring(0, 1).toUpperCase();
     return firtsLetter + secondLetter;
-  }
-}
-
-class CustomChip extends StatelessWidget {
-  final String name;
-  final IconData icon;
-  CustomChip({this.name, this.icon});
-  @override
-  Widget build(BuildContext context) {
-    double totalWidth = MediaQuery.of(context).size.width;
-    return Container(
-        margin: EdgeInsets.only(right: totalWidth * 0.03),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(top: 1),
-              child:
-                  Icon(icon, size: 13, color: Theme.of(context).primaryColor),
-            ),
-            SizedBox(width: totalWidth * 0.005),
-            Text(
-              this.name,
-              style: Theme.of(context).textTheme.caption.copyWith(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 12.5,
-                  color: Theme.of(context).primaryColor),
-            ),
-          ],
-        ));
   }
 }

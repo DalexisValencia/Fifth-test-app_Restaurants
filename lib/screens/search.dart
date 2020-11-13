@@ -60,7 +60,6 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
       child: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
           SearchInitInterface suggestedSearches = state.props[0];
-          print(suggestedSearches);
           return Column(
             children: <Widget>[
               Container(

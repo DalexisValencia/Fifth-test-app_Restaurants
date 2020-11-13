@@ -11,7 +11,6 @@ import 'package:fith_app__restaurant/sections/CardAvailableForLunch.dart';
 import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
 import 'package:fith_app__restaurant/sections/ContactMethods.dart';
 import 'package:fith_app__restaurant/sections/CustomHeader.dart';
-// import 'package:fith_app__restaurant/sections/CardsHighlightRestaurants.dart';
 import 'package:fith_app__restaurant/sections/RoundedOptions.dart';
 import 'package:fith_app__restaurant/sections/TagsChips.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
