@@ -13,14 +13,18 @@ class SearchResults extends StatefulWidget {
 }
 
 class _SearchResultsState extends State<SearchResults> {
+  SearchBloc searchBloc;
   @override
   initState() {
     super.initState();
+    searchBloc = BlocProvider.of<SearchBloc>(context);
   }
 
   @override
   void dispose() {
     super.dispose();
+    //Cuando salimos de la vista limpiamos todos los resultados
+    searchBloc.add(ClearSearch());
   }
 
   Widget _seeAll(title, to) {
@@ -67,7 +71,7 @@ class _SearchResultsState extends State<SearchResults> {
           Container(
             margin: EdgeInsets.symmetric(vertical: 10),
             child: Text(
-              "Recientes",
+              "Recents",
               textAlign: TextAlign.start,
               style: Theme.of(context).textTheme.bodyText1.copyWith(
                     color: Theme.of(context).primaryColorDark,
@@ -101,40 +105,43 @@ class _SearchResultsState extends State<SearchResults> {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
         SearchInitInterface stateSearchResults = state.props[0];
-        return Container(
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                child: Text(
-                  "Results",
-                  textAlign: TextAlign.start,
-                  style: Theme.of(context).textTheme.bodyText1.copyWith(
-                        color: Theme.of(context).primaryColorDark,
-                        fontWeight: FontWeight.w800,
+        print(stateSearchResults.results);
+        return stateSearchResults.results.length >= 1
+            ? Container(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      child: Text(
+                        "Results",
+                        textAlign: TextAlign.start,
+                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                              color: Theme.of(context).primaryColorDark,
+                              fontWeight: FontWeight.w800,
+                            ),
                       ),
+                    ),
+                    Builder(
+                      builder: (BuildContext context) {
+                        List<Widget> recent = [];
+                        recent.add(_totalregisters('Results 3 of 40'));
+                        stateSearchResults.results.map((e) {
+                          recent.add(Container(
+                              padding: EdgeInsets.symmetric(horizontal: 2),
+                              child: QuickView(dish: e)));
+                        }).toList();
+                        // recent.add(_seeAll('See all results', 'recente-search'));
+                        return Column(
+                          children: recent,
+                        );
+                      },
+                    )
+                  ],
                 ),
-              ),
-              Builder(
-                builder: (BuildContext context) {
-                  List<Widget> recent = [];
-                  recent.add(_totalregisters('Results 3 of 40'));
-                  dishes.map((e) {
-                    recent.add(Container(
-                        padding: EdgeInsets.symmetric(horizontal: 2),
-                        child: QuickView(dish: e)));
-                  }).toList();
-                  recent.add(_seeAll('See all results', 'recente-search'));
-                  return Column(
-                    children: recent,
-                  );
-                },
               )
-            ],
-          ),
-        );
+            : SizedBox();
       },
     );
   }
@@ -143,7 +150,6 @@ class _SearchResultsState extends State<SearchResults> {
   Widget build(BuildContext context) {
     double totalWidth = MediaQuery.of(context).size.width;
     double withDefaultPadding = totalWidth * defaultPadding;
-    //print();
     return BlocProvider(
       create: (BuildContext context) => DishBloc(),
       child: Container(
@@ -157,8 +163,8 @@ class _SearchResultsState extends State<SearchResults> {
         child: SingleChildScrollView(
             child: Column(
           children: <Widget>[
-            _recentSearch(),
             _results(),
+            _recentSearch(),
             SizedBox(
               height: 50,
             )

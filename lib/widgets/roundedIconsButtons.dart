@@ -17,7 +17,13 @@ class _CircleIconButtonState extends State<CircleIconButton> {
       minWidth: 40,
       elevation: 0,
       splashColor: Theme.of(context).buttonColor,
-      onPressed: widget.trigger,
+      onPressed: () {},
+      onHighlightChanged: (value) {
+        if (value == false) {
+          print('yo solo lo ejecuto cuando el onHighlightChanged sea falso');
+          widget.trigger();
+        }
+      },
       color: widget.bgColor,
       padding: EdgeInsets.all(0),
       shape: CircleBorder(),

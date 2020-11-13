@@ -1,6 +1,4 @@
-import 'package:fith_app__restaurant/Lists/menu.dart';
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
-// import 'package:fith_app__restaurant/interfaces/HightlightResturantsInterface.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
 import 'package:fith_app__restaurant/screens/restaurant.details.dart';
 import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';

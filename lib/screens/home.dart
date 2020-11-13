@@ -270,9 +270,7 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
       padding: EdgeInsets.fromLTRB(14, 13, 10, 13),
       color: Theme.of(context).primaryColorLight,
       onHighlightChanged: (value) {
-        //print(value);
         if (value == false) {
-          //print("ahora vamos");
           final searchBloc = BlocProvider.of<SearchBloc>(context);
           // Timer(Duration(milliseconds: 250), () {
           //   Navigator.push(context, MaterialPageRoute(builder: (_) {
@@ -286,7 +284,6 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
               child: ScaffoldSearch(),
             );
           }));
-          //print("ir a la busqueda");
         }
       },
       onPressed: () {},

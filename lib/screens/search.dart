@@ -53,7 +53,7 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
 
   Widget _bodyScaffold() {
     double totalWidth = MediaQuery.of(context).size.width;
-    double totalHeight = MediaQuery.of(context).size.height;
+    // double totalHeight = MediaQuery.of(context).size.height;
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
     return Container(
