@@ -1,7 +1,7 @@
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
-// import 'package:fith_app__restaurant/screens/disscover.dart';
+import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
+import 'package:fith_app__restaurant/screens/Bookings.dart';
 import 'package:fith_app__restaurant/screens/home.dart';
-import 'package:fith_app__restaurant/screens/restaurant.details.dart';
 import 'package:fith_app__restaurant/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -51,12 +51,16 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                         controller: _tabController, animateScreen: true),
                   ),
                   Container(
-                    child: tabStateInit == 1 ? ScaffoldSearch() : SizedBox(),
+                    child: tabStateInit == 1
+                        ? BlocProvider(
+                            create: (BuildContext context) =>
+                                SearchBloc()..add(SearchInit(findIn: 'all')),
+                            child: ScaffoldSearch(),
+                          )
+                        : SizedBox(),
                   ),
                   Container(
-                    child: tabStateInit == 2
-                        ? RestaurantDetailWrapper()
-                        : SizedBox(),
+                    child: tabStateInit == 2 ? BookingsScreen() : SizedBox(),
                   ),
                   Container(
                     child: Center(
@@ -116,7 +120,7 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                         child: FittedBox(
                           fit: BoxFit.scaleDown,
                           child: Text(
-                            "Bookmark",
+                            "Bookings",
                             style: TextStyle(fontSize: 12),
                           ),
                         )),

@@ -53,7 +53,6 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
 
   Widget _bodyScaffold() {
     double totalWidth = MediaQuery.of(context).size.width;
-    // double totalHeight = MediaQuery.of(context).size.height;
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
     return Container(
@@ -61,6 +60,7 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
       child: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
           SearchInitInterface suggestedSearches = state.props[0];
+          print(suggestedSearches);
           return Column(
             children: <Widget>[
               Container(
@@ -73,7 +73,8 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
                   //   tag: 'mainSearch',
                   //   child: FixedTopHeader(),
                   // )
-                  child: FixedTopHeader(),
+                  child:
+                      suggestedSearches == null ? SizedBox() : FixedTopHeader(),
                 ),
               ),
               Expanded(
@@ -82,20 +83,22 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
                   opacity: animateOpacity ? 0 : 1,
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    // height: totalHeight -
-                    //     (withDefaultPadding + (defaultHeaderCustomHeight + 2)),
                     child: SingleChildScrollView(
-                        child: Container(
-                            width: totalWidth,
-                            // child:
-                            //     SearchScreen(suggestedSearches: suggestedSearches)
-                            child: CustomContainerAnimation(
-                                animationChildren: animatedChildren,
-                                children: !activeResults &&
-                                        suggestedSearches.results.length == 0
-                                    ? SearchScreen(
-                                        suggestedSearches: suggestedSearches)
-                                    : SearchResults()))),
+                        child: suggestedSearches == null
+                            ? SizedBox()
+                            : Container(
+                                width: totalWidth,
+                                // child:
+                                //     SearchScreen(suggestedSearches: suggestedSearches)
+                                child: CustomContainerAnimation(
+                                    animationChildren: animatedChildren,
+                                    children: !activeResults &&
+                                            suggestedSearches.results.length ==
+                                                0
+                                        ? SearchScreen(
+                                            suggestedSearches:
+                                                suggestedSearches)
+                                        : SearchResults()))),
                   ),
                 ),
               )
