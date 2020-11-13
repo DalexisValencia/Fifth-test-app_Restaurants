@@ -1,4 +1,5 @@
 import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:fith_app__restaurant/sections/CardProductWithComments.dart';
 import 'package:fith_app__restaurant/sections/CustomHeader.dart';
 import 'package:flutter/material.dart';
 
@@ -28,6 +29,7 @@ class _BookingsScreenState extends State<BookingsScreen> {
           child: Column(
             children: <Widget>[
               BookingTitle(),
+              BookingCard(),
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: 300,
@@ -76,6 +78,65 @@ class BookingTitle extends StatelessWidget {
         style: Theme.of(context).textTheme.headline4.copyWith(
             color: Theme.of(context).primaryColorDark,
             fontWeight: FontWeight.w600),
+      ),
+    );
+  }
+}
+
+class BookingCard extends StatefulWidget {
+  @override
+  _BookingCardState createState() => _BookingCardState();
+}
+
+class _BookingCardState extends State<BookingCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(7),
+      decoration: BoxDecoration(
+          color: Colors.blue[200],
+          borderRadius: BorderRadius.circular(borderRadiusCards)),
+      margin: EdgeInsets.symmetric(
+          horizontal: MediaQuery.of(context).size.width * defaultPadding),
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        children: <Widget>[
+          Container(
+            width: MediaQuery.of(context).size.width * 0.30,
+            height: MediaQuery.of(context).size.width * 0.30,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(borderRadiusImages),
+                color: Colors.black,
+                image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: ExactAssetImage('assets/banner/fast-food.png'))),
+          ),
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(left: 5),
+              padding: EdgeInsets.only(left: 5),
+              height: MediaQuery.of(context).size.width * 0.30,
+              color: Colors.amber,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Row(
+                    children: <Widget>[
+                      CustomChip(name: '12:30 pm', icon: Icons.timer),
+                      CustomChip(name: 'Hoy', icon: Icons.timer),
+                    ],
+                  ),
+                  Container(
+                    color: Colors.red,
+                    child: Text('lo lleno todo?'),
+                  ),
+                  Text('Restaurant Name'),
+                  Text('Time reservation')
+                ],
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
