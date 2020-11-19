@@ -1,4 +1,5 @@
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
+import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/plate.detail.dart';
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
@@ -8,7 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class QuickView extends StatefulWidget {
   final Dishes dish;
-  QuickView({this.dish});
+  final bool borderCustomColor;
+  QuickView({this.dish, this.borderCustomColor = false});
   @override
   _QuickViewState createState() => _QuickViewState();
 }
@@ -28,18 +30,27 @@ class _QuickViewState extends State<QuickView> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return AnimatedContainer(
+      duration: Duration(
+        milliseconds: animationOpacityTime,
+      ),
       decoration: BoxDecoration(
-          border:
-              Border.all(color: Theme.of(context).accentColor.withOpacity(0.2)),
+          border: Border.all(
+            color: widget.borderCustomColor
+                ? Theme.of(context).buttonColor
+                : Theme.of(context).accentColor.withOpacity(0.2),
+            width: widget.borderCustomColor ? 1.2 : 1,
+          ),
           borderRadius: BorderRadius.circular(8)),
       margin: EdgeInsets.only(bottom: 5),
       child: MaterialButton(
           elevation: 1,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
-          color: Theme.of(context).primaryColorLight,
+          color: widget.borderCustomColor
+              ? Color(0xFFffe8e9)
+              : Theme.of(context).primaryColorLight,
           padding: EdgeInsets.all(0),
-          splashColor: Colors.red,
+          splashColor: Theme.of(context).buttonColor,
           onPressed: () {
             instanceBlocDish.add(DishStart(currentDish: widget.dish));
 

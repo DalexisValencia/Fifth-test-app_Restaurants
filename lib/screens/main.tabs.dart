@@ -1,6 +1,7 @@
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
 import 'package:fith_app__restaurant/screens/bookings.dart';
+import 'package:fith_app__restaurant/screens/favorites.dart';
 import 'package:fith_app__restaurant/screens/home.dart';
 import 'package:fith_app__restaurant/screens/search.dart';
 import 'package:flutter/material.dart';
@@ -69,20 +70,11 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                           )
                         : SizedBox(),
                   ),
-                  // BlocProvider(
-                  //   create: (BuildContext context) =>
-                  //       SearchBloc()..add(SearchInit(findIn: 'all')),
-                  //   // child: tabStateInit == 1 ? Text('mi ifno perros') : SizedBox(),
-                  //   child: ScaffoldSearch(),
-                  // ),
-                  BookingsScreen(),
-                  // Container(
-                  //   child: tabStateInit == 2 ? BookingsScreen() : SizedBox(),
-                  // ),
                   Container(
-                    child: Center(
-                      child: Text('En construcción'),
-                    ),
+                    child: tabStateInit == 2 ? BookingsScreen() : SizedBox(),
+                  ),
+                  Container(
+                    child: tabStateInit == 3 ? FavoritesScreen() : SizedBox(),
                   ),
                   Container(
                     child: Center(
