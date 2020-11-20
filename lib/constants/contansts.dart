@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 
 const defaultPadding = 0.07;
 const double borderRadiusImages = 12;
+const double spaceUntilBottom = 20;
 const double borderRadiusCards = 5;
 const int animationStartTime = 50; // time in milliseconds
 const int animationOpacityTime = 500; // time in milliseconds
