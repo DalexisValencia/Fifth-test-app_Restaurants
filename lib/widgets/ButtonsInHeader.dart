@@ -21,7 +21,8 @@ class ArrowBackHeaderButton extends StatelessWidget {
 
 class TrashFavoriteHeaderButton extends StatefulWidget {
   final int amout;
-  TrashFavoriteHeaderButton({this.amout});
+  final Function onClick;
+  TrashFavoriteHeaderButton({this.amout, this.onClick});
   @override
   _TrashFavoriteHeaderButtonState createState() =>
       _TrashFavoriteHeaderButtonState();
@@ -44,10 +45,7 @@ class _TrashFavoriteHeaderButtonState extends State<TrashFavoriteHeaderButton> {
             icon: Icons.delete,
             color: Theme.of(context).primaryColorDark,
             bgColor: Theme.of(context).primaryColorDark.withOpacity(0.2),
-            trigger: () {
-              print(
-                  "Comunicarse con el bloque de favoritos y eliminar esto!!!");
-            },
+            trigger: widget.onClick,
           ),
           Positioned(
             top: 2,

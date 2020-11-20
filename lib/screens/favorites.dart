@@ -61,6 +61,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         iconLeft: ArrowBackHeaderButton(),
         iconRigth: TrashFavoriteHeaderButton(
           amout: forDelete.length,
+          onClick: () {
+            print("eliminar los favoritos seleccionados");
+          },
         ),
       ),
     );
