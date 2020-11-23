@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/screens/main.tabs.dart';
 import 'package:fith_app__restaurant/screens/splashScreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(MyApp());
@@ -49,6 +51,11 @@ class _MainScreenState extends State<MainScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return splashScreen ? SplashScreen() : MainTabsWrapper();
+    return splashScreen
+        ? SplashScreen()
+        : BlocProvider<CartBloc>(
+            create: (BuildContext context) => CartBloc(),
+            child: MainTabsWrapper(),
+          );
   }
 }

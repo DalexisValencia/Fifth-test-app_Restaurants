@@ -1,3 +1,4 @@
+import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
 import 'package:fith_app__restaurant/screens/bookings.dart';
@@ -50,117 +51,160 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
     return DefaultTabController(
       length: 5,
       child: Scaffold(
-          resizeToAvoidBottomPadding: false, //avoid flutter ugly alert
-          backgroundColor: Theme.of(context).primaryColorLight,
-          body: BlocProvider(
+        resizeToAvoidBottomPadding: false, //avoid flutter ugly alert
+        backgroundColor: Theme.of(context).primaryColorLight,
+        body: MultiBlocProvider(
+          providers: [
+            BlocProvider<DiscoveryBloc>(
               create: (BuildContext context) => DiscoveryBloc(),
-              child: TabBarView(
-                controller: _tabController,
-                physics: NeverScrollableScrollPhysics(),
-                children: <Widget>[
-                  Container(
-                    child: HomePage(
-                        controller: _tabController, animateScreen: true),
+            ),
+            // BlocProvider<CartblocBloc>(
+            //   create: (BuildContext context) => CartblocBloc(),
+            // )
+          ],
+          child: TabBarView(
+            controller: _tabController,
+            physics: NeverScrollableScrollPhysics(),
+            children: <Widget>[
+              Container(
+                child:
+                    HomePage(controller: _tabController, animateScreen: true),
+              ),
+              Container(
+                child: tabStateInit == 1
+                    ? BlocProvider(
+                        create: (BuildContext context) =>
+                            SearchBloc()..add(SearchInit(findIn: 'all')),
+                        child: ScaffoldSearch(),
+                      )
+                    : SizedBox(),
+              ),
+              Container(
+                child: tabStateInit == 2 ? BookingsScreen() : SizedBox(),
+              ),
+              Container(
+                child: tabStateInit == 3 ? FavoritesScreen() : SizedBox(),
+              ),
+              Container(
+                child: tabStateInit == 4 ? ScreenCart() : SizedBox(),
+              ),
+            ],
+          ),
+        ),
+        // body: BlocProvider(
+        //   create: (BuildContext context) => DiscoveryBloc(),
+        //   child: TabBarView(
+        //     controller: _tabController,
+        //     physics: NeverScrollableScrollPhysics(),
+        //     children: <Widget>[
+        //       Container(
+        //         child:
+        //             HomePage(controller: _tabController, animateScreen: true),
+        //       ),
+        //       Container(
+        //         child: tabStateInit == 1
+        //             ? BlocProvider(
+        //                 create: (BuildContext context) =>
+        //                     SearchBloc()..add(SearchInit(findIn: 'all')),
+        //                 child: ScaffoldSearch(),
+        //               )
+        //             : SizedBox(),
+        //       ),
+        //       Container(
+        //         child: tabStateInit == 2 ? BookingsScreen() : SizedBox(),
+        //       ),
+        //       Container(
+        //         child: tabStateInit == 3 ? FavoritesScreen() : SizedBox(),
+        //       ),
+        //       Container(
+        //         child: tabStateInit == 4 ? ScreenCart() : SizedBox(),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        bottomNavigationBar: Container(
+          color: Colors.white,
+          height: 60,
+          child: TabBar(
+            controller: _tabController,
+            labelPadding: EdgeInsets.only(right: 5),
+            labelColor: Theme.of(context).primaryColorDark,
+            unselectedLabelColor: Theme.of(context).accentColor,
+            indicatorColor: Color(0X000000),
+            onTap: (tab) {
+              goToTabs(tab);
+            },
+            tabs: [
+              Tab(
+                  iconMargin: EdgeInsets.all(0),
+                  icon: Icon(
+                    Icons.home,
+                    size: 20,
                   ),
-                  Container(
-                    child: tabStateInit == 1
-                        ? BlocProvider(
-                            create: (BuildContext context) =>
-                                SearchBloc()..add(SearchInit(findIn: 'all')),
-                            child: ScaffoldSearch(),
-                          )
-                        : SizedBox(),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      "Home",
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  )),
+              Tab(
+                  iconMargin: EdgeInsets.all(0),
+                  icon: Icon(
+                    Icons.restaurant,
+                    size: 20,
                   ),
-                  Container(
-                    child: tabStateInit == 2 ? BookingsScreen() : SizedBox(),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      "Delicious",
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  )),
+              Tab(
+                  iconMargin: EdgeInsets.all(0),
+                  icon: Icon(
+                    Icons.class_,
+                    size: 20,
                   ),
-                  Container(
-                    child: tabStateInit == 3 ? FavoritesScreen() : SizedBox(),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      "Bookings",
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  )),
+              Tab(
+                  iconMargin: EdgeInsets.all(0),
+                  icon: Icon(
+                    Icons.favorite,
+                    size: 20,
                   ),
-                  Container(
-                    child: tabStateInit == 4 ? ScreenCart() : SizedBox(),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      "Favs",
+                      style: TextStyle(fontSize: 12),
+                    ),
+                  )),
+              Tab(
+                iconMargin: EdgeInsets.all(0),
+                icon: Icon(
+                  Icons.shopping_cart,
+                  size: 20,
+                ),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    "Car",
+                    style: TextStyle(fontSize: 12),
                   ),
-                ],
-              )),
-          bottomNavigationBar: Container(
-              color: Colors.white,
-              height: 60,
-              child: TabBar(
-                  controller: _tabController,
-                  labelPadding: EdgeInsets.only(right: 5),
-                  labelColor: Theme.of(context).primaryColorDark,
-                  unselectedLabelColor: Theme.of(context).accentColor,
-                  indicatorColor: Color(0X000000),
-                  onTap: (tab) {
-                    goToTabs(tab);
-                  },
-                  tabs: [
-                    Tab(
-                        iconMargin: EdgeInsets.all(0),
-                        icon: Icon(
-                          Icons.home,
-                          size: 20,
-                        ),
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            "Home",
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        )),
-                    Tab(
-                        iconMargin: EdgeInsets.all(0),
-                        icon: Icon(
-                          Icons.restaurant,
-                          size: 20,
-                        ),
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            "Delicious",
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        )),
-                    Tab(
-                        iconMargin: EdgeInsets.all(0),
-                        icon: Icon(
-                          Icons.class_,
-                          size: 20,
-                        ),
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            "Bookings",
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        )),
-                    Tab(
-                        iconMargin: EdgeInsets.all(0),
-                        icon: Icon(
-                          Icons.favorite,
-                          size: 20,
-                        ),
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            "Favs",
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        )),
-                    Tab(
-                        iconMargin: EdgeInsets.all(0),
-                        icon: Icon(
-                          Icons.shopping_cart,
-                          size: 20,
-                        ),
-                        child: FittedBox(
-                          fit: BoxFit.scaleDown,
-                          child: Text(
-                            "Car",
-                            style: TextStyle(fontSize: 12),
-                          ),
-                        )),
-                  ]))),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -190,9 +234,14 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
 
   @override
   Widget build(BuildContext context) {
+    final cartBlocPrueba = BlocProvider.of<CartBloc>(context);
     return WillPopScope(
       onWillPop: _onWillPop,
-      child: _tabsController(),
+      // child: _tabsController(),
+      child: BlocProvider.value(
+        value: cartBlocPrueba,
+        child: _tabsController(),
+      ),
     );
   }
 }

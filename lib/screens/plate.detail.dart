@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dishAmount/bloc/dishamount_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
@@ -91,6 +92,9 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
                       BlocProvider<DishamountBloc>(
                         create: (BuildContext context) => DishamountBloc(),
                       ),
+                      BlocProvider<CartBloc>(
+                        create: (BuildContext context) => CartBloc(),
+                      )
                     ],
                     child: Stack(
                       children: <Widget>[
@@ -342,6 +346,14 @@ class AddtoCar extends StatefulWidget {
 
 class _AddtoCarState extends State<AddtoCar> {
   bool _addingCar = false;
+  CartBloc cartbloc;
+
+  @override
+  initState() {
+    super.initState();
+    cartbloc = BlocProvider.of<CartBloc>(context);
+  }
+
   String finalPrice(amount, additionals) {
     List<PricePromotions> specialPrice;
     List<PricePromotions> promotionsPrices =
@@ -360,7 +372,10 @@ class _AddtoCarState extends State<AddtoCar> {
                 .toString();
   }
 
-  void addingCardIndication() {
+  void addingCardIndication(Dishes detailDish) {
+    cartbloc.add(
+      AddToCart(dishToCart: detailDish),
+    );
     setState(() {
       _addingCar = true;
     });
@@ -433,14 +448,14 @@ class _AddtoCarState extends State<AddtoCar> {
                       onPressed: _addingCar
                           ? null
                           : () {
-                              print(widget.dish);
-                              print(BlocProvider.of<DishamountBloc>(context)
-                                  .state
-                                  .props[0]);
-                              print(BlocProvider.of<AdditionalsBloc>(context)
-                                  .state
-                                  .props[0]);
-                              addingCardIndication();
+                              // print(widget.dish);
+                              // print(BlocProvider.of<DishamountBloc>(context)
+                              //     .state
+                              //     .props[0]);
+                              // print(BlocProvider.of<AdditionalsBloc>(context)
+                              //     .state
+                              //     .props[0]);
+                              addingCardIndication(widget.dish);
                             },
                       elevation: 0,
                       icon: _addingCar

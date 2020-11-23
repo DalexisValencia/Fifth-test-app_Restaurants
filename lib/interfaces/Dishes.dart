@@ -5,18 +5,18 @@ import 'package:flutter/material.dart';
 // import 'package:fith_app__restaurant/interfaces/categories.dart';
 
 class Dishes {
-  final String name;
-  final String details;
-  final String image;
-  final double price;
-  final double rating;
-  final String preparation;
-  final List<Comments> comments;
-  final List<String> category;
-  final List<Adittional> additions;
-  final List<Ingredients> ingredients;
-  final int amount;
-  final Promotions promotionLabel;
+  String name;
+  String details;
+  String image;
+  double price;
+  double rating;
+  String preparation;
+  List<Comments> comments;
+  List<String> category;
+  List<Adittional> additions;
+  List<Ingredients> ingredients;
+  int amount;
+  Promotions promotionLabel;
 
   Dishes(
       {this.name,
@@ -36,15 +36,14 @@ class Dishes {
 }
 
 class Promotions {
-  final Color color;
-  final String label;
-  final bool active;
-  final List<PricePromotions> pricePromotions;
+  Color color;
+  String label;
+  bool active;
+  List<PricePromotions> pricePromotions;
   Promotions({this.color, this.label, this.active, this.pricePromotions});
 }
 
 class PricePromotions {
-  final amount;
-  final price;
+  int amount, price;
   PricePromotions({this.amount, this.price});
 }

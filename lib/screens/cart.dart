@@ -1,11 +1,15 @@
 import 'dart:ui';
 
+import 'package:fith_app__restaurant/Lists/menu.dart';
+import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/sections/AppBarCustom.dart';
 import 'package:fith_app__restaurant/sections/ItemCartCard.dart';
 import 'package:fith_app__restaurant/widgets/ButtonsInHeader.dart';
 import 'package:fith_app__restaurant/widgets/ScreenTitle.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScreenCart extends StatefulWidget {
   @override
@@ -35,23 +39,29 @@ class _ScreenCartState extends State<ScreenCart> {
     );
   }
 
-  Widget _screenTitle() {
+  Widget _screenTitle(state) {
+    // List<Dishes> cartDishes = state.props[0];
     return ScreenTitle(
       title: 'Cart',
-      subtitle: 'There are 10 items in your cart', //there are no items
+      subtitle: state is CartblocInitial
+          ? ''
+          : 'There are 10 items in your cart', //there are no items
     );
   }
 
-  Widget _bodyCart() {
+  Widget _bodyCart(CartState state) {
     return Expanded(
       child: Container(
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              _screenTitle(),
-              // EmptyCart(),
-              Cart(),
+              _screenTitle(state),
+              state is CartblocInitial
+                  ? EmptyCart()
+                  : Cart(
+                      blocState: state,
+                    ),
               SizedBox(
                 height: 20,
               )
@@ -65,13 +75,21 @@ class _ScreenCartState extends State<ScreenCart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          _screenNavigator(),
-          _bodyCart(),
-        ],
-      ),
-    );
+        //
+        body: BlocBuilder<CartBloc, CartState>(
+      builder: (context, state) {
+        print(":::::dentro de cart.dart");
+        print(state);
+        print(state.props);
+        print(":::::dentro de cart.dart");
+        return Column(
+          children: [
+            _screenNavigator(),
+            _bodyCart(state),
+          ],
+        );
+      },
+    ));
   }
 }
 
@@ -105,7 +123,8 @@ class EmptyCart extends StatelessWidget {
 }
 
 class Cart extends StatelessWidget {
-  final List<int> _cartItems = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1];
+  final CartState blocState;
+  Cart({this.blocState});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -113,10 +132,11 @@ class Cart extends StatelessWidget {
       child: Builder(
         builder: (BuildContext context) {
           List<Widget> itemsCard = [];
-          _cartItems.asMap().entries.map((e) {
+          List<Dishes> cartDishes = blocState.props[0];
+          cartDishes.asMap().entries.map((e) {
             itemsCard.add(
               CompleteCartItem(
-                indexTest: e.key,
+                indexTest: 2,
               ),
             );
           }).toList();
