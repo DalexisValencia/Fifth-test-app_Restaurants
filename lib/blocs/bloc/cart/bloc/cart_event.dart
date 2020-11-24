@@ -10,8 +10,7 @@ abstract class CartEvent extends Equatable {
 class GetAllItems extends CartEvent {}
 
 class AddToCart extends CartEvent {
-  // final Dishes dishToCart;
-  final int dish;
+  final Dishes dish;
   AddToCart({this.dish});
 
   @override

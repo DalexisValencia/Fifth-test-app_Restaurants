@@ -1,24 +1,34 @@
 //Componente utilizado para armar la tarjeta de carrito cuando tiene modificadores
 import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:fith_app__restaurant/interfaces/Dishes.dart';
+import 'package:fith_app__restaurant/interfaces/aditional.dart';
 import 'package:fith_app__restaurant/widgets/CustomChip.dart';
 import 'package:flutter/material.dart';
 
 class CompleteCartItem extends StatelessWidget {
-  final int indexTest;
-  CompleteCartItem({Key key, this.indexTest}) : super(key: key);
+  final Dishes dish;
+  CompleteCartItem({Key key, this.dish}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: 5,
       ),
+      // decoration: BoxDecoration(
+      //   border: Border.all(
+      //     color: Colors.red,
+      //     width: 1.5,
+      //   ),
+      // ),
       child: Column(
         children: [
           ItemCart(
-            withModifiers: indexTest == 0 || indexTest == 1 ? true : false,
+            dish: dish,
           ),
-          indexTest == 0 || indexTest == 1
-              ? ExpansionModifiersCartItem()
+          dish.additions.length >= 1
+              ? ExpansionModifiersCartItem(
+                  additionals: dish.additions,
+                )
               : SizedBox(),
         ],
       ),
@@ -27,8 +37,8 @@ class CompleteCartItem extends StatelessWidget {
 }
 
 class ItemCart extends StatelessWidget {
-  final bool withModifiers;
-  ItemCart({Key key, this.withModifiers}) : super(key: key);
+  final Dishes dish;
+  ItemCart({Key key, this.dish}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -40,7 +50,7 @@ class ItemCart extends StatelessWidget {
           // vertical: 5,
         ),
         decoration: BoxDecoration(
-          borderRadius: !withModifiers
+          borderRadius: dish.additions.length >= 1
               ? BorderRadius.circular(borderRadiusCards)
               : BorderRadius.only(
                   topLeft: Radius.circular(borderRadiusCards),
@@ -62,7 +72,9 @@ class ItemCart extends StatelessWidget {
                 borderRadius: BorderRadius.circular(borderRadiusImages),
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: ExactAssetImage("assets/banner/french-food.png"),
+                  image: ExactAssetImage(
+                    dish.image,
+                  ),
                 ),
               ),
             ),
@@ -81,13 +93,13 @@ class ItemCart extends StatelessWidget {
                     Row(
                       children: <Widget>[
                         CustomChip(
-                          name: '12 min',
+                          name: dish.preparation,
                           nameColor: Theme.of(context).primaryColor,
                           icon: Icons.timer,
                           iconColor: Theme.of(context).primaryColor,
                         ),
                         CustomChip(
-                          name: '12.000',
+                          name: formatterPrice(dish.price),
                           nameColor: Theme.of(context).buttonColor,
                           icon: Icons.monetization_on,
                           iconColor: Theme.of(context).buttonColor,
@@ -95,7 +107,7 @@ class ItemCart extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      "nombre del producto",
+                      dish.name,
                       style: Theme.of(context).textTheme.bodyText1.copyWith(
                             color: Theme.of(context).primaryColorDark,
                             fontWeight: FontWeight.w700,
@@ -104,9 +116,9 @@ class ItemCart extends StatelessWidget {
                     ),
                     Text(
                       // widget.dish.details.substring(0, 73) +'...',
-                      "la descripcion de este producto no debe ser tan grande, es mas sencilla para que quea la descripcion de este producto no debe ser tan grande, es mas sencilla para que quea"
-                              .substring(0, 60) +
-                          " ... ",
+                      dish.details.length > 55
+                          ? dish.details.substring(0, 58) + " ... "
+                          : dish.details,
                       style: Theme.of(context).textTheme.overline.copyWith(
                             letterSpacing: 0,
                             color: Theme.of(context).primaryColor,
@@ -116,7 +128,7 @@ class ItemCart extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "\$12.000",
+                          "\$${formatterPrice(dish.price)}",
                           style: Theme.of(context).textTheme.caption.copyWith(
                                 color: Theme.of(context).buttonColor,
                                 fontWeight: FontWeight.w700,
@@ -164,7 +176,7 @@ class ItemCart extends StatelessWidget {
                     height: 30,
                     child: Center(
                       child: Text(
-                        "1",
+                        dish.amount.toString(),
                         style: Theme.of(context).textTheme.button.copyWith(
                               fontSize: 12,
                               color: Theme.of(context).primaryColorDark,
@@ -202,6 +214,8 @@ class ItemCart extends StatelessWidget {
 }
 
 class ExpansionModifiersCartItem extends StatefulWidget {
+  final List<Adittional> additionals;
+  ExpansionModifiersCartItem({this.additionals});
   @override
   _ExpansionModifiersCartItemState createState() =>
       _ExpansionModifiersCartItemState();
@@ -293,52 +307,64 @@ class _ExpansionModifiersCartItemState
                     bottomRight: Radius.circular(5),
                   ),
                 ),
-                child: Column(
-                  children: [
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Cubiertos",
-                            style: Theme.of(context).textTheme.caption.copyWith(
-                                  color: Theme.of(context).primaryColorDark,
-                                ),
+                child: Builder(
+                  builder: (BuildContext context) {
+                    List<Widget> modifiers = [];
+                    widget.additionals.map((e) {
+                      //Buscamos que haya algun elemento activo
+                      Iterable<AditionalsOptions> isActive = e.children
+                          .where((element) => element.isActive == true);
+                      // print("::");
+                      // //print(isActive.elementAt(0));
+                      // print("::");
+                      for (var option in isActive) {
+                        // print(option.name);
+                        // print(option.isActive);
+                        // print(option.price);
+                        modifiers.add(
+                          ModifiersOption(
+                            option: option,
                           ),
-                          Text(
-                            "si",
-                            style: Theme.of(context).textTheme.caption.copyWith(
-                                  color: Theme.of(context).primaryColorDark,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 5),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Bebida",
-                            style: Theme.of(context).textTheme.caption.copyWith(
-                                  color: Theme.of(context).primaryColorDark,
-                                ),
-                          ),
-                          Text(
-                            "15.000",
-                            style: Theme.of(context).textTheme.caption.copyWith(
-                                  color: Theme.of(context).primaryColorDark,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+                        );
+                      }
+                      //si la seleccion en musltiple
+                      // if (e.isMulti) {}
+                    }).toList();
+                    return Column(
+                      children: modifiers,
+                    );
+                  },
                 ),
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ModifiersOption extends StatelessWidget {
+  final AditionalsOptions option;
+  ModifiersOption({this.option});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            option.name,
+            style: Theme.of(context).textTheme.caption.copyWith(
+                  color: Theme.of(context).primaryColorDark,
+                ),
+          ),
+          Text(
+            option.price != 0 ? "\$${formatterPrice(option.price)}" : 'Si',
+            style: Theme.of(context).textTheme.caption.copyWith(
+                  color: Theme.of(context).primaryColorDark,
+                ),
           ),
         ],
       ),

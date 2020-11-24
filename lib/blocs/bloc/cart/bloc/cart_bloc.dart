@@ -14,9 +14,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   Stream<CartState> mapEventToState(
     CartEvent event,
   ) async* {
-    List<int> stateDishesCart = state.props[0];
+    List<Dishes> stateDishesCart = state.props[0];
     if (event is AddToCart) {
-      List<int> finaldishes = List.from(stateDishesCart)..add(event.dish);
+      List<Dishes> finaldishes = List.from(stateDishesCart)..add(event.dish);
       print(finaldishes);
       // // print(state.props[0]);
       // // List<Dishes> finalDishes = state.props;

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:fith_app__restaurant/Lists/menu.dart';
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
@@ -17,6 +18,18 @@ class ScreenCart extends StatefulWidget {
 
 class _ScreenCartState extends State<ScreenCart> {
   List<int> deleteToCard = [];
+  CartBloc cartBloc;
+
+  @override
+  initState() {
+    super.initState();
+    cartBloc = BlocProvider.of<CartBloc>(context);
+  }
+
+  void selectItem(e) {
+    print('info');
+  }
+
   Widget _screenNavigator() {
     return Container(
       margin: EdgeInsets.only(
@@ -38,28 +51,31 @@ class _ScreenCartState extends State<ScreenCart> {
     );
   }
 
-  Widget _screenTitle(state) {
+  Widget _screenTitle(bool empty, int amount) {
     // List<Dishes> cartDishes = state.props[0];
     return ScreenTitle(
       title: 'Cart',
-      subtitle: state is CartblocInitial
+      subtitle: empty
           ? ''
-          : 'There are 10 items in your cart', //there are no items
+          : 'There are $amount items in your cart', //there are no items
     );
   }
 
-  Widget _bodyCart(CartState state) {
+  Widget _bodyCart(bool empty, List<Dishes> listDishes) {
     return Expanded(
       child: Container(
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              _screenTitle(state),
-              state is CartblocInitial
+              _screenTitle(empty, listDishes.length),
+              empty
                   ? EmptyCart()
                   : Cart(
-                      blocState: state,
+                      cartDishes: listDishes,
+                      onSelectThis: (index) {
+                        print(index);
+                      },
                     ),
               SizedBox(
                 height: 20,
@@ -73,34 +89,26 @@ class _ScreenCartState extends State<ScreenCart> {
 
   @override
   Widget build(BuildContext context) {
-    final cartBloc = BlocProvider.of<CartBloc>(context);
     return Scaffold(
         //
         body: BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
-        List<int> inCart = state.props[0];
-        // print(":::::dentro de cart.dart");
-        // print(state);
-        // print(state.props);
-        // print(":::::dentro de cart.dart");
+        List<Dishes> cartDishes = state.props[0];
+        // // print(state.props);
         return Column(
           children: [
             _screenNavigator(),
-            // _bodyCart(state),
-            Builder(
-              builder: (BuildContext context) {
-                List<Widget> numverCart = [];
-                inCart.map((e) {
-                  numverCart.add(Text(e.toString()));
-                }).toList();
-                return Column(
-                  children: numverCart,
-                );
-              },
+            _bodyCart(
+              state is CartblocInitial || cartDishes.length == 0,
+              cartDishes,
             ),
             RaisedButton(
               onPressed: () {
-                cartBloc.add(AddToCart(dish: 1));
+                cartBloc.add(
+                  AddToCart(
+                    dish: dishes[0],
+                  ),
+                );
               },
               child: Text("añadir"),
             )
@@ -141,8 +149,12 @@ class EmptyCart extends StatelessWidget {
 }
 
 class Cart extends StatelessWidget {
-  final CartState blocState;
-  Cart({this.blocState});
+  final List<Dishes> cartDishes;
+  final Function onSelectThis;
+  Cart({
+    this.cartDishes,
+    this.onSelectThis,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -150,11 +162,15 @@ class Cart extends StatelessWidget {
       child: Builder(
         builder: (BuildContext context) {
           List<Widget> itemsCard = [];
-          List<Dishes> cartDishes = blocState.props[0];
-          cartDishes.asMap().entries.map((e) {
+          cartDishes.asMap().entries.map((item) {
             itemsCard.add(
-              CompleteCartItem(
-                indexTest: 2,
+              GestureDetector(
+                onLongPressEnd: (e) {
+                  onSelectThis(item.key);
+                },
+                child: CompleteCartItem(
+                  dish: cartDishes[item.key],
+                ),
               ),
             );
           }).toList();
