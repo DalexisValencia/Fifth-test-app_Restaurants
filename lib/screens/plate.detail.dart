@@ -91,9 +91,6 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
                       ),
                       BlocProvider<DishamountBloc>(
                         create: (BuildContext context) => DishamountBloc(),
-                      ),
-                      BlocProvider<CartBloc>(
-                        create: (BuildContext context) => CartBloc(),
                       )
                     ],
                     child: Stack(
@@ -113,19 +110,22 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
                                         DishPortrait(image: dish.image),
                                         DishFeatures(dish: dish),
                                         AmountDishes(
-                                            amount: dish.amount,
-                                            price: dish.price,
-                                            promos: dish.promotionLabel
-                                                .pricePromotions),
+                                          amount: dish.amount,
+                                          price: dish.price,
+                                          promos: dish
+                                              .promotionLabel.pricePromotions,
+                                        ),
                                         dish.additions.length >= 1
                                             ? Aditionals(
-                                                aditionals: dish.additions)
+                                                aditionals: dish.additions,
+                                              )
                                             : SizedBox(
                                                 height: 0,
                                                 width: 0,
                                               ),
                                         SummaryIngredients(
-                                            ingredients: dish.ingredients),
+                                          ingredients: dish.ingredients,
+                                        ),
                                         DishSummary(),
                                         SizedBox(
                                           height: 80,
@@ -141,44 +141,56 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
                         Positioned(
                           top: 0,
                           child: AnimatedContainer(
-                              decoration: BoxDecoration(
-                                  color: minSizeReached
-                                      ? Colors.white
-                                      : Colors.transparent,
-                                  boxShadow: [
-                                    BoxShadow(
-                                        blurRadius: 0.5,
-                                        color: minSizeReached
-                                            ? Theme.of(context).primaryColor
-                                            : Colors.transparent,
-                                        offset: Offset(2, 0))
-                                  ]),
-                              duration: Duration(milliseconds: 500),
-                              curve: Curves.ease,
-                              padding: EdgeInsets.only(
-                                  top: MediaQuery.of(context).padding.top + 10,
-                                  bottom: 10),
-                              width: MediaQuery.of(context).size.width,
-                              child: CustomHeader(
-                                firstAction: 'goBack',
-                                secondAction: 'favorite',
-                                iconColors: minSizeReached
-                                    ? Theme.of(context).primaryColorDark
-                                    : Theme.of(context).primaryColorLight,
-                              )),
+                            decoration: BoxDecoration(
+                                color: minSizeReached
+                                    ? Colors.white
+                                    : Colors.transparent,
+                                boxShadow: [
+                                  BoxShadow(
+                                      blurRadius: 0.5,
+                                      color: minSizeReached
+                                          ? Theme.of(context).primaryColor
+                                          : Colors.transparent,
+                                      offset: Offset(2, 0))
+                                ]),
+                            duration: Duration(milliseconds: 500),
+                            curve: Curves.ease,
+                            padding: EdgeInsets.only(
+                                top: MediaQuery.of(context).padding.top + 10,
+                                bottom: 10),
+                            width: MediaQuery.of(context).size.width,
+                            child: CustomHeader(
+                              firstAction: 'goBack',
+                              secondAction: 'favorite',
+                              iconColors: minSizeReached
+                                  ? Theme.of(context).primaryColorDark
+                                  : Theme.of(context).primaryColorLight,
+                            ),
+                          ),
                         ),
                         Positioned(
                           bottom: 0,
                           child: Container(
                             width: MediaQuery.of(context).size.width,
                             child: Container(
-                                margin: EdgeInsets.all(0),
-                                padding: EdgeInsets.all(0),
-                                width: MediaQuery.of(context).size.width,
-                                height: 60,
-                                child: SizedBox.expand(
-                                  child: AddtoCar(dish: dish),
-                                )),
+                              color: Colors.red,
+                              margin: EdgeInsets.all(0),
+                              padding: EdgeInsets.all(0),
+                              width: MediaQuery.of(context).size.width,
+                              height: 60,
+                              child: SizedBox.expand(
+                                child: AddtoCar(dish: dish),
+                                // child: BlocBuilder<CartBloc, CartState>(
+                                //   builder:
+                                //       (BuildContext context, CartState state) {
+                                //     print("dentro");
+                                //     print(state.props[0]);
+                                //     print("debtro");
+                                //     return Text("is easy");
+                                //   },
+                                // ),
+                              ),
+                            ),
                           ),
                         )
                       ],
@@ -373,9 +385,9 @@ class _AddtoCarState extends State<AddtoCar> {
   }
 
   void addingCardIndication(Dishes detailDish) {
-    cartbloc.add(
-      AddToCart(dishToCart: detailDish),
-    );
+    // cartbloc.add(
+    //   AddToCart(dishToCart: detailDish),
+    // );
     setState(() {
       _addingCar = true;
     });
@@ -448,6 +460,7 @@ class _AddtoCarState extends State<AddtoCar> {
                       onPressed: _addingCar
                           ? null
                           : () {
+                              // print(cartbloc.state);
                               // print(widget.dish);
                               // print(BlocProvider.of<DishamountBloc>(context)
                               //     .state
@@ -455,7 +468,9 @@ class _AddtoCarState extends State<AddtoCar> {
                               // print(BlocProvider.of<AdditionalsBloc>(context)
                               //     .state
                               //     .props[0]);
-                              addingCardIndication(widget.dish);
+                              // addingCardIndication(widget.dish);
+                              cartbloc.add(AddToCart(dish: 2));
+                              print(cartbloc.state);
                             },
                       elevation: 0,
                       icon: _addingCar

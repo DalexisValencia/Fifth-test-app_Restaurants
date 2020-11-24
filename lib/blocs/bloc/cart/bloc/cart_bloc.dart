@@ -14,9 +14,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   Stream<CartState> mapEventToState(
     CartEvent event,
   ) async* {
-    List<Dishes> stateDishesCart = state.props[0];
+    List<int> stateDishesCart = state.props[0];
     if (event is AddToCart) {
-      stateDishesCart.add(event.dishToCart);
+      List<int> finaldishes = List.from(stateDishesCart)..add(event.dish);
+      print(finaldishes);
       // // print(state.props[0]);
       // // List<Dishes> finalDishes = state.props;
       // // //Si existe un elemento similar añadimos 1 a cantidad al existente.
@@ -27,9 +28,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       // // print(finalDishes);
       // // amountInDish('add', event.dishToCart);
       // print(stateDishesCart);
-      yield FetchItems(dishes: stateDishesCart);
+      yield FetchItems(dishes: finaldishes);
     }
-    print(state);
+    // print(state);
 
     if (event is GetAllItems) {
       // yield FetchItems(dishes: finalDishes);

@@ -10,11 +10,12 @@ abstract class CartEvent extends Equatable {
 class GetAllItems extends CartEvent {}
 
 class AddToCart extends CartEvent {
-  final Dishes dishToCart;
-  AddToCart({this.dishToCart});
+  // final Dishes dishToCart;
+  final int dish;
+  AddToCart({this.dish});
 
   @override
-  List<Object> get props => [dishToCart];
+  List<Object> get props => [dish];
 }
 
 class DeleteFromCart extends CartEvent {

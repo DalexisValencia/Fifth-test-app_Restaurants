@@ -8,7 +8,8 @@ abstract class CartState extends Equatable {
 }
 
 class CartblocInitial extends CartState {
-  final List<Dishes> dishes;
+  // final List<Dishes> dishes;
+  final List<int> dishes;
   CartblocInitial({this.dishes});
   @override
   List<Object> get props => [dishes];
@@ -18,7 +19,7 @@ class CartblocInitial extends CartState {
 }
 
 class FetchItems extends CartState {
-  final List<Dishes> dishes;
+  final List<int> dishes;
   FetchItems({this.dishes});
 
   @override

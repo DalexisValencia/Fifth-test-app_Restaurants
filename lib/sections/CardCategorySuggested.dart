@@ -1,3 +1,4 @@
+import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
@@ -47,7 +48,8 @@ class CardCategorySuggestedState extends State<CardCategorySuggested> {
                         BlocProvider.value(
                           value: instancerestaurantBloc,
                           child: SeeMoreDishesByRestaurant(
-                              searchKey: 'suggestions'),
+                            searchKey: 'suggestions',
+                          ),
                         ));
                   }),
             ),
@@ -79,20 +81,22 @@ class _WrapperSuggestionsState extends State<WrapperSuggestions> {
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
     return BlocProvider(
-        create: (BuildContext context) => DishBloc(),
-        child: Container(
-            margin: EdgeInsets.only(left: withDefaultPadding),
-            width: totalWidth,
-            height: totalHeight * 0.25,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: widget.suggestions.length,
-              itemBuilder: (BuildContext context, int index) {
-                return SuggestionCard(suggestion: widget.suggestions[index]);
-              },
-            )
-            //
-            ));
+      create: (BuildContext context) => DishBloc(),
+      child: Container(
+        margin: EdgeInsets.only(left: withDefaultPadding),
+        width: totalWidth,
+        height: totalHeight * 0.25,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: widget.suggestions.length,
+          itemBuilder: (BuildContext context, int index) {
+            return SuggestionCard(
+              suggestion: widget.suggestions[index],
+            );
+          },
+        ),
+      ),
+    );
   }
 }
 
@@ -105,10 +109,12 @@ class SuggestionCard extends StatefulWidget {
 
 class _SuggestionCardState extends State<SuggestionCard> {
   DishBloc instanceDishBloc;
+  CartBloc instanceCartBloc;
   @override
   void initState() {
     super.initState();
     instanceDishBloc = BlocProvider.of<DishBloc>(context);
+    instanceCartBloc = BlocProvider.of<CartBloc>(context);
   }
 
   @override
@@ -123,13 +129,18 @@ class _SuggestionCardState extends State<SuggestionCard> {
               width: totalWidth * 0.41,
               height: totalHeight * 0.25,
               decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  image: DecorationImage(
-                      fit: BoxFit.cover,
-                      image: ExactAssetImage(widget.suggestion.image))),
+                borderRadius: BorderRadius.circular(12),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: ExactAssetImage(
+                    widget.suggestion.image,
+                  ),
+                ),
+              ),
               child: RawMaterialButton(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                   padding: EdgeInsets.only(
                       bottom: totalHeight * 0.03,
                       left: (totalWidth * 0.03) + 5,
@@ -138,12 +149,32 @@ class _SuggestionCardState extends State<SuggestionCard> {
                   onPressed: () {
                     instanceDishBloc
                         .add(DishStart(currentDish: widget.suggestion));
+                    // instanceCartBloc.add(AddToCart(dish: 5));
                     Navigator.of(context).push(
-                        MaterialPageRoute<PlateDetailWrapper>(
-                            builder: (context) {
-                      return BlocProvider.value(
-                          value: instanceDishBloc, child: PlateDetailWrapper());
-                    }));
+                      MaterialPageRoute<PlateDetailWrapper>(builder: (context) {
+                        // return BlocProvider.value(
+                        //   value: instanceDishBloc,
+                        //   child: PlateDetailWrapper(),
+                        // );
+                        return MultiBlocProvider(
+                          providers: [
+                            BlocProvider<DishBloc>(
+                              // value: instanceDishBloc,
+                              // child: PlateDetailWrapper(),
+                              create: (BuildContext context) =>
+                                  instanceDishBloc,
+                            ),
+                            BlocProvider<CartBloc>.value(
+                              value: instanceCartBloc,
+                              child: PlateDetailWrapper(),
+                              // create: (BuildContext context) =>
+                              //     instanceCartBloc,
+                            )
+                          ],
+                          child: PlateDetailWrapper(),
+                        );
+                      }),
+                    );
                   },
                   fillColor: Color(0x000000),
                   splashColor: Theme.of(context).buttonColor,

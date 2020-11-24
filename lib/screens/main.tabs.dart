@@ -1,3 +1,4 @@
+import 'package:fith_app__restaurant/Lists/menu.dart';
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
@@ -6,6 +7,7 @@ import 'package:fith_app__restaurant/screens/cart.dart';
 import 'package:fith_app__restaurant/screens/favorites.dart';
 import 'package:fith_app__restaurant/screens/home.dart';
 import 'package:fith_app__restaurant/screens/search.dart';
+import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,6 +20,7 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
     with TickerProviderStateMixin {
   TabController _tabController;
   int tabStateInit = 0;
+  CartBloc cartBloc;
   void goToTabs(int tab) {
     setState(() {
       tabStateInit = tab;
@@ -34,6 +37,7 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
         });
       });
     super.initState();
+    cartBloc = BlocProvider.of<CartBloc>(context);
   }
 
   @override
@@ -43,11 +47,6 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
   }
 
   Widget _tabsController() {
-    // print('Tab - ${tabStateInit.toString()} si cambvia?');
-    // setState(() {
-    //   tabStateInit = tabStateInit;
-    // });
-    print(_tabController.index);
     return DefaultTabController(
       length: 5,
       child: Scaffold(
@@ -58,37 +57,40 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
             BlocProvider<DiscoveryBloc>(
               create: (BuildContext context) => DiscoveryBloc(),
             ),
-            // BlocProvider<CartblocBloc>(
-            //   create: (BuildContext context) => CartblocBloc(),
-            // )
+            BlocProvider<CartBloc>(
+                // create: (BuildContext context) => CartBloc(),
+                create: (BuildContext context) => cartBloc)
           ],
-          child: TabBarView(
-            controller: _tabController,
-            physics: NeverScrollableScrollPhysics(),
-            children: <Widget>[
-              Container(
-                child:
-                    HomePage(controller: _tabController, animateScreen: true),
-              ),
-              Container(
-                child: tabStateInit == 1
-                    ? BlocProvider(
-                        create: (BuildContext context) =>
-                            SearchBloc()..add(SearchInit(findIn: 'all')),
-                        child: ScaffoldSearch(),
-                      )
-                    : SizedBox(),
-              ),
-              Container(
-                child: tabStateInit == 2 ? BookingsScreen() : SizedBox(),
-              ),
-              Container(
-                child: tabStateInit == 3 ? FavoritesScreen() : SizedBox(),
-              ),
-              Container(
-                child: tabStateInit == 4 ? ScreenCart() : SizedBox(),
-              ),
-            ],
+          child: BlocProvider.value(
+            value: cartBloc,
+            child: TabBarView(
+              controller: _tabController,
+              physics: NeverScrollableScrollPhysics(),
+              children: <Widget>[
+                Container(
+                  child:
+                      HomePage(controller: _tabController, animateScreen: true),
+                ),
+                Container(
+                  child: tabStateInit == 1
+                      ? BlocProvider(
+                          create: (BuildContext context) =>
+                              SearchBloc()..add(SearchInit(findIn: 'all')),
+                          child: ScaffoldSearch(),
+                        )
+                      : SizedBox(),
+                ),
+                Container(
+                  child: tabStateInit == 2 ? BookingsScreen() : SizedBox(),
+                ),
+                Container(
+                  child: tabStateInit == 3 ? FavoritesScreen() : SizedBox(),
+                ),
+                Container(
+                  child: tabStateInit == 4 ? ScreenCart() : SizedBox(),
+                ),
+              ],
+            ),
           ),
         ),
         // body: BlocProvider(
@@ -234,14 +236,9 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
 
   @override
   Widget build(BuildContext context) {
-    final cartBlocPrueba = BlocProvider.of<CartBloc>(context);
     return WillPopScope(
       onWillPop: _onWillPop,
-      // child: _tabsController(),
-      child: BlocProvider.value(
-        value: cartBlocPrueba,
-        child: _tabsController(),
-      ),
+      child: _tabsController(),
     );
   }
 }

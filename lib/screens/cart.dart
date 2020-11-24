@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:fith_app__restaurant/Lists/menu.dart';
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
@@ -74,18 +73,37 @@ class _ScreenCartState extends State<ScreenCart> {
 
   @override
   Widget build(BuildContext context) {
+    final cartBloc = BlocProvider.of<CartBloc>(context);
     return Scaffold(
         //
         body: BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
-        print(":::::dentro de cart.dart");
-        print(state);
-        print(state.props);
-        print(":::::dentro de cart.dart");
+        List<int> inCart = state.props[0];
+        // print(":::::dentro de cart.dart");
+        // print(state);
+        // print(state.props);
+        // print(":::::dentro de cart.dart");
         return Column(
           children: [
             _screenNavigator(),
-            _bodyCart(state),
+            // _bodyCart(state),
+            Builder(
+              builder: (BuildContext context) {
+                List<Widget> numverCart = [];
+                inCart.map((e) {
+                  numverCart.add(Text(e.toString()));
+                }).toList();
+                return Column(
+                  children: numverCart,
+                );
+              },
+            ),
+            RaisedButton(
+              onPressed: () {
+                cartBloc.add(AddToCart(dish: 1));
+              },
+              child: Text("añadir"),
+            )
           ],
         );
       },
