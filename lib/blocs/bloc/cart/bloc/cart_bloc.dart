@@ -17,7 +17,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     List<Dishes> stateDishesCart = state.props[0];
     if (event is AddToCart) {
       List<Dishes> finaldishes = List.from(stateDishesCart)..add(event.dish);
-      print(finaldishes);
+      // print(finaldishes);
       // // print(state.props[0]);
       // // List<Dishes> finalDishes = state.props;
       // // //Si existe un elemento similar añadimos 1 a cantidad al existente.
@@ -30,7 +30,27 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       // print(stateDishesCart);
       yield FetchItems(dishes: finaldishes);
     }
-    // print(state);
+
+    if (event is DeleteFromCart) {
+      List<Dishes> finaldishes = List.from(stateDishesCart);
+      // print("dentro del bloque");
+      // print(event.toDelete);
+      if (event.toDelete.length >= 1) {
+        stateDishesCart.asMap().entries.map((e) {
+          print(event.toDelete.contains(e.key));
+          if (event.toDelete.contains(e.key)) {
+            print("deberiamos eliminar el " + e.key.toString());
+            finaldishes.removeAt(e.key);
+          }
+        }).toList();
+      } else if (event.toDelete.length == 1) {
+        print("cuando seam solo uno");
+      }
+      // print(finaldishes);
+      yield FetchItems(
+        dishes: finaldishes,
+      );
+    }
 
     if (event is GetAllItems) {
       // yield FetchItems(dishes: finalDishes);

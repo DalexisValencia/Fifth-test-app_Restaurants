@@ -18,8 +18,10 @@ class AddToCart extends CartEvent {
 }
 
 class DeleteFromCart extends CartEvent {
-  final String name;
-  DeleteFromCart({this.name});
+  final List<int> toDelete;
+  DeleteFromCart({this.toDelete});
+  @override
+  List<Object> get props => [toDelete];
 }
 
 class UpdatedAmount extends CartEvent {

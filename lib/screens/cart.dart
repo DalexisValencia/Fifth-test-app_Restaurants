@@ -17,7 +17,7 @@ class ScreenCart extends StatefulWidget {
 }
 
 class _ScreenCartState extends State<ScreenCart> {
-  List<int> deleteToCard = [];
+  List<int> deleteFromCard = [];
   CartBloc cartBloc;
 
   @override
@@ -27,16 +27,16 @@ class _ScreenCartState extends State<ScreenCart> {
   }
 
   void selectItem(e) {
-    if (!deleteToCard.contains(e)) {
+    if (!deleteFromCard.contains(e)) {
       setState(() {
-        deleteToCard.add(e);
+        deleteFromCard.add(e);
       });
-    } else if (deleteToCard.contains(e)) {
+    } else if (deleteFromCard.contains(e)) {
       setState(() {
-        deleteToCard.remove(e);
+        deleteFromCard.remove(e);
       });
     }
-    print(deleteToCard);
+    // print(deleteToCard);
   }
 
   Widget _screenNavigator() {
@@ -49,10 +49,18 @@ class _ScreenCartState extends State<ScreenCart> {
       child: AppBarCustom(
         iconLeft: ArrowBackHeaderButton(),
         iconRigth: TrashFavoriteHeaderButton(
-          amout: deleteToCard.length,
+          amout: deleteFromCard.length,
           onClick: () {
-            if (deleteToCard.length >= 1) {
-              print("Eliminar del carrito");
+            if (deleteFromCard.length >= 1) {
+              print(":::Antes de eliminar::");
+              print(deleteFromCard);
+              print(":::Antes de eliminar::");
+              cartBloc.add(
+                DeleteFromCart(
+                  toDelete: deleteFromCard,
+                ),
+              );
+              // deleteFromCard.clear();
             }
           },
         ),
@@ -85,7 +93,7 @@ class _ScreenCartState extends State<ScreenCart> {
                       onSelectThis: (index) {
                         selectItem(index);
                       },
-                      selecteds: deleteToCard,
+                      selecteds: deleteFromCard,
                     ),
               SizedBox(
                 height: 20,
