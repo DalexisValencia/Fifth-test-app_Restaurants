@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
@@ -147,9 +149,9 @@ class _SuggestionCardState extends State<SuggestionCard> {
                       right: totalWidth * 0.03),
                   elevation: 0,
                   onPressed: () {
+                    print(widget.suggestion.name + 'EL NOMBRE');
                     instanceDishBloc
                         .add(DishStart(currentDish: widget.suggestion));
-                    // instanceCartBloc.add(AddToCart(dish: 5));
                     Navigator.of(context).push(
                       MaterialPageRoute<PlateDetailWrapper>(builder: (context) {
                         // return BlocProvider.value(
@@ -158,11 +160,11 @@ class _SuggestionCardState extends State<SuggestionCard> {
                         // );
                         return MultiBlocProvider(
                           providers: [
-                            BlocProvider<DishBloc>(
-                              // value: instanceDishBloc,
-                              // child: PlateDetailWrapper(),
-                              create: (BuildContext context) =>
-                                  instanceDishBloc,
+                            BlocProvider<DishBloc>.value(
+                              value: instanceDishBloc,
+                              child: PlateDetailWrapper(),
+                              // create: (BuildContext context) =>
+                              //     instanceDishBloc,
                             ),
                             BlocProvider<CartBloc>.value(
                               value: instanceCartBloc,

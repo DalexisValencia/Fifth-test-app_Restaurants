@@ -27,7 +27,16 @@ class _ScreenCartState extends State<ScreenCart> {
   }
 
   void selectItem(e) {
-    print('info');
+    if (!deleteToCard.contains(e)) {
+      setState(() {
+        deleteToCard.add(e);
+      });
+    } else if (deleteToCard.contains(e)) {
+      setState(() {
+        deleteToCard.remove(e);
+      });
+    }
+    print(deleteToCard);
   }
 
   Widget _screenNavigator() {
@@ -74,8 +83,9 @@ class _ScreenCartState extends State<ScreenCart> {
                   : Cart(
                       cartDishes: listDishes,
                       onSelectThis: (index) {
-                        print(index);
+                        selectItem(index);
                       },
+                      selecteds: deleteToCard,
                     ),
               SizedBox(
                 height: 20,
@@ -102,16 +112,16 @@ class _ScreenCartState extends State<ScreenCart> {
               state is CartblocInitial || cartDishes.length == 0,
               cartDishes,
             ),
-            RaisedButton(
-              onPressed: () {
-                cartBloc.add(
-                  AddToCart(
-                    dish: dishes[0],
-                  ),
-                );
-              },
-              child: Text("añadir"),
-            )
+            // RaisedButton(
+            //   onPressed: () {
+            //     cartBloc.add(
+            //       AddToCart(
+            //         dish: dishes[0],
+            //       ),
+            //     );
+            //   },
+            //   child: Text("añadir"),
+            // )
           ],
         );
       },
@@ -151,10 +161,8 @@ class EmptyCart extends StatelessWidget {
 class Cart extends StatelessWidget {
   final List<Dishes> cartDishes;
   final Function onSelectThis;
-  Cart({
-    this.cartDishes,
-    this.onSelectThis,
-  });
+  final List<int> selecteds;
+  Cart({this.cartDishes, this.onSelectThis, this.selecteds});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -165,11 +173,12 @@ class Cart extends StatelessWidget {
           cartDishes.asMap().entries.map((item) {
             itemsCard.add(
               GestureDetector(
-                onLongPressEnd: (e) {
+                onLongPress: () {
                   onSelectThis(item.key);
                 },
                 child: CompleteCartItem(
                   dish: cartDishes[item.key],
+                  selected: selecteds.contains(item.key),
                 ),
               ),
             );

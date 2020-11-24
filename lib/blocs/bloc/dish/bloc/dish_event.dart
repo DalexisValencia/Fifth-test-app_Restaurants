@@ -16,3 +16,5 @@ class DishModifierEdit extends DishEvent {
   final AditionalsOptions currentModifier;
   DishModifierEdit({this.currentModifier});
 }
+
+class DishClean extends DishEvent {}

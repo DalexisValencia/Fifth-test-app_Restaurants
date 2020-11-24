@@ -27,12 +27,22 @@ class _PlateDetailWrapperState extends State<PlateDetailWrapper> {
   bool animatedOpacity = true;
   bool animationChildren = true;
   ScrollController _controller;
+  // DishBloc instanceDishBloc;
+
   @override
   void initState() {
     _controller = ScrollController();
     _controller.addListener(_scrollListener);
     super.initState();
     this.startAnimationScreen();
+    //instanceDishBloc = BlocProvider.of<DishBloc>(context);
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+    print("apenas salgo reincio");
+    // instanceDishBloc.add(DishClean());
   }
 
   void startAnimationScreen() {
@@ -469,13 +479,13 @@ class _AddtoCarState extends State<AddtoCar> {
                               //     .state
                               //     .props[0]);
                               // addingCardIndication(widget.dish);
-                              print(widget.dish.name);
-                              print(widget.dish.amount);
-                              // cartbloc.add(
-                              //   AddToCart(
-                              //     dish: widget.dish,
-                              //   ),
-                              // );
+                              // print(widget.dish.name);
+                              widget.dish.amount = stateAmount.props[0];
+                              cartbloc.add(
+                                AddToCart(
+                                  dish: widget.dish,
+                                ),
+                              );
                             },
                       elevation: 0,
                       icon: _addingCar

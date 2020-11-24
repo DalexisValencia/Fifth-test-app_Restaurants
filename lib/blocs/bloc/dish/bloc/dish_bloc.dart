@@ -9,7 +9,7 @@ part 'dish_event.dart';
 part 'dish_state.dart';
 
 class DishBloc extends Bloc<DishEvent, DishState> {
-  DishBloc() : super(DishInitial());
+  DishBloc() : super(DishInitial(dish: Dishes()));
 
   @override
   Stream<DishState> mapEventToState(DishEvent event) async* {
@@ -33,6 +33,12 @@ class DishBloc extends Bloc<DishEvent, DishState> {
       // yield DishCurrent(
       //     dish: findModifierPropInModifierOption(
       //         state.props[0], event.currentModifier));
+    }
+
+    if (event is DishClean) {
+      yield DishInitial(
+        dish: Dishes(),
+      );
     }
   }
 

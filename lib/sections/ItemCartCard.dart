@@ -7,23 +7,19 @@ import 'package:flutter/material.dart';
 
 class CompleteCartItem extends StatelessWidget {
   final Dishes dish;
-  CompleteCartItem({Key key, this.dish}) : super(key: key);
+  final bool selected;
+  CompleteCartItem({Key key, this.dish, this.selected}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(
         vertical: 5,
       ),
-      // decoration: BoxDecoration(
-      //   border: Border.all(
-      //     color: Colors.red,
-      //     width: 1.5,
-      //   ),
-      // ),
       child: Column(
         children: [
           ItemCart(
             dish: dish,
+            selected: selected,
           ),
           dish.additions.length >= 1
               ? ExpansionModifiersCartItem(
@@ -38,19 +34,25 @@ class CompleteCartItem extends StatelessWidget {
 
 class ItemCart extends StatelessWidget {
   final Dishes dish;
-  ItemCart({Key key, this.dish}) : super(key: key);
+  final bool selected;
+  ItemCart({Key key, this.dish, this.selected}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      child: Container(
+      onTap: () {
+        print("Debo ir al detallado del producto");
+      },
+      child: AnimatedContainer(
+        duration: Duration(
+          milliseconds: 250,
+        ),
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.all(10),
         margin: EdgeInsets.symmetric(
           horizontal: MediaQuery.of(context).size.width * defaultPadding,
-          // vertical: 5,
         ),
         decoration: BoxDecoration(
-          borderRadius: dish.additions.length >= 1
+          borderRadius: dish.additions.length == 0
               ? BorderRadius.circular(borderRadiusCards)
               : BorderRadius.only(
                   topLeft: Radius.circular(borderRadiusCards),
@@ -58,8 +60,10 @@ class ItemCart extends StatelessWidget {
                 ),
           color: Theme.of(context).primaryColorLight,
           border: Border.all(
-            color: Theme.of(context).primaryColorDark.withOpacity(0.5),
-            width: 0.5,
+            color: selected
+                ? Theme.of(context).buttonColor
+                : Theme.of(context).primaryColorDark.withOpacity(0.5),
+            width: selected ? borderWidthSelected : borderWidhNoSelected,
           ),
         ),
         child: Row(
@@ -80,9 +84,6 @@ class ItemCart extends StatelessWidget {
             ),
             Expanded(
               child: Container(
-                // decoration: BoxDecoration(
-                //   color: Colors.yellow,
-                // ),
                 height: MediaQuery.of(context).size.width * 0.25,
                 margin: EdgeInsets.only(left: 5, right: 5),
                 padding: EdgeInsets.fromLTRB(5, 6, 5, 0),
@@ -103,7 +104,7 @@ class ItemCart extends StatelessWidget {
                           nameColor: Theme.of(context).buttonColor,
                           icon: Icons.monetization_on,
                           iconColor: Theme.of(context).buttonColor,
-                        ), // assignment_rounded // cuando sea hoy assignment_turned_in
+                        ),
                       ],
                     ),
                     Text(
@@ -115,7 +116,6 @@ class ItemCart extends StatelessWidget {
                           ),
                     ),
                     Text(
-                      // widget.dish.details.substring(0, 73) +'...',
                       dish.details.length > 55
                           ? dish.details.substring(0, 58) + " ... "
                           : dish.details,
@@ -150,7 +150,6 @@ class ItemCart extends StatelessWidget {
             ),
             Container(
               padding: EdgeInsets.all(0),
-              // color: Colors.greenAccent,
               width: 35,
               height: MediaQuery.of(context).size.width * 0.25,
               child: Column(
@@ -168,7 +167,6 @@ class ItemCart extends StatelessWidget {
                           ),
                         ),
                       ),
-                      // height: 25,
                       width: 35,
                     ),
                   ),
@@ -233,7 +231,6 @@ class _ExpansionModifiersCartItemState
   @override
   Widget build(BuildContext context) {
     return Container(
-      // color: Colors.blue,
       child: Column(
         children: [
           GestureDetector(
@@ -259,7 +256,6 @@ class _ExpansionModifiersCartItemState
                       ),
               ),
               child: Row(
-                // crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
