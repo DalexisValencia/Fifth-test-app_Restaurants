@@ -22,21 +22,17 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
     if (event is DeleteFromCart) {
       List<Dishes> finaldishes = List.from(stateDishesCart);
-      // print("dentro del bloque");
-      // print(event.toDelete);
       if (event.toDelete.length >= 1) {
         stateDishesCart.asMap().entries.map((e) {
-          // print(event.toDelete.contains(e.key));
           if (event.toDelete.contains(e.key)) {
-            // print("deberiamos eliminar el " + e.key.toString());
             finaldishes.removeAt(e.key);
           }
         }).toList();
-      } else if (event.toDelete.length == 1) {
-        // print("cuando seam solo uno");
+      }
+      // Cuando solo sea uno
+      else if (event.toDelete.length == 1) {
         finaldishes.removeAt(0);
       }
-      // print(finaldishes);
       yield FetchItems(
         dishes: finaldishes,
       );
@@ -63,21 +59,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         default:
       }
       event.dish.amount = amountCurrent;
-
-      Dishes currentPlate = Dishes(
-        name: event.dish.name,
-        details: event.dish.details,
-        image: event.dish.image,
-        price: event.dish.price,
-        rating: event.dish.rating,
-        preparation: event.dish.preparation,
-        comments: event.dish.comments,
-        category: event.dish.category,
-        additions: event.dish.additions,
-        ingredients: event.dish.ingredients,
-        amount: amountCurrent,
-        promotionLabel: event.dish.promotionLabel,
-      );
+      Dishes currentPlate = event.dish.copyWith(event.dish);
       List<Dishes> finaldishes = List.from(stateDishesCart)
         ..removeAt(indexFound);
       yield FetchItems(
@@ -85,35 +67,4 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       );
     }
   }
-}
-
-// we pass action(add or remove)
-void amountInDish(String action, Dishes dish) {
-  List<PricePromotions> promotions = dish.promotionLabel.pricePromotions;
-  int dishAmount = dish.amount;
-  // dish.promotionLabel.pricePromotions; //Array
-  // dish.price;
-  switch (action) {
-    case 'add':
-      dishAmount += 1;
-      break;
-    case 'remove':
-      dishAmount = dish.amount == 0 ? 0 : -1;
-      break;
-    default:
-  }
-  if (promotions.length >= 1 && promotions != null) {
-    // var find = promotions.firstWhere((element) => element.amount == dishAmount);
-    // print("este elemento tiene precio de promociones");
-    // print(promotions);
-    promotions.firstWhere((element) {
-      // print(element.amount);
-      return element.amount == 2;
-    });
-  } else if (promotions.length == 0 && promotions == null) {
-    dish.price = dish.price * dishAmount;
-  }
-
-  dish.amount = dishAmount;
-  // print(dish.amount);
 }

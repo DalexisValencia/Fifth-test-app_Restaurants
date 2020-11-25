@@ -9,11 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ItemCartCard extends StatefulWidget {
   final Dishes dish;
   final bool selected;
-  ItemCartCard({
-    Key key,
-    this.dish,
-    this.selected,
-  }) : super(key: key);
+  final Function priceByCard;
+  ItemCartCard({Key key, this.dish, this.selected, this.priceByCard})
+      : super(key: key);
   @override
   _ItemCartCardState createState() => _ItemCartCardState();
 }
@@ -24,6 +22,15 @@ class _ItemCartCardState extends State<ItemCartCard> {
   initState() {
     super.initState();
     cartBlocInstance = BlocProvider.of<CartBloc>(context);
+  }
+
+  double dishFinalPrice() {
+    double priceWithoutPromotions = widget.dish.price * widget.dish.amount;
+    double finalPrice = findPromotionalPrices() == 0
+        ? priceWithoutPromotions
+        : findPromotionalPrices();
+    widget.priceByCard(finalPrice);
+    return finalPrice;
   }
 
   int productPriceWithModifiers() {
@@ -39,7 +46,6 @@ class _ItemCartCardState extends State<ItemCartCard> {
         }
       }).toList();
     }
-
     return addtionalPrices;
   }
 
@@ -50,7 +56,7 @@ class _ItemCartCardState extends State<ItemCartCard> {
           .dish.promotionLabel.pricePromotions
           .where((element) => element.amount == widget.dish.amount);
       if (promotionsPrice.isNotEmpty) {
-        promotionPrices = promotionsPrice.first.price - widget.dish.price;
+        promotionPrices = promotionsPrice.first.price.toDouble();
       }
     }
     return promotionPrices;
@@ -61,7 +67,7 @@ class _ItemCartCardState extends State<ItemCartCard> {
     return GestureDetector(
       onTap: () {
         print("Debo ir al detallado del producto");
-        // print(dish);
+        dishFinalPrice();
       },
       child: AnimatedContainer(
         duration: Duration(
@@ -149,7 +155,7 @@ class _ItemCartCardState extends State<ItemCartCard> {
                     Row(
                       children: [
                         Text(
-                          "\$${formatterPrice((widget.dish.price * widget.dish.amount) + productPriceWithModifiers())}",
+                          "\$${formatterPrice(dishFinalPrice() + productPriceWithModifiers())}",
                           style: Theme.of(context).textTheme.caption.copyWith(
                                 color: Theme.of(context).buttonColor,
                                 fontWeight: FontWeight.w700,
@@ -159,7 +165,7 @@ class _ItemCartCardState extends State<ItemCartCard> {
                         Visibility(
                           visible: findPromotionalPrices() > 0,
                           child: Text(
-                            "\$${formatterPrice(findPromotionalPrices())}",
+                            "\$${formatterPrice(findPromotionalPrices() - widget.dish.price)}",
                             style: Theme.of(context).textTheme.caption.copyWith(
                                   color: Theme.of(context).primaryColorDark,
                                   decoration: TextDecoration.lineThrough,

@@ -20,6 +20,10 @@ class CompleteCartItem extends StatelessWidget {
           ItemCartCard(
             dish: dish,
             selected: selected,
+            priceByCard: (amout) {
+              print("en esta vista::");
+              print(amout);
+            },
           ),
           dish.additions.length >= 1
               ? ExpansionModifiersCartItem(
