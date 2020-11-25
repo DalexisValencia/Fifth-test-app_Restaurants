@@ -24,9 +24,13 @@ class DeleteFromCart extends CartEvent {
   List<Object> get props => [toDelete];
 }
 
-class UpdatedAmount extends CartEvent {
+class UpdateAmount extends CartEvent {
   final Dishes dish;
-  UpdatedAmount({this.dish});
+  final String action;
+  UpdateAmount({
+    this.dish,
+    this.action,
+  });
 }
 
 class ClearAll extends CartEvent {}

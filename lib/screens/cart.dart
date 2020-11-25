@@ -1,11 +1,11 @@
+import 'dart:async';
 import 'dart:ui';
 
-import 'package:fith_app__restaurant/Lists/menu.dart';
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/sections/AppBarCustom.dart';
-import 'package:fith_app__restaurant/sections/ItemCartCard.dart';
+import 'package:fith_app__restaurant/sections/CompleteCartItem.dart';
 import 'package:fith_app__restaurant/widgets/ButtonsInHeader.dart';
 import 'package:fith_app__restaurant/widgets/ScreenTitle.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +36,51 @@ class _ScreenCartState extends State<ScreenCart> {
         deleteFromCard.remove(e);
       });
     }
-    // print(deleteToCard);
+  }
+
+  Widget _buttonGoToPay() {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).size.width * defaultPadding,
+      ),
+      decoration: BoxDecoration(
+        color: Theme.of(context).buttonColor,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          RichText(
+            text: TextSpan(
+                text: 'TOTAL: ',
+                style: Theme.of(context).textTheme.button.copyWith(
+                      color: Theme.of(context).primaryColorLight,
+                      fontWeight: FontWeight.w800,
+                    ),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: ' 120.000',
+                  )
+                ]),
+          ),
+          RaisedButton(
+            color: Theme.of(context).primaryColorLight,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 0,
+            child: Text(
+              "Go Pay",
+              style: Theme.of(context).textTheme.caption.copyWith(
+                    color: Theme.of(context).buttonColor,
+                    fontWeight: FontWeight.w700,
+                  ),
+            ),
+            onPressed: () {},
+          )
+        ],
+      ),
+    );
   }
 
   Widget _screenNavigator() {
@@ -52,15 +96,25 @@ class _ScreenCartState extends State<ScreenCart> {
           amout: deleteFromCard.length,
           onClick: () {
             if (deleteFromCard.length >= 1) {
-              print(":::Antes de eliminar::");
-              print(deleteFromCard);
-              print(":::Antes de eliminar::");
               cartBloc.add(
                 DeleteFromCart(
                   toDelete: deleteFromCard,
                 ),
               );
-              // deleteFromCard.clear();
+              // cartBloc.listen((w) {
+              //   print('listen');
+              //   print(w);
+              // });
+              Timer(
+                Duration(
+                  milliseconds: 200,
+                ),
+                () {
+                  setState(() {
+                    deleteFromCard.clear();
+                  });
+                },
+              );
             }
           },
         ),
@@ -69,7 +123,6 @@ class _ScreenCartState extends State<ScreenCart> {
   }
 
   Widget _screenTitle(bool empty, int amount) {
-    // List<Dishes> cartDishes = state.props[0];
     return ScreenTitle(
       title: 'Cart',
       subtitle: empty
@@ -112,7 +165,6 @@ class _ScreenCartState extends State<ScreenCart> {
         body: BlocBuilder<CartBloc, CartState>(
       builder: (context, state) {
         List<Dishes> cartDishes = state.props[0];
-        // // print(state.props);
         return Column(
           children: [
             _screenNavigator(),
@@ -120,16 +172,9 @@ class _ScreenCartState extends State<ScreenCart> {
               state is CartblocInitial || cartDishes.length == 0,
               cartDishes,
             ),
-            // RaisedButton(
-            //   onPressed: () {
-            //     cartBloc.add(
-            //       AddToCart(
-            //         dish: dishes[0],
-            //       ),
-            //     );
-            //   },
-            //   child: Text("añadir"),
-            // )
+            state is CartblocInitial || cartDishes.length == 0
+                ? SizedBox()
+                : _buttonGoToPay(),
           ],
         );
       },

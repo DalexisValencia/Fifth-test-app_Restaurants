@@ -17,17 +17,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     List<Dishes> stateDishesCart = state.props[0];
     if (event is AddToCart) {
       List<Dishes> finaldishes = List.from(stateDishesCart)..add(event.dish);
-      // print(finaldishes);
-      // // print(state.props[0]);
-      // // List<Dishes> finalDishes = state.props;
-      // // //Si existe un elemento similar añadimos 1 a cantidad al existente.
-      // // finalDishes.add(event.dishToCart);
-      // // // print("::::");
-      // // // print(event.dishToCart == finalDishes[0]);
-      // // // print("::::");
-      // // print(finalDishes);
-      // // amountInDish('add', event.dishToCart);
-      // print(stateDishesCart);
       yield FetchItems(dishes: finaldishes);
     }
 
@@ -37,14 +26,15 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       // print(event.toDelete);
       if (event.toDelete.length >= 1) {
         stateDishesCart.asMap().entries.map((e) {
-          print(event.toDelete.contains(e.key));
+          // print(event.toDelete.contains(e.key));
           if (event.toDelete.contains(e.key)) {
-            print("deberiamos eliminar el " + e.key.toString());
+            // print("deberiamos eliminar el " + e.key.toString());
             finaldishes.removeAt(e.key);
           }
         }).toList();
       } else if (event.toDelete.length == 1) {
-        print("cuando seam solo uno");
+        // print("cuando seam solo uno");
+        finaldishes.removeAt(0);
       }
       // print(finaldishes);
       yield FetchItems(
@@ -58,6 +48,41 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
     if (event is ClearAll) {
       // yield FetchItems(dishes: []);
+    }
+
+    if (event is UpdateAmount) {
+      int amountCurrent = event.dish.amount;
+      int indexFound = stateDishesCart.indexOf((event.dish));
+      switch (event.action) {
+        case 'add':
+          amountCurrent += 1;
+          break;
+        case 'remove':
+          amountCurrent = amountCurrent > 0 ? amountCurrent - 1 : 1;
+          break;
+        default:
+      }
+      event.dish.amount = amountCurrent;
+
+      Dishes currentPlate = Dishes(
+        name: event.dish.name,
+        details: event.dish.details,
+        image: event.dish.image,
+        price: event.dish.price,
+        rating: event.dish.rating,
+        preparation: event.dish.preparation,
+        comments: event.dish.comments,
+        category: event.dish.category,
+        additions: event.dish.additions,
+        ingredients: event.dish.ingredients,
+        amount: amountCurrent,
+        promotionLabel: event.dish.promotionLabel,
+      );
+      List<Dishes> finaldishes = List.from(stateDishesCart)
+        ..removeAt(indexFound);
+      yield FetchItems(
+        dishes: List.from(finaldishes)..insert(indexFound, currentPlate),
+      );
     }
   }
 }
