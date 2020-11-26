@@ -48,6 +48,7 @@ class Dishes {
       ingredients: dish.ingredients,
       amount: dish.amount,
       promotionLabel: dish.promotionLabel,
+      finalPrice: dish.finalPrice,
     );
   }
 }
@@ -58,12 +59,13 @@ class Promotions {
   bool active;
   List<PricePromotions> pricePromotions;
   double discounts;
-  Promotions(
-      {this.color,
-      this.label,
-      this.active,
-      this.pricePromotions,
-      this.discounts});
+  Promotions({
+    this.color,
+    this.label,
+    this.active,
+    this.pricePromotions,
+    this.discounts,
+  });
 }
 
 class PricePromotions {

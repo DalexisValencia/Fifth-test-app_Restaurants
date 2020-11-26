@@ -479,7 +479,6 @@ class _AddtoCarState extends State<AddtoCar> {
                               //     .state
                               //     .props[0]);
                               // addingCardIndication(widget.dish);
-                              // print(widget.dish.name);
                               widget.dish.amount = stateAmount.props[0];
                               cartbloc.add(
                                 AddToCart(

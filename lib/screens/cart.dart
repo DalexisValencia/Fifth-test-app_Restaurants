@@ -50,18 +50,23 @@ class _ScreenCartState extends State<ScreenCart> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          RichText(
-            text: TextSpan(
-                text: 'TOTAL: ',
-                style: Theme.of(context).textTheme.button.copyWith(
-                      color: Theme.of(context).primaryColorLight,
-                      fontWeight: FontWeight.w800,
-                    ),
-                children: <TextSpan>[
-                  TextSpan(
-                    text: ' 120.000',
-                  )
-                ]),
+          BlocBuilder<CartBloc, CartState>(
+            builder: (BuildContext context, CartState state) {
+              print(state.props[1]);
+              return RichText(
+                text: TextSpan(
+                    text: 'TOTAL: ',
+                    style: Theme.of(context).textTheme.button.copyWith(
+                          color: Theme.of(context).primaryColorLight,
+                          fontWeight: FontWeight.w800,
+                        ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: "\$${formatterPrice(state.props[1])}",
+                      )
+                    ]),
+              );
+            },
           ),
           RaisedButton(
             color: Theme.of(context).primaryColorLight,
@@ -215,7 +220,11 @@ class Cart extends StatelessWidget {
   final List<Dishes> cartDishes;
   final Function onSelectThis;
   final List<int> selecteds;
-  Cart({this.cartDishes, this.onSelectThis, this.selecteds});
+  Cart({
+    this.cartDishes,
+    this.onSelectThis,
+    this.selecteds,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(

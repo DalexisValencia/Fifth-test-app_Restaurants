@@ -106,7 +106,6 @@ List<Dishes> dishes = [
       discounts: 0,
     ),
     finalPrice: 10000,
-    //
   ),
   Dishes(
       name: 'Chocolate soufflé',

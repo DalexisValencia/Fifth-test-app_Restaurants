@@ -24,50 +24,11 @@ class _ItemCartCardState extends State<ItemCartCard> {
     cartBlocInstance = BlocProvider.of<CartBloc>(context);
   }
 
-  double dishFinalPrice() {
-    double priceWithoutPromotions = widget.dish.price * widget.dish.amount;
-    double finalPrice = findPromotionalPrices() == 0
-        ? priceWithoutPromotions
-        : findPromotionalPrices();
-    widget.priceByCard(finalPrice);
-    return finalPrice;
-  }
-
-  int productPriceWithModifiers() {
-    int addtionalPrices = 0;
-    if (widget.dish.additions.isNotEmpty) {
-      widget.dish.additions.map((e) {
-        Iterable<AditionalsOptions> additioonals =
-            e.children.where((element) => element.isActive == true);
-        if (additioonals.isNotEmpty) {
-          for (var aditional in additioonals) {
-            addtionalPrices += aditional.price;
-          }
-        }
-      }).toList();
-    }
-    return addtionalPrices;
-  }
-
-  double findPromotionalPrices() {
-    double promotionPrices = 0;
-    if (widget.dish.promotionLabel.pricePromotions.isNotEmpty) {
-      Iterable<PricePromotions> promotionsPrice = widget
-          .dish.promotionLabel.pricePromotions
-          .where((element) => element.amount == widget.dish.amount);
-      if (promotionsPrice.isNotEmpty) {
-        promotionPrices = promotionsPrice.first.price.toDouble();
-      }
-    }
-    return promotionPrices;
-  }
-
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print("Debo ir al detallado del producto");
-        dishFinalPrice();
+        // print("Debo ir al detallado del producto");
       },
       child: AnimatedContainer(
         duration: Duration(
@@ -155,7 +116,7 @@ class _ItemCartCardState extends State<ItemCartCard> {
                     Row(
                       children: [
                         Text(
-                          "\$${formatterPrice(dishFinalPrice() + productPriceWithModifiers())}",
+                          "\$${formatterPrice(widget.dish.finalPrice)}",
                           style: Theme.of(context).textTheme.caption.copyWith(
                                 color: Theme.of(context).buttonColor,
                                 fontWeight: FontWeight.w700,
@@ -163,9 +124,9 @@ class _ItemCartCardState extends State<ItemCartCard> {
                         ),
                         SizedBox(width: 10),
                         Visibility(
-                          visible: findPromotionalPrices() > 0,
+                          visible: widget.dish.promotionLabel.discounts > 0,
                           child: Text(
-                            "\$${formatterPrice(findPromotionalPrices() - widget.dish.price)}",
+                            "\$${formatterPrice(widget.dish.promotionLabel.discounts)}",
                             style: Theme.of(context).textTheme.caption.copyWith(
                                   color: Theme.of(context).primaryColorDark,
                                   decoration: TextDecoration.lineThrough,

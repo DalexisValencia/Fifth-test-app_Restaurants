@@ -9,23 +9,31 @@ abstract class CartState extends Equatable {
 
 class CartblocInitial extends CartState {
   final List<Dishes> dishes;
+  final double total;
   // final List<int> dishes;
-  CartblocInitial({this.dishes});
+  CartblocInitial({
+    this.dishes,
+    this.total,
+  });
   @override
-  List<Object> get props => [dishes];
+  List<Object> get props => [dishes, total];
 
   @override
-  String toString() => 'CartblocInitial {List of Dishes: $dishes}';
+  String toString() => 'CartblocInitial {List of Dishes: $dishes && $total}';
 }
 
 class FetchItems extends CartState {
   // final List<int> dishes;
   final List<Dishes> dishes;
-  FetchItems({this.dishes});
+  final double total;
+  FetchItems({
+    this.dishes,
+    this.total,
+  });
 
   @override
-  List<Object> get props => [dishes];
+  List<Object> get props => [dishes, total];
 
   @override
-  String toString() => 'FetchItems {List of Dishes: $dishes}';
+  String toString() => 'FetchItems {List of Dishes: $dishes && $total}';
 }

@@ -21,8 +21,8 @@ class CompleteCartItem extends StatelessWidget {
             dish: dish,
             selected: selected,
             priceByCard: (amout) {
-              print("en esta vista::");
-              print(amout);
+              //print("en esta vista::");
+              //print(amout);
             },
           ),
           dish.additions.length >= 1
