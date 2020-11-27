@@ -1,7 +1,7 @@
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/screens/plate.detail.dart';
+import 'package:fith_app__restaurant/screens/DishDetail/dishDetail.dart';
 // import 'package:fith_app__restaurant/interfaces/availableForLunch.dart';
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
 import 'package:flutter/material.dart';
@@ -34,13 +34,13 @@ class _CompleteListAvailablePlatesState
           onTap: () {
             // print('ir al detalle');
             instanceDishBloc.add(DishStart(currentDish: widget.dishes[index]));
-            Navigator.of(context)
-                .push(MaterialPageRoute<PlateDetailWrapper>(builder: (context) {
-              return BlocProvider.value(
-                value: instanceDishBloc,
-                child: PlateDetailWrapper(),
-              );
-            }));
+            // Navigator.of(context)
+            //     .push(MaterialPageRoute<PlateDetailWrapper>(builder: (context) {
+            //   return BlocProvider.value(
+            //     value: instanceDishBloc,
+            //     child: PlateDetailWrapper(),
+            //   );
+            // }));
           },
           child: Container(
             margin: EdgeInsets.only(

@@ -1,7 +1,7 @@
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/screens/plate.detail.dart';
+import 'package:fith_app__restaurant/screens/DishDetail/dishDetail.dart';
 import 'package:fith_app__restaurant/widgets/CustomChip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,13 +49,13 @@ class _CardProductWithCommentsState extends State<CardProductWithComments> {
               color: Theme.of(context).primaryColorLight,
               onPressed: () {
                 dishBlocProvider.add(DishStart(currentDish: widget.dish));
-                Navigator.of(context).push(
-                    MaterialPageRoute<PlateDetailWrapper>(builder: (context) {
-                  return BlocProvider.value(
-                    value: dishBlocProvider,
-                    child: PlateDetailWrapper(),
-                  );
-                }));
+                // Navigator.of(context).push(
+                //     MaterialPageRoute<PlateDetailWrapper>(builder: (context) {
+                //   return BlocProvider.value(
+                //     value: dishBlocProvider,
+                //     child: PlateDetailWrapper(),
+                //   );
+                // }));
               },
               child: Column(
                 children: <Widget>[

@@ -9,13 +9,15 @@ part 'dish_event.dart';
 part 'dish_state.dart';
 
 class DishBloc extends Bloc<DishEvent, DishState> {
-  DishBloc() : super(DishInitial(dish: Dishes()));
+  DishBloc() : super(DishEmpty());
 
   @override
   Stream<DishState> mapEventToState(DishEvent event) async* {
     if (event is DishStart) {
-      // var foundDish = findInDishes(event.currentDish);
-      yield DishCurrent(dish: event.currentDish);
+      var foundDish = Dishes().copyWith(event.currentDish);
+      yield DishCurrent(
+        dish: foundDish,
+      );
     }
 
     if (event is DishModifierEdit) {
@@ -36,9 +38,7 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     }
 
     if (event is DishClean) {
-      yield DishInitial(
-        dish: Dishes(),
-      );
+      yield DishEmpty();
     }
   }
 

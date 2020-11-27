@@ -7,6 +7,14 @@ abstract class DishState extends Equatable {
   List<Object> get props => [];
 }
 
+class DishEmpty extends DishState {
+  @override
+  List<Object> get props => [];
+
+  @override
+  String toString() => 'DishEmpty {props are empty}';
+}
+
 class DishInitial extends DishState {
   final Dishes dish;
   DishInitial({this.dish});

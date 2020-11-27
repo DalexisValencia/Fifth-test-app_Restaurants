@@ -93,37 +93,6 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
             ),
           ),
         ),
-        // body: BlocProvider(
-        //   create: (BuildContext context) => DiscoveryBloc(),
-        //   child: TabBarView(
-        //     controller: _tabController,
-        //     physics: NeverScrollableScrollPhysics(),
-        //     children: <Widget>[
-        //       Container(
-        //         child:
-        //             HomePage(controller: _tabController, animateScreen: true),
-        //       ),
-        //       Container(
-        //         child: tabStateInit == 1
-        //             ? BlocProvider(
-        //                 create: (BuildContext context) =>
-        //                     SearchBloc()..add(SearchInit(findIn: 'all')),
-        //                 child: ScaffoldSearch(),
-        //               )
-        //             : SizedBox(),
-        //       ),
-        //       Container(
-        //         child: tabStateInit == 2 ? BookingsScreen() : SizedBox(),
-        //       ),
-        //       Container(
-        //         child: tabStateInit == 3 ? FavoritesScreen() : SizedBox(),
-        //       ),
-        //       Container(
-        //         child: tabStateInit == 4 ? ScreenCart() : SizedBox(),
-        //       ),
-        //     ],
-        //   ),
-        // ),
         bottomNavigationBar: Container(
           color: Colors.white,
           height: 60,
