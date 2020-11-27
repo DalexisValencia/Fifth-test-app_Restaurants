@@ -43,7 +43,7 @@ class _AddtoCarState extends State<AddtoCar> {
                 .toString();
   }
 
-  void addingCardIndication(Dishes detailDish) {
+  void addToCart(Dishes detailDish) {
     cartbloc.add(
       AddToCart(
         dish: widget.dish,
@@ -62,6 +62,7 @@ class _AddtoCarState extends State<AddtoCar> {
 
   void showSnackBar() {
     final snackBarCar = SnackBar(
+      behavior: SnackBarBehavior.floating,
       backgroundColor: Theme.of(context).primaryColorDark,
       content: RichText(
         text: TextSpan(
@@ -72,7 +73,7 @@ class _AddtoCarState extends State<AddtoCar> {
           ),
           children: <TextSpan>[
             TextSpan(
-              text: ' Se ha añadido al carrito',
+              text: 'Se ha añadido al carrito',
               style: TextStyle(
                 fontWeight: FontWeight.w400,
               ),
@@ -132,7 +133,7 @@ class _AddtoCarState extends State<AddtoCar> {
                         ? null
                         : () {
                             widget.dish.amount = stateAmount.props[0];
-                            addingCardIndication(widget.dish);
+                            addToCart(widget.dish);
                           },
                     elevation: 0,
                     icon: _addingCar

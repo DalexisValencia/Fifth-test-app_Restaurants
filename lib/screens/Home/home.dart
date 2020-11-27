@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fith_app__restaurant/Lists/menu.dart';
 import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:fith_app__restaurant/screens/Home/Components/home__whatAreYouLooking.dart';
 import 'package:fith_app__restaurant/sections/HomeCategoryCardSuggested.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
@@ -101,22 +102,9 @@ class _HomePageState extends State<HomePage>
   }
 
   Widget _containerSearch() {
-    double withDefaultPadding =
-        MediaQuery.of(context).size.width * defaultPadding;
     return CustomContainerAnimation(
         animationChildren: animationChildren,
-        children: BlocProvider(
-          create: (BuildContext context) =>
-              SearchBloc()..add(SearchInit(findIn: 'all')),
-          child: Container(
-              padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(),
-              child: Hero(
-                tag: 'mainSearch',
-                child: WhatAreYouLookinForForm(),
-              )),
-        ));
+        children: WhatAreYouLookinForFormWrapper());
   }
 
   Widget _categoryContainerSuggested() {
@@ -244,81 +232,5 @@ class _HomePageState extends State<HomePage>
         ]),
       ),
     ));
-  }
-}
-
-class WhatAreYouLookinForForm extends StatefulWidget {
-  @override
-  _WhatAreYouLookinForFormState createState() =>
-      _WhatAreYouLookinForFormState();
-}
-
-class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
-  // SearchBloc searchBloc;
-  @override
-  void initState() {
-    // searchBloc = BlocProvider.of<SearchBloc>(context);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-      splashColor: Theme.of(context).buttonColor,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-      elevation: 4,
-      padding: EdgeInsets.fromLTRB(14, 13, 10, 13),
-      color: Theme.of(context).primaryColorLight,
-      onHighlightChanged: (value) {
-        if (value == false) {
-          final searchBloc = BlocProvider.of<SearchBloc>(context);
-          // Timer(Duration(milliseconds: 250), () {
-          //   Navigator.push(context, MaterialPageRoute(builder: (_) {
-          //     return ScaffoldSearch();
-          //   }));
-          // });
-          Navigator.of(context)
-              .push(MaterialPageRoute<ScaffoldSearch>(builder: (context) {
-            return BlocProvider.value(
-              value: searchBloc,
-              child: ScaffoldSearch(),
-            );
-          }));
-        }
-      },
-      onPressed: () {},
-      // onPressed: () {
-      //   final searchBloc = BlocProvider.of<SearchBloc>(context);
-      //   // Timer(Duration(milliseconds: 250), () {
-      //   //   Navigator.push(context, MaterialPageRoute(builder: (_) {
-      //   //     return ScaffoldSearch();
-      //   //   }));
-      //   // });
-      //   Navigator.of(context)
-      //       .push(MaterialPageRoute<ScaffoldSearch>(builder: (context) {
-      //     return BlocProvider.value(
-      //       value: searchBloc,
-      //       child: ScaffoldSearch(),
-      //     );
-      //   }));
-      //   print("ir a la busqueda");
-      // },
-      child: Row(
-        children: <Widget>[
-          Icon(
-            Icons.search,
-            color: Theme.of(context).primaryColorDark,
-          ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * 0.03,
-          ),
-          Text(
-            'What are you looking for?',
-            style: TextStyle(
-                color: Theme.of(context).primaryColorDark, fontSize: 12),
-          )
-        ],
-      ),
-    );
   }
 }

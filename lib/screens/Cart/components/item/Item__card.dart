@@ -125,7 +125,7 @@ class _ItemCartCardState extends State<ItemCartCard> {
                         Visibility(
                           visible: widget.dish.promotionLabel.discounts > 0,
                           child: Text(
-                            "\$${formatterPrice(widget.dish.promotionLabel.discounts)}",
+                            "- \$${formatterPrice(widget.dish.promotionLabel.discounts)}",
                             style: Theme.of(context).textTheme.caption.copyWith(
                                   color: Theme.of(context).primaryColorDark,
                                   decoration: TextDecoration.lineThrough,

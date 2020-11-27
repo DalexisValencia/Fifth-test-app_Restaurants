@@ -143,7 +143,7 @@ class ModifiersOption extends StatelessWidget {
                 ),
           ),
           Text(
-            option.price != 0 ? "\$${formatterPrice(option.price)}" : 'Si',
+            option.price != 0 ? "\$${formatterPrice(option.price)}" : 'Yes',
             style: Theme.of(context).textTheme.caption.copyWith(
                   color: Theme.of(context).primaryColorDark,
                 ),

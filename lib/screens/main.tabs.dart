@@ -4,7 +4,7 @@ import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
 import 'package:fith_app__restaurant/screens/bookings.dart';
 import 'package:fith_app__restaurant/screens/Cart/Cart.dart';
 import 'package:fith_app__restaurant/screens/favorites.dart';
-import 'package:fith_app__restaurant/screens/home.dart';
+import 'package:fith_app__restaurant/screens/Home/home.dart';
 import 'package:fith_app__restaurant/screens/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,14 +66,18 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
               physics: NeverScrollableScrollPhysics(),
               children: <Widget>[
                 Container(
-                  child:
-                      HomePage(controller: _tabController, animateScreen: true),
+                  child: HomePage(
+                    controller: _tabController,
+                    animateScreen: true,
+                  ),
                 ),
                 Container(
                   child: tabStateInit == 1
                       ? BlocProvider(
-                          create: (BuildContext context) =>
-                              SearchBloc()..add(SearchInit(findIn: 'all')),
+                          create: (BuildContext context) => SearchBloc()
+                            ..add(
+                              SearchInit(findIn: 'all'),
+                            ),
                           child: ScaffoldSearch(),
                         )
                       : SizedBox(),
