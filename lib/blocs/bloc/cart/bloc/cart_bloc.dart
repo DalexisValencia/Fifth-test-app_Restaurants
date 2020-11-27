@@ -24,9 +24,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     List<Dishes> stateDishesCart = state.props[0];
     if (event is AddToCart) {
       List<Dishes> finaldishes = List.from(stateDishesCart)..add(event.dish);
-      print(event.dish);
-      print(event.dish.finalPrice);
-      yield FetchItems(dishes: finaldishes);
+      yield FetchItems(
+        dishes: finaldishes,
+        total: _getTodal(finaldishes),
+      );
     }
 
     if (event is DeleteFromCart) {

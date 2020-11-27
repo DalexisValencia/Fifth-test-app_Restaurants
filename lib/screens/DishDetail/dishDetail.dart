@@ -117,7 +117,7 @@ class _PlateDetailScreenState extends State<PlateDetailScreen> {
       child: AnimatedOpacity(
         opacity: !animatedOpacity ? 1 : 0,
         duration: Duration(
-          milliseconds: 1000,
+          milliseconds: 500,
         ),
         child: Container(
           width: MediaQuery.of(context).size.width,

@@ -1,13 +1,13 @@
-import 'package:fith_app__restaurant/Lists/menu.dart';
+// import 'package:fith_app__restaurant/Lists/menu.dart';
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
 import 'package:fith_app__restaurant/screens/bookings.dart';
-import 'package:fith_app__restaurant/screens/cart.dart';
+import 'package:fith_app__restaurant/screens/Cart/cart.dart';
 import 'package:fith_app__restaurant/screens/favorites.dart';
 import 'package:fith_app__restaurant/screens/home.dart';
 import 'package:fith_app__restaurant/screens/search.dart';
-import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
+// import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
