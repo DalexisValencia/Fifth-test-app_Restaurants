@@ -5,9 +5,9 @@ import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/sections/AppBarCustom.dart';
-import 'package:fith_app__restaurant/sections/CompleteCartItem.dart';
 import 'package:fith_app__restaurant/widgets/ButtonsInHeader.dart';
 import 'package:fith_app__restaurant/widgets/ScreenTitle.dart';
+import 'package:fith_app__restaurant/screens/Cart/components/Cart__item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

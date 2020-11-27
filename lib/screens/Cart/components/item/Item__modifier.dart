@@ -1,40 +1,6 @@
-//Componente utilizado para armar la tarjeta de carrito cuando tiene modificadores
 import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/aditional.dart';
-import 'package:fith_app__restaurant/widgets/Cart__card.dart';
 import 'package:flutter/material.dart';
-
-class CompleteCartItem extends StatelessWidget {
-  final Dishes dish;
-  final bool selected;
-  CompleteCartItem({Key key, this.dish, this.selected}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(
-        vertical: 5,
-      ),
-      child: Column(
-        children: [
-          ItemCartCard(
-            dish: dish,
-            selected: selected,
-            priceByCard: (amout) {
-              //print("en esta vista::");
-              //print(amout);
-            },
-          ),
-          dish.additions.length >= 1
-              ? ExpansionModifiersCartItem(
-                  additionals: dish.additions,
-                )
-              : SizedBox(),
-        ],
-      ),
-    );
-  }
-}
 
 class ExpansionModifiersCartItem extends StatefulWidget {
   final List<Adittional> additionals;
@@ -76,8 +42,12 @@ class _ExpansionModifiersCartItemState
                 borderRadius: showModifiers
                     ? BorderRadius.circular(0)
                     : BorderRadius.only(
-                        bottomLeft: Radius.circular(borderRadiusCards),
-                        bottomRight: Radius.circular(borderRadiusCards),
+                        bottomLeft: Radius.circular(
+                          borderRadiusCards,
+                        ),
+                        bottomRight: Radius.circular(
+                          borderRadiusCards,
+                        ),
                       ),
               ),
               child: Row(

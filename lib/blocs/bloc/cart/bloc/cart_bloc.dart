@@ -23,7 +23,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   ) async* {
     List<Dishes> stateDishesCart = state.props[0];
     if (event is AddToCart) {
-      List<Dishes> finaldishes = List.from(stateDishesCart)..add(event.dish);
+      List<Dishes> finaldishes = List.from(stateDishesCart)
+        ..add(
+          generateNewDish(event.dish),
+        );
       yield FetchItems(
         dishes: finaldishes,
         total: _getTodal(finaldishes),
@@ -69,20 +72,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           break;
         default:
       }
-      int pricePerAmount = event.dish.price.toInt() * amountCurrent;
-      int promocionalPrice = _getPromotionlaPrices(event.dish, amountCurrent);
-      int discount =
-          promocionalPrice == 0 ? 0 : promocionalPrice - (pricePerAmount);
       event.dish.amount = amountCurrent;
-      event.dish.finalPrice =
-          (promocionalPrice == 0 ? pricePerAmount : promocionalPrice) +
-              _getAdditionalPrice(event.dish);
-      event.dish.promotionLabel.discounts = discount.toDouble().abs();
-      // print("precio promocional");
-      // print(promocionalPrice);
-      // print(event.dish.finalPrice);
-      // print("precio promocional");
-      Dishes currentPlate = event.dish.copyWith(event.dish);
+      Dishes currentPlate = event.dish.copyWith(
+        generateNewDish(event.dish),
+      );
       List<Dishes> copyListDishes = List.from(stateDishesCart)
         ..removeAt(indexFound);
       List<Dishes> finaldishes = List.from(copyListDishes)
@@ -130,4 +123,18 @@ int _getPromotionlaPrices(Dishes dish, int amount) {
     }
   }
   return promotionPrices;
+}
+
+Dishes generateNewDish(Dishes dish) {
+  int amountCurrent = dish.amount;
+  int promocionalPrice = _getPromotionlaPrices(dish, amountCurrent);
+  int pricePerAmount = dish.price.toInt() * amountCurrent;
+  int discount =
+      promocionalPrice == 0 ? 0 : promocionalPrice - (pricePerAmount);
+  dish.finalPrice =
+      (promocionalPrice == 0 ? pricePerAmount : promocionalPrice) +
+          _getAdditionalPrice(dish);
+  dish.promotionLabel.discounts = discount.toDouble().abs();
+  Dishes finalDish = Dishes().copyWith(dish);
+  return finalDish;
 }
