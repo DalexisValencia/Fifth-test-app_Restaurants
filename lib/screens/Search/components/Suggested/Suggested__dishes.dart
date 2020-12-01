@@ -5,15 +5,14 @@ import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
 import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
 import 'package:flutter/material.dart';
 
-class WrapperSuggestionSearch extends StatefulWidget {
+class SuggestedDishes extends StatefulWidget {
   final List<Dishes> suggestions;
-  WrapperSuggestionSearch({this.suggestions});
+  SuggestedDishes({this.suggestions});
   @override
-  _WrapperSuggestionSearchState createState() =>
-      _WrapperSuggestionSearchState();
+  _SuggestedDishesState createState() => _SuggestedDishesState();
 }
 
-class _WrapperSuggestionSearchState extends State<WrapperSuggestionSearch> {
+class _SuggestedDishesState extends State<SuggestedDishes> {
   Widget _header() {
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -50,7 +49,10 @@ class _WrapperSuggestionSearchState extends State<WrapperSuggestionSearch> {
       margin: EdgeInsets.only(top: 8),
       width: MediaQuery.of(context).size.width,
       child: Column(
-        children: <Widget>[_header(), _body()],
+        children: <Widget>[
+          _header(),
+          _body(),
+        ],
       ),
     );
   }

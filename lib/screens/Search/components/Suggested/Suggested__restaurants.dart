@@ -8,9 +8,11 @@ import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HightlightResturantsWrapper extends StatelessWidget {
+class SuggestedRestaurants extends StatelessWidget {
   final restaurantSuggestions;
-  HightlightResturantsWrapper({this.restaurantSuggestions});
+  SuggestedRestaurants({
+    this.restaurantSuggestions,
+  });
   @override
   Widget build(BuildContext context) {
     double withDefaultPadding =
@@ -24,14 +26,19 @@ class HightlightResturantsWrapper extends StatelessWidget {
               padding: EdgeInsets.only(left: withDefaultPadding),
               child: FullSectionTitle(
                 title: 'Highlight Restaurants',
-                rightContainer:
-                    RoundedCustomButton(title: 'See all', callPressed: () {}),
+                rightContainer: RoundedCustomButton(
+                  title: 'See all',
+                  callPressed: () {},
+                ),
               ),
             ),
             Container(
-              margin: EdgeInsets.symmetric(horizontal: withDefaultPadding),
-              child:
-                  HightLightRestaurantsList(suggestions: restaurantSuggestions),
+              margin: EdgeInsets.symmetric(
+                horizontal: withDefaultPadding,
+              ),
+              child: HightLightRestaurantsList(
+                suggestions: restaurantSuggestions,
+              ),
             )
           ],
         ),
@@ -65,7 +72,9 @@ class _HightLightRestaurantsListState extends State<HightLightRestaurantsList> {
 
 class HightlightResturants extends StatefulWidget {
   final Restaurants hightlight;
-  HightlightResturants({this.hightlight});
+  HightlightResturants({
+    this.hightlight,
+  });
   @override
   _HightlightResturantsState createState() => _HightlightResturantsState();
 }
@@ -95,8 +104,9 @@ class _HightlightResturantsState extends State<HightlightResturants> {
                 color: Theme.of(context).primaryColorLight,
                 fontWeight: FontWeight.w500),
           ),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
         ),
       ),
     );
@@ -109,26 +119,36 @@ class _HightlightResturantsState extends State<HightlightResturants> {
     return Container(
       margin: EdgeInsets.only(bottom: totalHeight * 0.03),
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          color: Colors.red,
-          image: DecorationImage(
-              fit: BoxFit.cover,
-              image: ExactAssetImage(widget.hightlight.image))),
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.red,
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: ExactAssetImage(
+            widget.hightlight.image,
+          ),
+        ),
+      ),
       width: totalWidth,
       height: MediaQuery.of(context).size.height * 0.30,
       child: RaisedButton(
         padding: EdgeInsets.fromLTRB(12, 18, 12, 18),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
         onPressed: () {
-          detailsRestaurant
-              .add(DetailsresturantSetCurrent(restaurant: widget.hightlight));
+          detailsRestaurant.add(
+            DetailsresturantSetCurrent(
+              restaurant: widget.hightlight,
+            ),
+          );
 
           customAnimateNavigation(
-              context,
-              BlocProvider.value(
-                value: detailsRestaurant,
-                child: RestaurantDetailWrapper(),
-              ));
+            context,
+            BlocProvider.value(
+              value: detailsRestaurant,
+              child: RestaurantDetailWrapper(),
+            ),
+          );
         },
         color: Colors.transparent,
         splashColor: Theme.of(context).buttonColor,
@@ -141,10 +161,11 @@ class _HightlightResturantsState extends State<HightlightResturants> {
                 Container(
                   width: totalWidth * 0.12,
                   child: CircleIconButton(
-                      icon: Icons.store_mall_directory,
-                      color: Theme.of(context).primaryColorLight,
-                      bgColor: Theme.of(context).primaryColor..withOpacity(0.5),
-                      trigger: () {}),
+                    icon: Icons.store_mall_directory,
+                    color: Theme.of(context).primaryColorLight,
+                    bgColor: Theme.of(context).primaryColor..withOpacity(0.5),
+                    trigger: () {},
+                  ),
                 ),
                 Container(
                   width: totalWidth * 0.50,
@@ -156,16 +177,17 @@ class _HightlightResturantsState extends State<HightlightResturants> {
                         child: Text(
                           widget.hightlight.name,
                           style: Theme.of(context).textTheme.headline6.copyWith(
-                              color: Theme.of(context).primaryColorLight,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                              shadows: [
-                                Shadow(
-                                  offset: Offset(0.0, 0.0),
-                                  blurRadius: 2.0,
-                                  color: Theme.of(context).primaryColorDark,
-                                )
-                              ]),
+                            color: Theme.of(context).primaryColorLight,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                            shadows: [
+                              Shadow(
+                                offset: Offset(0.0, 0.0),
+                                blurRadius: 2.0,
+                                color: Theme.of(context).primaryColorDark,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       SizedBox(
@@ -174,16 +196,17 @@ class _HightlightResturantsState extends State<HightlightResturants> {
                       Text(
                         widget.hightlight.description,
                         style: Theme.of(context).textTheme.bodyText1.copyWith(
-                            color: Theme.of(context).primaryColorLight,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w400,
-                            shadows: [
-                              Shadow(
-                                offset: Offset(0.0, 0.0),
-                                blurRadius: 2.0,
-                                color: Theme.of(context).primaryColorDark,
-                              )
-                            ]),
+                          color: Theme.of(context).primaryColorLight,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w400,
+                          shadows: [
+                            Shadow(
+                              offset: Offset(0.0, 0.0),
+                              blurRadius: 2.0,
+                              color: Theme.of(context).primaryColorDark,
+                            )
+                          ],
+                        ),
                       )
                     ],
                   ),
@@ -191,13 +214,14 @@ class _HightlightResturantsState extends State<HightlightResturants> {
                 Container(
                   width: totalWidth * 0.12,
                   child: CircleIconButton(
-                      icon: Icons.favorite,
-                      color: Theme.of(context).primaryColorLight,
-                      bgColor: Colors.red,
-                      // bgColor: widget.hightlight.favorite
-                      //     ? Theme.of(context).buttonColor
-                      //     : Colors.white.withOpacity(0.3),
-                      trigger: () {}),
+                    icon: Icons.favorite,
+                    color: Theme.of(context).primaryColorLight,
+                    bgColor: Colors.red,
+                    // bgColor: widget.hightlight.favorite
+                    //     ? Theme.of(context).buttonColor
+                    //     : Colors.white.withOpacity(0.3),
+                    trigger: () {},
+                  ),
                 )
               ],
             ),

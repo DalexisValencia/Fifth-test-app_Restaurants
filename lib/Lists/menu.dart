@@ -302,3 +302,14 @@ List<Restaurants> restaurants = [
     //
   )
 ];
+
+List<Category> suggesteds = [
+  Category(name: 'Cofee', icon: Icons.free_breakfast, iconSource: ''),
+  Category(name: 'Burgers', icon: Icons.fastfood, iconSource: ''),
+  Category(name: 'Meat', icon: Icons.restaurant, iconSource: ''),
+  Category(name: 'Salad', icon: Icons.local_dining, iconSource: ''),
+  Category(name: 'Sweets', icon: Icons.group_work, iconSource: ''),
+  Category(name: 'Beer', icon: Icons.local_bar, iconSource: ''),
+  Category(name: 'Cake', icon: Icons.cake, iconSource: ''),
+  Category(name: 'Pizza', icon: Icons.local_pizza, iconSource: '')
+];
