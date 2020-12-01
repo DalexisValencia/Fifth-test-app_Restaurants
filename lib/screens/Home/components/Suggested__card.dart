@@ -1,23 +1,24 @@
 import 'dart:async';
 
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
-// import 'package:fith_app__restaurant/blocs/bloc/productdetails_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/categories.dart';
 import 'package:fith_app__restaurant/screens/disscover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeCardCategorySuggested extends StatefulWidget {
+class SuggestedCard extends StatefulWidget {
   final Category category;
-  final TabController controller;
-  HomeCardCategorySuggested({this.category, this.controller});
+  //final TabController controller;
+  SuggestedCard({
+    this.category,
+    //this.controller,
+  });
 
   @override
-  _HomeCardCategorySuggestedState createState() =>
-      _HomeCardCategorySuggestedState();
+  _SuggestedCardState createState() => _SuggestedCardState();
 }
 
-class _HomeCardCategorySuggestedState extends State<HomeCardCategorySuggested> {
+class _SuggestedCardState extends State<SuggestedCard> {
   DiscoveryBloc blocDiscovery;
   @override
   void initState() {
@@ -28,10 +29,16 @@ class _HomeCardCategorySuggestedState extends State<HomeCardCategorySuggested> {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(7)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(7),
+      ),
       onPressed: () {
         Timer(Duration(milliseconds: 200), () {
-          blocDiscovery.add(DiscoveryStart(category: widget.category.name));
+          blocDiscovery.add(
+            DiscoveryStart(
+              category: widget.category.name,
+            ),
+          );
           // widget.controller.animateTo(4);
           Navigator.of(context).push(MaterialPageRoute<DiscoverScaffold>(
             builder: (BuildContext context) {
@@ -53,8 +60,12 @@ class _HomeCardCategorySuggestedState extends State<HomeCardCategorySuggested> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.10,
             decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: ExactAssetImage(widget.category.iconSource))),
+              image: DecorationImage(
+                image: ExactAssetImage(
+                  widget.category.iconSource,
+                ),
+              ),
+            ),
           ),
           FittedBox(
             fit: BoxFit.scaleDown,
