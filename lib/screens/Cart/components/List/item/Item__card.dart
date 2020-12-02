@@ -1,6 +1,8 @@
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
+import 'package:fith_app__restaurant/screens/DishDetail/dishDetail.dart';
 import 'package:fith_app__restaurant/widgets/CustomChip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,7 +29,28 @@ class _ItemCartCardState extends State<ItemCartCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // print("Debo ir al detallado del producto");
+        Navigator.of(context).push(
+          MaterialPageRoute<PlateDetailScreen>(
+            builder: (BuildContext context) {
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider<DishBloc>(
+                    create: (BuildContext context) => DishBloc(),
+                  ),
+                  BlocProvider<CartBloc>.value(
+                    value: cartBlocInstance,
+                    child: PlateDetailScreen(
+                      dish: widget.dish,
+                    ),
+                  )
+                ],
+                child: PlateDetailScreen(
+                  dish: widget.dish,
+                ),
+              );
+            },
+          ),
+        );
       },
       child: AnimatedContainer(
         duration: Duration(
@@ -45,7 +68,9 @@ class _ItemCartCardState extends State<ItemCartCard> {
                   topLeft: Radius.circular(borderRadiusCards),
                   topRight: Radius.circular(borderRadiusCards),
                 ),
-          color: Theme.of(context).primaryColorLight,
+          color: !widget.selected
+              ? Theme.of(context).primaryColorLight
+              : cardSelectedBgColor,
           border: Border.all(
             color: widget.selected
                 ? Theme.of(context).buttonColor

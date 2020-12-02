@@ -1,7 +1,7 @@
 //Componente utilizado para armar la tarjeta de carrito cuando tiene modificadores
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/screens/Cart/components/Item/Item__card.dart';
-import 'package:fith_app__restaurant/screens/Cart/components/Item/Item__modifier.dart';
+import 'package:fith_app__restaurant/screens/Cart/components/List/item/Item__card.dart';
+import 'package:fith_app__restaurant/screens/Cart/components/List/item/Item__modifier.dart';
 import 'package:flutter/material.dart';
 
 class CompleteCartItem extends StatelessWidget {
