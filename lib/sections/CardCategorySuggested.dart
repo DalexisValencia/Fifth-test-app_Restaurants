@@ -53,9 +53,10 @@ class CardCategorySuggestedState extends State<CardCategorySuggested> {
               ),
             ),
           ),
-          SuggestedHorizontalList(
-            suggestions: widget.suggestions,
-          )
+          Text("Esto esta muy mal!!!!!")
+          // SuggestedHorizontalList(
+          //   suggestions: widget.suggestions,
+          // )
         ],
       ),
     );

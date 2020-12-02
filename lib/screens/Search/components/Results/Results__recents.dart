@@ -1,7 +1,7 @@
 import 'package:fith_app__restaurant/Lists/menu.dart';
 import 'package:fith_app__restaurant/screens/Search/components/Results/components/Results__seeAll.dart';
 import 'package:fith_app__restaurant/screens/Search/components/Results/components/Results__title.dart';
-import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
+import 'package:fith_app__restaurant/widgets/Dish__card.dart';
 import 'package:flutter/material.dart';
 
 class ResultRecents extends StatelessWidget {
@@ -33,13 +33,16 @@ class ResultRecents extends StatelessWidget {
                 ),
               );
               dishes.map((e) {
-                recent.add(Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 2,
+                recent.add(
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 2,
+                    ),
+                    child: DishCard(
+                      dish: e,
+                    ),
                   ),
-                  // child: AsaCard(color: Colors.blue),
-                  child: QuickView(dish: e),
-                ));
+                );
               }).toList();
               recent.add(
                 SeeAllRecents(

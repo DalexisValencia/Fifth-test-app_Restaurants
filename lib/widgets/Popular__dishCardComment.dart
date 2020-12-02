@@ -9,7 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DishCardComment extends StatefulWidget {
   final Dishes dish;
-  DishCardComment({this.dish});
+  DishCardComment({
+    this.dish,
+  });
   @override
   _DishCardCommentState createState() => _DishCardCommentState();
 }
@@ -79,17 +81,24 @@ class _DishCardCommentState extends State<DishCardComment> {
                   children: <Widget>[
                     Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(12),
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: ExactAssetImage(widget.dish.image))),
+                        borderRadius: BorderRadius.circular(12),
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: ExactAssetImage(widget.dish.image),
+                        ),
+                      ),
                       width: totalWidth * 0.30,
                       height: totalWidth * 0.30,
                     ),
                     Expanded(
                       child: Container(
-                        padding: EdgeInsets.only(top: 4, right: 12),
-                        margin: EdgeInsets.only(left: totalWidth * 0.04),
+                        padding: EdgeInsets.only(
+                          top: 4,
+                          right: 12,
+                        ),
+                        margin: EdgeInsets.only(
+                          left: totalWidth * 0.04,
+                        ),
                         height: totalWidth * 0.30,
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -208,7 +217,9 @@ class _DishCardCommentState extends State<DishCardComment> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .caption
-                                        .copyWith(fontWeight: FontWeight.bold),
+                                        .copyWith(
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                   ),
                                   SizedBox(
                                     height: totalWidth * 0.01,

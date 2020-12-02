@@ -46,11 +46,28 @@ customAnimateNavigation(BuildContext context, Widget blocinstance) {
       }));
 }
 
-// Navigator.of(context).push(
-//     MaterialPageRoute<SeeMoreDishesByRestaurant>(
-//         builder: (context) {
-//   return BlocProvider.value(
-//     value: restaurantBloc,
-//     child: SeeMoreDishesByRestaurant(searchKey: 'lunchNow'),
-//   );
-// }));
+snackBarAddCart(BuildContext context, name) {
+  final snackBarCar = SnackBar(
+    behavior: SnackBarBehavior.floating,
+    backgroundColor: Theme.of(context).primaryColorDark,
+    content: RichText(
+      text: TextSpan(
+        text: name,
+        style: TextStyle(
+          color: Theme.of(context).primaryColorLight,
+          fontWeight: FontWeight.bold,
+        ),
+        children: <TextSpan>[
+          TextSpan(
+            text: ' Se ha añadido al carrito',
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+            ),
+          )
+        ],
+      ),
+    ),
+  );
+
+  Scaffold.of(context).showSnackBar(snackBarCar);
+}

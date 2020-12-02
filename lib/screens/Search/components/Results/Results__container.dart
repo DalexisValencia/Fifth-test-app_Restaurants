@@ -1,7 +1,7 @@
 import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/search.dart';
 import 'package:fith_app__restaurant/screens/Search/components/Results/components/Results__title.dart';
-import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
+import 'package:fith_app__restaurant/widgets/Dish__card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,7 +11,6 @@ class ResultsContainer extends StatelessWidget {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
         SearchInitInterface stateSearchResults = state.props[0];
-        // print(stateSearchResults.results);
         return stateSearchResults.results.length >= 1
             ? Container(
                 width: MediaQuery.of(context).size.width,
@@ -42,13 +41,12 @@ class ResultsContainer extends StatelessWidget {
                           recent.add(
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 2),
-                              child: QuickView(
+                              child: DishCard(
                                 dish: e,
                               ),
                             ),
                           );
                         }).toList();
-                        // recent.add(_seeAll('See all results', 'recente-search'));
                         return Column(
                           children: recent,
                         );

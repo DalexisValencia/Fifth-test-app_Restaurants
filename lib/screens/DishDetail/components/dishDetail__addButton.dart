@@ -10,7 +10,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddtoCar extends StatefulWidget {
   final Dishes dish;
-  AddtoCar({this.dish});
+  AddtoCar({
+    this.dish,
+  });
   @override
   _AddtoCarState createState() => _AddtoCarState();
 }
@@ -56,115 +58,93 @@ class _AddtoCarState extends State<AddtoCar> {
       setState(() {
         _addingCar = false;
       });
-      showSnackBar();
+      snackBarAddCart(
+        context,
+        widget.dish.name,
+      );
     });
-  }
-
-  void showSnackBar() {
-    final snackBarCar = SnackBar(
-      behavior: SnackBarBehavior.floating,
-      backgroundColor: Theme.of(context).primaryColorDark,
-      content: RichText(
-        text: TextSpan(
-          text: '${widget.dish.name}',
-          style: TextStyle(
-            color: Theme.of(context).primaryColorLight,
-            fontWeight: FontWeight.bold,
-          ),
-          children: <TextSpan>[
-            TextSpan(
-              text: 'Se ha añadido al carrito',
-              style: TextStyle(
-                fontWeight: FontWeight.w400,
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-
-    Scaffold.of(context).showSnackBar(snackBarCar);
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(
-              color: Theme.of(context).accentColor,
-              width: 1,
-            ),
+      decoration: BoxDecoration(
+        border: Border(
+          top: BorderSide(
+            color: Theme.of(context).accentColor,
+            width: 1,
           ),
-          color: Theme.of(context).buttonColor,
         ),
-        padding: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * defaultPadding,
-        ),
-        width: MediaQuery.of(context).size.width,
-        child: BlocBuilder<DishamountBloc, DishamountState>(
-          builder: (BuildContext context, DishamountState stateAmount) {
-            return Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 2,
-                  child: BlocBuilder<AdditionalsBloc, AdditionalsState>(
-                    builder: (BuildContext context, AdditionalsState state) {
-                      return Text(
-                        "\$${finalPrice(stateAmount.props[0], state.props[1])}",
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              fontSize: 22,
-                              color: Theme.of(context).primaryColorLight,
-                              fontWeight: FontWeight.w900,
-                            ),
-                      );
-                    },
-                  ),
+        color: Theme.of(context).buttonColor,
+      ),
+      padding: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).size.width * defaultPadding,
+      ),
+      width: MediaQuery.of(context).size.width,
+      child: BlocBuilder<DishamountBloc, DishamountState>(
+        builder: (BuildContext context, DishamountState stateAmount) {
+          return Row(
+            children: <Widget>[
+              Expanded(
+                flex: 2,
+                child: BlocBuilder<AdditionalsBloc, AdditionalsState>(
+                  builder: (BuildContext context, AdditionalsState state) {
+                    return Text(
+                      "\$${finalPrice(stateAmount.props[0], state.props[1])}",
+                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                            fontSize: 22,
+                            color: Theme.of(context).primaryColorLight,
+                            fontWeight: FontWeight.w900,
+                          ),
+                    );
+                  },
                 ),
-                Spacer(),
-                SizedBox(
-                  height: 41,
-                  width: 120,
-                  child: RaisedButton.icon(
-                    color: Theme.of(context).primaryColorLight,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20)),
-                    onPressed: _addingCar
-                        ? null
-                        : () {
-                            widget.dish.amount = stateAmount.props[0];
-                            addToCart(widget.dish);
-                          },
-                    elevation: 0,
-                    icon: _addingCar
-                        ? SizedBox()
-                        : Icon(
-                            Icons.add_shopping_cart,
-                            size: 18,
-                            color: Theme.of(context).buttonColor,
-                          ),
-                    label: _addingCar
-                        ? Container(
-                            width: 20,
-                            height: 20,
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                Theme.of(context).primaryColorLight,
-                              ),
-                            ),
-                          )
-                        : Text(
-                            "Añadir",
-                            style:
-                                Theme.of(context).textTheme.bodyText1.copyWith(
-                                      color: Theme.of(context).buttonColor,
-                                    ),
-                          ),
+              ),
+              Spacer(),
+              SizedBox(
+                height: 41,
+                width: 120,
+                child: RaisedButton.icon(
+                  color: Theme.of(context).primaryColorLight,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
                   ),
-                )
-              ],
-            );
-          },
-        ));
+                  onPressed: _addingCar
+                      ? null
+                      : () {
+                          widget.dish.amount = stateAmount.props[0];
+                          addToCart(widget.dish);
+                        },
+                  elevation: 0,
+                  icon: _addingCar
+                      ? SizedBox()
+                      : Icon(
+                          Icons.add_shopping_cart,
+                          size: 18,
+                          color: Theme.of(context).buttonColor,
+                        ),
+                  label: _addingCar
+                      ? Container(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Theme.of(context).primaryColorLight,
+                            ),
+                          ),
+                        )
+                      : Text(
+                          "Añadir",
+                          style: Theme.of(context).textTheme.bodyText1.copyWith(
+                                color: Theme.of(context).buttonColor,
+                              ),
+                        ),
+                ),
+              )
+            ],
+          );
+        },
+      ),
+    );
   }
 }

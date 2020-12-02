@@ -8,7 +8,7 @@ import 'package:fith_app__restaurant/sections/EmptySection.dart';
 import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
 import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
-import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
+import 'package:fith_app__restaurant/widgets/Dish__card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -244,9 +244,11 @@ class RelatedProductsInThisRestaurant extends StatelessWidget {
       child: Builder(builder: (BuildContext context) {
         List<Widget> nextTops = [];
         menu.map((e) {
-          nextTops.add(QuickView(
-            dish: e,
-          ));
+          nextTops.add(
+            DishCard(
+              dish: e,
+            ),
+          );
         }).toList();
         return Column(
           children: nextTops,

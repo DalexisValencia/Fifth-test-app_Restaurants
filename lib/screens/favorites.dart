@@ -7,7 +7,7 @@ import 'package:fith_app__restaurant/sections/AppBarCustom.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/ButtonsInHeader.dart';
 import 'package:fith_app__restaurant/widgets/ScreenTitle.dart';
-import 'package:fith_app__restaurant/widgets/quickViewCard.dart';
+import 'package:fith_app__restaurant/widgets/Dish__card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -94,7 +94,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                       }
                     });
                   },
-                  child: QuickView(
+                  child: DishCard(
                     dish: dishes[0],
                     borderCustomColor: forDelete.contains(index) ? true : false,
                   ),

@@ -146,7 +146,8 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
                               : SizedBox(),
                           currentRestaurant.suggestions.length >= 1
                               ? CardCategorySuggested(
-                                  suggestions: currentRestaurant.suggestions)
+                                  suggestions: currentRestaurant.suggestions,
+                                )
                               : SizedBox(),
                           RoundedOptionsContactWrapper(),
                           currentRestaurant.contact.length >= 1
