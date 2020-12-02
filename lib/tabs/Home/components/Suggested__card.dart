@@ -1,8 +1,9 @@
 import 'dart:async';
 
+import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/categories.dart';
-import 'package:fith_app__restaurant/screens/disscover.dart';
+import 'package:fith_app__restaurant/screens/Disscover/disscover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,9 +21,11 @@ class SuggestedCard extends StatefulWidget {
 
 class _SuggestedCardState extends State<SuggestedCard> {
   DiscoveryBloc blocDiscovery;
+  CartBloc blocCartInstance;
   @override
   void initState() {
     blocDiscovery = BlocProvider.of<DiscoveryBloc>(context);
+    blocCartInstance = BlocProvider.of<CartBloc>(context);
     super.initState();
   }
 
@@ -41,12 +44,22 @@ class _SuggestedCardState extends State<SuggestedCard> {
                 category: widget.category.name,
               ),
             );
-            // widget.controller.animateTo(4);
             Navigator.of(context).push(
               MaterialPageRoute<DiscoverScaffold>(
                 builder: (BuildContext context) {
-                  return BlocProvider.value(
-                    value: blocDiscovery,
+                  return MultiBlocProvider(
+                    providers: [
+                      BlocProvider.value(
+                        value: blocDiscovery,
+                        child: DiscoverScaffold(),
+                        // create: (context) => SubjectBloc(),
+                      ),
+                      BlocProvider.value(
+                        value: blocCartInstance,
+                        child: DiscoverScaffold(),
+                        // create: (context) => SubjectBloc(),
+                      ),
+                    ],
                     child: DiscoverScaffold(),
                   );
                 },

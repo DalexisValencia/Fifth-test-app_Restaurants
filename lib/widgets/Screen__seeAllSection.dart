@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 
 class SeeAllSuggested extends StatelessWidget {
   final String title;
-  SeeAllSuggested({this.title});
+  SeeAllSuggested({
+    this.title,
+  });
   @override
   Widget build(BuildContext context) {
     return Padding(

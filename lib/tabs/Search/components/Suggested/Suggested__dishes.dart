@@ -1,5 +1,5 @@
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Suggested/components/Suggested__seeAll.dart';
+import 'package:fith_app__restaurant/widgets/Screen__seeAllSection.dart';
 import 'package:fith_app__restaurant/sections/Suggested__horizontalList.dart';
 import 'package:flutter/material.dart';
 
