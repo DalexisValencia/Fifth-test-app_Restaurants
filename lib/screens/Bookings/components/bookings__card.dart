@@ -2,28 +2,33 @@ import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/widgets/CustomChip.dart';
 import 'package:flutter/material.dart';
 
-class BookingCard extends StatefulWidget {
+class BookingsCard extends StatefulWidget {
   final String booking;
-  BookingCard({this.booking});
+  BookingsCard({
+    this.booking,
+  });
   @override
-  _BookingCardState createState() => _BookingCardState();
+  _BookingsCardState createState() => _BookingsCardState();
 }
 
-class _BookingCardState extends State<BookingCard> {
+class _BookingsCardState extends State<BookingsCard> {
   String restaurantNameInBooking = 'Restaurant';
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(7),
       decoration: BoxDecoration(
-          color: Theme.of(context).primaryColorLight,
-          borderRadius: BorderRadius.circular(borderRadiusCards),
-          border: Border.all(
-              color: Theme.of(context).primaryColorDark.withOpacity(0.5),
-              width: 0.5)),
+        color: Theme.of(context).primaryColorLight,
+        borderRadius: BorderRadius.circular(borderRadiusCards),
+        border: Border.all(
+          color: Theme.of(context).primaryColorDark.withOpacity(0.5),
+          width: 0.5,
+        ),
+      ),
       margin: EdgeInsets.symmetric(
-          horizontal: MediaQuery.of(context).size.width * defaultPadding,
-          vertical: 5),
+        horizontal: MediaQuery.of(context).size.width * defaultPadding,
+        vertical: 5,
+      ),
       width: MediaQuery.of(context).size.width,
       child: Row(
         children: <Widget>[
@@ -31,11 +36,17 @@ class _BookingCardState extends State<BookingCard> {
             width: MediaQuery.of(context).size.width * 0.30,
             height: MediaQuery.of(context).size.width * 0.30,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(borderRadiusImages),
-                color: Colors.black,
-                image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: ExactAssetImage('assets/banner/fast-food.png'))),
+              borderRadius: BorderRadius.circular(
+                borderRadiusImages,
+              ),
+              color: Colors.black,
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: ExactAssetImage(
+                  'assets/banner/fast-food.png',
+                ),
+              ),
+            ),
           ),
           Expanded(
             child: Container(
@@ -63,9 +74,10 @@ class _BookingCardState extends State<BookingCard> {
                               ? restaurantNameInBooking.substring(0, 14) + '...'
                               : restaurantNameInBooking,
                           style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              color: Theme.of(context).primaryColorDark,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 14),
+                                color: Theme.of(context).primaryColorDark,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 14,
+                              ),
                         ),
                       )
                     ],
@@ -81,17 +93,17 @@ class _BookingCardState extends State<BookingCard> {
                           icon: Icons.timer,
                           iconColor: Theme.of(context).primaryColor),
                       CustomChip(
-                          name: 'Hoy',
-                          nameColor: widget.booking != 'today'
-                              ? Theme.of(context).primaryColor
-                              : Theme.of(context).buttonColor,
-                          icon: widget.booking != 'today'
-                              ? Icons.hourglass_top_rounded
-                              : Icons.hourglass_full_rounded,
-                          iconColor: widget.booking != 'today'
-                              ? Theme.of(context).primaryColor
-                              : Theme.of(context)
-                                  .buttonColor), // assignment_rounded // cuando sea hoy assignment_turned_in
+                        name: 'Hoy',
+                        nameColor: widget.booking != 'today'
+                            ? Theme.of(context).primaryColor
+                            : Theme.of(context).buttonColor,
+                        icon: widget.booking != 'today'
+                            ? Icons.hourglass_top_rounded
+                            : Icons.hourglass_full_rounded,
+                        iconColor: widget.booking != 'today'
+                            ? Theme.of(context).primaryColor
+                            : Theme.of(context).buttonColor,
+                      ), // assignment_rounded // cuando sea hoy assignment_turned_in
                     ],
                   ),
                   Padding(
@@ -105,8 +117,11 @@ class _BookingCardState extends State<BookingCard> {
                               fontSize: 11),
                           children: <TextSpan>[
                             TextSpan(
-                                text: '(4 - 6 persons)',
-                                style: TextStyle(fontWeight: FontWeight.w500))
+                              text: '(4 - 6 persons)',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )
                           ]),
                     ),
                   ),
@@ -117,40 +132,42 @@ class _BookingCardState extends State<BookingCard> {
                     children: <Widget>[
                       Container(
                         child: widget.booking != 'no-price'
-                            ? Text("\$12.000",
+                            ? Text(
+                                "\$12.000",
                                 style: Theme.of(context)
                                     .textTheme
                                     .caption
                                     .copyWith(
-                                        fontWeight: FontWeight.w700,
-                                        color: Theme.of(context).buttonColor))
+                                      fontWeight: FontWeight.w700,
+                                      color: Theme.of(context).buttonColor,
+                                    ),
+                              )
                             : Text(""),
                       ),
                       Align(
-                          alignment: Alignment.bottomRight,
-                          child: MaterialButton(
-                            disabledColor: Theme.of(context)
-                                .primaryColorDark
-                                .withAlpha(100),
-                            color: Theme.of(context).buttonColor,
-                            height: 25,
-                            padding: EdgeInsets.all(0),
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50)),
-                            onPressed: widget.booking != 'today' ? () {} : null,
-                            onHighlightChanged: (val) {},
-                            child: Text(
-                              'Cancel',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .caption
-                                  .copyWith(
-                                      color: widget.booking != 'today'
-                                          ? Theme.of(context).primaryColorLight
-                                          : Theme.of(context).primaryColorDark),
-                            ),
-                          ))
+                        alignment: Alignment.bottomRight,
+                        child: MaterialButton(
+                          disabledColor:
+                              Theme.of(context).primaryColorDark.withAlpha(100),
+                          color: Theme.of(context).buttonColor,
+                          height: 25,
+                          padding: EdgeInsets.all(0),
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          onPressed: widget.booking != 'today' ? () {} : null,
+                          onHighlightChanged: (val) {},
+                          child: Text(
+                            'Cancel',
+                            style: Theme.of(context).textTheme.caption.copyWith(
+                                  color: widget.booking != 'today'
+                                      ? Theme.of(context).primaryColorLight
+                                      : Theme.of(context).primaryColorDark,
+                                ),
+                          ),
+                        ),
+                      )
                     ],
                   )
                 ],

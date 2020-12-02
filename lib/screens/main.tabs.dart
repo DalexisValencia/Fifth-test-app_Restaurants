@@ -1,7 +1,7 @@
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
-import 'package:fith_app__restaurant/screens/bookings.dart';
+import 'package:fith_app__restaurant/screens/Bookings/bookings.dart';
 import 'package:fith_app__restaurant/screens/Cart/Cart.dart';
 import 'package:fith_app__restaurant/screens/favorites.dart';
 import 'package:fith_app__restaurant/screens/Home/home.dart';

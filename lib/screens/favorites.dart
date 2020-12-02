@@ -5,7 +5,8 @@ import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/sections/AppBarCustom.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
-import 'package:fith_app__restaurant/widgets/ButtonsInHeader.dart';
+import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__trashButton.dart';
+import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__goBackButton.dart';
 import 'package:fith_app__restaurant/widgets/ScreenTitle.dart';
 import 'package:fith_app__restaurant/widgets/Dish__card.dart';
 import 'package:flutter/material.dart';
@@ -57,8 +58,8 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       width: MediaQuery.of(context).size.width,
       height: defaultHeaderCustomHeight,
       child: AppBarCustom(
-        iconLeft: ArrowBackHeaderButton(),
-        iconRigth: TrashFavoriteHeaderButton(
+        iconLeft: GoBackButton(),
+        iconRigth: TrashButton(
           amout: forDelete.length,
           onClick: () {
             // print("eliminar los favoritos seleccionados");
@@ -85,14 +86,16 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                 GestureDetector(
                   onLongPress: () {
                     var isInList = forDelete.contains(index);
-                    setState(() {
-                      if (isInList == false) {
-                        forDelete.add(index);
-                      }
-                      if (isInList == true) {
-                        forDelete.remove(index);
-                      }
-                    });
+                    setState(
+                      () {
+                        if (isInList == false) {
+                          forDelete.add(index);
+                        }
+                        if (isInList == true) {
+                          forDelete.remove(index);
+                        }
+                      },
+                    );
                   },
                   child: DishCard(
                     dish: dishes[0],

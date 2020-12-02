@@ -5,7 +5,8 @@ import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/sections/AppBarCustom.dart';
-import 'package:fith_app__restaurant/widgets/ButtonsInHeader.dart';
+import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__trashButton.dart';
+import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__goBackButton.dart';
 import 'package:fith_app__restaurant/widgets/ScreenTitle.dart';
 import 'package:fith_app__restaurant/screens/Cart/components/Cart__item.dart';
 import 'package:flutter/material.dart';
@@ -96,8 +97,8 @@ class _ScreenCartState extends State<ScreenCart> {
       width: MediaQuery.of(context).size.width,
       height: defaultHeaderCustomHeight,
       child: AppBarCustom(
-        iconLeft: ArrowBackHeaderButton(),
-        iconRigth: TrashFavoriteHeaderButton(
+        iconLeft: GoBackButton(),
+        iconRigth: TrashButton(
           amout: deleteFromCard.length,
           onClick: () {
             if (deleteFromCard.length >= 1) {
