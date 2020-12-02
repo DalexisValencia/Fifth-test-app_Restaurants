@@ -6,7 +6,7 @@ import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
 import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fith_app__restaurant/tabs/seemoreDishesInRestaurant.dart';
+import 'package:fith_app__restaurant/screens/seemoreDishesInRestaurant.dart';
 
 class CardCategorySuggested extends StatefulWidget {
   final List<Dishes> suggestions;

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/tabs/main.tabs.dart';
-import 'package:fith_app__restaurant/tabs/splashScreen.dart';
+import 'package:fith_app__restaurant/screens/splashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

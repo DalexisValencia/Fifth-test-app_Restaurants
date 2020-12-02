@@ -6,7 +6,7 @@ import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
-import 'package:fith_app__restaurant/tabs/seemoreDishesInRestaurant.dart';
+import 'package:fith_app__restaurant/screens/seemoreDishesInRestaurant.dart';
 import 'package:fith_app__restaurant/sections/CardAvailableForLunch.dart';
 import 'package:fith_app__restaurant/sections/CardCategorySuggested.dart';
 import 'package:fith_app__restaurant/sections/ContactMethods.dart';

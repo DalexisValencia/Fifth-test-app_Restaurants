@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/categories.dart';
-import 'package:fith_app__restaurant/tabs/disscover.dart';
+import 'package:fith_app__restaurant/screens/disscover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -33,22 +33,27 @@ class _SuggestedCardState extends State<SuggestedCard> {
         borderRadius: BorderRadius.circular(7),
       ),
       onPressed: () {
-        Timer(Duration(milliseconds: 200), () {
-          blocDiscovery.add(
-            DiscoveryStart(
-              category: widget.category.name,
-            ),
-          );
-          // widget.controller.animateTo(4);
-          Navigator.of(context).push(MaterialPageRoute<DiscoverScaffold>(
-            builder: (BuildContext context) {
-              return BlocProvider.value(
-                value: blocDiscovery,
-                child: DiscoverScaffold(),
-              );
-            },
-          ));
-        });
+        Timer(
+          Duration(milliseconds: 200),
+          () {
+            blocDiscovery.add(
+              DiscoveryStart(
+                category: widget.category.name,
+              ),
+            );
+            // widget.controller.animateTo(4);
+            Navigator.of(context).push(
+              MaterialPageRoute<DiscoverScaffold>(
+                builder: (BuildContext context) {
+                  return BlocProvider.value(
+                    value: blocDiscovery,
+                    child: DiscoverScaffold(),
+                  );
+                },
+              ),
+            );
+          },
+        );
       },
       color: Theme.of(context).primaryColorLight,
       splashColor: Theme.of(context).buttonColor,

@@ -1,5 +1,5 @@
 import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
-import 'package:fith_app__restaurant/tabs/DishDetail/components/Additionals/components/additionals__expansionPanel.dart';
+import 'package:fith_app__restaurant/screens/DishDetail/components/Additionals/components/additionals__expansionPanel.dart';
 import 'package:flutter/material.dart';
 import 'package:fith_app__restaurant/interfaces/aditional.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
