@@ -39,13 +39,14 @@ class _DishCardState extends State<DishCard> {
         milliseconds: animationOpacityTime,
       ),
       decoration: BoxDecoration(
-          border: Border.all(
-            color: widget.borderCustomColor
-                ? Theme.of(context).buttonColor
-                : Theme.of(context).accentColor.withOpacity(0.2),
-            width: widget.borderCustomColor ? 1.2 : 1,
-          ),
-          borderRadius: BorderRadius.circular(8)),
+        border: Border.all(
+          color: widget.borderCustomColor
+              ? Theme.of(context).buttonColor
+              : Theme.of(context).accentColor.withOpacity(0.2),
+          width: widget.borderCustomColor ? 1.2 : 1,
+        ),
+        borderRadius: BorderRadius.circular(8),
+      ),
       margin: EdgeInsets.only(bottom: 5),
       child: MaterialButton(
         elevation: 1,
@@ -53,7 +54,7 @@ class _DishCardState extends State<DishCard> {
           borderRadius: BorderRadius.circular(9),
         ),
         color: widget.borderCustomColor
-            ? Color(0xFFffe8e9)
+            ? cardSelectedBgColor
             : Theme.of(context).primaryColorLight,
         padding: EdgeInsets.all(0),
         splashColor: Theme.of(context).buttonColor,

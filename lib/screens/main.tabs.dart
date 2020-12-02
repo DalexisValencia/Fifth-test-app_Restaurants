@@ -3,7 +3,7 @@ import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.da
 import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
 import 'package:fith_app__restaurant/screens/Bookings/bookings.dart';
 import 'package:fith_app__restaurant/screens/Cart/Cart.dart';
-import 'package:fith_app__restaurant/screens/favorites.dart';
+import 'package:fith_app__restaurant/screens/Favorites/favorites.dart';
 import 'package:fith_app__restaurant/screens/Home/home.dart';
 import 'package:fith_app__restaurant/screens/Search/search.dart';
 import 'package:flutter/material.dart';

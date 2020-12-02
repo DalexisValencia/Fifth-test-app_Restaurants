@@ -98,7 +98,9 @@ class _BookingsScreenState extends State<BookingsScreen> {
           animationChildren: customAnimationActive,
           children: Column(
             children: <Widget>[
-              Navigation(),
+              Navigation(
+                secondItem: 'favorite',
+              ),
               _body(),
             ],
           ),

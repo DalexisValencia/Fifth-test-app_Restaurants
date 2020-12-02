@@ -3,12 +3,10 @@ import 'dart:async';
 import 'package:fith_app__restaurant/Lists/menu.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/sections/AppBarCustom.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__trashButton.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__goBackButton.dart';
-import 'package:fith_app__restaurant/widgets/ScreenTitle.dart';
+import 'package:fith_app__restaurant/widgets/Navigation/Navigation.dart';
 import 'package:fith_app__restaurant/widgets/Dish__card.dart';
+import 'package:fith_app__restaurant/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -48,25 +46,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         animatedContainerActive = false;
       });
     });
-  }
-
-  Widget _screenNavigator() {
-    return Container(
-      margin: EdgeInsets.only(
-        top: MediaQuery.of(context).padding.top,
-      ),
-      width: MediaQuery.of(context).size.width,
-      height: defaultHeaderCustomHeight,
-      child: AppBarCustom(
-        iconLeft: GoBackButton(),
-        iconRigth: TrashButton(
-          amout: forDelete.length,
-          onClick: () {
-            // print("eliminar los favoritos seleccionados");
-          },
-        ),
-      ),
-    );
   }
 
   Widget _builderCardFavorites() {
@@ -113,22 +92,17 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     );
   }
 
-  Widget _screenTitle() {
-    return ScreenTitle(
-      title: 'Favorites',
-      subtitle: 'Press and hold to select an item',
-    );
-  }
-
   Widget _screenBody() {
     return Expanded(
       child: Container(
         width: MediaQuery.of(context).size.width,
-        // color: Colors.red,
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              _screenTitle(),
+              ScreenHeading(
+                title: 'Favorites',
+                subtitle: 'Press and hold to select an item',
+              ),
               _builderCardFavorites(),
               SizedBox(
                 height: spaceUntilBottom,
@@ -152,7 +126,13 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           animationChildren: animatedContainerActive,
           children: Column(
             children: [
-              _screenNavigator(),
+              Navigation(
+                secondItem: 'trash',
+                amout: forDelete.length,
+                onPressed: () {
+                  print("eliminar los favoritos seleccinados");
+                },
+              ),
               _screenBody(),
             ],
           ),
