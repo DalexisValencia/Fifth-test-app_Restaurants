@@ -8,14 +8,12 @@ import 'package:fith_app__restaurant/interfaces/Discovery.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
 import 'package:fith_app__restaurant/screens/Disscover/components/NearYou/nearYou.dart';
+import 'package:fith_app__restaurant/screens/Disscover/components/NewLaunch/newLaunch.dart';
 // import 'package:fith_app__restaurant/sections/NearYouCard.dart';
-import 'package:fith_app__restaurant/sections/NewLauched.dart';
 import 'package:fith_app__restaurant/sections/TopRestaurants.dart';
-import 'package:fith_app__restaurant/sections/Screen__EmtpySection.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/Navigation/Navigation.dart';
 import 'package:fith_app__restaurant/widgets/Screen__heading.dart';
-import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -105,7 +103,11 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
                                         nearYou: discoveryPropsBloc.near),
                                   )
                                 : SizedBox(),
-                            _newLaunch(discoveryPropsBloc.newLaunch),
+                            discoveryPropsBloc.newLaunch.isNotEmpty
+                                ? NewLaunch(
+                                    newLaunched: discoveryPropsBloc.newLaunch,
+                                  )
+                                : SizedBox(),
                             _topRestaurants(discoveryPropsBloc.restaurants)
                           ],
                         ),
@@ -126,84 +128,6 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
         },
       ),
     ));
-  }
-}
-
-class NewLaunch extends StatefulWidget {
-  final List<Dishes> newLaunched;
-  NewLaunch({this.newLaunched});
-  @override
-  _NewLaunchState createState() => _NewLaunchState();
-}
-
-class _NewLaunchState extends State<NewLaunch> {
-  Widget _header() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(
-        horizontal: MediaQuery.of(context).size.width * defaultPadding,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(
-            "New Launch",
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  color: Theme.of(context).primaryColorDark,
-                  fontWeight: FontWeight.w800,
-                ),
-          ),
-          CircleIconButton(
-            icon: Icons.tune,
-            color: Theme.of(context).primaryColorDark,
-            bgColor: Theme.of(context).primaryColorLight,
-            trigger: () {},
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _newLauchContainer() {
-    return Container(
-      child: Builder(
-        builder: (BuildContext context) {
-          List<Widget> _totalLaunched = [];
-          widget.newLaunched.asMap().entries
-            ..map((e) {
-              _totalLaunched.add(
-                NewLaunchedWrapper(
-                  dish: widget.newLaunched[e.key],
-                ),
-              );
-            }).toList();
-          return Column(
-            children: _totalLaunched,
-          );
-        },
-      ),
-    );
-  }
-
-  _sectionBody() {
-    if (widget.newLaunched.length == 0) {
-      return EmptySections();
-    }
-    if (widget.newLaunched.length >= 1) {
-      return _newLauchContainer();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: <Widget>[
-          _header(),
-          _sectionBody(),
-        ],
-      ),
-    );
   }
 }
 

@@ -1,9 +1,12 @@
 import 'package:fith_app__restaurant/interfaces/Comments.dart';
+import 'package:fith_app__restaurant/screens/Disscover/components/NewLaunch/components/newLaunch__seeAllComments.dart';
 import 'package:flutter/material.dart';
 
-class CardComments extends StatelessWidget {
+class NewLaunchComments extends StatelessWidget {
   final List<Comments> comments;
-  CardComments({this.comments});
+  NewLaunchComments({
+    this.comments,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,19 +19,22 @@ class CardComments extends StatelessWidget {
             if (idx <= 1) {
               wComments.add(Container(
                 decoration: BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            color: (idx + 1) == comments.length
-                                ? Colors.transparent
-                                : Theme.of(context)
-                                    .primaryColor
-                                    .withOpacity(0.6),
-                            width: 0.6))),
+                  border: Border(
+                    bottom: BorderSide(
+                      color: (idx + 1) == comments.length
+                          ? Colors.transparent
+                          : Theme.of(context).primaryColor.withOpacity(0.6),
+                      width: 0.6,
+                    ),
+                  ),
+                ),
                 child: Container(
                   child: Row(
                     children: <Widget>[
                       Container(
-                        padding: EdgeInsets.only(right: 10),
+                        padding: EdgeInsets.only(
+                          right: 10,
+                        ),
                         width: 47,
                         height: 47,
                         child: CircleAvatar(
@@ -45,8 +51,9 @@ class CardComments extends StatelessWidget {
                                   .textTheme
                                   .caption
                                   .copyWith(
-                                      color: Theme.of(context).primaryColorDark,
-                                      fontWeight: FontWeight.bold),
+                                    color: Theme.of(context).primaryColorDark,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                             FittedBox(
                                 fit: BoxFit.scaleDown,
@@ -57,10 +64,10 @@ class CardComments extends StatelessWidget {
                                       .textTheme
                                       .caption
                                       .copyWith(
-                                          fontSize: 11,
-                                          fontWeight: FontWeight.w300,
-                                          color:
-                                              Theme.of(context).primaryColor),
+                                        fontSize: 11,
+                                        fontWeight: FontWeight.w300,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
                                 )),
                           ],
                         ),
@@ -72,36 +79,14 @@ class CardComments extends StatelessWidget {
             }
           }).toList();
           if (comments.length > 2) {
-            wComments.add(SeeAllCommentsCard());
+            wComments.add(
+              SeeAllCommentsCard(),
+            );
           }
           return Column(
             children: wComments,
           );
         },
-      ),
-    );
-  }
-}
-
-class SeeAllCommentsCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 30,
-      padding: EdgeInsets.all(0),
-      width: MediaQuery.of(context).size.width,
-      child: MaterialButton(
-        splashColor: Theme.of(context).buttonColor,
-        elevation: 0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        minWidth: 10,
-        height: 10,
-        onPressed: () {},
-        child: Text(
-          "See All",
-          style: TextStyle(
-              fontSize: 10, color: Theme.of(context).primaryColorDark),
-        ),
       ),
     );
   }
