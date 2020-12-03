@@ -1,6 +1,6 @@
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/Disscover/components/NewLaunch/components/newLauch__card.dart';
-import 'package:fith_app__restaurant/widgets/Screen__seeAllSection.dart';
+import 'package:fith_app__restaurant/widgets/SeeAll/Screen__seeAllSection.dart';
 import 'package:flutter/material.dart';
 
 class NewLaunch extends StatefulWidget {

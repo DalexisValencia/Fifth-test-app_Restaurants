@@ -3,7 +3,7 @@ import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/Disscover/components/NearYou/components/nearYou__Card.dart';
 import 'package:fith_app__restaurant/sections/Screen__EmtpySection.dart';
-import 'package:fith_app__restaurant/widgets/Screen__seeAllSection.dart';
+import 'package:fith_app__restaurant/widgets/SeeAll/Screen__seeAllSection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

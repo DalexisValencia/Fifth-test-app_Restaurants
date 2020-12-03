@@ -1,5 +1,5 @@
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
-import 'package:fith_app__restaurant/widgets/Screen__seeAllSection.dart';
+import 'package:fith_app__restaurant/widgets/SeeAll/Screen__seeAllSection.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/widgets/Hightlight__resturantsCard.dart';
 import 'package:flutter/material.dart';
