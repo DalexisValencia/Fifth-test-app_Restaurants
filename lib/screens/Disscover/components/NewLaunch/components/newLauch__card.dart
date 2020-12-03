@@ -35,7 +35,9 @@ class _NewLaunchedCardState extends State<NewLaunchedCard> {
         borderRadius: BorderRadius.circular(15),
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: ExactAssetImage(widget.dish.image),
+          image: ExactAssetImage(
+            widget.dish.image,
+          ),
         ),
       ),
     );
@@ -67,9 +69,10 @@ class _NewLaunchedCardState extends State<NewLaunchedCard> {
                       child: Text(
                         widget.dish.name,
                         style: Theme.of(context).textTheme.subtitle1.copyWith(
-                            color: Theme.of(context).primaryColorDark,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold),
+                              color: Theme.of(context).primaryColorDark,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                     ),
                     FittedBox(
@@ -111,8 +114,9 @@ class _NewLaunchedCardState extends State<NewLaunchedCard> {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-              color: Theme.of(context).primaryColor.withOpacity(0.6),
-              width: 0.6),
+            color: Theme.of(context).primaryColor.withOpacity(0.6),
+            width: 0.6,
+          ),
         ),
       ),
       child: Row(

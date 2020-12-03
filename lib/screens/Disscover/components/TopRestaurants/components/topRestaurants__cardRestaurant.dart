@@ -1,89 +1,45 @@
-import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
 import 'package:fith_app__restaurant/screens/restaurant.details.dart';
-import 'package:fith_app__restaurant/sections/Screen__EmtpySection.dart';
-import 'package:fith_app__restaurant/widgets/FullSectionTitle.dart';
-import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
 import 'package:fith_app__restaurant/widgets/iconAndText.dart';
-import 'package:fith_app__restaurant/widgets/Dish__card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MainTopRestaurant extends StatefulWidget {
-  final Restaurants restaurant;
-  MainTopRestaurant({this.restaurant});
-  @override
-  _MainTopRestaurantState createState() => _MainTopRestaurantState();
-}
-
-class _MainTopRestaurantState extends State<MainTopRestaurant> {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        margin: EdgeInsets.only(bottom: 10),
-        child: Column(
-          children: <Widget>[
-            RestaurantTopSummary(resturant: widget.restaurant),
-            FullSectionTitle(
-              title: 'Menu Related of ${widget.restaurant.name}',
-              rightContainer:
-                  RoundedCustomButton(title: 'See all', callPressed: () {}),
-            ),
-            widget.restaurant.menu.length >= 1
-                ? BlocProvider(
-                    create: (BuildContext context) => DishBloc(),
-                    child: RelatedProductsInThisRestaurant(
-                        menu: widget.restaurant.menu),
-                  )
-                : Container(
-                    margin: EdgeInsets.only(
-                        right:
-                            MediaQuery.of(context).size.width * defaultPadding),
-                    child: EmptySections(),
-                  ),
-            Container(
-              margin: EdgeInsets.only(
-                  top: 20,
-                  right: MediaQuery.of(context).size.width * defaultPadding,
-                  bottom: 20),
-              decoration: BoxDecoration(
-                  border: Border(
-                      bottom: BorderSide(
-                          color: Theme.of(context).accentColor, width: 1))),
-            )
-          ],
-        ));
-  }
-}
-
 class RestaurantTopSummary extends StatefulWidget {
   final Restaurants resturant;
-  RestaurantTopSummary({this.resturant});
+  RestaurantTopSummary({
+    this.resturant,
+  });
   @override
   _RestaurantTopSummaryState createState() => _RestaurantTopSummaryState();
 }
 
 class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
   DetailsrestaurantBloc blocDetailResturant;
+  CartBloc cartBlocInstance;
   @override
   initState() {
     super.initState();
     blocDetailResturant = BlocProvider.of<DetailsrestaurantBloc>(context);
+    cartBlocInstance = BlocProvider.of<CartBloc>(context);
   }
 
   Widget _cardHeader() {
     return Container(
       decoration: BoxDecoration(
-          border: Border(
-              bottom: BorderSide(
-                  color: Theme.of(context).primaryColor.withOpacity(0.6),
-                  width: 0.6))),
+        border: Border(
+          bottom: BorderSide(
+            color: Theme.of(context).primaryColor.withOpacity(0.6),
+            width: 0.6,
+          ),
+        ),
+      ),
       child: Container(
         padding: EdgeInsets.symmetric(
-            vertical: MediaQuery.of(context).size.height * 0.010),
+          vertical: MediaQuery.of(context).size.height * 0.010,
+        ),
         child: Row(
           children: <Widget>[
             Expanded(
@@ -96,9 +52,10 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
                       child: Text(
                         widget.resturant.name,
                         style: Theme.of(context).textTheme.subtitle1.copyWith(
-                            color: Theme.of(context).primaryColorDark,
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold),
+                              color: Theme.of(context).primaryColorDark,
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                     ),
                     FittedBox(
@@ -106,9 +63,10 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
                       child: Text(
                         widget.resturant.description.substring(0, 20) + "...",
                         style: Theme.of(context).textTheme.caption.copyWith(
-                            fontSize: 10,
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.w400),
+                              fontSize: 10,
+                              color: Theme.of(context).primaryColor,
+                              fontWeight: FontWeight.w400,
+                            ),
                       ),
                     )
                   ],
@@ -119,8 +77,9 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
               width: 35,
               height: 35,
               decoration: BoxDecoration(
-                  color: Theme.of(context).buttonColor,
-                  borderRadius: BorderRadius.circular(50)),
+                color: Theme.of(context).buttonColor,
+                borderRadius: BorderRadius.circular(50),
+              ),
               child: Icon(
                 Icons.restaurant,
                 size: 20,
@@ -179,15 +138,22 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
     return Container(
-      margin: EdgeInsets.only(right: withDefaultPadding, bottom: 10),
+      margin: EdgeInsets.only(
+        right: withDefaultPadding,
+        bottom: 10,
+        left: MediaQuery.of(context).size.width * defaultPadding,
+      ),
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.30,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: Colors.amber,
-          image: DecorationImage(
-              fit: BoxFit.cover,
-              image: ExactAssetImage(widget.resturant.image))),
+        borderRadius: BorderRadius.circular(15),
+        image: DecorationImage(
+          fit: BoxFit.cover,
+          image: ExactAssetImage(
+            widget.resturant.image,
+          ),
+        ),
+      ),
       child: MaterialButton(
         elevation: 0,
         color: Colors.transparent,
@@ -200,12 +166,16 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
                 child: Container(
                   width: MediaQuery.of(context).size.width -
                       (MediaQuery.of(context).size.width * 0.10) * 3,
-                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 15,
+                  ),
                   decoration: BoxDecoration(
                     color: Theme.of(context).primaryColorLight,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  margin: EdgeInsets.symmetric(vertical: withDefaultPadding),
+                  margin: EdgeInsets.symmetric(
+                    vertical: withDefaultPadding,
+                  ),
                   child: Column(
                     children: <Widget>[
                       _cardHeader(),
@@ -216,44 +186,41 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
           ],
         ),
         onPressed: () {
-          blocDetailResturant
-              .add(DetailsresturantSetCurrent(restaurant: widget.resturant));
-
-          customAnimateNavigation(
-              context,
-              BlocProvider.value(
-                value: blocDetailResturant,
-                child: RestaurantDetailWrapper(),
-              ));
-        },
-      ),
-    );
-  }
-}
-
-class RelatedProductsInThisRestaurant extends StatelessWidget {
-  final List<Dishes> menu;
-  RelatedProductsInThisRestaurant({this.menu});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: EdgeInsets.only(
-          right: MediaQuery.of(context).size.width * 0.07,
-          top: MediaQuery.of(context).size.width * 0.02),
-      child: Builder(builder: (BuildContext context) {
-        List<Widget> nextTops = [];
-        menu.map((e) {
-          nextTops.add(
-            DishCard(
-              dish: e,
+          blocDetailResturant.add(
+            DetailsresturantSetCurrent(
+              restaurant: widget.resturant,
             ),
           );
-        }).toList();
-        return Column(
-          children: nextTops,
-        );
-      }),
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (BuildContext context) {
+                return MultiBlocProvider(
+                  providers: [
+                    BlocProvider.value(
+                      value: blocDetailResturant,
+                      child: RestaurantDetailWrapper(),
+                      // create: (context) => SubjectBloc(),
+                    ),
+                    BlocProvider.value(
+                      value: cartBlocInstance,
+                      child: RestaurantDetailWrapper(),
+                      // create: (context) => SubjectBloc(),
+                    ),
+                  ],
+                  child: RestaurantDetailWrapper(),
+                );
+              },
+            ),
+          );
+          // customAnimateNavigation(
+          //   context,
+          //   BlocProvider.value(
+          //     value: blocDetailResturant,
+          //     child: RestaurantDetailWrapper(),
+          //   ),
+          // );
+        },
+      ),
     );
   }
 }

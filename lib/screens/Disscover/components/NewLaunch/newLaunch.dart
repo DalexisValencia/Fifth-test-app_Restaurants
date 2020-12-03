@@ -1,6 +1,5 @@
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/Disscover/components/NewLaunch/components/newLauch__card.dart';
-import 'package:fith_app__restaurant/sections/Screen__EmtpySection.dart';
 import 'package:fith_app__restaurant/widgets/Screen__seeAllSection.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +13,7 @@ class NewLaunch extends StatefulWidget {
 }
 
 class _NewLaunchState extends State<NewLaunch> {
-  Widget _newLauchContainer() {
+  Widget _verticalList() {
     return Container(
       child: Builder(
         builder: (BuildContext context) {
@@ -35,15 +34,6 @@ class _NewLaunchState extends State<NewLaunch> {
     );
   }
 
-  _sectionBody() {
-    if (widget.newLaunched.length == 0) {
-      return EmptySections();
-    }
-    if (widget.newLaunched.length >= 1) {
-      return _newLauchContainer();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,7 +42,7 @@ class _NewLaunchState extends State<NewLaunch> {
           SeeAllSuggested(
             title: "New Launch",
           ),
-          _sectionBody(),
+          _verticalList(),
         ],
       ),
     );
