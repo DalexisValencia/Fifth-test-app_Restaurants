@@ -4,6 +4,7 @@ import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestauran
 import 'package:fith_app__restaurant/constants/contansts.dart';
 
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
+import 'package:fith_app__restaurant/screens/RestaurantDetails/components/restaurantsDetails__title.dart';
 import 'package:fith_app__restaurant/screens/RestaurantDetails/hightlight/restaurantDetails__hightlightDish.dart';
 import 'package:fith_app__restaurant/screens/RestaurantDetails/map/restauranstDetails__map.dart';
 import 'package:fith_app__restaurant/screens/RestaurantDetails/suggestions/restaurantsDetails__suggestions.dart';
@@ -82,7 +83,7 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
     }
   }
 
-  Widget _bodyRestaurantsDetail() {
+  Widget _bodyRestaurantsDetail(Restaurants currentRestaurant) {
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
     double lessHeight =
@@ -97,57 +98,41 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
         child: SingleChildScrollView(
           controller: _controller,
           child: CustomContainerAnimation(
-            animationChildren: animationScreenContainer,
-            children:
-                BlocBuilder<DetailsrestaurantBloc, DetailsrestaurantState>(
-              builder: (BuildContext context, DetailsrestaurantState state) {
-                Restaurants currentRestaurant = state.props[0];
-                return Column(
-                  children: <Widget>[
-                    Container(
-                      margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.width * 0.03,
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: withDefaultPadding,
-                      ),
-                      width: MediaQuery.of(context).size.width,
-                      child: ScreenHeading(
-                        title: currentRestaurant.name,
-                        subtitle: currentRestaurant.description,
-                      ),
-                    ),
-                    WrapperMap(),
-                    currentRestaurant.lunchNow.length >= 1
-                        ? DetailHighlightProduct(
-                            highlishDishes: currentRestaurant.lunchNow,
-                          )
-                        : SizedBox(),
-                    currentRestaurant.tagsMenu.length >= 1
-                        ? ExploreTheMenu(
-                            tags: currentRestaurant.tagsMenu,
-                            restaurantName: currentRestaurant.name,
-                          )
-                        : SizedBox(),
-                    currentRestaurant.suggestions.length >= 1
-                        ? RestaurantDetailsSuggestions(
-                            suggestions: currentRestaurant.suggestions,
-                          )
-                        : SizedBox(),
-                    RoundedOptionsContactWrapper(),
-                    currentRestaurant.contact.length >= 1
-                        ? ContactMethods(
-                            contact: currentRestaurant.contact,
-                          )
-                        : SizedBox(),
-                    SizedBox(
-                      height: 40,
-                    ),
-                  ],
-                );
-              },
-            ),
-          ),
+              animationChildren: animationScreenContainer,
+              children: Column(
+                children: <Widget>[
+                  RestaurantdetailTitle(
+                    title: currentRestaurant.name,
+                    subtitle: currentRestaurant.description,
+                  ),
+                  WrapperMap(),
+                  currentRestaurant.lunchNow.isNotEmpty
+                      ? DetailHighlightProduct(
+                          highlishDishes: currentRestaurant.lunchNow,
+                        )
+                      : SizedBox(),
+                  currentRestaurant.tagsMenu.isNotEmpty
+                      ? ExploreTheMenu(
+                          tags: currentRestaurant.tagsMenu,
+                          restaurantName: currentRestaurant.name,
+                        )
+                      : SizedBox(),
+                  currentRestaurant.suggestions.isNotEmpty
+                      ? RestaurantDetailsSuggestions(
+                          suggestions: currentRestaurant.suggestions,
+                        )
+                      : SizedBox(),
+                  RoundedOptionsContactWrapper(),
+                  currentRestaurant.contact.isNotEmpty
+                      ? ContactMethods(
+                          contact: currentRestaurant.contact,
+                        )
+                      : SizedBox(),
+                  SizedBox(
+                    height: 40,
+                  ),
+                ],
+              )),
         ),
       ),
     );
@@ -157,16 +142,22 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: SafeArea(
-          child: Column(
-            children: <Widget>[
-              Navigation(
-                secondItem: 'search',
-                category: 'nombre del restaurante',
+        body: BlocBuilder<DetailsrestaurantBloc, DetailsrestaurantState>(
+          builder: (BuildContext context, DetailsrestaurantState state) {
+            Restaurants currentRestaurant = state.props[0];
+            return SafeArea(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Navigation(
+                    secondItem: 'search',
+                    category: currentRestaurant.name,
+                  ),
+                  _bodyRestaurantsDetail(currentRestaurant),
+                ],
               ),
-              _bodyRestaurantsDetail(),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

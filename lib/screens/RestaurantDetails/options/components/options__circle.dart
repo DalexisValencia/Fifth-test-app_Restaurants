@@ -22,8 +22,10 @@ class _CircleOptionState extends State<CircleOption> {
             onPressed: () {},
             padding: EdgeInsets.all(0),
             shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-                    MediaQuery.of(context).size.width * 0.20)),
+              borderRadius: BorderRadius.circular(
+                MediaQuery.of(context).size.width * 0.20,
+              ),
+            ),
             child: Icon(
               widget.icon,
               color: Theme.of(context).primaryColorDark,
@@ -31,15 +33,18 @@ class _CircleOptionState extends State<CircleOption> {
           ),
         ),
         Container(
-          padding:
-              EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.01),
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).size.width * 0.01,
+          ),
           // color: Colors.blue,
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
               widget.title,
               style: Theme.of(context).textTheme.bodyText1.copyWith(
-                  color: Theme.of(context).primaryColorDark, fontSize: 12),
+                    color: Theme.of(context).primaryColorDark,
+                    fontSize: 12,
+                  ),
             ),
           ),
         )

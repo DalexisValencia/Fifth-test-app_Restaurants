@@ -35,37 +35,35 @@ class _DetailHighlightProductState extends State<DetailHighlightProduct> {
       child: Column(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(
-              left: withDefaultPadding,
-            ),
             child: SeeAllSuggested(
               title: 'Available for lunch now',
             ),
           ),
           Container(
-              margin: EdgeInsets.only(
-                left: withDefaultPadding - 10,
-              ),
-              child: Align(
-                alignment: Alignment.center,
-                child: AspectRatio(
-                  aspectRatio: 2 / 2.030,
-                  child: Container(
-                    child: BlocProvider(
-                      create: (BuildContext context) => DishBloc(),
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: widget.highlishDishes.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return HighlightRestaurantCard(
-                            dish: widget.highlishDishes[index],
-                          );
-                        },
-                      ),
+            margin: EdgeInsets.only(
+              left: withDefaultPadding - 10,
+            ),
+            child: Align(
+              alignment: Alignment.center,
+              child: AspectRatio(
+                aspectRatio: 2 / 2.030,
+                child: Container(
+                  child: BlocProvider(
+                    create: (BuildContext context) => DishBloc(),
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: widget.highlishDishes.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return HighlightRestaurantCard(
+                          dish: widget.highlishDishes[index],
+                        );
+                      },
                     ),
                   ),
                 ),
-              )),
+              ),
+            ),
+          ),
         ],
       ),
     );

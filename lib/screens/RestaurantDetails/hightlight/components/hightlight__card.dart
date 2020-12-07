@@ -29,35 +29,28 @@ class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (BuildContext context) {
-            return MultiBlocProvider(
-              providers: [
-                BlocProvider<DishBloc>(
-                  create: (context) => DishBloc(),
-                ),
-                BlocProvider.value(
-                  value: instanceCartBloc,
-                  child: PlateDetailScreen(
-                    dish: widget.dish,
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context) {
+              return MultiBlocProvider(
+                providers: [
+                  BlocProvider<DishBloc>(
+                    create: (context) => DishBloc(),
                   ),
+                  BlocProvider.value(
+                    value: instanceCartBloc,
+                    child: PlateDetailScreen(
+                      dish: widget.dish,
+                    ),
+                  ),
+                ],
+                child: PlateDetailScreen(
+                  dish: widget.dish,
                 ),
-              ],
-              child: PlateDetailScreen(
-                dish: widget.dish,
-              ),
-            );
-          },
-        ));
-        // print('ir al detalle');
-        // instanceDishBloc.add(DishStart(currentDish: widget.dish));
-        // Navigator.of(context)
-        //     .push(MaterialPageRoute<PlateDetailWrapper>(builder: (context) {
-        //   return BlocProvider.value(
-        //     value: instanceDishBloc,
-        //     child: PlateDetailWrapper(),
-        //   );
-        // }));
+              );
+            },
+          ),
+        );
       },
       child: Container(
         margin: EdgeInsets.only(

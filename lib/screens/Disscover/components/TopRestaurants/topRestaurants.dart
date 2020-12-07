@@ -1,5 +1,4 @@
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
 import 'package:fith_app__restaurant/screens/Disscover/components/TopRestaurants/components/topRestaurants__restaurant.dart';
 import 'package:fith_app__restaurant/widgets/SeeAll/Screen__seeAllSection.dart';
