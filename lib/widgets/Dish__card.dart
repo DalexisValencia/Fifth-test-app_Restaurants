@@ -3,7 +3,7 @@ import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/dishDetail.dart';
-import 'package:fith_app__restaurant/widgets/iconAndText.dart';
+import 'package:fith_app__restaurant/widgets/Card__CustomChip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 // Bloc pattern:
@@ -140,20 +140,19 @@ class _DishCardState extends State<DishCard> {
                           ),
                           child: Row(
                             children: <Widget>[
-                              IconAndText(
-                                icon: Icons.star,
-                                iconColor: Theme.of(context).buttonColor,
-                                iconSize: 16,
+                              CustomChip(
                                 text: '${widget.dish.rating} Votes',
                                 textColor: Theme.of(context).primaryColorDark,
                                 textSize: 12,
+                                icon: Icons.star,
+                                iconColor: Theme.of(context).buttonColor,
+                                iconSize: 16,
                               ),
                               Spacer(),
                               Material(
                                 color: Colors.transparent,
                                 child: InkWell(
                                   onTap: () {
-                                    // print("añadir al carrito");
                                     cartBlocIntance.add(
                                       AddToCart(
                                         dish: widget.dish,
@@ -165,14 +164,14 @@ class _DishCardState extends State<DishCard> {
                                     );
                                   },
                                   splashColor: Theme.of(context).buttonColor,
-                                  child: IconAndText(
-                                    icon: Icons.add_shopping_cart,
-                                    iconColor: Theme.of(context).buttonColor,
-                                    iconSize: 16,
+                                  child: CustomChip(
                                     text: '\$${widget.dish.price.toInt()}', //\$
                                     textColor:
                                         Theme.of(context).primaryColorDark,
                                     textSize: 12,
+                                    icon: Icons.add_shopping_cart,
+                                    iconColor: Theme.of(context).buttonColor,
+                                    iconSize: 16,
                                   ),
                                 ),
                               )

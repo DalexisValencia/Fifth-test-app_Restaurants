@@ -1,5 +1,5 @@
 import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/widgets/CustomChip.dart';
+import 'package:fith_app__restaurant/widgets/Card__CustomChip.dart';
 import 'package:flutter/material.dart';
 
 class BookingsCard extends StatefulWidget {
@@ -88,13 +88,16 @@ class _BookingsCardState extends State<BookingsCard> {
                   Row(
                     children: <Widget>[
                       CustomChip(
-                          name: '12:30 pm',
-                          nameColor: Theme.of(context).primaryColor,
-                          icon: Icons.timer,
-                          iconColor: Theme.of(context).primaryColor),
+                        text: '12:30 pm',
+                        textColor: Theme.of(context).primaryColor,
+                        textSize: 12.5,
+                        icon: Icons.timer,
+                        iconColor: Theme.of(context).primaryColor,
+                        iconSize: 13,
+                      ),
                       CustomChip(
-                        name: 'Hoy',
-                        nameColor: widget.booking != 'today'
+                        text: 'Hoy',
+                        textColor: widget.booking != 'today'
                             ? Theme.of(context).primaryColor
                             : Theme.of(context).buttonColor,
                         icon: widget.booking != 'today'

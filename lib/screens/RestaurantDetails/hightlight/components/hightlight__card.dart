@@ -3,7 +3,7 @@ import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/dishDetail.dart';
-import 'package:fith_app__restaurant/widgets/iconAndText.dart';
+import 'package:fith_app__restaurant/widgets/Card__CustomChip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -136,13 +136,13 @@ class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    IconAndText(
-                      icon: Icons.monetization_on,
-                      iconColor: Theme.of(context).primaryColor,
-                      iconSize: 14,
+                    CustomChip(
                       text: "\$${formatterPrice(widget.dish.price)}",
                       textColor: Theme.of(context).primaryColor,
                       textSize: 12,
+                      icon: Icons.monetization_on,
+                      iconColor: Theme.of(context).primaryColor,
+                      iconSize: 14,
                     ),
                     SizedBox(height: 5),
                     Text(
@@ -209,13 +209,13 @@ class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
                       ],
                     ),
                     SizedBox(height: 7),
-                    IconAndText(
-                      icon: Icons.access_time,
-                      iconColor: Theme.of(context).primaryColor,
-                      iconSize: 14,
+                    CustomChip(
                       text: "Preparation: ${widget.dish.preparation}",
                       textColor: Theme.of(context).primaryColor,
                       textSize: 12,
+                      icon: Icons.access_time,
+                      iconColor: Theme.of(context).primaryColor,
+                      iconSize: 14,
                     ),
                     SizedBox(
                       height: 5,
@@ -249,10 +249,11 @@ class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
                                                     .textTheme
                                                     .bodyText1
                                                     .copyWith(
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                        color: Theme.of(context)
-                                                            .primaryColorLight),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Theme.of(context)
+                                                          .primaryColorLight,
+                                                    ),
                                               ),
                                             ),
                                           ),

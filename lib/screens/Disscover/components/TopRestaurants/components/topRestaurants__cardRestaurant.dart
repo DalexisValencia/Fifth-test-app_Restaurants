@@ -3,7 +3,7 @@ import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestauran
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
 import 'package:fith_app__restaurant/screens/RestaurantDetails/restaurantDetails.dart';
-import 'package:fith_app__restaurant/widgets/iconAndText.dart';
+import 'package:fith_app__restaurant/widgets/Card__CustomChip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -98,33 +98,33 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          IconAndText(
-            icon: Icons.star,
-            iconColor: Theme.of(context).primaryColorDark,
-            iconSize: 14,
+          CustomChip(
             text: '${widget.resturant.rating} stars',
             textColor: Theme.of(context).primaryColorDark,
             textSize: 12,
-          ),
-          IconAndText(
-            icon: Icons.location_on,
+            icon: Icons.star,
             iconColor: Theme.of(context).primaryColorDark,
             iconSize: 14,
+          ),
+          CustomChip(
             text: '${widget.resturant.distance}',
             textColor: Theme.of(context).primaryColorDark,
             textSize: 12,
+            icon: Icons.location_on,
+            iconColor: Theme.of(context).primaryColorDark,
+            iconSize: 14,
           ),
           Material(
             child: InkWell(
               splashColor: Colors.red,
               onTap: () {},
-              child: IconAndText(
-                icon: Icons.assignment,
-                iconColor: Theme.of(context).primaryColorDark,
-                iconSize: 14,
+              child: CustomChip(
                 text: 'Reserve',
                 textColor: Theme.of(context).primaryColorDark,
                 textSize: 12,
+                icon: Icons.assignment,
+                iconColor: Theme.of(context).primaryColorDark,
+                iconSize: 14,
               ),
             ),
           )

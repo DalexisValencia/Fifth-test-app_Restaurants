@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+//\$
 const Color cardSelectedBgColor = Color(0xFFffe8e9);
 const defaultPadding = 0.07;
 const double borderRadiusImages = 12;

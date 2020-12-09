@@ -3,7 +3,7 @@ import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/dishDetail.dart';
-import 'package:fith_app__restaurant/widgets/CustomChip.dart';
+import 'package:fith_app__restaurant/widgets/Card__CustomChip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -107,17 +107,19 @@ class _DishCardCommentState extends State<DishCardComment> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 CustomChip(
-                                  name: widget.dish.preparation,
-                                  nameColor: Theme.of(context).primaryColor,
-                                  icon: Icons.timer,
-                                  iconColor: Theme.of(context).primaryColor,
-                                ),
+                                    text: widget.dish.preparation,
+                                    textColor: Theme.of(context).primaryColor,
+                                    textSize: 12.5,
+                                    icon: Icons.timer,
+                                    iconColor: Theme.of(context).primaryColor,
+                                    iconSize: 13),
                                 CustomChip(
-                                  name: formatterPrice(widget.dish.price),
-                                  nameColor: Theme.of(context).primaryColor,
-                                  icon: Icons.monetization_on,
-                                  iconColor: Theme.of(context).primaryColor,
-                                ),
+                                    text: formatterPrice(widget.dish.price),
+                                    textColor: Theme.of(context).primaryColor,
+                                    textSize: 12.5,
+                                    icon: Icons.monetization_on,
+                                    iconColor: Theme.of(context).primaryColor,
+                                    iconSize: 13),
                                 Expanded(
                                   child: Container(
                                     padding: EdgeInsets.only(top: 1.8),

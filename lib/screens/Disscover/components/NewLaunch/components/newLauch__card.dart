@@ -3,7 +3,7 @@ import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/dishDetail.dart';
 import 'package:fith_app__restaurant/screens/Disscover/components/NewLaunch/components/newLauch__comments.dart';
-import 'package:fith_app__restaurant/widgets/iconAndText.dart';
+import 'package:fith_app__restaurant/widgets/Card__CustomChip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -49,8 +49,9 @@ class _NewLaunchedCardState extends State<NewLaunchedCard> {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-              color: Theme.of(context).primaryColor.withOpacity(0.6),
-              width: 0.6),
+            color: Theme.of(context).primaryColor.withOpacity(0.6),
+            width: 0.6,
+          ),
         ),
       ),
       child: Container(
@@ -122,33 +123,33 @@ class _NewLaunchedCardState extends State<NewLaunchedCard> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          IconAndText(
-            icon: Icons.star,
-            iconColor: Theme.of(context).buttonColor,
-            iconSize: 13,
+          CustomChip(
             text: '4.8 votes',
             textColor: Theme.of(context).primaryColorDark,
             textSize: 11,
-          ),
-          IconAndText(
-            icon: Icons.timer,
-            iconColor: Theme.of(context).primaryColorDark,
+            icon: Icons.star,
+            iconColor: Theme.of(context).buttonColor,
             iconSize: 13,
+          ),
+          CustomChip(
             text: '30 minutes',
             textColor: Theme.of(context).primaryColorDark,
             textSize: 11,
+            icon: Icons.timer,
+            iconColor: Theme.of(context).primaryColorDark,
+            iconSize: 13,
           ),
           InkWell(
             onTap: () {
               print("reservar est plato");
             },
-            child: IconAndText(
-              icon: Icons.assignment,
-              iconColor: Theme.of(context).primaryColorDark,
-              iconSize: 13,
+            child: CustomChip(
               text: 'Reserve',
               textColor: Theme.of(context).primaryColorDark,
               textSize: 11,
+              icon: Icons.assignment,
+              iconColor: Theme.of(context).primaryColorDark,
+              iconSize: 13,
             ),
           )
         ],
@@ -160,7 +161,9 @@ class _NewLaunchedCardState extends State<NewLaunchedCard> {
     return Container(
       transform: Matrix4.translationValues(0, -100, 0),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 15),
+        padding: EdgeInsets.symmetric(
+          horizontal: 15,
+        ),
         decoration: BoxDecoration(
           boxShadow: [
             BoxShadow(
