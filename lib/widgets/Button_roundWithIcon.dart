@@ -5,7 +5,12 @@ class CircleIconButton extends StatefulWidget {
   final Color color;
   final Color bgColor;
   final Function trigger;
-  CircleIconButton({this.icon, this.color, this.bgColor, this.trigger});
+  CircleIconButton({
+    this.icon,
+    this.color,
+    this.bgColor,
+    this.trigger,
+  });
   @override
   _CircleIconButtonState createState() => _CircleIconButtonState();
 }
@@ -27,7 +32,11 @@ class _CircleIconButtonState extends State<CircleIconButton> {
       color: widget.bgColor,
       padding: EdgeInsets.all(0),
       shape: CircleBorder(),
-      child: Icon(widget.icon, size: 22, color: widget.color),
+      child: Icon(
+        widget.icon,
+        size: 22,
+        color: widget.color,
+      ),
     );
   }
 }

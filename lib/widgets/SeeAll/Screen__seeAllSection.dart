@@ -1,6 +1,6 @@
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/widgets/SeeAll/components/seeAllWrapper__fullTitle.dart';
-import 'package:fith_app__restaurant/widgets/RadiusButton.dart';
+import 'package:fith_app__restaurant/widgets/SeeAll/components/seeAllWrapper__button.dart';
 import 'package:flutter/material.dart';
 
 class SeeAllSuggested extends StatelessWidget {

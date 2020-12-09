@@ -19,7 +19,9 @@ class _BookingsCardState extends State<BookingsCard> {
       padding: EdgeInsets.all(7),
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColorLight,
-        borderRadius: BorderRadius.circular(borderRadiusCards),
+        borderRadius: BorderRadius.circular(
+          borderRadiusCards,
+        ),
         border: Border.all(
           color: Theme.of(context).primaryColorDark.withOpacity(0.5),
           width: 0.5,
@@ -113,19 +115,20 @@ class _BookingsCardState extends State<BookingsCard> {
                     padding: EdgeInsets.only(left: 1, top: 3),
                     child: RichText(
                       text: TextSpan(
-                          text: 'A familiar table ',
-                          style: Theme.of(context).textTheme.caption.copyWith(
-                              color: Theme.of(context).primaryColorDark,
-                              fontWeight: FontWeight.w300,
-                              fontSize: 11),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: '(4 - 6 persons)',
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                              ),
-                            )
-                          ]),
+                        text: 'A familiar table ',
+                        style: Theme.of(context).textTheme.caption.copyWith(
+                            color: Theme.of(context).primaryColorDark,
+                            fontWeight: FontWeight.w300,
+                            fontSize: 11),
+                        children: <TextSpan>[
+                          TextSpan(
+                            text: '(4 - 6 persons)',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   //RELOJES DE ARENA hourglass_full_rounded hourglass_top_rounded

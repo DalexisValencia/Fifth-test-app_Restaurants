@@ -35,11 +35,8 @@ class SuggestedRestaurants extends StatelessWidget {
         create: (BuildContext context) => DetailsrestaurantBloc(),
         child: Column(
           children: <Widget>[
-            Padding(
-              padding: EdgeInsets.only(left: withDefaultPadding),
-              child: SeeAllSuggested(
-                title: 'Highlight Restaurants',
-              ),
+            SeeAllSuggested(
+              title: 'Highlight Restaurants',
             ),
             Container(
               margin: EdgeInsets.symmetric(

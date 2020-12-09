@@ -1,5 +1,5 @@
 import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/sections/AppBarCustom.dart';
+import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__appBar.dart';
 import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__favoriteButton.dart';
 import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__goBackButton.dart';
 import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__searchButton.dart';

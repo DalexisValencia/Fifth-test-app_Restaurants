@@ -15,6 +15,7 @@ import 'package:fith_app__restaurant/sections/CustomHeader.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__ingredients.dart';
 // import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__dishSummary.dart';
+import 'package:fith_app__restaurant/widgets/Navigation/navigation.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -198,6 +199,12 @@ class _PlateDetailScreenState extends State<PlateDetailScreen> {
                           ? Theme.of(context).primaryColorDark
                           : Theme.of(context).primaryColorLight,
                     ),
+                    // child: Navigation(
+                    //   secondItem: 'favorite',
+                    //   onPressed: () {
+                    //     print("Agregar este plato a favoritos");
+                    //   },
+                    // ),
                   ),
                 ),
                 Positioned(

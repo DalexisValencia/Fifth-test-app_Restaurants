@@ -1,8 +1,9 @@
+import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
 import 'package:fith_app__restaurant/screens/RestaurantDetails/restaurantDetails.dart';
-import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
+import 'package:fith_app__restaurant/widgets/Button_roundWithIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,10 +19,12 @@ class HightlightResturantsCard extends StatefulWidget {
 
 class _HightlightResturantsCardState extends State<HightlightResturantsCard> {
   DetailsrestaurantBloc detailsRestaurant;
+  CartBloc cartBlocInstance;
   @override
   void initState() {
     super.initState();
     detailsRestaurant = BlocProvider.of<DetailsrestaurantBloc>(context);
+    cartBlocInstance = BlocProvider.of<CartBloc>(context);
   }
 
   void goRestaurantDetails() {
@@ -30,11 +33,25 @@ class _HightlightResturantsCardState extends State<HightlightResturantsCard> {
         restaurant: widget.hightlight,
       ),
     );
-    customAnimateNavigation(
-      context,
-      BlocProvider.value(
-        value: detailsRestaurant,
-        child: RestaurantDetailWrapper(),
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) {
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider.value(
+                value: detailsRestaurant,
+                child: RestaurantDetailWrapper(),
+              ),
+              BlocProvider.value(
+                value: cartBlocInstance,
+                child: RestaurantDetailWrapper(),
+                // create: (context) => SubjectBloc(),
+              ),
+            ],
+            child: RestaurantDetailWrapper(),
+          );
+        },
       ),
     );
   }
