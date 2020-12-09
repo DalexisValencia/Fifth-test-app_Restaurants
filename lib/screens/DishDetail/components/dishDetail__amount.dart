@@ -21,21 +21,27 @@ class _AmountDishesState extends State<AmountDishes> {
     super.initState();
     priceOrigin = widget.price;
     price = widget.price;
-    BlocProvider.of<DishamountBloc>(context)
-        .add(DishInitialAmount(amount: widget.amount));
+    BlocProvider.of<DishamountBloc>(context).add(
+      DishInitialAmount(
+        amount: widget.amount,
+      ),
+    );
   }
 
   void _amountproduct(type, state) {
     if (type == 'add') {
-      BlocProvider.of<DishamountBloc>(context).add(DishAmountPlus());
+      BlocProvider.of<DishamountBloc>(context).add(
+        DishAmountPlus(),
+      );
     }
     if (type == 'remove' && state > 1) {
-      BlocProvider.of<DishamountBloc>(context).add(DishAmountRemove());
+      BlocProvider.of<DishamountBloc>(context).add(
+        DishAmountRemove(),
+      );
     }
   }
 
   String _priceDish(amount) {
-    //
     List<PricePromotions> specialPrice;
     if (widget.promos.length >= 1) {
       specialPrice = widget.promos.where((element) {
@@ -56,8 +62,9 @@ class _AmountDishesState extends State<AmountDishes> {
       builder: (BuildContext context, DishamountState state) {
         return Container(
           padding: EdgeInsets.only(
-              left: MediaQuery.of(context).size.width * 0.07,
-              right: MediaQuery.of(context).size.width * 0.07),
+            left: MediaQuery.of(context).size.width * 0.07,
+            right: MediaQuery.of(context).size.width * 0.07,
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
@@ -67,15 +74,16 @@ class _AmountDishesState extends State<AmountDishes> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Container(
-                        child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        "\$${_priceDish(state.props[0])}",
-                        style: Theme.of(context).textTheme.headline5.copyWith(
-                            color: Theme.of(context).buttonColor,
-                            fontWeight: FontWeight.bold),
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: Text(
+                          "\$${_priceDish(state.props[0])}",
+                          style: Theme.of(context).textTheme.headline5.copyWith(
+                              color: Theme.of(context).buttonColor,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    )),
+                    ),
                     Container(
                       child: Row(
                         children: <Widget>[
@@ -84,32 +92,36 @@ class _AmountDishesState extends State<AmountDishes> {
                             elevation: 0,
                             color: Theme.of(context).buttonColor,
                             padding: EdgeInsets.all(0),
-                            onPressed: () =>
-                                _amountproduct('remove', state.props[0]),
+                            onPressed: () => _amountproduct(
+                              'remove',
+                              state.props[0],
+                            ),
                             child: Text(
                               "-",
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6
                                   .copyWith(
-                                      color:
-                                          Theme.of(context).primaryColorLight,
-                                      fontWeight: FontWeight.bold),
+                                    color: Theme.of(context).primaryColorLight,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                           ),
                           Container(
                             decoration: BoxDecoration(
-                                color: Theme.of(context).primaryColorLight,
-                                borderRadius: BorderRadius.circular(2),
-                                border: Border.all(
-                                    color: Theme.of(context)
-                                        .primaryColor
-                                        .withOpacity(0.5))),
+                              color: Theme.of(context).primaryColorLight,
+                              borderRadius: BorderRadius.circular(2),
+                              border: Border.all(
+                                color: Theme.of(context)
+                                    .primaryColor
+                                    .withOpacity(0.5),
+                              ),
+                            ),
                             height: 35,
                             padding: EdgeInsets.only(
-                                left: MediaQuery.of(context).size.width * 0.05,
-                                right:
-                                    MediaQuery.of(context).size.width * 0.05),
+                              left: MediaQuery.of(context).size.width * 0.05,
+                              right: MediaQuery.of(context).size.width * 0.05,
+                            ),
                             child: Align(
                               alignment: Alignment.center,
                               child: Text("${state.props[0]}"),
@@ -120,17 +132,19 @@ class _AmountDishesState extends State<AmountDishes> {
                             elevation: 0,
                             color: Theme.of(context).buttonColor,
                             padding: EdgeInsets.all(0),
-                            onPressed: () =>
-                                _amountproduct('add', state.props[0]),
+                            onPressed: () => _amountproduct(
+                              'add',
+                              state.props[0],
+                            ),
                             child: Text(
                               "+",
                               style: Theme.of(context)
                                   .textTheme
                                   .headline6
                                   .copyWith(
-                                      color:
-                                          Theme.of(context).primaryColorLight,
-                                      fontWeight: FontWeight.bold),
+                                    color: Theme.of(context).primaryColorLight,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                             ),
                           ),
                         ],

@@ -10,7 +10,7 @@ import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__a
 import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__feaures.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__portrait.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/components/additionals/dishDetail__additionals.dart';
-import 'package:fith_app__restaurant/sections/AmountDish.dart';
+import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__amount.dart';
 import 'package:fith_app__restaurant/sections/CustomHeader.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__ingredients.dart';
 // import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
