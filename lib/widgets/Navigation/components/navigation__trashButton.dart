@@ -4,11 +4,13 @@ import 'package:fith_app__restaurant/widgets/Button_roundWithIcon.dart';
 import 'package:flutter/material.dart';
 
 class TrashButton extends StatefulWidget {
+  final Color iconColor;
   final int amout;
   final Function onClick;
   TrashButton({
     this.amout,
     this.onClick,
+    this.iconColor,
   });
   @override
   _TrashButtonState createState() => _TrashButtonState();
@@ -66,7 +68,9 @@ class _TrashButtonState extends State<TrashButton>
         children: [
           CircleIconButton(
             icon: Icons.delete,
-            color: Theme.of(context).primaryColorDark,
+            color: widget.iconColor == null
+                ? Theme.of(context).primaryColorDark
+                : widget.iconColor,
             bgColor: Theme.of(context).primaryColorDark.withOpacity(0.2),
             trigger: widget.onClick,
           ),

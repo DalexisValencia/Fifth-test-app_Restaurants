@@ -5,7 +5,6 @@ import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestauran
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
-import 'package:fith_app__restaurant/sections/CustomHeader.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/Popular__dishCardComment.dart';
 import 'package:flutter/material.dart';
@@ -126,11 +125,12 @@ class _SeeMoreDishesByRestaurantState extends State<SeeMoreDishesByRestaurant> {
       duration: Duration(milliseconds: 500),
       height: defaultHeaderCustomHeight,
       width: MediaQuery.of(context).size.width,
-      child: CustomHeader(
-        firstAction: 'goBack',
-        secondAction: 'search',
-        iconColors: Theme.of(context).primaryColorDark,
-      ),
+      child: Text("aqui va Navigation"),
+      // child: CustomHeader(
+      //   firstAction: 'goBack',
+      //   secondAction: 'search',
+      //   iconColors: Theme.of(context).primaryColorDark,
+      // ),
     );
   }
 

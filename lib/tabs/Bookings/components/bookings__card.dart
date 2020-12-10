@@ -102,12 +102,14 @@ class _BookingsCardState extends State<BookingsCard> {
                         textColor: widget.booking != 'today'
                             ? Theme.of(context).primaryColor
                             : Theme.of(context).buttonColor,
+                        textSize: 12.5,
                         icon: widget.booking != 'today'
                             ? Icons.hourglass_top_rounded
                             : Icons.hourglass_full_rounded,
                         iconColor: widget.booking != 'today'
                             ? Theme.of(context).primaryColor
                             : Theme.of(context).buttonColor,
+                        iconSize: 13,
                       ), // assignment_rounded // cuando sea hoy assignment_turned_in
                     ],
                   ),

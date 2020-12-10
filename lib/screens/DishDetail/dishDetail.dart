@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
-// import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dishAmount/bloc/dishamount_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
@@ -11,16 +10,12 @@ import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__f
 import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__portrait.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/components/additionals/dishDetail__additionals.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__amount.dart';
-import 'package:fith_app__restaurant/sections/CustomHeader.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__ingredients.dart';
-// import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__dishSummary.dart';
 import 'package:fith_app__restaurant/widgets/Navigation/navigation.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-// PlateDetailWrapper
 class PlateDetailScreen extends StatefulWidget {
   final Dishes dish;
   PlateDetailScreen({
@@ -188,23 +183,19 @@ class _PlateDetailScreenState extends State<PlateDetailScreen> {
                     ),
                     curve: Curves.ease,
                     padding: EdgeInsets.only(
-                      top: MediaQuery.of(context).padding.top + 10,
+                      // top: MediaQuery.of(context).padding.top + 10,
                       bottom: 10,
                     ),
                     width: MediaQuery.of(context).size.width,
-                    child: CustomHeader(
-                      firstAction: 'goBack',
-                      secondAction: 'favorite',
-                      iconColors: minSizeReached
+                    child: Navigation(
+                      secondItem: 'favorite',
+                      onPressed: () {
+                        print("Agregar este plato a favoritos");
+                      },
+                      iconColor: minSizeReached
                           ? Theme.of(context).primaryColorDark
                           : Theme.of(context).primaryColorLight,
                     ),
-                    // child: Navigation(
-                    //   secondItem: 'favorite',
-                    //   onPressed: () {
-                    //     print("Agregar este plato a favoritos");
-                    //   },
-                    // ),
                   ),
                 ),
                 Positioned(

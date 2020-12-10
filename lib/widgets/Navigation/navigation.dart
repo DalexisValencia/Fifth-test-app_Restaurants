@@ -11,21 +11,32 @@ class Navigation extends StatelessWidget {
   final int amout;
   final Function onPressed;
   final String category;
-  Navigation({this.secondItem, this.amout, this.onPressed, this.category});
+  final Color iconColor;
+  Navigation({
+    this.secondItem,
+    this.amout,
+    this.onPressed,
+    this.category,
+    this.iconColor,
+  });
   Widget _secondaryItem() {
     switch (secondItem) {
       case 'favorite':
-        return FavoriteButton();
+        return FavoriteButton(
+          iconColor: iconColor,
+        );
         break;
       case 'trash':
         return TrashButton(
           amout: amout,
           onClick: onPressed,
+          iconColor: iconColor,
         );
         break;
       case 'search':
         return SearchButton(
           category: category,
+          iconColor: iconColor,
         );
         break;
       default:
@@ -42,7 +53,9 @@ class Navigation extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       height: defaultHeaderCustomHeight,
       child: AppBarCustom(
-        iconLeft: GoBackButton(),
+        iconLeft: GoBackButton(
+          iconColor: iconColor,
+        ),
         iconRigth: _secondaryItem(),
       ),
     );

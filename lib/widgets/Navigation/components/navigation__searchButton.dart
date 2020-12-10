@@ -3,7 +3,11 @@ import 'package:flutter/material.dart';
 
 class SearchButton extends StatelessWidget {
   final String category;
-  SearchButton({this.category});
+  final Color iconColor;
+  SearchButton({
+    this.category,
+    this.iconColor,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -11,7 +15,8 @@ class SearchButton extends StatelessWidget {
       height: 40,
       child: CircleIconButton(
         icon: Icons.search,
-        color: Theme.of(context).primaryColorDark,
+        color:
+            iconColor == null ? Theme.of(context).primaryColorDark : iconColor,
         bgColor: Theme.of(context).accentColor.withOpacity(0.4),
         trigger: () {
           print('buscar por: $category');
