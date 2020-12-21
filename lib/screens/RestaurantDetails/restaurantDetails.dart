@@ -13,7 +13,6 @@ import 'package:fith_app__restaurant/screens/RestaurantDetails/options/restauran
 import 'package:fith_app__restaurant/screens/RestaurantDetails/Tags/restaurantsDetails__tags.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/Navigation/navigation.dart';
-import 'package:fith_app__restaurant/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

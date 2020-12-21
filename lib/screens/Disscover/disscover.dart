@@ -4,7 +4,6 @@ import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.da
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Discovery.dart';
-import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
 import 'package:fith_app__restaurant/screens/Disscover/components/NearYou/nearYou.dart';
 import 'package:fith_app__restaurant/screens/Disscover/components/NewLaunch/newLaunch.dart';
 import 'package:fith_app__restaurant/screens/Disscover/components/TopRestaurants/topRestaurants.dart';

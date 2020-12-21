@@ -1,11 +1,13 @@
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
+import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/tabs/Bookings/bookings.dart';
 import 'package:fith_app__restaurant/tabs/Cart/Cart.dart';
 import 'package:fith_app__restaurant/tabs/Favorites/favorites.dart';
 import 'package:fith_app__restaurant/tabs/Home/home.dart';
 import 'package:fith_app__restaurant/tabs/Search/search.dart';
+import 'package:fith_app__restaurant/widgets/Animation__amountOnGlobe.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -109,31 +111,33 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
             },
             tabs: [
               Tab(
-                  iconMargin: EdgeInsets.all(0),
-                  icon: Icon(
-                    Icons.home,
-                    size: 20,
+                iconMargin: EdgeInsets.all(0),
+                icon: Icon(
+                  Icons.home,
+                  size: 20,
+                ),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    "Home",
+                    style: TextStyle(fontSize: 12),
                   ),
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      "Home",
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  )),
+                ),
+              ),
               Tab(
-                  iconMargin: EdgeInsets.all(0),
-                  icon: Icon(
-                    Icons.restaurant,
-                    size: 20,
+                iconMargin: EdgeInsets.all(0),
+                icon: Icon(
+                  Icons.restaurant,
+                  size: 20,
+                ),
+                child: FittedBox(
+                  fit: BoxFit.scaleDown,
+                  child: Text(
+                    "Delicious",
+                    style: TextStyle(fontSize: 12),
                   ),
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      "Delicious",
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  )),
+                ),
+              ),
               Tab(
                   iconMargin: EdgeInsets.all(0),
                   icon: Icon(
@@ -148,32 +152,71 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                     ),
                   )),
               Tab(
-                  iconMargin: EdgeInsets.all(0),
-                  icon: Icon(
-                    Icons.favorite,
-                    size: 20,
-                  ),
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: Text(
-                      "Favs",
-                      style: TextStyle(fontSize: 12),
-                    ),
-                  )),
-              Tab(
                 iconMargin: EdgeInsets.all(0),
                 icon: Icon(
-                  Icons.shopping_cart,
+                  Icons.favorite,
                   size: 20,
                 ),
                 child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
-                    "Car",
+                    "Favs",
                     style: TextStyle(fontSize: 12),
                   ),
                 ),
               ),
+              Stack(
+                fit: StackFit.expand,
+                children: [
+                  Container(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.shopping_cart,
+                          size: 20,
+                        ),
+                        Text(
+                          "Car",
+                          style: TextStyle(fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Positioned(
+                    top: 2,
+                    left: 13,
+                    child: BlocBuilder<CartBloc, CartState>(
+                      builder: (BuildContext context, CartState state) {
+                        List<Dishes> inCart = state.props[0];
+                        return inCart.length == 0
+                            ? SizedBox()
+                            : Container(
+                                width: 16,
+                                height: 16,
+                                child: AnimationAmountCircleCart(
+                                  amout: inCart.length,
+                                ),
+                              );
+                      },
+                    ),
+                  ),
+                ],
+              )
+              // Tab(
+              //   iconMargin: EdgeInsets.all(0),
+              //   icon: Icon(
+              //     Icons.shopping_cart,
+              //     size: 20,
+              //   ),
+              //   child: FittedBox(
+              //     fit: BoxFit.scaleDown,
+              // child: Text(
+              //   "Car",
+              //   style: TextStyle(fontSize: 12),
+              // ),
+              //   ),
+              // ),
             ],
           ),
         ),
