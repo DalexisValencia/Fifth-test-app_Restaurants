@@ -184,8 +184,8 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                     ),
                   ),
                   Positioned(
-                    top: 2,
-                    left: 13,
+                    top: 4,
+                    left: 16,
                     child: BlocBuilder<CartBloc, CartState>(
                       builder: (BuildContext context, CartState state) {
                         List<Dishes> inCart = state.props[0];
@@ -194,7 +194,7 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                             : Container(
                                 width: 16,
                                 height: 16,
-                                child: AnimationAmountCircleCart(
+                                child: AnimationAmountGlobeCart(
                                   amout: inCart.length,
                                 ),
                               );
@@ -203,20 +203,6 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                   ),
                 ],
               )
-              // Tab(
-              //   iconMargin: EdgeInsets.all(0),
-              //   icon: Icon(
-              //     Icons.shopping_cart,
-              //     size: 20,
-              //   ),
-              //   child: FittedBox(
-              //     fit: BoxFit.scaleDown,
-              // child: Text(
-              //   "Car",
-              //   style: TextStyle(fontSize: 12),
-              // ),
-              //   ),
-              // ),
             ],
           ),
         ),

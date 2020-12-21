@@ -2,21 +2,27 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-class AnimationAmountCircleCart extends StatefulWidget {
+class AnimationAmountGlobeCart extends StatefulWidget {
   final int amout;
-  AnimationAmountCircleCart({
+  AnimationAmountGlobeCart({
     this.amout,
   });
   @override
-  _AnimationAmountCircleCartState createState() =>
-      _AnimationAmountCircleCartState();
+  _AnimationAmountGlobeCartState createState() =>
+      _AnimationAmountGlobeCartState();
 }
 
-class _AnimationAmountCircleCartState extends State<AnimationAmountCircleCart>
+class _AnimationAmountGlobeCartState extends State<AnimationAmountGlobeCart>
     with SingleTickerProviderStateMixin {
   Animation<double> animation;
   AnimationController animationController;
-  bool opacity = false;
+  String stateAnimation = '';
+
+  @override
+  didChangeDependencies() {
+    super.didChangeDependencies();
+    print('eherw');
+  }
 
   void initState() {
     super.initState();
@@ -32,7 +38,27 @@ class _AnimationAmountCircleCartState extends State<AnimationAmountCircleCart>
       curve: Curves.bounceOut,
     );
 
+    animationController..addStatusListener((status) {});
+
+    forward();
+  }
+
+  void forward() {
     animationController.forward();
+  }
+
+  void reverse() {
+    animationController.reverse();
+  }
+
+  void bounceCircle() {
+    reverse();
+    Timer(
+        Duration(
+          milliseconds: 200,
+        ), () {
+      forward();
+    });
   }
 
   @override
@@ -41,23 +67,9 @@ class _AnimationAmountCircleCartState extends State<AnimationAmountCircleCart>
     animationController.dispose();
   }
 
-  void scaleAnimation() {
-    animationController.reverse();
-    if (widget.amout >= 1) {
-      Timer(
-        Duration(milliseconds: 500),
-        () {
-          animationController.forward();
-          setState(() {
-            opacity = true;
-          });
-        },
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    bounceCircle();
     return Container(
       width: 40,
       height: 40,
