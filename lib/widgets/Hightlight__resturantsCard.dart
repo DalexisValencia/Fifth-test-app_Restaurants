@@ -1,3 +1,4 @@
+import 'package:fith_app__restaurant/Lists/menu.dart';
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
@@ -197,11 +198,24 @@ class _HightlightResturantsCardState extends State<HightlightResturantsCard> {
                     icon: Icons.favorite,
                     color: widget.selected && !widget.favorite
                         ? Theme.of(context).buttonColor
-                        : Theme.of(context).primaryColorLight,
+                        : widget.favorite
+                            ? Theme.of(context).buttonColor
+                            : Theme.of(context).primaryColorLight,
                     bgColor: widget.selected && !widget.favorite
                         ? Theme.of(context).primaryColorLight
-                        : Theme.of(context).buttonColor,
-                    trigger: () {},
+                        : widget.favorite
+                            ? Theme.of(context).primaryColorLight
+                            : Theme.of(context).buttonColor,
+                    trigger: widget.selected
+                        ? null
+                        : () {
+                            favoriteBlocIntance.add(
+                              FavoriteAddRestaurant(
+                                restaurant: widget.hightlight,
+                              ),
+                            );
+                            snackBarAddCart(context, widget.hightlight.name);
+                          },
                   ),
                 )
               ],

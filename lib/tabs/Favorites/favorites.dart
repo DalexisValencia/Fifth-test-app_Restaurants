@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/tabs/Favorites/favorites__list.dart';
+import 'package:fith_app__restaurant/tabs/Favorites/components/favorites__list.dart';
 import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
 import 'package:fith_app__restaurant/widgets/Navigation/Navigation.dart';
 import 'package:fith_app__restaurant/widgets/Screen__heading.dart';

@@ -25,7 +25,7 @@ class _CircleIconButtonState extends State<CircleIconButton> {
       onPressed: () {},
       onHighlightChanged: (value) {
         if (value == false) {
-          print('yo solo lo ejecuto cuando el onHighlightChanged sea falso');
+          // print('yo solo lo ejecuto cuando el onHighlightChanged sea falso');
           widget.trigger();
         }
       },
