@@ -25,8 +25,13 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
     List<Dishes> dishesState = state.props[1];
     if (event is FavoriteAddRestaurant) {
       List<Restaurants> resfinal = List.from(restaurantsState);
+      if (restaurantsState.contains(event.restaurant)) {
+        resfinal..remove(event.restaurant);
+      } else if (!restaurantsState.contains(event.restaurant)) {
+        resfinal..add(event.restaurant);
+      }
       yield FavoritesFetched(
-        restaurants: resfinal..add(event.restaurant),
+        restaurants: resfinal,
         dishes: dishesState,
       );
     }
@@ -38,9 +43,14 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
 
     if (event is FavoriteAddDish) {
       List<Dishes> dishFinal = List.from(dishesState);
+      if (dishesState.contains(event.dish)) {
+        dishFinal..remove(event.dish);
+      } else if (!dishesState.contains(event.dish)) {
+        dishFinal..add(event.dish);
+      }
       yield FavoritesFetched(
         restaurants: restaurantsState,
-        dishes: dishFinal..add(event.dish),
+        dishes: dishFinal,
       );
     }
 
