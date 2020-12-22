@@ -1,4 +1,5 @@
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/tabs/Search/search.dart';
@@ -39,9 +40,10 @@ class WhatAreYouLookinForForm extends StatefulWidget {
 class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
   // SearchBloc searchBloc;
   CartBloc cartBlocIntance;
+  FavoritesBloc favoriteBlocIntance;
   @override
   void initState() {
-    // searchBloc = BlocProvider.of<SearchBloc>(context);
+    favoriteBlocIntance = BlocProvider.of<FavoritesBloc>(context);
     cartBlocIntance = BlocProvider.of<CartBloc>(context);
     super.initState();
   }
@@ -77,6 +79,10 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
                       value: cartBlocIntance,
                       child: ScaffoldSearch(),
                       // create: (BuildContext context) => cartBlocIntance,
+                    ),
+                    BlocProvider<FavoritesBloc>.value(
+                      value: favoriteBlocIntance,
+                      child: ScaffoldSearch(),
                     ),
                   ],
                   child: ScaffoldSearch(),

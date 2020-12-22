@@ -17,6 +17,8 @@ class SuggestedRestaurants extends StatelessWidget {
         hightlightResturants.add(
           HightlightResturantsCard(
             hightlight: item,
+            selected: false,
+            favorite: false,
           ),
         );
       }).toList();

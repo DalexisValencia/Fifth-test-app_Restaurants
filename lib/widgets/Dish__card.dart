@@ -58,6 +58,7 @@ class _DishCardState extends State<DishCard> {
             : Theme.of(context).primaryColorLight,
         padding: EdgeInsets.all(0),
         splashColor: Theme.of(context).buttonColor,
+        highlightColor: Theme.of(context).buttonColor.withOpacity(0.1),
         onPressed: () {
           Navigator.of(context).push(
             MaterialPageRoute<PlateDetailScreen>(

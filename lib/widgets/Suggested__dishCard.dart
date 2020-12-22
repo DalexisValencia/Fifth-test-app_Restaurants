@@ -47,9 +47,10 @@ class _SuggestionDishCardState extends State<SuggestionDishCard> {
               borderRadius: BorderRadius.circular(12),
             ),
             padding: EdgeInsets.only(
-                bottom: totalHeight * 0.03,
-                left: (totalWidth * 0.03) + 5,
-                right: totalWidth * 0.03),
+              bottom: totalHeight * 0.03,
+              left: (totalWidth * 0.03) + 5,
+              right: totalWidth * 0.03,
+            ),
             elevation: 0,
             onPressed: () {
               // print(widget.suggestion.name + 'EL NOMBRE');

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
 import 'package:fith_app__restaurant/tabs/main.tabs.dart';
 import 'package:fith_app__restaurant/screens/splashScreen.dart';
 import 'package:flutter/material.dart';
@@ -53,9 +54,20 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     return splashScreen
         ? SplashScreen()
-        : BlocProvider<CartBloc>(
-            create: (BuildContext context) => CartBloc(),
+        : MultiBlocProvider(
+            providers: [
+              BlocProvider<CartBloc>(
+                create: (context) => CartBloc(),
+              ),
+              BlocProvider<FavoritesBloc>(
+                create: (context) => FavoritesBloc(),
+              ),
+            ],
             child: MainTabsWrapper(),
           );
+    // : BlocProvider<CartBloc>(
+    //     create: (BuildContext context) => CartBloc(),
+    //     child: MainTabsWrapper(),
+    //   );
   }
 }

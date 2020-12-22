@@ -1,5 +1,6 @@
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/tabs/Bookings/bookings.dart';
@@ -20,7 +21,9 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
     with TickerProviderStateMixin {
   TabController _tabController;
   int tabStateInit = 0;
+  // ignore: close_sinks
   CartBloc cartBloc;
+  FavoritesBloc favoriteBloc;
   void goToTabs(int tab) {
     setState(() {
       tabStateInit = tab;
@@ -38,6 +41,7 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
       });
     super.initState();
     cartBloc = BlocProvider.of<CartBloc>(context);
+    favoriteBloc = BlocProvider.of<FavoritesBloc>(context);
   }
 
   @override
@@ -58,8 +62,11 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
               create: (BuildContext context) => DiscoveryBloc(),
             ),
             BlocProvider<CartBloc>(
-                // create: (BuildContext context) => CartBloc(),
-                create: (BuildContext context) => cartBloc)
+              create: (BuildContext context) => cartBloc,
+            ),
+            BlocProvider<FavoritesBloc>(
+              create: (BuildContext context) => favoriteBloc,
+            )
           ],
           child: BlocProvider.value(
             value: cartBloc,
