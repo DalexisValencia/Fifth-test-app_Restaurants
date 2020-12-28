@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:fith_app__restaurant/widgets/Animation__amountOnGlobe.dart';
 import 'package:fith_app__restaurant/widgets/Button_roundWithIcon.dart';
 import 'package:flutter/material.dart';
 
@@ -16,51 +17,15 @@ class TrashButton extends StatefulWidget {
   _TrashButtonState createState() => _TrashButtonState();
 }
 
-class _TrashButtonState extends State<TrashButton>
-    with SingleTickerProviderStateMixin {
-  Animation<double> animation;
-  AnimationController animationController;
+class _TrashButtonState extends State<TrashButton> {
   bool opacity = false;
   @override
   void initState() {
     super.initState();
-    animationController = AnimationController(
-      duration: Duration(
-        milliseconds: 200,
-      ),
-      vsync: this,
-    );
-
-    animation = CurvedAnimation(
-      parent: animationController,
-      curve: Curves.bounceOut,
-    );
-  }
-
-  void scaleAnimation() {
-    animationController.reverse();
-    opacity = false;
-
-    if (widget.amout >= 1) {
-      Timer(
-        Duration(milliseconds: 500),
-        () {
-          animationController.forward();
-          opacity = true;
-        },
-      );
-    }
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    animationController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    scaleAnimation();
     return Container(
       width: 40,
       height: 40,
@@ -77,34 +42,8 @@ class _TrashButtonState extends State<TrashButton>
           Positioned(
             top: 2,
             left: 3,
-            child: ScaleTransition(
-              scale: animation,
-              child: Container(
-                width: 16,
-                height: 16,
-                decoration: BoxDecoration(
-                  color: Theme.of(context).buttonColor,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: AnimatedOpacity(
-                  opacity: widget.amout == 0 || widget.amout == null ? 0 : 1,
-                  duration: Duration(
-                    milliseconds: 700,
-                  ),
-                  child: Center(
-                    child: Text(
-                      widget.amout == 0 || widget.amout == null
-                          ? ''
-                          : widget.amout.toString(),
-                      style: Theme.of(context).textTheme.caption.copyWith(
-                            fontSize: widget.amout >= 10 ? 7 : 9,
-                            fontWeight: FontWeight.w500,
-                            color: Theme.of(context).primaryColorLight,
-                          ),
-                    ),
-                  ),
-                ),
-              ),
+            child: AnimationAmountGlobeCart(
+              amout: widget.amout,
             ),
           )
         ],

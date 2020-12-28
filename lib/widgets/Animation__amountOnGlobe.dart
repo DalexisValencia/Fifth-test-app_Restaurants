@@ -18,12 +18,6 @@ class _AnimationAmountGlobeCartState extends State<AnimationAmountGlobeCart>
   AnimationController animationController;
   String stateAnimation = '';
 
-  @override
-  didChangeDependencies() {
-    super.didChangeDependencies();
-    print('eherw');
-  }
-
   void initState() {
     super.initState();
     animationController = AnimationController(
@@ -37,9 +31,6 @@ class _AnimationAmountGlobeCartState extends State<AnimationAmountGlobeCart>
       parent: animationController,
       curve: Curves.bounceOut,
     );
-
-    animationController..addStatusListener((status) {});
-
     forward();
   }
 
@@ -53,12 +44,14 @@ class _AnimationAmountGlobeCartState extends State<AnimationAmountGlobeCart>
 
   void bounceCircle() {
     reverse();
-    Timer(
-        Duration(
-          milliseconds: 200,
-        ), () {
-      forward();
-    });
+    if (widget.amout >= 1) {
+      Timer(
+          Duration(
+            milliseconds: 500,
+          ), () {
+        forward();
+      });
+    }
   }
 
   @override
@@ -70,14 +63,18 @@ class _AnimationAmountGlobeCartState extends State<AnimationAmountGlobeCart>
   @override
   Widget build(BuildContext context) {
     bounceCircle();
-    return Container(
-      width: 40,
-      height: 40,
+    // return Container(
+    //   width: 40,
+    //   height: 40,
+    //   child:
+
+    return Visibility(
+      visible: widget.amout >= 1,
       child: ScaleTransition(
         scale: animation,
         child: Container(
-          width: 12,
-          height: 12,
+          width: 16,
+          height: 16,
           decoration: BoxDecoration(
             color: Theme.of(context).buttonColor,
             borderRadius: BorderRadius.circular(20),
@@ -101,6 +98,7 @@ class _AnimationAmountGlobeCartState extends State<AnimationAmountGlobeCart>
             ),
           ),
         ),
+        // ),
       ),
     );
   }
