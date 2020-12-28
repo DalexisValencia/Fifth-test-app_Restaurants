@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dishAmount/bloc/dishamount_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__addButton.dart';
@@ -32,6 +33,7 @@ class _PlateDetailScreenState extends State<PlateDetailScreen> {
   DishBloc instanceDishBloc;
   bool animationChildren = true;
   ScrollController _controller;
+  FavoritesBloc favoriteBlocInstance;
   _scrollListener() {
     if (_controller.offset > 100 && !minSizeReached) {
       setState(() {
@@ -81,6 +83,8 @@ class _PlateDetailScreenState extends State<PlateDetailScreen> {
           startAnimationScreen();
         }
       });
+
+    favoriteBlocInstance = BlocProvider.of<FavoritesBloc>(context);
   }
 
   //Cuando avandonamos la vista volvemos al estado de plato vacio
@@ -190,7 +194,10 @@ class _PlateDetailScreenState extends State<PlateDetailScreen> {
                     child: Navigation(
                       secondItem: 'favorite',
                       onPressed: () {
-                        print("Agregar este plato a favoritos");
+                        favoriteBlocInstance.add(
+                          FavoriteAddDish(dish: dish),
+                        );
+                        // snackBarAddCart(context, dish.name);
                       },
                       iconColor: minSizeReached
                           ? Theme.of(context).primaryColorDark

@@ -1,5 +1,6 @@
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/dishDetail.dart';
@@ -19,10 +20,12 @@ class HighlightRestaurantCard extends StatefulWidget {
 
 class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
   CartBloc instanceCartBloc;
+  FavoritesBloc instanceFavorite;
   @override
   void initState() {
     super.initState();
     instanceCartBloc = BlocProvider.of<CartBloc>(context);
+    instanceFavorite = BlocProvider.of<FavoritesBloc>(context);
   }
 
   @override
@@ -39,6 +42,12 @@ class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
                   ),
                   BlocProvider.value(
                     value: instanceCartBloc,
+                    child: PlateDetailScreen(
+                      dish: widget.dish,
+                    ),
+                  ),
+                  BlocProvider.value(
+                    value: instanceFavorite,
                     child: PlateDetailScreen(
                       dish: widget.dish,
                     ),

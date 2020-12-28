@@ -24,6 +24,7 @@ class Navigation extends StatelessWidget {
       case 'favorite':
         return FavoriteButton(
           iconColor: iconColor,
+          onpressed: this.onPressed,
         );
         break;
       case 'trash':

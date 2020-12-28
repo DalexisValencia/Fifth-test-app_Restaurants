@@ -1,4 +1,5 @@
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
@@ -19,11 +20,13 @@ class RestaurantTopSummary extends StatefulWidget {
 class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
   DetailsrestaurantBloc blocDetailResturant;
   CartBloc cartBlocInstance;
+  FavoritesBloc favoriteBlocInstance;
   @override
   initState() {
     super.initState();
     blocDetailResturant = BlocProvider.of<DetailsrestaurantBloc>(context);
     cartBlocInstance = BlocProvider.of<CartBloc>(context);
+    favoriteBlocInstance = BlocProvider.of<FavoritesBloc>(context);
   }
 
   Widget _cardHeader() {
@@ -199,12 +202,14 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
                     BlocProvider.value(
                       value: blocDetailResturant,
                       child: RestaurantDetailWrapper(),
-                      // create: (context) => SubjectBloc(),
                     ),
                     BlocProvider.value(
                       value: cartBlocInstance,
                       child: RestaurantDetailWrapper(),
-                      // create: (context) => SubjectBloc(),
+                    ),
+                    BlocProvider.value(
+                      value: favoriteBlocInstance,
+                      child: RestaurantDetailWrapper(),
                     ),
                   ],
                   child: RestaurantDetailWrapper(),
@@ -212,13 +217,6 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
               },
             ),
           );
-          // customAnimateNavigation(
-          //   context,
-          //   BlocProvider.value(
-          //     value: blocDetailResturant,
-          //     child: RestaurantDetailWrapper(),
-          //   ),
-          // );
         },
       ),
     );

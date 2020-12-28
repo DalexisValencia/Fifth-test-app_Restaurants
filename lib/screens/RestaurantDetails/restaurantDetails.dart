@@ -83,8 +83,6 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
   }
 
   Widget _bodyRestaurantsDetail(Restaurants currentRestaurant) {
-    double withDefaultPadding =
-        MediaQuery.of(context).size.width * defaultPadding;
     double lessHeight =
         (MediaQuery.of(context).padding.top + defaultHeaderCustomHeight);
     return AnimatedOpacity(

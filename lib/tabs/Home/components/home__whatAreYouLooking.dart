@@ -64,10 +64,6 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
           Navigator.of(context).push(
             MaterialPageRoute<ScaffoldSearch>(
               builder: (context) {
-                // return BlocProvider.value(
-                //   value: searchBloc,
-                //   child: ScaffoldSearch(),
-                // );
                 return MultiBlocProvider(
                   providers: [
                     BlocProvider<SearchBloc>.value(
@@ -93,22 +89,6 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
         }
       },
       onPressed: () {},
-      // onPressed: () {
-      //   final searchBloc = BlocProvider.of<SearchBloc>(context);
-      //   // Timer(Duration(milliseconds: 250), () {
-      //   //   Navigator.push(context, MaterialPageRoute(builder: (_) {
-      //   //     return ScaffoldSearch();
-      //   //   }));
-      //   // });
-      //   Navigator.of(context)
-      //       .push(MaterialPageRoute<ScaffoldSearch>(builder: (context) {
-      //     return BlocProvider.value(
-      //       value: searchBloc,
-      //       child: ScaffoldSearch(),
-      //     );
-      //   }));
-      //   print("ir a la busqueda");
-      // },
       child: Row(
         children: <Widget>[
           Icon(

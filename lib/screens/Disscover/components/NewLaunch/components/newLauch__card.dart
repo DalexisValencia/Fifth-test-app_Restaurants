@@ -1,5 +1,6 @@
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/dishDetail.dart';
 import 'package:fith_app__restaurant/screens/Disscover/components/NewLaunch/components/newLauch__comments.dart';
@@ -18,11 +19,13 @@ class NewLaunchedCard extends StatefulWidget {
 
 class _NewLaunchedCardState extends State<NewLaunchedCard> {
   CartBloc instanceCartBloc;
+  FavoritesBloc favoriteBlocInstance;
 
   @override
   initState() {
     super.initState();
     instanceCartBloc = BlocProvider.of<CartBloc>(context);
+    favoriteBlocInstance = BlocProvider.of<FavoritesBloc>(context);
   }
 
   Widget _wrapperImage() {
@@ -211,6 +214,12 @@ class _NewLaunchedCardState extends State<NewLaunchedCard> {
                     ),
                     BlocProvider<CartBloc>.value(
                       value: instanceCartBloc,
+                      child: PlateDetailScreen(
+                        dish: widget.dish,
+                      ),
+                    ),
+                    BlocProvider<FavoritesBloc>.value(
+                      value: favoriteBlocInstance,
                       child: PlateDetailScreen(
                         dish: widget.dish,
                       ),

@@ -1,5 +1,6 @@
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
+import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/screens/DishDetail/dishDetail.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +19,12 @@ class NearYouCard extends StatefulWidget {
 
 class _NearYouCardState extends State<NearYouCard> {
   CartBloc cartBlocInstance;
+  FavoritesBloc favoriteBlocInstance;
   @override
   void initState() {
     super.initState();
     cartBlocInstance = BlocProvider.of<CartBloc>(context);
+    favoriteBlocInstance = BlocProvider.of<FavoritesBloc>(context);
   }
 
   @override
@@ -48,6 +51,12 @@ class _NearYouCardState extends State<NearYouCard> {
                         dish: widget.dish,
                       ),
                     ),
+                    BlocProvider.value(
+                      value: favoriteBlocInstance,
+                      child: PlateDetailScreen(
+                        dish: widget.dish,
+                      ),
+                    )
                   ],
                   child: PlateDetailScreen(
                     dish: widget.dish,

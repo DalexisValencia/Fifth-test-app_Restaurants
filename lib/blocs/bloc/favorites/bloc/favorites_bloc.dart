@@ -61,6 +61,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
 
     if (event is FavoriteAddDish) {
       List<Dishes> dishFinal = List.from(dishesState);
+      print(event.dish);
       if (dishesState.contains(event.dish)) {
         dishFinal..remove(event.dish);
       } else if (!dishesState.contains(event.dish)) {

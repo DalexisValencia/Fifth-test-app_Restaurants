@@ -54,8 +54,11 @@ class _HightlightResturantsCardState extends State<HightlightResturantsCard> {
               BlocProvider.value(
                 value: cartBlocInstance,
                 child: RestaurantDetailWrapper(),
-                // create: (context) => SubjectBloc(),
               ),
+              BlocProvider.value(
+                value: favoriteBlocIntance,
+                child: RestaurantDetailWrapper(),
+              )
             ],
             child: RestaurantDetailWrapper(),
           );

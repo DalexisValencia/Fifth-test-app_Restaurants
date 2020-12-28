@@ -3,16 +3,18 @@ import 'package:flutter/material.dart';
 
 class FavoriteButton extends StatelessWidget {
   final Color iconColor;
-  FavoriteButton({this.iconColor});
+  final Function onpressed;
+  FavoriteButton({
+    this.iconColor,
+    this.onpressed,
+  });
   @override
   Widget build(BuildContext context) {
     return CircleIconButton(
       icon: Icons.favorite,
       color: iconColor == null ? Theme.of(context).primaryColorDark : iconColor,
       bgColor: Theme.of(context).primaryColorDark.withOpacity(0.2),
-      trigger: () {
-        print("añadirme a favoritos");
-      },
+      trigger: () => onpressed(),
     );
   }
 }
