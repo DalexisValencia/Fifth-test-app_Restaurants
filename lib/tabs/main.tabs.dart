@@ -23,6 +23,7 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
   int tabStateInit = 0;
   // ignore: close_sinks
   CartBloc cartBloc;
+  // ignore: close_sinks
   FavoritesBloc favoriteBloc;
   void goToTabs(int tab) {
     setState(() {

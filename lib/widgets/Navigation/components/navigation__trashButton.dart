@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:fith_app__restaurant/widgets/Animation__amountOnGlobe.dart';
 import 'package:fith_app__restaurant/widgets/Button_roundWithIcon.dart';
 import 'package:flutter/material.dart';

@@ -1,5 +1,4 @@
 import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:fith_app__restaurant/sections/Suggested__horizontalList.dart';
 import 'package:fith_app__restaurant/widgets/SeeAll/Screen__seeAllSection.dart';
@@ -28,8 +27,6 @@ class _RestaurantDetailsSuggestionsState
   @override
   Widget build(BuildContext context) {
     double totalWidth = MediaQuery.of(context).size.width;
-    double withDefaultPadding =
-        MediaQuery.of(context).size.width * defaultPadding;
     return Container(
       margin: EdgeInsets.only(top: totalWidth * 0.05),
       width: MediaQuery.of(context).size.width,
