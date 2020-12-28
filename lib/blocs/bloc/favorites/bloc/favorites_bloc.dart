@@ -14,6 +14,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
           FavoritesInitial(
             restaurants: [],
             dishes: [],
+            selecteds: [],
           ),
         );
 
@@ -23,6 +24,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   ) async* {
     List<Restaurants> restaurantsState = state.props[0];
     List<Dishes> dishesState = state.props[1];
+    List<dynamic> selecteds = state.props[2];
     if (event is FavoriteAddRestaurant) {
       List<Restaurants> resfinal = List.from(restaurantsState);
       if (restaurantsState.contains(event.restaurant)) {
@@ -33,13 +35,14 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
       yield FavoritesFetched(
         restaurants: resfinal,
         dishes: dishesState,
+        selecteds: selecteds,
       );
     }
 
     if (event is FavoriteRemove) {
       List<Restaurants> finalRestaurants = List.from(restaurantsState);
       List<Dishes> finalDishes = List.from(dishesState);
-      event.toDelete.map((e) {
+      selecteds.map((e) {
         if (e is Restaurants) {
           finalRestaurants.remove(e);
         }
@@ -52,6 +55,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
       yield FavoritesFetched(
         restaurants: finalRestaurants,
         dishes: finalDishes,
+        selecteds: [],
       );
     }
 
@@ -65,6 +69,22 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
       yield FavoritesFetched(
         restaurants: restaurantsState,
         dishes: dishFinal,
+        selecteds: selecteds,
+      );
+    }
+
+    if (event is FavoriteSelected) {
+      List<dynamic> selectedsFinal = List.from(selecteds);
+      if (selectedsFinal.contains(event.selected)) {
+        selectedsFinal.remove(event.selected);
+      } else if (!selectedsFinal.contains(event.selected)) {
+        selectedsFinal.add(event.selected);
+      }
+
+      yield FavoritesFetched(
+        restaurants: restaurantsState,
+        dishes: dishesState,
+        selecteds: selectedsFinal,
       );
     }
   }

@@ -5,7 +5,6 @@ import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
 import 'package:fith_app__restaurant/tabs/Favorites/components/favorites__EmptyList.dart';
 import 'package:fith_app__restaurant/tabs/Favorites/components/list__CardDish.dart';
 import 'package:fith_app__restaurant/tabs/Favorites/components/list__CardRestaurant.dart';
-import 'package:fith_app__restaurant/tabs/Favorites/favorites.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,12 +15,12 @@ class FavoriteListScreen extends StatefulWidget {
 
 class _FavoriteListScreenState extends State<FavoriteListScreen> {
   List<int> forDelete = [];
-  // List<Dishes> dishesDelete = [];
-  // List<Restaurants> restaurantDelete = [];
+  FavoritesBloc instanceFavorite;
 
   @override
   initState() {
     super.initState();
+    instanceFavorite = BlocProvider.of<FavoritesBloc>(context);
   }
 
   @override
@@ -36,10 +35,7 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
             builder: (BuildContext context, FavoritesState state) {
               List<Restaurants> restaurants = state.props[0];
               List<Dishes> dishes = state.props[1];
-              List<Dishes> dishesDelete =
-                  FavoriteInherited.of(context).selectedDishes;
-              List<Restaurants> restaurantDelete =
-                  FavoriteInherited.of(context).selectedRestaurants;
+              List<dynamic> selecteds = state.props[2];
               return Column(
                 children: [
                   dishes.isEmpty && restaurants.isEmpty
@@ -49,34 +45,26 @@ class _FavoriteListScreenState extends State<FavoriteListScreen> {
                       ? SizedBox()
                       : FavoriteList(
                           list: restaurants,
-                          selecteds: restaurantDelete,
+                          selecteds: selecteds,
                           onLongPressCallBack: (e) {
-                            if (restaurantDelete.contains(e)) {
-                              setState(() {
-                                restaurantDelete.remove(e);
-                              });
-                            } else if (!restaurantDelete.contains(e)) {
-                              setState(() {
-                                restaurantDelete.add(e);
-                              });
-                            }
+                            instanceFavorite.add(
+                              FavoriteSelected(
+                                selected: e,
+                              ),
+                            );
                           },
                         ),
                   dishes.isEmpty
                       ? SizedBox()
                       : FavoriteList(
                           list: dishes,
-                          selecteds: dishesDelete,
+                          selecteds: selecteds,
                           onLongPressCallBack: (e) {
-                            if (dishesDelete.contains(e)) {
-                              setState(() {
-                                dishesDelete.remove(e);
-                              });
-                            } else if (!dishesDelete.contains(e)) {
-                              setState(() {
-                                dishesDelete.add(e);
-                              });
-                            }
+                            instanceFavorite.add(
+                              FavoriteSelected(
+                                selected: e,
+                              ),
+                            );
                           },
                         ),
                 ],
