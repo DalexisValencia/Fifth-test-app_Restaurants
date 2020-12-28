@@ -12,17 +12,12 @@ class FavoriteAddRestaurant extends FavoritesEvent {
   FavoriteAddRestaurant({this.restaurant});
 }
 
-class FavoriteRemoveRestaurant extends FavoritesEvent {
-  final Restaurants restaurant;
-  FavoriteRemoveRestaurant({this.restaurant});
+class FavoriteRemove extends FavoritesEvent {
+  final List<dynamic> toDelete;
+  FavoriteRemove({this.toDelete});
 }
 
 class FavoriteAddDish extends FavoritesEvent {
   final Dishes dish;
   FavoriteAddDish({this.dish});
-}
-
-class FavoriteRemoveDish extends FavoritesEvent {
-  final Dishes dish;
-  FavoriteRemoveDish({this.dish});
 }

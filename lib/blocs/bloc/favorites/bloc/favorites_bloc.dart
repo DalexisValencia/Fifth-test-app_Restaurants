@@ -36,9 +36,23 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
       );
     }
 
-    if (event is FavoriteRemoveRestaurant) {
-      print("remover este restaurante:");
-      print(event.restaurant);
+    if (event is FavoriteRemove) {
+      List<Restaurants> finalRestaurants = List.from(restaurantsState);
+      List<Dishes> finalDishes = List.from(dishesState);
+      event.toDelete.map((e) {
+        if (e is Restaurants) {
+          finalRestaurants.remove(e);
+        }
+
+        if (e is Dishes) {
+          finalDishes.remove(e);
+        }
+      }).toList();
+
+      yield FavoritesFetched(
+        restaurants: finalRestaurants,
+        dishes: finalDishes,
+      );
     }
 
     if (event is FavoriteAddDish) {
@@ -52,11 +66,6 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
         restaurants: restaurantsState,
         dishes: dishFinal,
       );
-    }
-
-    if (event is FavoriteRemoveDish) {
-      print("remover este restaurante:");
-      print(event.dish);
     }
   }
 }
