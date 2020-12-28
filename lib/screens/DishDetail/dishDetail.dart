@@ -191,17 +191,23 @@ class _PlateDetailScreenState extends State<PlateDetailScreen> {
                       bottom: 10,
                     ),
                     width: MediaQuery.of(context).size.width,
-                    child: Navigation(
-                      secondItem: 'favorite',
-                      onPressed: () {
-                        favoriteBlocInstance.add(
-                          FavoriteAddDish(dish: dish),
+                    child: BlocBuilder<FavoritesBloc, FavoritesState>(
+                      builder: (BuildContext context, FavoritesState state) {
+                        List<Dishes> favoriteDishes = state.props[1];
+                        return Navigation(
+                          secondItem: 'favorite',
+                          onPressed: () {
+                            favoriteBlocInstance.add(
+                              FavoriteAddDish(dish: dish),
+                            );
+                          },
+                          iconColor: favoriteDishes.contains(dish)
+                              ? Theme.of(context).buttonColor
+                              : minSizeReached
+                                  ? Theme.of(context).primaryColorDark
+                                  : Theme.of(context).primaryColorLight,
                         );
-                        // snackBarAddCart(context, dish.name);
                       },
-                      iconColor: minSizeReached
-                          ? Theme.of(context).primaryColorDark
-                          : Theme.of(context).primaryColorLight,
                     ),
                   ),
                 ),
