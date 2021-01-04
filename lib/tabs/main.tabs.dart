@@ -197,13 +197,14 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                     child: BlocBuilder<CartBloc, CartState>(
                       builder: (BuildContext context, CartState state) {
                         List<Dishes> inCart = state.props[0];
+                        int amountInCart = state.props[2];
                         return inCart.length == 0
                             ? SizedBox()
                             : Container(
                                 width: 16,
                                 height: 16,
                                 child: AnimationAmountGlobeCart(
-                                  amout: inCart.length,
+                                  amout: amountInCart,
                                 ),
                               );
                       },
