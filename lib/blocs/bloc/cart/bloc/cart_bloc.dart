@@ -14,6 +14,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           CartblocInitial(
             dishes: [],
             total: 0,
+            amount: 0,
+            selecteds: [],
           ),
         );
 
@@ -30,6 +32,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       yield FetchItems(
         dishes: finaldishes,
         total: _getTodal(finaldishes),
+        amount: _getAmountTotal(finaldishes),
       );
     }
 
@@ -49,6 +52,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       yield FetchItems(
         dishes: finaldishes,
         total: 0,
+        amount: _getAmountTotal(finaldishes),
       );
     }
 
@@ -83,6 +87,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       yield FetchItems(
         dishes: finaldishes,
         total: _getTodal(finaldishes),
+        amount: _getAmountTotal(finaldishes),
       );
     }
   }
@@ -94,6 +99,14 @@ double _getTodal(List<Dishes> cartiItems) {
     total += e.finalPrice;
   }).toList();
   return total;
+}
+
+int _getAmountTotal(List<Dishes> cartiItems) {
+  int amount = 0;
+  cartiItems.map((e) {
+    amount += e.amount;
+  }).toList();
+  return amount;
 }
 
 double _getAdditionalPrice(Dishes dish) {
