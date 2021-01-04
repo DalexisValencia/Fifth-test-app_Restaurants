@@ -187,7 +187,6 @@ class _PlateDetailScreenState extends State<PlateDetailScreen> {
                     ),
                     curve: Curves.ease,
                     padding: EdgeInsets.only(
-                      // top: MediaQuery.of(context).padding.top + 10,
                       bottom: 10,
                     ),
                     width: MediaQuery.of(context).size.width,

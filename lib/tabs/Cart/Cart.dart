@@ -72,49 +72,46 @@ class _ScreenCartState extends State<ScreenCart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        //
-        body: BlocBuilder<CartBloc, CartState>(
-      builder: (context, state) {
-        List<Dishes> cartDishes = state.props[0];
-        return Column(
-          children: [
-            Navigation(
-              secondItem: 'trash',
-              amout: deleteFromCard.length,
-              onPressed: () {
-                if (deleteFromCard.length >= 1) {
-                  cartBloc.add(
-                    DeleteFromCart(
-                      toDelete: deleteFromCard,
-                    ),
-                  );
-                  // cartBloc.listen((w) {
-                  //   print('listen');
-                  //   print(w);
-                  // });
-                  Timer(
-                    Duration(
-                      milliseconds: 200,
-                    ),
-                    () {
-                      setState(() {
-                        deleteFromCard.clear();
-                      });
-                    },
-                  );
-                }
-              },
-            ),
-            _bodyCart(
-              state is CartblocInitial || cartDishes.length == 0,
-              cartDishes,
-            ),
-            state is CartblocInitial || cartDishes.length == 0
-                ? SizedBox()
-                : ButtonCart(),
-          ],
-        );
-      },
-    ));
+      //
+      body: BlocBuilder<CartBloc, CartState>(
+        builder: (context, state) {
+          List<Dishes> cartDishes = state.props[0];
+          return Column(
+            children: [
+              Navigation(
+                secondItem: 'trash',
+                amout: deleteFromCard.length,
+                onPressed: () {
+                  if (deleteFromCard.length >= 1) {
+                    cartBloc.add(
+                      DeleteFromCart(
+                        toDelete: deleteFromCard,
+                      ),
+                    );
+                    Timer(
+                      Duration(
+                        milliseconds: 200,
+                      ),
+                      () {
+                        setState(() {
+                          deleteFromCard.clear();
+                        });
+                      },
+                    );
+                  }
+                },
+              ),
+              _bodyCart(
+                state is CartblocInitial || cartDishes.length == 0,
+                cartDishes,
+              ),
+              state is CartblocInitial || cartDishes.length == 0
+                  ? SizedBox()
+                  : ButtonCart(),
+            ],
+          );
+        },
+      ),
+    );
   }
 }
