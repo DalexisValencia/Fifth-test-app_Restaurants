@@ -1,4 +1,4 @@
-import 'dart:async';
+// import 'dart:async';
 
 import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
 import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
@@ -18,7 +18,7 @@ class AddtoCar extends StatefulWidget {
 }
 
 class _AddtoCarState extends State<AddtoCar> {
-  bool _addingCar = false;
+  // bool _addingCar = false;
   late CartBloc cartbloc;
 
   @override
@@ -46,25 +46,25 @@ class _AddtoCarState extends State<AddtoCar> {
             .toString();
   }
 
-  void addToCart(Dishes detailDish) {
-    cartbloc.add(
-      AddToCart(
-        dish: widget.dish,
-      ),
-    );
-    setState(() {
-      _addingCar = true;
-    });
-    Timer(Duration(seconds: 2), () {
-      setState(() {
-        _addingCar = false;
-      });
-      snackBarAddCart(
-        context,
-        widget.dish!.name,
-      );
-    });
-  }
+  // void addToCart(Dishes detailDish) {
+  //   cartbloc.add(
+  //     AddToCart(
+  //       dish: widget.dish,
+  //     ),
+  //   );
+  //   setState(() {
+  //     _addingCar = true;
+  //   });
+  //   Timer(Duration(seconds: 2), () {
+  //     setState(() {
+  //       _addingCar = false;
+  //     });
+  //     snackBarAddCart(
+  //       context,
+  //       widget.dish!.name,
+  //     );
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -105,43 +105,47 @@ class _AddtoCarState extends State<AddtoCar> {
               SizedBox(
                 height: 41,
                 width: 120,
-                child: RaisedButton.icon(
-                  color: Theme.of(context).primaryColorLight,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                  onPressed: _addingCar
-                      ? null
-                      : () {
-                          widget.dish!.amount = stateAmount.props[0] as int;
-                          addToCart(widget.dish!);
-                        },
-                  elevation: 0,
-                  icon: _addingCar
-                      ? SizedBox()
-                      : Icon(
-                          Icons.add_shopping_cart,
-                          size: 18,
-                          color: Theme.of(context).buttonColor,
-                        ),
-                  label: _addingCar
-                      ? Container(
-                          width: 20,
-                          height: 20,
-                          child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              Theme.of(context).primaryColorLight,
-                            ),
-                          ),
-                        )
-                      : Text(
-                          "Añadir",
-                          style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    color: Theme.of(context).buttonColor,
-                                  ),
-                        ),
+                child: Container(
+                  color: Colors.red,
+                  child: Text("icon"),
                 ),
+                // child: RaisedButton.icon(
+                //   color: Theme.of(context).primaryColorLight,
+                //   shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(20),
+                //   ),
+                //   onPressed: _addingCar
+                //       ? null
+                //       : () {
+                //           widget.dish!.amount = stateAmount.props[0] as int;
+                //           addToCart(widget.dish!);
+                //         },
+                //   elevation: 0,
+                //   icon: _addingCar
+                //       ? SizedBox()
+                //       : Icon(
+                //           Icons.add_shopping_cart,
+                //           size: 18,
+                //           color: Theme.of(context).buttonColor,
+                //         ),
+                //   label: _addingCar
+                //       ? Container(
+                //           width: 20,
+                //           height: 20,
+                //           child: CircularProgressIndicator(
+                //             valueColor: AlwaysStoppedAnimation<Color>(
+                //               Theme.of(context).primaryColorLight,
+                //             ),
+                //           ),
+                //         )
+                //       : Text(
+                //           "Añadir",
+                //           style:
+                //               Theme.of(context).textTheme.bodyText1!.copyWith(
+                //                     color: Theme.of(context).buttonColor,
+                //                   ),
+                //         ),
+                // ),
               )
             ],
           );

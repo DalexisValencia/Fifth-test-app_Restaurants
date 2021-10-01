@@ -1,4 +1,4 @@
-name: fith_app__restaurant
+name: restaurants
 description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
@@ -27,9 +27,9 @@ dependencies:
   equatable: ^2.0.3
   flutter_bloc: ^7.2.0
   carousel_slider: ^4.0.0
-  url_launcher: ^5.4.11
+  url_launcher: ^6.0.12
   intl: ^0.17.0
-  keyboard_visibility: ^0.5.6
+  keyboard_visibility: ^5.0.3
 
 
   # The following adds the Cupertino Icons font to your application.

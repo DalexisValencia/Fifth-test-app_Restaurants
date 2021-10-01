@@ -34,7 +34,8 @@ class _NearYouCardState extends State<NearYouCard> {
         right: widget.index! < 9 ? MediaQuery.of(context).size.width * 0.04 : 5,
       ),
       width: MediaQuery.of(context).size.width / 2.6,
-      child: RaisedButton(
+      child: MaterialButton(
+        //this was a raisedButton Check updates
         elevation: 0,
         onPressed: () {
           Navigator.of(context).push(

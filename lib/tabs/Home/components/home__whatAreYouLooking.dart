@@ -50,7 +50,8 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
+    return MaterialButton(
+      // this was a RaisedButton
       splashColor: Theme.of(context).buttonColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),

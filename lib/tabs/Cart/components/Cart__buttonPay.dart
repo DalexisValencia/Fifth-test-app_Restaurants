@@ -35,7 +35,8 @@ class ButtonCart extends StatelessWidget {
               );
             },
           ),
-          RaisedButton(
+          MaterialButton(
+            // this was a RaisedButton
             color: Theme.of(context).primaryColorLight,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),

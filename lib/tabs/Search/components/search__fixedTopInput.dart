@@ -62,7 +62,8 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
             padding: EdgeInsets.symmetric(
               horizontal: 5,
             ),
-            child: RaisedButton(
+            child: MaterialButton(
+              // this was a RaisedButton
               animationDuration: Duration(
                 milliseconds: 10,
               ),

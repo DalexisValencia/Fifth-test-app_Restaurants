@@ -119,7 +119,8 @@ class _HightlightResturantsCardState extends State<HightlightResturantsCard> {
       ),
       width: totalWidth,
       height: MediaQuery.of(context).size.height * 0.30,
-      child: RaisedButton(
+      child: MaterialButton(
+        // this was a RaisedButton
         padding: EdgeInsets.fromLTRB(12, 18, 12, 18),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),

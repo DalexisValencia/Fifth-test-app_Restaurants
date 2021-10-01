@@ -32,7 +32,8 @@ class _SuggestedCardState extends State<SuggestedCard> {
 
   @override
   Widget build(BuildContext context) {
-    return RaisedButton(
+    return MaterialButton(
+      // this was a RaisedButton
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(7),
       ),

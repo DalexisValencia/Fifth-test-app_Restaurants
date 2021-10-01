@@ -19,7 +19,8 @@ class _CircleOptionState extends State<CircleOption> {
         Container(
           width: MediaQuery.of(context).size.width * 0.15,
           height: MediaQuery.of(context).size.width * 0.15,
-          child: RaisedButton(
+          child: MaterialButton(
+            //this wwas a RaisedButton
             elevation: 0,
             color: Theme.of(context).accentColor.withOpacity(0.5),
             onPressed: () {},
