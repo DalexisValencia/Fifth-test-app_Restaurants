@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CircleIconButton extends StatefulWidget {
-  final IconData icon;
-  final Color color;
-  final Color bgColor;
-  final Function trigger;
+  final IconData? icon;
+  final Color? color;
+  final Color? bgColor;
+  final Function? trigger;
   CircleIconButton({
     this.icon,
     this.color,
@@ -26,7 +26,7 @@ class _CircleIconButtonState extends State<CircleIconButton> {
       onHighlightChanged: (value) {
         if (value == false) {
           // print('yo solo lo ejecuto cuando el onHighlightChanged sea falso');
-          widget.trigger();
+          widget.trigger!();
         }
       },
       color: widget.bgColor,

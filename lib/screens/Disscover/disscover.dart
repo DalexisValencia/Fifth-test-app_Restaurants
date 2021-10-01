@@ -61,7 +61,7 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
       body: SafeArea(
         child: BlocBuilder<DiscoveryBloc, DiscoveryState>(
           builder: (BuildContext context, state) {
-            Discovery discoveryPropsBloc = state.props[0];
+            Discovery discoveryPropsBloc = state.props[0] as Discovery;
             return AnimatedOpacity(
               duration: Duration(milliseconds: animationOpacityTime),
               opacity: animatedOpacity ? 0 : 1,
@@ -83,10 +83,10 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
                           child: Column(
                             children: <Widget>[
                               ScreenHeading(
-                                title: discoveryPropsBloc.name,
+                                title: discoveryPropsBloc.name!,
                                 subtitle: '',
                               ),
-                              discoveryPropsBloc.near.isNotEmpty
+                              discoveryPropsBloc.near!.isNotEmpty
                                   ? BlocProvider<DishBloc>(
                                       create: (BuildContext context) =>
                                           DishBloc(),
@@ -95,7 +95,7 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
                                       ),
                                     )
                                   : SizedBox(),
-                              discoveryPropsBloc.newLaunch.isNotEmpty
+                              discoveryPropsBloc.newLaunch!.isNotEmpty
                                   ? NewLaunch(
                                       newLaunched: discoveryPropsBloc.newLaunch,
                                     )
@@ -111,7 +111,7 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
                         top: 0,
                         child: Navigation(
                           secondItem: 'search',
-                          category: discoveryPropsBloc.name,
+                          category: discoveryPropsBloc.name!,
                         ),
                       ),
                     ],

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:fith_app__restaurant/interfaces/Ingredients.dart';
 
 class SummaryIngredients extends StatefulWidget {
-  final List<Ingredients> ingredients;
-  SummaryIngredients({this.ingredients});
+  final List<Ingredients>? ingredients;
+  SummaryIngredients({
+    this.ingredients,
+  });
   @override
   _SummaryIngredientsState createState() => _SummaryIngredientsState();
 }
@@ -18,7 +20,7 @@ class _SummaryIngredientsState extends State<SummaryIngredients> {
           child: Text(
             'Ingreddients for plate',
             textAlign: TextAlign.left,
-            style: Theme.of(context).textTheme.subtitle1.copyWith(
+            style: Theme.of(context).textTheme.subtitle1!.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).primaryColorDark),
           ),
@@ -30,10 +32,10 @@ class _SummaryIngredientsState extends State<SummaryIngredients> {
       width: MediaQuery.of(context).size.width,
       height: 80,
       child: ListView.builder(
-          itemCount: widget.ingredients.length,
+          itemCount: widget.ingredients!.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (BuildContext context, int index) {
-            return _cardIngredients(widget.ingredients[index]);
+            return _cardIngredients(widget.ingredients![index]);
           }),
     );
   }
@@ -59,8 +61,8 @@ class _SummaryIngredientsState extends State<SummaryIngredients> {
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  ingredient.amountGrams,
-                  style: Theme.of(context).textTheme.subtitle1.copyWith(
+                  ingredient.amountGrams!,
+                  style: Theme.of(context).textTheme.subtitle1!.copyWith(
                       fontWeight: FontWeight.w500,
                       color: Theme.of(context).primaryColorDark),
                 ),
@@ -71,8 +73,8 @@ class _SummaryIngredientsState extends State<SummaryIngredients> {
               FittedBox(
                 fit: BoxFit.scaleDown,
                 child: Text(
-                  ingredient.name,
-                  style: Theme.of(context).textTheme.caption.copyWith(
+                  ingredient.name!,
+                  style: Theme.of(context).textTheme.caption!.copyWith(
                       fontSize: 9,
                       fontWeight: FontWeight.normal,
                       color: Theme.of(context).primaryColorDark),

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fith_app__restaurant/constants/contansts.dart';
 
 class ContactMethods extends StatefulWidget {
-  final List<ContactMeans> contact;
+  final List<ContactMeans>? contact;
   ContactMethods({
     this.contact,
   });
@@ -29,7 +29,7 @@ class ContactMethodsState extends State<ContactMethods> {
       child: Builder(
         builder: (BuildContext context) {
           List<Widget> contacts = [];
-          widget.contact.map((e) {
+          widget.contact!.map((e) {
             contacts.add(
               Container(
                 height: 40,
@@ -48,8 +48,8 @@ class ContactMethodsState extends State<ContactMethods> {
                       bool showSnackBar = false;
                       String alertSnackBar = '';
                       if (e.type == 'call') {
-                        if (await canLaunch('tel://' + e.key)) {
-                          launch('tel://' + e.key);
+                        if (await canLaunch('tel://' + e.key!)) {
+                          launch('tel://' + e.key!);
                         } else {
                           showSnackBar = true;
                           alertSnackBar = 'Ha ocurrido un error';
@@ -71,7 +71,7 @@ class ContactMethodsState extends State<ContactMethods> {
                         }
                       }
                       if (e.type == 'whatsapp') {
-                        var whatsappUrl = "whatsapp://send?phone=" + e.key;
+                        var whatsappUrl = "whatsapp://send?phone=" + e.key!;
                         if (await canLaunch(whatsappUrl)) {
                           launch(whatsappUrl);
                         } else {
@@ -86,7 +86,7 @@ class ContactMethodsState extends State<ContactMethods> {
                             alertSnackBar,
                             style: Theme.of(context)
                                 .textTheme
-                                .bodyText1
+                                .bodyText1!
                                 .copyWith(
                                   color: Theme.of(context).primaryColorLight,
                                 ),
@@ -99,13 +99,16 @@ class ContactMethodsState extends State<ContactMethods> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
-                        Text(e.value),
+                        Text(e.value!),
                         FittedBox(
                             child: Text(
-                          e.key,
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                              color: Theme.of(context).buttonColor,
-                              fontWeight: FontWeight.w500),
+                          e.key!,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                  color: Theme.of(context).buttonColor,
+                                  fontWeight: FontWeight.w500),
                         ))
                       ],
                     ),

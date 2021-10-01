@@ -20,9 +20,9 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     }
 
     if (event is DishModifierEdit) {
-      AditionalsOptions adpush = event.currentModifier;
-      Dishes platos = state.props[0];
-      platos.additions[0].children.add(adpush);
+      AditionalsOptions adpush = event.currentModifier as AditionalsOptions;
+      Dishes platos = state.props[0] as Dishes;
+      platos.additions![0].children!.add(adpush);
       yield DishCurrent(dish: platos);
     }
 

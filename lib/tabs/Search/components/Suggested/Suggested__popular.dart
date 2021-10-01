@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SuggestedPopular extends StatefulWidget {
-  final List<Dishes> popularSuggestions;
+  final List<Dishes>? popularSuggestions;
   SuggestedPopular({
     this.popularSuggestions,
   });
@@ -22,7 +22,7 @@ class _SuggestedPopularState extends State<SuggestedPopular> {
       child: Builder(
         builder: (BuildContext context) {
           return new Column(
-            children: widget.popularSuggestions
+            children: widget.popularSuggestions!
                 .map(
                   (item) => new DishCardComment(
                     dish: item,

@@ -2,8 +2,8 @@ import 'package:fith_app__restaurant/widgets/Button_roundWithIcon.dart';
 import 'package:flutter/material.dart';
 
 class SearchButton extends StatelessWidget {
-  final String category;
-  final Color iconColor;
+  final String? category;
+  final Color? iconColor;
   SearchButton({
     this.category,
     this.iconColor,
@@ -16,7 +16,7 @@ class SearchButton extends StatelessWidget {
       child: CircleIconButton(
         icon: Icons.search,
         color:
-            iconColor == null ? Theme.of(context).primaryColorDark : iconColor,
+            iconColor == null ? Theme.of(context).primaryColorDark : iconColor!,
         bgColor: Theme.of(context).accentColor.withOpacity(0.4),
         trigger: () {
           print('buscar por: $category');

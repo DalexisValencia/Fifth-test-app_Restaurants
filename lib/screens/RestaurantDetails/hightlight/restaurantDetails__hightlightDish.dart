@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailHighlightProduct extends StatefulWidget {
-  final List<Dishes> highlishDishes;
+  final List<Dishes>? highlishDishes;
   DetailHighlightProduct({
     this.highlishDishes,
   });
@@ -17,7 +17,7 @@ class DetailHighlightProduct extends StatefulWidget {
 }
 
 class _DetailHighlightProductState extends State<DetailHighlightProduct> {
-  DetailsrestaurantBloc restaurantBloc;
+  late DetailsrestaurantBloc restaurantBloc;
   @override
   initState() {
     super.initState();
@@ -52,10 +52,10 @@ class _DetailHighlightProductState extends State<DetailHighlightProduct> {
                     create: (BuildContext context) => DishBloc(),
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
-                      itemCount: widget.highlishDishes.length,
+                      itemCount: widget.highlishDishes!.length,
                       itemBuilder: (BuildContext context, int index) {
                         return HighlightRestaurantCard(
-                          dish: widget.highlishDishes[index],
+                          dish: widget.highlishDishes![index],
                         );
                       },
                     ),

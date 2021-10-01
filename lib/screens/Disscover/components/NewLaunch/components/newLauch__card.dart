@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NewLaunchedCard extends StatefulWidget {
-  final Dishes dish;
+  final Dishes? dish;
   NewLaunchedCard({
     this.dish,
   });
@@ -18,8 +18,8 @@ class NewLaunchedCard extends StatefulWidget {
 }
 
 class _NewLaunchedCardState extends State<NewLaunchedCard> {
-  CartBloc instanceCartBloc;
-  FavoritesBloc favoriteBlocInstance;
+  late CartBloc instanceCartBloc;
+  late FavoritesBloc favoriteBlocInstance;
 
   @override
   initState() {
@@ -39,7 +39,7 @@ class _NewLaunchedCardState extends State<NewLaunchedCard> {
         image: DecorationImage(
           fit: BoxFit.cover,
           image: ExactAssetImage(
-            widget.dish.image,
+            widget.dish!.image!,
           ),
         ),
       ),
@@ -71,8 +71,8 @@ class _NewLaunchedCardState extends State<NewLaunchedCard> {
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        widget.dish.name,
-                        style: Theme.of(context).textTheme.subtitle1.copyWith(
+                        widget.dish!.name!,
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
                               color: Theme.of(context).primaryColorDark,
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -82,8 +82,8 @@ class _NewLaunchedCardState extends State<NewLaunchedCard> {
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        widget.dish.details.substring(0, 28) + '...',
-                        style: Theme.of(context).textTheme.caption.copyWith(
+                        widget.dish!.details!.substring(0, 28) + '...',
+                        style: Theme.of(context).textTheme.caption!.copyWith(
                               color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.w400,
                             ),
@@ -184,7 +184,7 @@ class _NewLaunchedCardState extends State<NewLaunchedCard> {
             _cardHeader(),
             _cardBody(),
             NewLaunchComments(
-              comments: widget.dish.comments,
+              comments: widget.dish!.comments!,
             )
           ],
         ),
@@ -195,9 +195,9 @@ class _NewLaunchedCardState extends State<NewLaunchedCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: widget.dish.comments.length > 2
+      height: widget.dish!.comments!.length > 2
           ? 315
-          : 185 + (widget.dish.comments.length * 50).toDouble(),
+          : 185 + (widget.dish!.comments!.length * 50).toDouble(),
       padding: EdgeInsets.symmetric(
         horizontal: MediaQuery.of(context).size.width * 0.07,
       ),

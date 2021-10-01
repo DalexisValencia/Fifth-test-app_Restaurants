@@ -4,19 +4,19 @@ import 'package:fith_app__restaurant/interfaces/aditional.dart';
 import 'package:flutter/material.dart';
 
 class Dishes {
-  String name;
-  String details;
-  String image;
-  double price;
-  double rating;
-  String preparation;
-  List<Comments> comments;
-  List<String> category;
-  List<Adittional> additions;
-  List<Ingredients> ingredients;
-  int amount;
-  Promotions promotionLabel;
-  double finalPrice;
+  String? name;
+  String? details;
+  String? image;
+  double? price;
+  double? rating;
+  String? preparation;
+  List<Comments>? comments;
+  List<String>? category;
+  List<Adittional>? additions;
+  List<Ingredients>? ingredients;
+  int? amount;
+  Promotions? promotionLabel;
+  double? finalPrice;
 
   Dishes({
     this.name,
@@ -54,11 +54,11 @@ class Dishes {
 }
 
 class Promotions {
-  Color color;
-  String label;
-  bool active;
-  List<PricePromotions> pricePromotions;
-  double discounts;
+  Color? color;
+  String? label;
+  bool? active;
+  List<PricePromotions>? pricePromotions;
+  double? discounts;
   Promotions({
     this.color,
     this.label,
@@ -69,7 +69,7 @@ class Promotions {
 }
 
 class PricePromotions {
-  int amount, price;
+  int? amount, price;
   PricePromotions({
     this.amount,
     this.price,

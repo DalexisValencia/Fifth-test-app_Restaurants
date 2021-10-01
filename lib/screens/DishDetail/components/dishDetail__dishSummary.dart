@@ -10,7 +10,7 @@ class DishSummary extends StatefulWidget {
 }
 
 class _DishSummaryState extends State<DishSummary> {
-  List<Adittional> allAdditionals;
+  List<Adittional>? allAdditionals;
   @override
   initState() {
     super.initState();
@@ -26,7 +26,7 @@ class _DishSummaryState extends State<DishSummary> {
         child: Text(
           "Summary",
           textAlign: TextAlign.left,
-          style: Theme.of(context).textTheme.subtitle1.copyWith(
+          style: Theme.of(context).textTheme.subtitle1!.copyWith(
               fontWeight: FontWeight.bold,
               color: Theme.of(context).primaryColorDark),
         ));
@@ -79,7 +79,7 @@ class _DishSummaryState extends State<DishSummary> {
               ),
               Text(
                 name,
-                style: Theme.of(context).textTheme.bodyText1.copyWith(
+                style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     color: Theme.of(context).accentColor,
                     fontSize: 12,
                     fontWeight: FontWeight.w400),
@@ -88,7 +88,7 @@ class _DishSummaryState extends State<DishSummary> {
           ),
           Text(
             value,
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
                 color: Theme.of(context).primaryColorDark,
                 fontWeight: FontWeight.w800),
           ),

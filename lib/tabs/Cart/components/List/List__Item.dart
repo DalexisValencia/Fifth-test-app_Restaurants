@@ -5,10 +5,10 @@ import 'package:fith_app__restaurant/tabs/Cart/components/List/item/Item__modifi
 import 'package:flutter/material.dart';
 
 class CompleteCartItem extends StatelessWidget {
-  final Dishes dish;
-  final bool selected;
+  final Dishes? dish;
+  final bool? selected;
   CompleteCartItem({
-    Key key,
+    Key? key,
     this.dish,
     this.selected,
   }) : super(key: key);
@@ -28,9 +28,9 @@ class CompleteCartItem extends StatelessWidget {
               //print(amout);
             },
           ),
-          dish.additions.length >= 1
+          dish!.additions!.length >= 1
               ? ExpansionModifiersCartItem(
-                  additionals: dish.additions,
+                  additionals: dish!.additions,
                 )
               : SizedBox(),
         ],

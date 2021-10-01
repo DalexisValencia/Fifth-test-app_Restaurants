@@ -18,7 +18,7 @@ class FavoritesScreen extends StatefulWidget {
 class _FavoritesScreenState extends State<FavoritesScreen> {
   bool opacityActive = true;
   bool animatedContainerActive = true;
-  FavoritesBloc instanceFavorite;
+  late FavoritesBloc instanceFavorite;
 
   @override
   initState() {
@@ -59,8 +59,9 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             children: <Widget>[
               BlocBuilder<FavoritesBloc, FavoritesState>(
                 builder: (BuildContext context, state) {
-                  List<Restaurants> restaurantsState = state.props[0];
-                  List<Dishes> dishesState = state.props[1];
+                  List<Restaurants> restaurantsState =
+                      state.props[0] as List<Restaurants>;
+                  List<Dishes> dishesState = state.props[1] as List<Dishes>;
                   return ScreenHeading(
                     title: 'Favorites',
                     subtitle: restaurantsState.isEmpty && dishesState.isEmpty
@@ -94,7 +95,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             children: [
               BlocBuilder<FavoritesBloc, FavoritesState>(
                 builder: (BuildContext context, FavoritesState state) {
-                  List<dynamic> selecteds = state.props[2];
+                  List<dynamic> selecteds = state.props[2] as List<dynamic>;
                   return Navigation(
                     secondItem: 'trash',
                     amout: selecteds.length,

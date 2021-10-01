@@ -17,7 +17,7 @@ class ResultRecents extends StatelessWidget {
             child: Text(
               "Recents",
               textAlign: TextAlign.start,
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     color: Theme.of(context).primaryColorDark,
                     fontWeight: FontWeight.w800,
                   ),

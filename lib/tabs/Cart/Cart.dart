@@ -17,7 +17,7 @@ class ScreenCart extends StatefulWidget {
 
 class _ScreenCartState extends State<ScreenCart> {
   List<int> deleteFromCard = [];
-  CartBloc cartBloc;
+  late CartBloc cartBloc;
 
   @override
   initState() {
@@ -75,7 +75,7 @@ class _ScreenCartState extends State<ScreenCart> {
       //
       body: BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
-          List<Dishes> cartDishes = state.props[0];
+          List<Dishes> cartDishes = state.props[0] as List<Dishes>;
           return Column(
             children: [
               Navigation(

@@ -59,7 +59,8 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
       padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
       child: BlocBuilder<SearchBloc, SearchState>(
         builder: (context, state) {
-          SearchInitInterface suggestedSearches = state.props[0];
+          SearchInitInterface suggestedSearches =
+              state.props[0] as SearchInitInterface;
           return Column(
             children: <Widget>[
               Container(
@@ -90,7 +91,7 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
                               child: CustomContainerAnimation(
                                 animationChildren: animatedChildren,
                                 children: !activeResults &&
-                                        suggestedSearches.results.length == 0
+                                        suggestedSearches.results!.length == 0
                                     ? Suggested(
                                         suggestedSearches: suggestedSearches,
                                       )
@@ -111,7 +112,7 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      // resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).primaryColorLight,
       body: _bodyScaffold(),

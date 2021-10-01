@@ -26,11 +26,11 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
 
 completeDiscovery(name) {
   List<Dishes> platos = dishes.where((dish) {
-    return dish.category.indexOf(name) != -1;
+    return dish.category!.indexOf(name) != -1;
   }).toList();
 
   List<Restaurants> resta = restaurants.where((item) {
-    return item.categories.indexOf(name) != -1;
+    return item.categories!.indexOf(name) != -1;
   }).toList();
   Discovery discoveryView = Discovery(
     name: name,

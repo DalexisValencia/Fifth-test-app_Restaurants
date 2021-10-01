@@ -3,9 +3,9 @@ import 'package:fith_app__restaurant/tabs/Cart/components/List/List__Item.dart';
 import 'package:flutter/material.dart';
 
 class CartVerticalList extends StatelessWidget {
-  final List<Dishes> cartDishes;
-  final Function onSelectThis;
-  final List<int> selecteds;
+  final List<Dishes>? cartDishes;
+  final Function? onSelectThis;
+  final List<int>? selecteds;
   CartVerticalList({
     this.cartDishes,
     this.onSelectThis,
@@ -18,15 +18,15 @@ class CartVerticalList extends StatelessWidget {
       child: Builder(
         builder: (BuildContext context) {
           List<Widget> itemsCard = [];
-          cartDishes.asMap().entries.map((item) {
+          cartDishes!.asMap().entries.map((item) {
             itemsCard.add(
               GestureDetector(
                 onLongPress: () {
-                  onSelectThis(item.key);
+                  onSelectThis!(item.key);
                 },
                 child: CompleteCartItem(
-                  dish: cartDishes[item.key],
-                  selected: selecteds.contains(item.key),
+                  dish: cartDishes![item.key],
+                  selected: selecteds!.contains(item.key),
                 ),
               ),
             );

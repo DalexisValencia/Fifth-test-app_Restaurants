@@ -3,8 +3,10 @@ import 'package:fith_app__restaurant/interfaces/aditional.dart';
 import 'package:flutter/material.dart';
 
 class ExpansionModifiersCartItem extends StatefulWidget {
-  final List<Adittional> additionals;
-  ExpansionModifiersCartItem({this.additionals});
+  final List<Adittional>? additionals;
+  ExpansionModifiersCartItem({
+    this.additionals,
+  });
   @override
   _ExpansionModifiersCartItemState createState() =>
       _ExpansionModifiersCartItemState();
@@ -55,7 +57,7 @@ class _ExpansionModifiersCartItemState
                 children: [
                   Text(
                     "Modificadores",
-                    style: Theme.of(context).textTheme.caption.copyWith(
+                    style: Theme.of(context).textTheme.caption!.copyWith(
                           color: Theme.of(context).primaryColorLight,
                           fontWeight: FontWeight.w400,
                         ),
@@ -101,8 +103,8 @@ class _ExpansionModifiersCartItemState
                 child: Builder(
                   builder: (BuildContext context) {
                     List<Widget> modifiers = [];
-                    widget.additionals.map((e) {
-                      Iterable<AditionalsOptions> isActive = e.children
+                    widget.additionals!.map((e) {
+                      Iterable<AditionalsOptions> isActive = e.children!
                           .where((element) => element.isActive == true);
                       for (var option in isActive) {
                         modifiers.add(
@@ -127,7 +129,7 @@ class _ExpansionModifiersCartItemState
 }
 
 class ModifiersOption extends StatelessWidget {
-  final AditionalsOptions option;
+  final AditionalsOptions? option;
   ModifiersOption({this.option});
   @override
   Widget build(BuildContext context) {
@@ -137,14 +139,14 @@ class ModifiersOption extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            option.name,
-            style: Theme.of(context).textTheme.caption.copyWith(
+            option!.name!,
+            style: Theme.of(context).textTheme.caption!.copyWith(
                   color: Theme.of(context).primaryColorDark,
                 ),
           ),
           Text(
-            option.price != 0 ? "\$${formatterPrice(option.price)}" : 'Yes',
-            style: Theme.of(context).textTheme.caption.copyWith(
+            option!.price != 0 ? "\$${formatterPrice(option!.price)}" : 'Yes',
+            style: Theme.of(context).textTheme.caption!.copyWith(
                   color: Theme.of(context).primaryColorDark,
                 ),
           ),

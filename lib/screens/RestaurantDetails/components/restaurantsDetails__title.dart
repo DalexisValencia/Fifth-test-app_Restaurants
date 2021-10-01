@@ -2,9 +2,9 @@ import 'package:fith_app__restaurant/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
 
 class RestaurantdetailTitle extends StatelessWidget {
-  final String title, subtitle;
+  final String? title, subtitle;
   RestaurantdetailTitle({
-    Key key,
+    Key? key,
     this.title,
     this.subtitle,
   }) : super(key: key);
@@ -16,8 +16,8 @@ class RestaurantdetailTitle extends StatelessWidget {
       ),
       width: MediaQuery.of(context).size.width,
       child: ScreenHeading(
-        title: title,
-        subtitle: subtitle,
+        title: title!,
+        subtitle: subtitle!,
       ),
     );
   }

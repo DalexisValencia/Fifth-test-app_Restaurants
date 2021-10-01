@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NearYou extends StatefulWidget {
-  final List<Dishes> nearYou;
+  final List<Dishes>? nearYou;
   NearYou({
     this.nearYou,
   });
@@ -28,10 +28,10 @@ class _NearYouState extends State<NearYou> {
         ),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: widget.nearYou.length,
+          itemCount: widget.nearYou!.length,
           itemBuilder: (BuildContext context, int index) {
             return NearYouCard(
-              dish: widget.nearYou[index],
+              dish: widget.nearYou![index],
               index: index,
             );
           },
@@ -41,10 +41,10 @@ class _NearYouState extends State<NearYou> {
   }
 
   _sectionBody() {
-    if (widget.nearYou.length == 0) {
+    if (widget.nearYou!.length == 0) {
       return EmptySections();
     }
-    if (widget.nearYou.length >= 1) {
+    if (widget.nearYou!.length >= 1) {
       return _horizontalScrollList();
     }
   }

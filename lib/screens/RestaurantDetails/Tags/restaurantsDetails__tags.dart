@@ -4,8 +4,8 @@ import 'package:fith_app__restaurant/widgets/SeeAll/Screen__seeAllSection.dart';
 import 'package:flutter/material.dart';
 
 class ExploreTheMenu extends StatefulWidget {
-  final List<String> tags;
-  final String restaurantName;
+  final List<String>? tags;
+  final String? restaurantName;
   ExploreTheMenu({
     this.tags,
     this.restaurantName,
@@ -24,7 +24,7 @@ class _ExploreTheMenuState extends State<ExploreTheMenu> {
       child: Builder(
         builder: (BuildContext context) {
           List<Widget> chips = [];
-          widget.tags.map((e) {
+          widget.tags!.map((e) {
             chips.add(
               TagItem(
                 name: e,

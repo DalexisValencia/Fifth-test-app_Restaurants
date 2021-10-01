@@ -8,12 +8,12 @@ abstract class FavoritesEvent extends Equatable {
 }
 
 class FavoriteAddRestaurant extends FavoritesEvent {
-  final Restaurants restaurant;
+  final Restaurants? restaurant;
   FavoriteAddRestaurant({this.restaurant});
 }
 
 class FavoriteAddDish extends FavoritesEvent {
-  final Dishes dish;
+  final Dishes? dish;
   FavoriteAddDish({this.dish});
 }
 

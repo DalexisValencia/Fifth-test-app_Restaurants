@@ -3,9 +3,9 @@ import 'package:fith_app__restaurant/widgets/Button_roundWithIcon.dart';
 import 'package:flutter/material.dart';
 
 class TrashButton extends StatefulWidget {
-  final Color iconColor;
-  final int amout;
-  final Function onClick;
+  final Color? iconColor;
+  final int? amout;
+  final Function? onClick;
   TrashButton({
     this.amout,
     this.onClick,
@@ -33,15 +33,15 @@ class _TrashButtonState extends State<TrashButton> {
             icon: Icons.delete,
             color: widget.iconColor == null
                 ? Theme.of(context).primaryColorDark
-                : widget.iconColor,
+                : widget.iconColor!,
             bgColor: Theme.of(context).primaryColorDark.withOpacity(0.2),
-            trigger: widget.onClick,
+            trigger: widget.onClick!,
           ),
           Positioned(
             top: 2,
             left: 3,
             child: AnimationAmountGlobeCart(
-              amout: widget.amout,
+              amout: widget.amout!,
             ),
           )
         ],

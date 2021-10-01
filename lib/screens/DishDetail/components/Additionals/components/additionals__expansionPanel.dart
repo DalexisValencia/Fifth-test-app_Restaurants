@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AditionalExpansionPanel extends StatefulWidget {
-  final int index;
-  final Adittional additional;
-  AditionalExpansionPanel({this.index, this.additional});
+  final int? index;
+  final Adittional? additional;
+  AditionalExpansionPanel({
+    this.index,
+    this.additional,
+  });
   @override
   _AditionalExpansionPanelState createState() =>
       _AditionalExpansionPanelState();
@@ -56,26 +59,26 @@ class _AditionalExpansionPanelState extends State<AditionalExpansionPanel> {
         },
         backgroundColor: Theme.of(context).primaryColorLight,
         title: Text(
-          widget.additional.title,
-          style: Theme.of(context).textTheme.button.copyWith(
+          widget.additional!.title!,
+          style: Theme.of(context).textTheme.button!.copyWith(
                 color: Theme.of(context).primaryColorDark,
               ),
         ),
         children: <Widget>[
           Container(child: BlocBuilder<AdditionalsBloc, AdditionalsState>(
               builder: (BuildContext context, AdditionalsState state) {
-            List<Adittional> aditionals = state.props[0];
+            List<Adittional> aditionals = state.props[0] as List<Adittional>;
             List<Widget> optionsExpansion = [];
-            aditionals[widget.index].children.asMap().entries.map((option) {
+            aditionals[widget.index!].children!.asMap().entries.map((option) {
               optionsExpansion.add(AditionalCheckBoxTile(
                 index: option.key,
-                name: option.value.name,
-                price: option.value.price,
-                active: option.value.isActive,
+                name: option.value.name!,
+                price: option.value.price!,
+                active: option.value.isActive!,
                 // active: widget.additional.isMulti
                 //     ? option.value.isActive
                 //     : currentActive == option.key,
-                isMulti: widget.additional.isMulti,
+                isMulti: widget.additional!.isMulti!,
                 callBackClick: (val, inx) {
                   BlocProvider.of<AdditionalsBloc>(context).add(
                     ToggleModifier(
@@ -99,12 +102,12 @@ class _AditionalExpansionPanelState extends State<AditionalExpansionPanel> {
 }
 
 class AditionalCheckBoxTile extends StatefulWidget {
-  final int index;
-  final String name;
-  final int price;
-  final bool active;
-  final Function callBackClick;
-  final bool isMulti;
+  final int? index;
+  final String? name;
+  final int? price;
+  final bool? active;
+  final Function? callBackClick;
+  final bool? isMulti;
 
   AditionalCheckBoxTile({
     this.index,
@@ -122,12 +125,12 @@ class _AditionalCheckBoxTileState extends State<AditionalCheckBoxTile> {
   bool isCurrentCheckActive = false;
   _activeOption(val) {
     // si la seleccion no es multiple
-    if (!widget.isMulti) {
-      widget.callBackClick(val, widget.index);
+    if (!widget.isMulti!) {
+      widget.callBackClick!(val, widget.index);
     }
     // Si la seleccion es multiple
-    if (widget.isMulti) {
-      widget.callBackClick(val, widget.index);
+    if (widget.isMulti!) {
+      widget.callBackClick!(val, widget.index);
     }
   }
 
@@ -135,7 +138,7 @@ class _AditionalCheckBoxTileState extends State<AditionalCheckBoxTile> {
     // solo si la seleccion no es multiple
     // if (!widget.isMulti) {
     setState(() {
-      isCurrentCheckActive = widget.active;
+      isCurrentCheckActive = widget.active!;
     });
     // }
   }
@@ -164,15 +167,15 @@ class _AditionalCheckBoxTileState extends State<AditionalCheckBoxTile> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                widget.name,
-                style: Theme.of(context).textTheme.caption.copyWith(
+                widget.name!,
+                style: Theme.of(context).textTheme.caption!.copyWith(
                       color: Theme.of(context).primaryColorDark,
                     ),
               ),
               widget.price.toString() != '0'
                   ? Text(
                       "\$" + widget.price.toString(),
-                      style: Theme.of(context).textTheme.caption.copyWith(
+                      style: Theme.of(context).textTheme.caption!.copyWith(
                             color: Theme.of(context).primaryColorDark,
                             fontWeight: FontWeight.w700,
                           ),

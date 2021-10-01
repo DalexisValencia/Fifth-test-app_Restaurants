@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 class DishPortrait extends StatelessWidget {
-  final String image;
+  final String? image;
   DishPortrait({
     this.image,
   });
@@ -12,7 +12,7 @@ class DishPortrait extends StatelessWidget {
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.cover,
-          image: ExactAssetImage(image),
+          image: ExactAssetImage(image!),
         ),
       ),
       width: MediaQuery.of(context).size.width,

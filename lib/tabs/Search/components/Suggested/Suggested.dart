@@ -10,7 +10,7 @@ import 'package:fith_app__restaurant/tabs/Search/components/search__loading.dart
 import 'package:flutter/material.dart';
 
 class Suggested extends StatefulWidget {
-  final SearchInitInterface suggestedSearches;
+  final SearchInitInterface? suggestedSearches;
   Suggested({
     this.suggestedSearches,
   });
@@ -50,20 +50,20 @@ class _SuggestedState extends State<Suggested> {
           height: 40,
           child: SuggestedCategories(),
         ),
-        widget.suggestedSearches.suggestions.length >= 1
+        widget.suggestedSearches!.suggestions!.length >= 1
             ? SuggestedDishes(
-                suggestions: widget.suggestedSearches.suggestions,
+                suggestions: widget.suggestedSearches!.suggestions,
               )
             : SizedBox(),
-        widget.suggestedSearches.popular.length >= 1
+        widget.suggestedSearches!.popular!.length >= 1
             ? SuggestedPopular(
-                popularSuggestions: widget.suggestedSearches.popular,
+                popularSuggestions: widget.suggestedSearches!.popular,
               )
             : SizedBox(),
-        widget.suggestedSearches.highlightRestaurants.length >= 1
+        widget.suggestedSearches!.highlightRestaurants!.length >= 1
             ? SuggestedRestaurants(
                 restaurantSuggestions:
-                    widget.suggestedSearches.highlightRestaurants,
+                    widget.suggestedSearches!.highlightRestaurants,
               )
             : SizedBox(),
         Text(

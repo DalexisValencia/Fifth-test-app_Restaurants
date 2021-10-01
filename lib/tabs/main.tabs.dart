@@ -19,12 +19,12 @@ class MainTabsWrapper extends StatefulWidget {
 
 class _MainTabsWrapperState extends State<MainTabsWrapper>
     with TickerProviderStateMixin {
-  TabController _tabController;
+  late TabController _tabController;
   int tabStateInit = 0;
   // ignore: close_sinks
-  CartBloc cartBloc;
+  late CartBloc cartBloc;
   // ignore: close_sinks
-  FavoritesBloc favoriteBloc;
+  late FavoritesBloc favoriteBloc;
   void goToTabs(int tab) {
     setState(() {
       tabStateInit = tab;
@@ -55,7 +55,7 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
     return DefaultTabController(
       length: 5,
       child: Scaffold(
-        resizeToAvoidBottomPadding: false, //avoid flutter ugly alert
+        // resizeToAvoidBottomPadding: false, //avoid flutter ugly alert
         backgroundColor: Theme.of(context).primaryColorLight,
         body: MultiBlocProvider(
           providers: [
@@ -196,8 +196,8 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                     left: 16,
                     child: BlocBuilder<CartBloc, CartState>(
                       builder: (BuildContext context, CartState state) {
-                        List<Dishes> inCart = state.props[0];
-                        int amountInCart = state.props[2];
+                        List<Dishes> inCart = state.props[0] as List<Dishes>;
+                        int amountInCart = state.props[2] as int;
                         return inCart.length == 0
                             ? SizedBox()
                             : Container(

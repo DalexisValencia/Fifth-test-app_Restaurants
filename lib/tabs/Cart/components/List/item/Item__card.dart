@@ -9,18 +9,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ItemCartCard extends StatefulWidget {
-  final Dishes dish;
-  final bool selected;
-  final Function priceByCard;
-  ItemCartCard({Key key, this.dish, this.selected, this.priceByCard})
-      : super(key: key);
+  final Dishes? dish;
+  final bool? selected;
+  final Function? priceByCard;
+  ItemCartCard({
+    Key? key,
+    this.dish,
+    this.selected,
+    this.priceByCard,
+  }) : super(key: key);
   @override
   _ItemCartCardState createState() => _ItemCartCardState();
 }
 
 class _ItemCartCardState extends State<ItemCartCard> {
-  CartBloc cartBlocInstance;
-  FavoritesBloc instanceFavorite;
+  late CartBloc cartBlocInstance;
+  late FavoritesBloc instanceFavorite;
   @override
   initState() {
     super.initState();
@@ -71,20 +75,21 @@ class _ItemCartCardState extends State<ItemCartCard> {
           horizontal: MediaQuery.of(context).size.width * defaultPadding,
         ),
         decoration: BoxDecoration(
-          borderRadius: widget.dish.additions.length == 0
+          borderRadius: widget.dish!.additions!.length == 0
               ? BorderRadius.circular(borderRadiusCards)
               : BorderRadius.only(
                   topLeft: Radius.circular(borderRadiusCards),
                   topRight: Radius.circular(borderRadiusCards),
                 ),
-          color: !widget.selected
+          color: !widget.selected!
               ? Theme.of(context).primaryColorLight
               : cardSelectedBgColor,
           border: Border.all(
-            color: widget.selected
+            color: widget.selected!
                 ? Theme.of(context).buttonColor
                 : Theme.of(context).primaryColorDark.withOpacity(0.5),
-            width: widget.selected ? borderWidthSelected : borderWidhNoSelected,
+            width:
+                widget.selected! ? borderWidthSelected : borderWidhNoSelected,
           ),
         ),
         child: Row(
@@ -98,7 +103,7 @@ class _ItemCartCardState extends State<ItemCartCard> {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: ExactAssetImage(
-                    widget.dish.image,
+                    widget.dish!.image!,
                   ),
                 ),
               ),
@@ -115,7 +120,7 @@ class _ItemCartCardState extends State<ItemCartCard> {
                     Row(
                       children: <Widget>[
                         CustomChip(
-                          text: widget.dish.preparation,
+                          text: widget.dish!.preparation!,
                           textColor: Theme.of(context).primaryColor,
                           textSize: 12.5,
                           icon: Icons.timer,
@@ -123,7 +128,7 @@ class _ItemCartCardState extends State<ItemCartCard> {
                           iconSize: 13,
                         ),
                         CustomChip(
-                          text: formatterPrice(widget.dish.price),
+                          text: formatterPrice(widget.dish!.price!),
                           textColor: Theme.of(context).buttonColor,
                           textSize: 12.5,
                           icon: Icons.monetization_on,
@@ -133,18 +138,18 @@ class _ItemCartCardState extends State<ItemCartCard> {
                       ],
                     ),
                     Text(
-                      widget.dish.name,
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      widget.dish!.name!,
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             color: Theme.of(context).primaryColorDark,
                             fontWeight: FontWeight.w700,
                             fontSize: 13,
                           ),
                     ),
                     Text(
-                      widget.dish.details.length > 55
-                          ? widget.dish.details.substring(0, 58) + " ... "
-                          : widget.dish.details,
-                      style: Theme.of(context).textTheme.overline.copyWith(
+                      widget.dish!.details!.length > 55
+                          ? widget.dish!.details!.substring(0, 58) + " ... "
+                          : widget.dish!.details!,
+                      style: Theme.of(context).textTheme.overline!.copyWith(
                             letterSpacing: 0,
                             color: Theme.of(context).primaryColor,
                           ),
@@ -153,21 +158,22 @@ class _ItemCartCardState extends State<ItemCartCard> {
                     Row(
                       children: [
                         Text(
-                          "\$${formatterPrice(widget.dish.finalPrice)}",
-                          style: Theme.of(context).textTheme.caption.copyWith(
+                          "\$${formatterPrice(widget.dish!.finalPrice)}",
+                          style: Theme.of(context).textTheme.caption!.copyWith(
                                 color: Theme.of(context).buttonColor,
                                 fontWeight: FontWeight.w700,
                               ),
                         ),
                         SizedBox(width: 10),
                         Visibility(
-                          visible: widget.dish.promotionLabel.discounts > 0,
+                          visible: widget.dish!.promotionLabel!.discounts! > 0,
                           child: Text(
-                            "- \$${formatterPrice(widget.dish.promotionLabel.discounts)}",
-                            style: Theme.of(context).textTheme.caption.copyWith(
-                                  color: Theme.of(context).primaryColorDark,
-                                  decoration: TextDecoration.lineThrough,
-                                ),
+                            "- \$${formatterPrice(widget.dish!.promotionLabel!.discounts)}",
+                            style:
+                                Theme.of(context).textTheme.caption!.copyWith(
+                                      color: Theme.of(context).primaryColorDark,
+                                      decoration: TextDecoration.lineThrough,
+                                    ),
                           ),
                         ),
                       ],
@@ -212,8 +218,8 @@ class _ItemCartCardState extends State<ItemCartCard> {
                     height: 30,
                     child: Center(
                       child: Text(
-                        widget.dish.amount.toString(),
-                        style: Theme.of(context).textTheme.button.copyWith(
+                        widget.dish!.amount.toString(),
+                        style: Theme.of(context).textTheme.button!.copyWith(
                               fontSize: 12,
                               color: Theme.of(context).primaryColorDark,
                             ),
@@ -222,7 +228,7 @@ class _ItemCartCardState extends State<ItemCartCard> {
                   ),
                   Expanded(
                     child: InkWell(
-                      onTap: widget.dish.amount == 1
+                      onTap: widget.dish!.amount == 1
                           ? null
                           : () {
                               cartBlocInstance.add(
@@ -233,7 +239,7 @@ class _ItemCartCardState extends State<ItemCartCard> {
                               );
                             },
                       child: Container(
-                        color: widget.dish.amount == 1
+                        color: widget.dish!.amount == 1
                             ? Theme.of(context).primaryColor.withOpacity(0.4)
                             : Theme.of(context).buttonColor,
                         child: Center(
@@ -241,7 +247,7 @@ class _ItemCartCardState extends State<ItemCartCard> {
                             "-",
                             style: TextStyle(
                               fontSize: 17,
-                              color: widget.dish.amount == 1
+                              color: widget.dish!.amount == 1
                                   ? Theme.of(context).primaryColor
                                   : Theme.of(context).primaryColorLight,
                             ),

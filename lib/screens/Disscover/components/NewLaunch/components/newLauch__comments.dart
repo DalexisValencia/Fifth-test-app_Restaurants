@@ -3,7 +3,7 @@ import 'package:fith_app__restaurant/screens/Disscover/components/NewLaunch/comp
 import 'package:flutter/material.dart';
 
 class NewLaunchComments extends StatelessWidget {
-  final List<Comments> comments;
+  final List<Comments>? comments;
   NewLaunchComments({
     this.comments,
   });
@@ -14,14 +14,14 @@ class NewLaunchComments extends StatelessWidget {
       child: Builder(
         builder: (BuildContext context) {
           List<Widget> wComments = [];
-          comments.asMap().entries.map((e) {
+          comments!.asMap().entries.map((e) {
             int idx = e.key;
             if (idx <= 1) {
               wComments.add(Container(
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                      color: (idx + 1) == comments.length
+                      color: (idx + 1) == comments!.length
                           ? Colors.transparent
                           : Theme.of(context).primaryColor.withOpacity(0.6),
                       width: 0.6,
@@ -46,10 +46,10 @@ class NewLaunchComments extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             Text(
-                              comments[idx].name,
+                              comments![idx].name!,
                               style: Theme.of(context)
                                   .textTheme
-                                  .caption
+                                  .caption!
                                   .copyWith(
                                     color: Theme.of(context).primaryColorDark,
                                     fontWeight: FontWeight.bold,
@@ -58,11 +58,11 @@ class NewLaunchComments extends StatelessWidget {
                             FittedBox(
                                 fit: BoxFit.scaleDown,
                                 child: Text(
-                                  comments[idx].comment.substring(0, 41) +
+                                  comments![idx].comment!.substring(0, 41) +
                                       '...',
                                   style: Theme.of(context)
                                       .textTheme
-                                      .caption
+                                      .caption!
                                       .copyWith(
                                         fontSize: 11,
                                         fontWeight: FontWeight.w300,
@@ -78,7 +78,7 @@ class NewLaunchComments extends StatelessWidget {
               ));
             }
           }).toList();
-          if (comments.length > 2) {
+          if (comments!.length > 2) {
             wComments.add(
               SeeAllCommentsCard(),
             );

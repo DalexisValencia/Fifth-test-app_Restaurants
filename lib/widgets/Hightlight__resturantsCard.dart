@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HightlightResturantsCard extends StatefulWidget {
-  final Restaurants hightlight;
-  final bool selected;
-  final bool favorite;
+  final Restaurants? hightlight;
+  final bool? selected;
+  final bool? favorite;
   HightlightResturantsCard({
     this.hightlight,
     this.selected,
@@ -23,9 +23,9 @@ class HightlightResturantsCard extends StatefulWidget {
 }
 
 class _HightlightResturantsCardState extends State<HightlightResturantsCard> {
-  DetailsrestaurantBloc detailsRestaurant;
-  CartBloc cartBlocInstance;
-  FavoritesBloc favoriteBlocIntance;
+  late DetailsrestaurantBloc detailsRestaurant;
+  late CartBloc cartBlocInstance;
+  late FavoritesBloc favoriteBlocIntance;
   @override
   void initState() {
     super.initState();
@@ -75,14 +75,14 @@ class _HightlightResturantsCardState extends State<HightlightResturantsCard> {
         child: MaterialButton(
           padding: EdgeInsets.zero,
           onPressed: () => goRestaurantDetails(),
-          color: widget.selected
+          color: widget.selected!
               ? Theme.of(context).primaryColorLight
               : Theme.of(context).buttonColor,
           elevation: 0,
           child: Text(
             'See more',
-            style: Theme.of(context).textTheme.caption.copyWith(
-                  color: widget.selected
+            style: Theme.of(context).textTheme.caption!.copyWith(
+                  color: widget.selected!
                       ? Theme.of(context).buttonColor
                       : Theme.of(context).primaryColorLight,
                   fontWeight: FontWeight.w500,
@@ -107,11 +107,11 @@ class _HightlightResturantsCardState extends State<HightlightResturantsCard> {
         image: DecorationImage(
           fit: BoxFit.cover,
           image: ExactAssetImage(
-            widget.hightlight.image,
+            widget.hightlight!.image!,
           ),
         ),
         border: Border.all(
-          color: widget.selected
+          color: widget.selected!
               ? Theme.of(context).buttonColor
               : Colors.transparent,
           width: borderWidthSelected + 1,
@@ -125,7 +125,7 @@ class _HightlightResturantsCardState extends State<HightlightResturantsCard> {
           borderRadius: BorderRadius.circular(10),
         ),
         onPressed: () => goRestaurantDetails(),
-        color: widget.selected
+        color: widget.selected!
             ? Theme.of(context).buttonColor.withOpacity(0.4)
             : Colors.transparent,
         splashColor: Theme.of(context).buttonColor,
@@ -141,10 +141,10 @@ class _HightlightResturantsCardState extends State<HightlightResturantsCard> {
                   width: totalWidth * 0.12,
                   child: CircleIconButton(
                     icon: Icons.store_mall_directory,
-                    color: widget.selected && !widget.favorite
+                    color: widget.selected! && !widget.favorite!
                         ? Theme.of(context).primaryColorLight
                         : Theme.of(context).primaryColorLight.withOpacity(0.9),
-                    bgColor: widget.selected && !widget.favorite
+                    bgColor: widget.selected! && !widget.favorite!
                         ? Theme.of(context).buttonColor
                         : Theme.of(context).primaryColor.withOpacity(0.5),
                     trigger: () {},
@@ -158,8 +158,9 @@ class _HightlightResturantsCardState extends State<HightlightResturantsCard> {
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         child: Text(
-                          widget.hightlight.name,
-                          style: Theme.of(context).textTheme.headline6.copyWith(
+                          widget.hightlight!.name!,
+                          style:
+                              Theme.of(context).textTheme.headline6!.copyWith(
                             color: Theme.of(context).primaryColorLight,
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
@@ -177,8 +178,8 @@ class _HightlightResturantsCardState extends State<HightlightResturantsCard> {
                         height: totalHeight * 0.007,
                       ),
                       Text(
-                        widget.hightlight.description,
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        widget.hightlight!.description!,
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
                           color: Theme.of(context).primaryColorLight,
                           fontSize: 13,
                           fontWeight: FontWeight.w400,
@@ -198,17 +199,17 @@ class _HightlightResturantsCardState extends State<HightlightResturantsCard> {
                   width: totalWidth * 0.12,
                   child: CircleIconButton(
                     icon: Icons.favorite,
-                    color: widget.selected && !widget.favorite
+                    color: widget.selected! && !widget.favorite!
                         ? Theme.of(context).buttonColor
-                        : widget.favorite
+                        : widget.favorite!
                             ? Theme.of(context).buttonColor
                             : Theme.of(context).primaryColorLight,
-                    bgColor: widget.selected && !widget.favorite
+                    bgColor: widget.selected! && !widget.favorite!
                         ? Theme.of(context).primaryColorLight
-                        : widget.favorite
+                        : widget.favorite!
                             ? Theme.of(context).primaryColorLight
                             : Theme.of(context).buttonColor,
-                    trigger: widget.selected
+                    trigger: widget.selected!
                         ? null
                         : () {
                             favoriteBlocIntance.add(
@@ -216,7 +217,7 @@ class _HightlightResturantsCardState extends State<HightlightResturantsCard> {
                                 restaurant: widget.hightlight,
                               ),
                             );
-                            snackBarAddCart(context, widget.hightlight.name);
+                            snackBarAddCart(context, widget.hightlight!.name!);
                           },
                   ),
                 )

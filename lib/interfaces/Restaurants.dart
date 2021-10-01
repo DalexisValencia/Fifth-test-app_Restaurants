@@ -5,23 +5,23 @@ import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:flutter/material.dart';
 
 class Restaurants {
-  final String name;
-  final String description;
-  final String image;
-  final int rating;
-  final IconData type;
-  final List location;
-  final String distance;
-  final List<Dishes> lunchNow;
-  final List<String> tagsMenu; // Restaurant Tags
-  final List<Dishes> menu; // All menu
-  final List<Dishes> suggestions; // menu sections importants
-  final List<Dishes> highlight; // menu best ratings
-  final List<String> socialShare;
-  final List<ContactMeans> contact;
-  final List<Comments> comments;
-  final String schedule;
-  final List<String> categories;
+  final String? name;
+  final String? description;
+  final String? image;
+  final int? rating;
+  final IconData? type;
+  final List? location;
+  final String? distance;
+  final List<Dishes>? lunchNow;
+  final List<String>? tagsMenu; // Restaurant Tags
+  final List<Dishes>? menu; // All menu
+  final List<Dishes>? suggestions; // menu sections importants
+  final List<Dishes>? highlight; // menu best ratings
+  final List<String>? socialShare;
+  final List<ContactMeans>? contact;
+  final List<Comments>? comments;
+  final String? schedule;
+  final List<String>? categories;
 
   Restaurants(
       {this.name,

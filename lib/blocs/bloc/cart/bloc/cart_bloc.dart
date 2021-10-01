@@ -23,11 +23,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   Stream<CartState> mapEventToState(
     CartEvent event,
   ) async* {
-    List<Dishes> stateDishesCart = state.props[0];
+    List<Dishes> stateDishesCart = state.props[0] as List<Dishes>;
     if (event is AddToCart) {
       List<Dishes> finaldishes = List.from(stateDishesCart)
         ..add(
-          generateNewDish(event.dish),
+          generateNewDish(event.dish!),
         );
       yield FetchItems(
         dishes: finaldishes,
@@ -38,15 +38,15 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
     if (event is DeleteFromCart) {
       List<Dishes> finaldishes = List.from(stateDishesCart);
-      if (event.toDelete.length >= 1) {
+      if (event.toDelete!.length >= 1) {
         stateDishesCart.asMap().entries.map((e) {
-          if (event.toDelete.contains(e.key)) {
+          if (event.toDelete!.contains(e.key)) {
             finaldishes.removeAt(e.key);
           }
         }).toList();
       }
       // Cuando solo sea uno
-      else if (event.toDelete.length == 1) {
+      else if (event.toDelete!.length == 1) {
         finaldishes.removeAt(0);
       }
       yield FetchItems(
@@ -65,8 +65,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
     }
 
     if (event is UpdateAmount) {
-      int amountCurrent = event.dish.amount;
-      int indexFound = stateDishesCart.indexOf((event.dish));
+      int amountCurrent = event.dish!.amount!;
+      int indexFound = stateDishesCart.indexOf((event.dish!));
       switch (event.action) {
         case 'add':
           amountCurrent += 1;
@@ -76,9 +76,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           break;
         default:
       }
-      event.dish.amount = amountCurrent;
-      Dishes currentPlate = event.dish.copyWith(
-        generateNewDish(event.dish),
+      event.dish!.amount = amountCurrent;
+      Dishes currentPlate = event.dish!.copyWith(
+        generateNewDish(event.dish!),
       );
       List<Dishes> copyListDishes = List.from(stateDishesCart)
         ..removeAt(indexFound);
@@ -96,7 +96,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 double _getTodal(List<Dishes> cartiItems) {
   double total = 0;
   cartiItems.map((e) {
-    total += e.finalPrice;
+    total += e.finalPrice!;
   }).toList();
   return total;
 }
@@ -104,20 +104,20 @@ double _getTodal(List<Dishes> cartiItems) {
 int _getAmountTotal(List<Dishes> cartiItems) {
   int amount = 0;
   cartiItems.map((e) {
-    amount += e.amount;
+    amount += e.amount!;
   }).toList();
   return amount;
 }
 
 double _getAdditionalPrice(Dishes dish) {
   double addtionalPrices = 0;
-  if (dish.additions.isNotEmpty) {
-    dish.additions.map((e) {
+  if (dish.additions!.isNotEmpty) {
+    dish.additions!.map((e) {
       Iterable<AditionalsOptions> additioonals =
-          e.children.where((element) => element.isActive == true);
+          e.children!.where((element) => element.isActive == true);
       if (additioonals.isNotEmpty) {
         for (var aditional in additioonals) {
-          addtionalPrices += aditional.price;
+          addtionalPrices += aditional.price!;
         }
       }
     }).toList();
@@ -127,27 +127,27 @@ double _getAdditionalPrice(Dishes dish) {
 
 int _getPromotionlaPrices(Dishes dish, int amount) {
   int promotionPrices = 0;
-  if (dish.promotionLabel.pricePromotions.isNotEmpty) {
+  if (dish.promotionLabel!.pricePromotions!.isNotEmpty) {
     Iterable<PricePromotions> promotionsPrice = dish
-        .promotionLabel.pricePromotions
+        .promotionLabel!.pricePromotions!
         .where((element) => element.amount == amount);
     if (promotionsPrice.isNotEmpty) {
-      promotionPrices = promotionsPrice.first.price;
+      promotionPrices = promotionsPrice.first.price!;
     }
   }
   return promotionPrices;
 }
 
 Dishes generateNewDish(Dishes dish) {
-  int amountCurrent = dish.amount;
+  int amountCurrent = dish.amount!;
   int promocionalPrice = _getPromotionlaPrices(dish, amountCurrent);
-  int pricePerAmount = dish.price.toInt() * amountCurrent;
+  int pricePerAmount = dish.price!.toInt() * amountCurrent;
   int discount =
       promocionalPrice == 0 ? 0 : promocionalPrice - (pricePerAmount);
   dish.finalPrice =
       (promocionalPrice == 0 ? pricePerAmount : promocionalPrice) +
           _getAdditionalPrice(dish);
-  dish.promotionLabel.discounts = discount.toDouble().abs();
+  dish.promotionLabel!.discounts = discount.toDouble().abs();
   Dishes finalDish = Dishes().copyWith(dish);
   return finalDish;
 }

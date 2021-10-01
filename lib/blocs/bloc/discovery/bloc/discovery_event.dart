@@ -8,6 +8,6 @@ abstract class DiscoveryEvent extends Equatable {
 }
 
 class DiscoveryStart extends DiscoveryEvent {
-  final String category;
+  final String? category;
   DiscoveryStart({this.category});
 }

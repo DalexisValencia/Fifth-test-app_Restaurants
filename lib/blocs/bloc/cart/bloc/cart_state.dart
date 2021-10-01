@@ -8,10 +8,10 @@ abstract class CartState extends Equatable {
 }
 
 class CartblocInitial extends CartState {
-  final List<Dishes> dishes;
-  final double total;
-  final int amount;
-  final List<Dishes> selecteds;
+  final List<Dishes>? dishes;
+  final double? total;
+  final int? amount;
+  final List<Dishes>? selecteds;
   // final List<int> dishes;
   CartblocInitial({
     this.dishes,
@@ -21,10 +21,10 @@ class CartblocInitial extends CartState {
   });
   @override
   List<Object> get props => [
-        dishes,
-        total,
-        amount,
-        selecteds,
+        dishes!,
+        total!,
+        amount!,
+        selecteds!,
       ];
 
   @override
@@ -34,10 +34,10 @@ class CartblocInitial extends CartState {
 
 class FetchItems extends CartState {
   // final List<int> dishes;
-  final List<Dishes> dishes;
-  final double total;
-  final int amount;
-  final List<Dishes> selecteds;
+  final List<Dishes>? dishes;
+  final double? total;
+  final int? amount;
+  final List<Dishes>? selecteds;
   FetchItems({
     this.dishes,
     this.total,
@@ -47,10 +47,10 @@ class FetchItems extends CartState {
 
   @override
   List<Object> get props => [
-        dishes,
-        total,
-        amount,
-        selecteds,
+        dishes!,
+        total!,
+        amount!,
+        selecteds!,
       ];
 
   @override

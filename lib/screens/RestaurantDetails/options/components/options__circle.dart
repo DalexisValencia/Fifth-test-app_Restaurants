@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CircleOption extends StatefulWidget {
-  final String title;
-  final IconData icon;
-  CircleOption({this.title, this.icon});
+  final String? title;
+  final IconData? icon;
+  CircleOption({
+    this.title,
+    this.icon,
+  });
   @override
   _CircleOptionState createState() => _CircleOptionState();
 }
@@ -40,8 +43,8 @@ class _CircleOptionState extends State<CircleOption> {
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
-              widget.title,
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
+              widget.title!,
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     color: Theme.of(context).primaryColorDark,
                     fontSize: 12,
                   ),

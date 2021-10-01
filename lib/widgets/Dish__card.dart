@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // Bloc pattern:
 
 class DishCard extends StatefulWidget {
-  final Dishes dish;
+  final Dishes? dish;
   final bool borderCustomColor;
   DishCard({
     this.dish,
@@ -21,8 +21,8 @@ class DishCard extends StatefulWidget {
 }
 
 class _DishCardState extends State<DishCard> {
-  CartBloc cartBlocIntance;
-  FavoritesBloc favoriteBlocInstance;
+  late CartBloc cartBlocIntance;
+  late FavoritesBloc favoriteBlocInstance;
   @override
   void initState() {
     super.initState();
@@ -105,7 +105,7 @@ class _DishCardState extends State<DishCard> {
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: ExactAssetImage(
-                      widget.dish.image,
+                      widget.dish!.image!,
                     ),
                   ),
                 ),
@@ -120,11 +120,12 @@ class _DishCardState extends State<DishCard> {
                     children: <Widget>[
                       Container(
                         child: Text(
-                          widget.dish.name,
-                          style: Theme.of(context).textTheme.subtitle1.copyWith(
-                                fontWeight: FontWeight.bold,
-                                color: Theme.of(context).primaryColorDark,
-                              ),
+                          widget.dish!.name!,
+                          style:
+                              Theme.of(context).textTheme.subtitle1!.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context).primaryColorDark,
+                                  ),
                         ),
                       ),
                       Align(
@@ -134,10 +135,11 @@ class _DishCardState extends State<DishCard> {
                             vertical: MediaQuery.of(context).size.width * 0.015,
                           ),
                           child: Text(
-                            widget.dish.details.substring(0, 80) + '...',
-                            style: Theme.of(context).textTheme.caption.copyWith(
-                                  color: Theme.of(context).primaryColor,
-                                ),
+                            widget.dish!.details!.substring(0, 80) + '...',
+                            style:
+                                Theme.of(context).textTheme.caption!.copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                    ),
                           ),
                         ),
                       ),
@@ -150,7 +152,7 @@ class _DishCardState extends State<DishCard> {
                           child: Row(
                             children: <Widget>[
                               CustomChip(
-                                text: '${widget.dish.rating} Votes',
+                                text: '${widget.dish!.rating} Votes',
                                 textColor: Theme.of(context).primaryColorDark,
                                 textSize: 12,
                                 icon: Icons.star,
@@ -169,12 +171,13 @@ class _DishCardState extends State<DishCard> {
                                     );
                                     snackBarAddCart(
                                       context,
-                                      widget.dish.name,
+                                      widget.dish!.name!,
                                     );
                                   },
                                   splashColor: Theme.of(context).buttonColor,
                                   child: CustomChip(
-                                    text: '\$${widget.dish.price.toInt()}', //\$
+                                    text:
+                                        '\$${widget.dish!.price!.toInt()}', //\$
                                     textColor:
                                         Theme.of(context).primaryColorDark,
                                     textSize: 12,

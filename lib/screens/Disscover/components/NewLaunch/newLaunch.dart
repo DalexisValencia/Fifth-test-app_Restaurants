@@ -4,7 +4,7 @@ import 'package:fith_app__restaurant/widgets/SeeAll/Screen__seeAllSection.dart';
 import 'package:flutter/material.dart';
 
 class NewLaunch extends StatefulWidget {
-  final List<Dishes> newLaunched;
+  final List<Dishes>? newLaunched;
   NewLaunch({
     this.newLaunched,
   });
@@ -18,11 +18,11 @@ class _NewLaunchState extends State<NewLaunch> {
       child: Builder(
         builder: (BuildContext context) {
           List<Widget> _totalLaunched = [];
-          widget.newLaunched.asMap().entries
+          widget.newLaunched!.asMap().entries
             ..map((e) {
               _totalLaunched.add(
                 NewLaunchedCard(
-                  dish: widget.newLaunched[e.key],
+                  dish: widget.newLaunched![e.key],
                 ),
               );
             }).toList();

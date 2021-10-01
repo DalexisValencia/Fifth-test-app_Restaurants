@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CustomChip extends StatelessWidget {
-  final String text;
-  final Color textColor;
-  final double textSize;
-  final IconData icon;
-  final Color iconColor;
-  final double iconSize;
+  final String? text;
+  final Color? textColor;
+  final double? textSize;
+  final IconData? icon;
+  final Color? iconColor;
+  final double? iconSize;
   CustomChip({
     this.text,
     this.textColor,
@@ -40,8 +40,8 @@ class CustomChip extends StatelessWidget {
             width: totalWidth * 0.005,
           ),
           Text(
-            text,
-            style: Theme.of(context).textTheme.caption.copyWith(
+            text!,
+            style: Theme.of(context).textTheme.caption!.copyWith(
                   fontWeight: FontWeight.w700,
                   fontSize: textSize,
                   color: textColor,

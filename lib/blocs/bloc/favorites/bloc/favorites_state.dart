@@ -8,9 +8,9 @@ abstract class FavoritesState extends Equatable {
 }
 
 class FavoritesInitial extends FavoritesState {
-  final List<Restaurants> restaurants;
-  final List<Dishes> dishes;
-  final List<dynamic> selecteds;
+  final List<Restaurants>? restaurants;
+  final List<Dishes>? dishes;
+  final List<dynamic>? selecteds;
   FavoritesInitial({
     this.restaurants,
     this.dishes,
@@ -18,7 +18,7 @@ class FavoritesInitial extends FavoritesState {
   });
 
   @override
-  List<Object> get props => [restaurants, dishes, selecteds];
+  List<Object> get props => [restaurants!, dishes!, selecteds!];
 
   @override
   String toString() =>
@@ -26,9 +26,9 @@ class FavoritesInitial extends FavoritesState {
 }
 
 class FavoritesFetched extends FavoritesState {
-  final List<Restaurants> restaurants;
-  final List<Dishes> dishes;
-  final List<dynamic> selecteds;
+  final List<Restaurants>? restaurants;
+  final List<Dishes>? dishes;
+  final List<dynamic>? selecteds;
   FavoritesFetched({
     this.restaurants,
     this.dishes,
@@ -36,7 +36,7 @@ class FavoritesFetched extends FavoritesState {
   });
 
   @override
-  List<Object> get props => [restaurants, dishes, selecteds];
+  List<Object> get props => [restaurants!, dishes!, selecteds!];
 
   @override
   String toString() =>

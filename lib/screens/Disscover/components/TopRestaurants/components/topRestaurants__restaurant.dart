@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainTopRestaurant extends StatefulWidget {
-  final Restaurants restaurant;
+  final Restaurants? restaurant;
   MainTopRestaurant({
     this.restaurant,
   });
@@ -29,13 +29,13 @@ class _MainTopRestaurantState extends State<MainTopRestaurant> {
             resturant: widget.restaurant,
           ),
           SeeAllSuggested(
-            title: "${widget.restaurant.name}'s Menu",
+            title: "${widget.restaurant!.name}'s Menu",
           ),
-          widget.restaurant.menu.length >= 1
+          widget.restaurant!.menu!.length >= 1
               ? BlocProvider(
                   create: (BuildContext context) => DishBloc(),
                   child: RelatedDishesTopRestaurant(
-                    menu: widget.restaurant.menu,
+                    menu: widget.restaurant!.menu!,
                   ),
                 )
               : Container(

@@ -3,9 +3,12 @@ import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:flutter/material.dart';
 
 class AppBarCustom extends StatelessWidget {
-  final Widget iconLeft;
-  final Widget iconRigth;
-  AppBarCustom({this.iconLeft, this.iconRigth});
+  final Widget? iconLeft;
+  final Widget? iconRigth;
+  AppBarCustom({
+    this.iconLeft,
+    this.iconRigth,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,8 +19,8 @@ class AppBarCustom extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          iconLeft,
-          iconRigth,
+          iconLeft!,
+          iconRigth!,
         ],
       ),
     );

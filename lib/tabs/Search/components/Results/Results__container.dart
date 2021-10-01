@@ -10,8 +10,9 @@ class ResultsContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
-        SearchInitInterface stateSearchResults = state.props[0];
-        return stateSearchResults.results.length >= 1
+        SearchInitInterface stateSearchResults =
+            state.props[0] as SearchInitInterface;
+        return stateSearchResults.results!.length >= 1
             ? Container(
                 width: MediaQuery.of(context).size.width,
                 child: Column(
@@ -22,7 +23,7 @@ class ResultsContainer extends StatelessWidget {
                       child: Text(
                         "Results",
                         textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               color: Theme.of(context).primaryColorDark,
                               fontWeight: FontWeight.w800,
                             ),
@@ -37,7 +38,7 @@ class ResultsContainer extends StatelessWidget {
                             total: '10',
                           ),
                         );
-                        stateSearchResults.results.map((e) {
+                        stateSearchResults.results!.map((e) {
                           recent.add(
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 2),

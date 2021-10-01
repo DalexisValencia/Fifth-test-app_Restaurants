@@ -5,10 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 
 class AmountDishes extends StatefulWidget {
-  final double price;
-  final List promos;
-  final int amount;
-  AmountDishes({this.price, this.promos, this.amount});
+  final double? price;
+  final List? promos;
+  final int? amount;
+  AmountDishes({
+    this.price,
+    this.promos,
+    this.amount,
+  });
   @override
   _AmountDishesState createState() => _AmountDishesState();
 }
@@ -19,8 +23,8 @@ class _AmountDishesState extends State<AmountDishes> {
   @override
   void initState() {
     super.initState();
-    priceOrigin = widget.price;
-    price = widget.price;
+    priceOrigin = widget.price!;
+    price = widget.price!;
     BlocProvider.of<DishamountBloc>(context).add(
       DishInitialAmount(
         amount: widget.amount,
@@ -42,14 +46,14 @@ class _AmountDishesState extends State<AmountDishes> {
   }
 
   String _priceDish(amount) {
-    List<PricePromotions> specialPrice;
-    if (widget.promos.length >= 1) {
-      specialPrice = widget.promos.where((element) {
-        PricePromotions promos = element;
+    late List<PricePromotions> specialPrice;
+    if (widget.promos!.length >= 1) {
+      specialPrice = widget.promos!.where((element) {
+        PricePromotions promos = element as PricePromotions;
         return promos.amount == amount;
-      }).toList();
+      }).toList() as List<PricePromotions>;
     }
-    return specialPrice == null
+    return !specialPrice.isNotEmpty
         ? formatterPrice((price * amount)).toString()
         : specialPrice.length >= 1
             ? formatterPrice(specialPrice[0].price).toString()
@@ -78,9 +82,12 @@ class _AmountDishesState extends State<AmountDishes> {
                         fit: BoxFit.scaleDown,
                         child: Text(
                           "\$${_priceDish(state.props[0])}",
-                          style: Theme.of(context).textTheme.headline5.copyWith(
-                              color: Theme.of(context).buttonColor,
-                              fontWeight: FontWeight.bold),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5!
+                              .copyWith(
+                                  color: Theme.of(context).buttonColor,
+                                  fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
@@ -100,7 +107,7 @@ class _AmountDishesState extends State<AmountDishes> {
                               "-",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6
+                                  .headline6!
                                   .copyWith(
                                     color: Theme.of(context).primaryColorLight,
                                     fontWeight: FontWeight.bold,
@@ -140,7 +147,7 @@ class _AmountDishesState extends State<AmountDishes> {
                               "+",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline6
+                                  .headline6!
                                   .copyWith(
                                     color: Theme.of(context).primaryColorLight,
                                     fontWeight: FontWeight.bold,

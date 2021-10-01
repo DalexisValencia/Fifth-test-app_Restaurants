@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RestaurantTopSummary extends StatefulWidget {
-  final Restaurants resturant;
+  final Restaurants? resturant;
   RestaurantTopSummary({
     this.resturant,
   });
@@ -18,9 +18,9 @@ class RestaurantTopSummary extends StatefulWidget {
 }
 
 class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
-  DetailsrestaurantBloc blocDetailResturant;
-  CartBloc cartBlocInstance;
-  FavoritesBloc favoriteBlocInstance;
+  late DetailsrestaurantBloc blocDetailResturant;
+  late CartBloc cartBlocInstance;
+  late FavoritesBloc favoriteBlocInstance;
   @override
   initState() {
     super.initState();
@@ -53,8 +53,8 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        widget.resturant.name,
-                        style: Theme.of(context).textTheme.subtitle1.copyWith(
+                        widget.resturant!.name!,
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
                               color: Theme.of(context).primaryColorDark,
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -64,8 +64,8 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
                     FittedBox(
                       fit: BoxFit.scaleDown,
                       child: Text(
-                        widget.resturant.description.substring(0, 20) + "...",
-                        style: Theme.of(context).textTheme.caption.copyWith(
+                        widget.resturant!.description!.substring(0, 20) + "...",
+                        style: Theme.of(context).textTheme.caption!.copyWith(
                               fontSize: 10,
                               color: Theme.of(context).primaryColor,
                               fontWeight: FontWeight.w400,
@@ -102,7 +102,7 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           CustomChip(
-            text: '${widget.resturant.rating} stars',
+            text: '${widget.resturant!.rating} stars',
             textColor: Theme.of(context).primaryColorDark,
             textSize: 12,
             icon: Icons.star,
@@ -110,7 +110,7 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
             iconSize: 14,
           ),
           CustomChip(
-            text: '${widget.resturant.distance}',
+            text: '${widget.resturant!.distance}',
             textColor: Theme.of(context).primaryColorDark,
             textSize: 12,
             icon: Icons.location_on,
@@ -153,7 +153,7 @@ class _RestaurantTopSummaryState extends State<RestaurantTopSummary> {
         image: DecorationImage(
           fit: BoxFit.cover,
           image: ExactAssetImage(
-            widget.resturant.image,
+            widget.resturant!.image!,
           ),
         ),
       ),

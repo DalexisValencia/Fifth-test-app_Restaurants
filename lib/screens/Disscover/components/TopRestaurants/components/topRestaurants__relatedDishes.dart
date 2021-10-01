@@ -4,7 +4,7 @@ import 'package:fith_app__restaurant/widgets/Dish__card.dart';
 import 'package:flutter/material.dart';
 
 class RelatedDishesTopRestaurant extends StatelessWidget {
-  final List<Dishes> menu;
+  final List<Dishes>? menu;
   RelatedDishesTopRestaurant({
     this.menu,
   });
@@ -20,7 +20,7 @@ class RelatedDishesTopRestaurant extends StatelessWidget {
       child: Builder(
         builder: (BuildContext context) {
           List<Widget> nextTops = [];
-          menu.map((e) {
+          menu!.map((e) {
             nextTops.add(
               DishCard(
                 dish: e,

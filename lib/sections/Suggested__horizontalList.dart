@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SuggestedHorizontalList extends StatefulWidget {
-  final List<Dishes> suggestions;
+  final List<Dishes>? suggestions;
   SuggestedHorizontalList({
     this.suggestions,
   });
@@ -37,10 +37,10 @@ class _SuggestedHorizontalListState extends State<SuggestedHorizontalList> {
         height: totalHeight * 0.25,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: widget.suggestions.length,
+          itemCount: widget.suggestions!.length,
           itemBuilder: (BuildContext context, int index) {
             return SuggestionDishCard(
-              suggestion: widget.suggestions[index],
+              suggestion: widget.suggestions![index],
             );
             // return Text("Info");
           },

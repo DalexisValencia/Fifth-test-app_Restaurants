@@ -22,15 +22,15 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   Stream<FavoritesState> mapEventToState(
     FavoritesEvent event,
   ) async* {
-    List<Restaurants> restaurantsState = state.props[0];
-    List<Dishes> dishesState = state.props[1];
-    List<dynamic> selecteds = state.props[2];
+    List<Restaurants> restaurantsState = state.props[0] as List<Restaurants>;
+    List<Dishes> dishesState = state.props[1] as List<Dishes>;
+    List<dynamic> selecteds = state.props[2] as List<dynamic>;
     if (event is FavoriteAddRestaurant) {
       List<Restaurants> resfinal = List.from(restaurantsState);
       if (restaurantsState.contains(event.restaurant)) {
         resfinal..remove(event.restaurant);
       } else if (!restaurantsState.contains(event.restaurant)) {
-        resfinal..add(event.restaurant);
+        resfinal..add(event.restaurant!);
       }
       yield FavoritesFetched(
         restaurants: resfinal,
@@ -65,7 +65,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
       if (dishesState.contains(event.dish)) {
         dishFinal..remove(event.dish);
       } else if (!dishesState.contains(event.dish)) {
-        dishFinal..add(event.dish);
+        dishFinal..add(event.dish!);
       }
       yield FavoritesFetched(
         restaurants: restaurantsState,

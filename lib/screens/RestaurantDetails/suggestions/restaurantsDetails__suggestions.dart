@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RestaurantDetailsSuggestions extends StatefulWidget {
-  final List<Dishes> suggestions;
+  final List<Dishes>? suggestions;
   RestaurantDetailsSuggestions({
     this.suggestions,
   });
@@ -17,7 +17,7 @@ class RestaurantDetailsSuggestions extends StatefulWidget {
 
 class _RestaurantDetailsSuggestionsState
     extends State<RestaurantDetailsSuggestions> {
-  DetailsrestaurantBloc instancerestaurantBloc;
+  late DetailsrestaurantBloc instancerestaurantBloc;
   @override
   void initState() {
     super.initState();
@@ -41,7 +41,7 @@ class _RestaurantDetailsSuggestionsState
             ),
           ),
           SuggestedHorizontalList(
-            suggestions: widget.suggestions,
+            suggestions: widget.suggestions!,
           )
         ],
       ),

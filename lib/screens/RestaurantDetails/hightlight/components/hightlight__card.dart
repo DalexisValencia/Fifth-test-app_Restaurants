@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HighlightRestaurantCard extends StatefulWidget {
-  final Dishes dish;
+  final Dishes? dish;
   HighlightRestaurantCard({
     this.dish,
   });
@@ -19,8 +19,8 @@ class HighlightRestaurantCard extends StatefulWidget {
 }
 
 class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
-  CartBloc instanceCartBloc;
-  FavoritesBloc instanceFavorite;
+  late CartBloc instanceCartBloc;
+  late FavoritesBloc instanceFavorite;
   @override
   void initState() {
     super.initState();
@@ -94,7 +94,7 @@ class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
                   image: DecorationImage(
                     fit: BoxFit.cover,
                     image: ExactAssetImage(
-                      widget.dish.image,
+                      widget.dish!.image!,
                     ),
                   ),
                 ),
@@ -111,12 +111,12 @@ class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
                           MediaQuery.of(context).size.height * 0.01,
                         ),
                         decoration: BoxDecoration(
-                          color: widget.dish.promotionLabel.color,
+                          color: widget.dish!.promotionLabel!.color,
                           borderRadius: BorderRadius.circular(50),
                         ),
                         child: Text(
-                          widget.dish.promotionLabel.label,
-                          style: Theme.of(context).textTheme.button.copyWith(
+                          widget.dish!.promotionLabel!.label!,
+                          style: Theme.of(context).textTheme.button!.copyWith(
                                 color: Theme.of(context).primaryColorLight,
                                 fontSize: 12,
                               ),
@@ -146,7 +146,7 @@ class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     CustomChip(
-                      text: "\$${formatterPrice(widget.dish.price)}",
+                      text: "\$${formatterPrice(widget.dish!.price)}",
                       textColor: Theme.of(context).primaryColor,
                       textSize: 12,
                       icon: Icons.monetization_on,
@@ -155,8 +155,8 @@ class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
                     ),
                     SizedBox(height: 5),
                     Text(
-                      widget.dish.name,
-                      style: Theme.of(context).textTheme.button.copyWith(
+                      widget.dish!.name!,
+                      style: Theme.of(context).textTheme.button!.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
                     ),
@@ -175,10 +175,10 @@ class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
                             ]; // Calificamos las 5 estrellas
                             for (var prop in obj) {
                               Color _startColor = Theme.of(context).accentColor;
-                              if (prop <= widget.dish.rating.toInt()) {
+                              if (prop <= widget.dish!.rating!.toInt()) {
                                 _startColor = Theme.of(context).buttonColor;
                               }
-                              if (prop > widget.dish.rating.toInt()) {
+                              if (prop > widget.dish!.rating!.toInt()) {
                                 _startColor = Theme.of(context).accentColor;
                               }
                               starts.add(
@@ -206,7 +206,7 @@ class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
                             ),
                             children: <TextSpan>[
                               TextSpan(
-                                text: '${widget.dish.rating}%',
+                                text: '${widget.dish!.rating}%',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w400,
                                   color: Theme.of(context).primaryColor,
@@ -219,7 +219,7 @@ class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
                     ),
                     SizedBox(height: 7),
                     CustomChip(
-                      text: "Preparation: ${widget.dish.preparation}",
+                      text: "Preparation: ${widget.dish!.preparation}",
                       textColor: Theme.of(context).primaryColor,
                       textSize: 12,
                       icon: Icons.access_time,
@@ -229,10 +229,10 @@ class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
                     SizedBox(
                       height: 5,
                     ),
-                    widget.dish.promotionLabel.active == true
+                    widget.dish!.promotionLabel!.active == true
                         ? Builder(builder: (BuildContext context) {
                             List<Widget> _shipPrices = [];
-                            widget.dish.promotionLabel.pricePromotions
+                            widget.dish!.promotionLabel!.pricePromotions!
                                 .asMap()
                                 .entries
                                 .map(
@@ -256,7 +256,7 @@ class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
                                                 '${item.value.amount}-\$${formatterPrice(item.value.price)}',
                                                 style: Theme.of(context)
                                                     .textTheme
-                                                    .bodyText1
+                                                    .bodyText1!
                                                     .copyWith(
                                                       fontWeight:
                                                           FontWeight.bold,

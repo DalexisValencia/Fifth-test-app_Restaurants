@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SeeMoreDishesByRestaurant extends StatefulWidget {
-  final String searchKey;
+  final String? searchKey;
   SeeMoreDishesByRestaurant({this.searchKey});
   @override
   _SeeMoreDishesByRestaurantState createState() =>
@@ -44,7 +44,7 @@ class _SeeMoreDishesByRestaurantState extends State<SeeMoreDishesByRestaurant> {
           child: Text(
             name.toString().toUpperCase(),
             textAlign: TextAlign.left,
-            style: Theme.of(context).textTheme.headline5.copyWith(
+            style: Theme.of(context).textTheme.headline5!.copyWith(
                 color: Theme.of(context).primaryColorDark,
                 fontWeight: FontWeight.w600),
           ),
@@ -56,7 +56,7 @@ class _SeeMoreDishesByRestaurantState extends State<SeeMoreDishesByRestaurant> {
           child: RichText(
             text: TextSpan(
                 text: "Total Registers: ",
-                style: Theme.of(context).textTheme.button.copyWith(
+                style: Theme.of(context).textTheme.button!.copyWith(
                     color: Theme.of(context).primaryColorDark,
                     fontSize: 12,
                     fontWeight: FontWeight.w300),
@@ -81,16 +81,16 @@ class _SeeMoreDishesByRestaurantState extends State<SeeMoreDishesByRestaurant> {
         child: SingleChildScrollView(
           child: BlocBuilder<DetailsrestaurantBloc, DetailsrestaurantState>(
             builder: (BuildContext context, DetailsrestaurantState state) {
-              Restaurants restaurantState = state.props[0];
+              Restaurants restaurantState = state.props[0] as Restaurants;
               List<Dishes> completeList;
               String screenTitle = '';
               switch (widget.searchKey) {
                 case 'lunchNow':
-                  completeList = restaurantState.lunchNow;
+                  completeList = restaurantState.lunchNow!;
                   screenTitle = 'New Launch';
                   break;
                 case 'suggestions':
-                  completeList = restaurantState.suggestions;
+                  completeList = restaurantState.suggestions!;
                   screenTitle = 'Suggestions';
                   break;
                 default:

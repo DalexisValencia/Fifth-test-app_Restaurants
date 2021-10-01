@@ -15,7 +15,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   Stream<SearchState> mapEventToState(
     SearchEvent event,
   ) async* {
-    SearchInitInterface searchState = state.props[0];
+    SearchInitInterface searchState = state.props[0] as SearchInitInterface;
     if (event is SearchInit) {
       yield SearchInitial(initial: assembleInitial(event.findIn));
     }

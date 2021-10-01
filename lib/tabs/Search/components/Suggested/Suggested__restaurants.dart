@@ -16,7 +16,7 @@ class SuggestedRestaurants extends StatelessWidget {
     return BlocBuilder<FavoritesBloc, FavoritesState>(
       builder: (BuildContext context, FavoritesState state) {
         List<Widget> hightlightResturants = [];
-        List<Restaurants> stateFavorites = state.props[0];
+        List<Restaurants> stateFavorites = state.props[0] as List<Restaurants>;
         restaurantSuggestions.map((item) {
           hightlightResturants.add(
             HightlightResturantsCard(

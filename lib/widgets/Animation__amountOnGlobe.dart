@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class AnimationAmountGlobeCart extends StatefulWidget {
-  final int amout;
+  final int? amout;
   AnimationAmountGlobeCart({
     this.amout,
   });
@@ -14,8 +14,8 @@ class AnimationAmountGlobeCart extends StatefulWidget {
 
 class _AnimationAmountGlobeCartState extends State<AnimationAmountGlobeCart>
     with SingleTickerProviderStateMixin {
-  Animation<double> animation;
-  AnimationController animationController;
+  late Animation<double> animation;
+  late AnimationController animationController;
   String stateAnimation = '';
 
   void initState() {
@@ -44,7 +44,7 @@ class _AnimationAmountGlobeCartState extends State<AnimationAmountGlobeCart>
 
   void bounceCircle() {
     reverse();
-    if (widget.amout >= 1) {
+    if (widget.amout! >= 1) {
       Timer(
           Duration(
             milliseconds: 500,
@@ -69,7 +69,7 @@ class _AnimationAmountGlobeCartState extends State<AnimationAmountGlobeCart>
     //   child:
 
     return Visibility(
-      visible: widget.amout >= 1,
+      visible: widget.amout! >= 1,
       child: ScaleTransition(
         scale: animation,
         child: Container(
@@ -89,8 +89,8 @@ class _AnimationAmountGlobeCartState extends State<AnimationAmountGlobeCart>
                 widget.amout == 0 || widget.amout == null
                     ? ''
                     : widget.amout.toString(),
-                style: Theme.of(context).textTheme.caption.copyWith(
-                      fontSize: widget.amout >= 10 ? 7 : 9,
+                style: Theme.of(context).textTheme.caption!.copyWith(
+                      fontSize: widget.amout! >= 10 ? 7 : 9,
                       fontWeight: FontWeight.w500,
                       color: Theme.of(context).primaryColorLight,
                     ),

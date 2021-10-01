@@ -8,12 +8,12 @@ abstract class SearchEvent extends Equatable {
 }
 
 class SearchInit extends SearchEvent {
-  final String findIn;
+  final String? findIn;
   SearchInit({this.findIn});
 }
 
 class Searching extends SearchEvent {
-  final String term;
+  final String? term;
   Searching({this.term});
 }
 

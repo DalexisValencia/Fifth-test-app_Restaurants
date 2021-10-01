@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DishCardComment extends StatefulWidget {
-  final Dishes dish;
+  final Dishes? dish;
   DishCardComment({
     this.dish,
   });
@@ -18,8 +18,8 @@ class DishCardComment extends StatefulWidget {
 }
 
 class _DishCardCommentState extends State<DishCardComment> {
-  CartBloc instanceCartBloc;
-  FavoritesBloc favoriteBlocInstance;
+  late CartBloc instanceCartBloc;
+  late FavoritesBloc favoriteBlocInstance;
   @override
   void initState() {
     super.initState();
@@ -92,7 +92,7 @@ class _DishCardCommentState extends State<DishCardComment> {
                         borderRadius: BorderRadius.circular(12),
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: ExactAssetImage(widget.dish.image),
+                          image: ExactAssetImage(widget.dish!.image!),
                         ),
                       ),
                       width: totalWidth * 0.30,
@@ -115,14 +115,14 @@ class _DishCardCommentState extends State<DishCardComment> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
                                 CustomChip(
-                                    text: widget.dish.preparation,
+                                    text: widget.dish!.preparation,
                                     textColor: Theme.of(context).primaryColor,
                                     textSize: 12.5,
                                     icon: Icons.timer,
                                     iconColor: Theme.of(context).primaryColor,
                                     iconSize: 13),
                                 CustomChip(
-                                    text: formatterPrice(widget.dish.price),
+                                    text: formatterPrice(widget.dish!.price),
                                     textColor: Theme.of(context).primaryColor,
                                     textSize: 12.5,
                                     icon: Icons.monetization_on,
@@ -140,10 +140,10 @@ class _DishCardCommentState extends State<DishCardComment> {
                                     child: FittedBox(
                                       fit: BoxFit.scaleDown,
                                       child: Text(
-                                        widget.dish.rating.toString(),
+                                        widget.dish!.rating.toString(),
                                         style: Theme.of(context)
                                             .textTheme
-                                            .caption
+                                            .caption!
                                             .copyWith(
                                               fontSize: 10,
                                               fontWeight: FontWeight.w500,
@@ -160,10 +160,10 @@ class _DishCardCommentState extends State<DishCardComment> {
                             SizedBox(height: 6),
                             Text(
                               // comment plate name
-                              widget.dish.name,
+                              widget.dish!.name!,
                               style: Theme.of(context)
                                   .textTheme
-                                  .caption
+                                  .caption!
                                   .copyWith(
                                     fontWeight: FontWeight.w700,
                                     color: Theme.of(context).primaryColorDark,
@@ -172,12 +172,14 @@ class _DishCardCommentState extends State<DishCardComment> {
                             SizedBox(height: 5),
                             Text(
                               // comment plate description
-                              widget.dish.details.substring(0, 73) + '...',
-                              style:
-                                  Theme.of(context).textTheme.overline.copyWith(
-                                        letterSpacing: 0,
-                                        color: Theme.of(context).primaryColor,
-                                      ),
+                              widget.dish!.details!.substring(0, 73) + '...',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .overline!
+                                  .copyWith(
+                                    letterSpacing: 0,
+                                    color: Theme.of(context).primaryColor,
+                                  ),
                             ),
                           ],
                         ),
@@ -211,7 +213,7 @@ class _DishCardCommentState extends State<DishCardComment> {
                             CircleAvatar(
                               backgroundColor: Colors.blue,
                               child: Text(
-                                splitName(widget.dish.comments[0].name),
+                                splitName(widget.dish!.comments![0].name!),
                               ),
                             ),
                             SizedBox(
@@ -223,10 +225,10 @@ class _DishCardCommentState extends State<DishCardComment> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Text(
-                                    widget.dish.comments[0].name,
+                                    widget.dish!.comments![0].name!,
                                     style: Theme.of(context)
                                         .textTheme
-                                        .caption
+                                        .caption!
                                         .copyWith(
                                           fontWeight: FontWeight.bold,
                                         ),
@@ -235,12 +237,12 @@ class _DishCardCommentState extends State<DishCardComment> {
                                     height: totalWidth * 0.01,
                                   ),
                                   Text(
-                                    widget.dish.comments[0].comment
+                                    widget.dish!.comments![0].comment!
                                             .substring(0, 60) +
                                         '...',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .caption
+                                        .caption!
                                         .copyWith(fontSize: 9),
                                   )
                                 ],

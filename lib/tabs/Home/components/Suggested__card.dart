@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SuggestedCard extends StatefulWidget {
-  final Category category;
+  final Category? category;
   SuggestedCard({
     this.category,
   });
@@ -19,9 +19,9 @@ class SuggestedCard extends StatefulWidget {
 }
 
 class _SuggestedCardState extends State<SuggestedCard> {
-  DiscoveryBloc blocDiscovery;
-  CartBloc blocCartInstance;
-  FavoritesBloc favoriteBlocInstance;
+  DiscoveryBloc? blocDiscovery;
+  CartBloc? blocCartInstance;
+  FavoritesBloc? favoriteBlocInstance;
   @override
   void initState() {
     blocDiscovery = BlocProvider.of<DiscoveryBloc>(context);
@@ -40,9 +40,9 @@ class _SuggestedCardState extends State<SuggestedCard> {
         Timer(
           Duration(milliseconds: 200),
           () {
-            blocDiscovery.add(
+            blocDiscovery!.add(
               DiscoveryStart(
-                category: widget.category.name,
+                category: widget.category!.name!,
               ),
             );
             Navigator.of(context).push(
@@ -51,15 +51,15 @@ class _SuggestedCardState extends State<SuggestedCard> {
                   return MultiBlocProvider(
                     providers: [
                       BlocProvider.value(
-                        value: blocDiscovery,
+                        value: blocDiscovery!,
                         child: DiscoverScaffold(),
                       ),
                       BlocProvider.value(
-                        value: blocCartInstance,
+                        value: blocCartInstance!,
                         child: DiscoverScaffold(),
                       ),
                       BlocProvider.value(
-                        value: favoriteBlocInstance,
+                        value: favoriteBlocInstance!,
                         child: DiscoverScaffold(),
                       )
                     ],
@@ -83,7 +83,7 @@ class _SuggestedCardState extends State<SuggestedCard> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: ExactAssetImage(
-                  widget.category.iconSource,
+                  widget.category!.iconSource!,
                 ),
               ),
             ),
@@ -91,8 +91,8 @@ class _SuggestedCardState extends State<SuggestedCard> {
           FittedBox(
             fit: BoxFit.scaleDown,
             child: Text(
-              widget.category.name,
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
+              widget.category!.name!,
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     color: Theme.of(context).primaryColorDark,
                   ),
             ),

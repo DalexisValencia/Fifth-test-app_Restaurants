@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SuggestionDishCard extends StatefulWidget {
-  final Dishes suggestion;
+  final Dishes? suggestion;
   SuggestionDishCard({
     this.suggestion,
   });
@@ -16,8 +16,8 @@ class SuggestionDishCard extends StatefulWidget {
 }
 
 class _SuggestionDishCardState extends State<SuggestionDishCard> {
-  CartBloc instanceCartBloc;
-  FavoritesBloc favoriteBlocInstance;
+  late CartBloc instanceCartBloc;
+  late FavoritesBloc favoriteBlocInstance;
   @override
   void initState() {
     super.initState();
@@ -41,7 +41,7 @@ class _SuggestionDishCardState extends State<SuggestionDishCard> {
             image: DecorationImage(
               fit: BoxFit.cover,
               image: ExactAssetImage(
-                widget.suggestion.image,
+                widget.suggestion!.image!,
               ),
             ),
           ),
@@ -94,8 +94,8 @@ class _SuggestionDishCardState extends State<SuggestionDishCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    widget.suggestion.name,
-                    style: Theme.of(context).textTheme.button.copyWith(
+                    widget.suggestion!.name!,
+                    style: Theme.of(context).textTheme.button!.copyWith(
                       color: Theme.of(context).primaryColorLight,
                       fontWeight: FontWeight.w800,
                       shadows: [
@@ -110,8 +110,8 @@ class _SuggestionDishCardState extends State<SuggestionDishCard> {
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
-                      widget.suggestion.details.substring(0, 15) + '...',
-                      style: Theme.of(context).textTheme.caption.copyWith(
+                      widget.suggestion!.details!.substring(0, 15) + '...',
+                      style: Theme.of(context).textTheme.caption!.copyWith(
                         color: Theme.of(context).primaryColorLight,
                         shadows: [
                           Shadow(

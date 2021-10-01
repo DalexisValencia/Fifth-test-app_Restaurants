@@ -23,7 +23,7 @@ class ButtonCart extends StatelessWidget {
               return RichText(
                 text: TextSpan(
                     text: 'TOTAL: ',
-                    style: Theme.of(context).textTheme.button.copyWith(
+                    style: Theme.of(context).textTheme.button!.copyWith(
                           color: Theme.of(context).primaryColorLight,
                           fontWeight: FontWeight.w800,
                         ),
@@ -43,7 +43,7 @@ class ButtonCart extends StatelessWidget {
             elevation: 0,
             child: Text(
               "Go Pay",
-              style: Theme.of(context).textTheme.caption.copyWith(
+              style: Theme.of(context).textTheme.caption!.copyWith(
                     color: Theme.of(context).buttonColor,
                     fontWeight: FontWeight.w700,
                   ),

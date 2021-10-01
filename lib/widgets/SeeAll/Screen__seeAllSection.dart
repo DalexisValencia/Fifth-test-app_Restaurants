@@ -4,7 +4,7 @@ import 'package:fith_app__restaurant/widgets/SeeAll/components/seeAllWrapper__bu
 import 'package:flutter/material.dart';
 
 class SeeAllSuggested extends StatelessWidget {
-  final String title;
+  final String? title;
   SeeAllSuggested({
     this.title,
   });
@@ -19,7 +19,7 @@ class SeeAllSuggested extends StatelessWidget {
         rightContainer: RoundedCustomButton(
           title: 'See all',
           callPressed: () {
-            print("see all " + this.title.toLowerCase());
+            print("see all " + this.title!.toLowerCase());
             // customAnimateNavigation(
             //     context,
             //     BlocProvider.value(

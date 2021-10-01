@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class TopRestaurants extends StatefulWidget {
-  final List<Restaurants> restaurants;
+  final List<Restaurants>? restaurants;
   TopRestaurants({
     this.restaurants,
   });
@@ -21,7 +21,7 @@ class _TopRestaurantsState extends State<TopRestaurants> {
       child: Builder(
         builder: (BuildContext context) {
           List<Widget> restaurants = [];
-          widget.restaurants.asMap().entries.map((e) {
+          widget.restaurants!.asMap().entries.map((e) {
             restaurants.add(
               MainTopRestaurant(
                 restaurant: e.value,

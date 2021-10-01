@@ -27,7 +27,7 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
   bool minSizeReached = false;
   bool animationScreenOpacity = true;
   bool animationScreenContainer = true;
-  ScrollController _controller;
+  late ScrollController _controller;
 
   @override
   void initState() {
@@ -103,24 +103,24 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
                     subtitle: currentRestaurant.description,
                   ),
                   WrapperMap(),
-                  currentRestaurant.lunchNow.isNotEmpty
+                  currentRestaurant.lunchNow!.isNotEmpty
                       ? DetailHighlightProduct(
                           highlishDishes: currentRestaurant.lunchNow,
                         )
                       : SizedBox(),
-                  currentRestaurant.tagsMenu.isNotEmpty
+                  currentRestaurant.tagsMenu!.isNotEmpty
                       ? ExploreTheMenu(
                           tags: currentRestaurant.tagsMenu,
                           restaurantName: currentRestaurant.name,
                         )
                       : SizedBox(),
-                  currentRestaurant.suggestions.isNotEmpty
+                  currentRestaurant.suggestions!.isNotEmpty
                       ? RestaurantDetailsSuggestions(
                           suggestions: currentRestaurant.suggestions,
                         )
                       : SizedBox(),
                   RoundedOptionsContactWrapper(),
-                  currentRestaurant.contact.isNotEmpty
+                  currentRestaurant.contact!.isNotEmpty
                       ? ContactMethods(
                           contact: currentRestaurant.contact,
                         )
@@ -141,14 +141,14 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
       child: Scaffold(
         body: BlocBuilder<DetailsrestaurantBloc, DetailsrestaurantState>(
           builder: (BuildContext context, DetailsrestaurantState state) {
-            Restaurants currentRestaurant = state.props[0];
+            Restaurants currentRestaurant = state.props[0] as Restaurants;
             return SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Navigation(
                     secondItem: 'search',
-                    category: currentRestaurant.name,
+                    category: currentRestaurant.name!,
                   ),
                   _bodyRestaurantsDetail(currentRestaurant),
                 ],

@@ -18,9 +18,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class PlateDetailScreen extends StatefulWidget {
-  final Dishes dish;
+  final Dishes? dish;
   PlateDetailScreen({
-    Key key,
+    Key? key,
     this.dish,
   }) : super(key: key);
   @override
@@ -30,10 +30,10 @@ class PlateDetailScreen extends StatefulWidget {
 class _PlateDetailScreenState extends State<PlateDetailScreen> {
   bool minSizeReached = false;
   bool animatedOpacity = true;
-  DishBloc instanceDishBloc;
+  late DishBloc instanceDishBloc;
   bool animationChildren = true;
-  ScrollController _controller;
-  FavoritesBloc favoriteBlocInstance;
+  late ScrollController _controller;
+  late FavoritesBloc favoriteBlocInstance;
   _scrollListener() {
     if (_controller.offset > 100 && !minSizeReached) {
       setState(() {
@@ -112,7 +112,7 @@ class _PlateDetailScreenState extends State<PlateDetailScreen> {
   }
 
   Widget _plateDetailBody(DishState state) {
-    Dishes dish = state.props[0];
+    Dishes dish = state.props[0] as Dishes;
     return Expanded(
       child: AnimatedOpacity(
         opacity: !animatedOpacity ? 1 : 0,
@@ -146,11 +146,11 @@ class _PlateDetailScreenState extends State<PlateDetailScreen> {
                         AmountDishes(
                           amount: dish.amount,
                           price: dish.price,
-                          promos: dish.promotionLabel.pricePromotions,
+                          promos: dish.promotionLabel!.pricePromotions,
                         ),
-                        dish.additions.isNotEmpty
+                        dish.additions!.isNotEmpty
                             ? Aditionals(
-                                aditionals: dish.additions,
+                                aditionals: dish.additions!,
                               )
                             : SizedBox(
                                 height: 0,
@@ -192,7 +192,8 @@ class _PlateDetailScreenState extends State<PlateDetailScreen> {
                     width: MediaQuery.of(context).size.width,
                     child: BlocBuilder<FavoritesBloc, FavoritesState>(
                       builder: (BuildContext context, FavoritesState state) {
-                        List<Dishes> favoriteDishes = state.props[1];
+                        List<Dishes> favoriteDishes =
+                            state.props[1] as List<Dishes>;
                         return Navigation(
                           secondItem: 'favorite',
                           onPressed: () {

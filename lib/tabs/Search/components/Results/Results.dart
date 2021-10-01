@@ -12,7 +12,7 @@ class Results extends StatefulWidget {
 }
 
 class _ResultsState extends State<Results> {
-  SearchBloc searchBloc;
+  late SearchBloc searchBloc;
   @override
   initState() {
     super.initState();

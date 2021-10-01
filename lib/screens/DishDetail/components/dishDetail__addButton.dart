@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddtoCar extends StatefulWidget {
-  final Dishes dish;
+  final Dishes? dish;
   AddtoCar({
     this.dish,
   });
@@ -19,7 +19,7 @@ class AddtoCar extends StatefulWidget {
 
 class _AddtoCarState extends State<AddtoCar> {
   bool _addingCar = false;
-  CartBloc cartbloc;
+  late CartBloc cartbloc;
 
   @override
   initState() {
@@ -28,21 +28,22 @@ class _AddtoCarState extends State<AddtoCar> {
   }
 
   String finalPrice(amount, additionals) {
-    List<PricePromotions> specialPrice;
+    late List<PricePromotions> specialPrice;
     List<PricePromotions> promotionsPrices =
-        widget.dish.promotionLabel.pricePromotions;
+        widget.dish!.promotionLabel!.pricePromotions!;
     if (promotionsPrices.length >= 1) {
       specialPrice = promotionsPrices.where((element) {
         PricePromotions promos = element;
         return promos.amount == amount;
       }).toList();
     }
-    return specialPrice == null
-        ? formatterPrice((widget.dish.price * amount) + additionals).toString()
-        : specialPrice.length >= 1
-            ? formatterPrice((specialPrice[0].price) + additionals).toString()
-            : formatterPrice((widget.dish.price * amount) + additionals)
-                .toString();
+    // return specialPrice
+    //     ? formatterPrice((widget.dish!.price! * amount) + additionals).toString()
+    //     :
+    return specialPrice.length >= 1
+        ? formatterPrice((specialPrice[0].price)! + additionals).toString()
+        : formatterPrice((widget.dish!.price! * amount) + additionals)
+            .toString();
   }
 
   void addToCart(Dishes detailDish) {
@@ -60,7 +61,7 @@ class _AddtoCarState extends State<AddtoCar> {
       });
       snackBarAddCart(
         context,
-        widget.dish.name,
+        widget.dish!.name,
       );
     });
   }
@@ -91,7 +92,7 @@ class _AddtoCarState extends State<AddtoCar> {
                   builder: (BuildContext context, AdditionalsState state) {
                     return Text(
                       "\$${finalPrice(stateAmount.props[0], state.props[1])}",
-                      style: Theme.of(context).textTheme.bodyText1.copyWith(
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
                             fontSize: 22,
                             color: Theme.of(context).primaryColorLight,
                             fontWeight: FontWeight.w900,
@@ -112,8 +113,8 @@ class _AddtoCarState extends State<AddtoCar> {
                   onPressed: _addingCar
                       ? null
                       : () {
-                          widget.dish.amount = stateAmount.props[0];
-                          addToCart(widget.dish);
+                          widget.dish!.amount = stateAmount.props[0] as int;
+                          addToCart(widget.dish!);
                         },
                   elevation: 0,
                   icon: _addingCar
@@ -135,9 +136,10 @@ class _AddtoCarState extends State<AddtoCar> {
                         )
                       : Text(
                           "Añadir",
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                color: Theme.of(context).buttonColor,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    color: Theme.of(context).buttonColor,
+                                  ),
                         ),
                 ),
               )

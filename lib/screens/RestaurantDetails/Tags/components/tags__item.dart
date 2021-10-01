@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TagItem extends StatelessWidget {
-  final String name;
+  final String? name;
   TagItem({
     this.name,
   });
@@ -11,7 +11,7 @@ class TagItem extends StatelessWidget {
       child: ActionChip(
         shadowColor: Colors.red,
         onPressed: () {
-          print('termino busqueda: ' + name);
+          print('termino busqueda: ' + name!);
           // print('Which Restaurant?: ' + widget.restaurantName);
           // print('ir a la lista completa');
         },

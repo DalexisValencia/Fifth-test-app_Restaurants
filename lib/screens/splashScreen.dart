@@ -23,7 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
               "Loading Data...",
               style: Theme.of(context)
                   .textTheme
-                  .button
+                  .button!
                   .copyWith(color: Theme.of(context).primaryColorLight),
             ),
           ),
@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Center(
           child: Text(
             "Restaurant For You".toUpperCase(),
-            style: Theme.of(context).textTheme.subtitle1.copyWith(
+            style: Theme.of(context).textTheme.subtitle1!.copyWith(
                 fontWeight: FontWeight.bold,
                 color: Theme.of(context).primaryColorLight),
           ),
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
             "Discover and Share",
             style: Theme.of(context)
                 .textTheme
-                .caption
+                .caption!
                 .copyWith(color: Theme.of(context).primaryColorLight),
           ),
         )

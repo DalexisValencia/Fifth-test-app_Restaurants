@@ -10,11 +10,11 @@ abstract class DetailsrestaurantState extends Equatable {
 class DetailsrestaurantInitial extends DetailsrestaurantState {}
 
 class DetailsrestaurantCurrent extends DetailsrestaurantState {
-  final Restaurants restaurant;
+  final Restaurants? restaurant;
   DetailsrestaurantCurrent({this.restaurant});
 
   @override
-  List<Object> get props => [restaurant];
+  List<Object> get props => [restaurant!];
 
   @override
   String toString() => 'DetailsrestaurantCurrent {props: $restaurant}';

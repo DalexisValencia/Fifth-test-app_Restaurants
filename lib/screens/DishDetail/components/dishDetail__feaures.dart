@@ -4,7 +4,7 @@ import 'package:fith_app__restaurant/interfaces/Dishes.dart';
 import 'package:flutter/material.dart';
 
 class DetailFeatures extends StatelessWidget {
-  final Dishes dish;
+  final Dishes? dish;
   DetailFeatures({
     this.dish,
   });
@@ -43,9 +43,9 @@ class DetailFeatures extends StatelessWidget {
                 EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.01),
             child: Center(
               child: Text(
-                dish.name,
+                dish!.name!,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.headline5.copyWith(
+                style: Theme.of(context).textTheme.headline5!.copyWith(
                       color: Theme.of(context).primaryColorDark,
                       fontWeight: FontWeight.w500,
                     ),
@@ -54,9 +54,9 @@ class DetailFeatures extends StatelessWidget {
           ),
           Container(
             child: Text(
-              "\$${formatterPrice(dish.price)}",
+              "\$${formatterPrice(dish!.price)}",
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.headline6.copyWith(
+              style: Theme.of(context).textTheme.headline6!.copyWith(
                     color: Theme.of(context).primaryColorDark,
                     fontWeight: FontWeight.w500,
                   ),
@@ -72,9 +72,9 @@ class DetailFeatures extends StatelessWidget {
             ),
             // color: Colors.white,
             child: Text(
-              dish.details,
+              dish!.details!,
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.button.copyWith(
+              style: Theme.of(context).textTheme.button!.copyWith(
                     color: Theme.of(context).primaryColorDark,
                     fontWeight: FontWeight.w400,
                   ),
@@ -86,8 +86,8 @@ class DetailFeatures extends StatelessWidget {
             ),
             child: Builder(
               builder: (BuildContext context) {
-                int rating = dish.rating.toInt();
-                List repeat = new List(5);
+                int rating = dish!.rating!.toInt();
+                List repeat = new List.filled(3, 0, growable: true);
                 List<Widget> stars = [];
                 repeat.asMap().entries.map((e) {
                   int index = (e.key + 1);
@@ -116,7 +116,7 @@ class DetailFeatures extends StatelessWidget {
                     margin: EdgeInsets.only(left: 10),
                     child: Text(
                       '120.000 votes',
-                      style: Theme.of(context).textTheme.caption.copyWith(
+                      style: Theme.of(context).textTheme.caption!.copyWith(
                             color: Theme.of(context).primaryColorDark,
                           ),
                     ),

@@ -39,8 +39,8 @@ class WhatAreYouLookinForForm extends StatefulWidget {
 
 class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
   // SearchBloc searchBloc;
-  CartBloc cartBlocIntance;
-  FavoritesBloc favoriteBlocIntance;
+  late CartBloc cartBlocIntance;
+  late FavoritesBloc favoriteBlocIntance;
   @override
   void initState() {
     favoriteBlocIntance = BlocProvider.of<FavoritesBloc>(context);

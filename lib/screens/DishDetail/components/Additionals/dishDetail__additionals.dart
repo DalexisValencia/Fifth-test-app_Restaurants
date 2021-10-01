@@ -5,7 +5,7 @@ import 'package:fith_app__restaurant/interfaces/aditional.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Aditionals extends StatefulWidget {
-  final List<Adittional> aditionals;
+  final List<Adittional>? aditionals;
   Aditionals({
     this.aditionals,
   });
@@ -33,7 +33,7 @@ class AditionalsState extends State<Aditionals> {
       width: MediaQuery.of(context).size.width,
       child: Text(
         "Aditionals",
-        style: Theme.of(context).textTheme.subtitle1.copyWith(
+        style: Theme.of(context).textTheme.subtitle1!.copyWith(
               fontWeight: FontWeight.bold,
               color: Theme.of(context).primaryColorDark,
             ),
@@ -44,7 +44,7 @@ class AditionalsState extends State<Aditionals> {
   Widget _expansionAdittional() {
     return BlocBuilder<AdditionalsBloc, AdditionalsState>(
       builder: (BuildContext context, state) {
-        List<Adittional> states = state.props[0];
+        List<Adittional> states = state.props[0] as List<Adittional>;
         return states.length == 0
             ? Text("loading")
             : Builder(

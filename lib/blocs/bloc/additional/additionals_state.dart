@@ -8,24 +8,24 @@ abstract class AdditionalsState extends Equatable {
 }
 
 class AdditionalsInitial extends AdditionalsState {
-  final List<Adittional> initial;
-  final int prices;
+  final List<Adittional>? initial;
+  final int? prices;
   AdditionalsInitial({this.initial, this.prices});
 
   @override
-  List<Object> get props => [initial, prices];
+  List<Object> get props => [initial!, prices!];
 
   @override
   String toString() => 'AdditionalsCurrent {Search by: $initial, $prices}';
 }
 
 class AdditionalsCurrent extends AdditionalsState {
-  final List<Adittional> additionals;
-  final int prices;
+  final List<Adittional>? additionals;
+  final int? prices;
   AdditionalsCurrent({this.additionals, this.prices});
 
   @override
-  List<Object> get props => [additionals, prices];
+  List<Object> get props => [additionals!, prices!];
 
   @override
   String toString() => 'AdditionalsCurrent {Search by: $additionals, $prices}';

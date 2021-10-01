@@ -3,7 +3,7 @@ import 'package:fith_app__restaurant/widgets/Card__CustomChip.dart';
 import 'package:flutter/material.dart';
 
 class BookingsCard extends StatefulWidget {
-  final String booking;
+  final String? booking;
   BookingsCard({
     this.booking,
   });
@@ -75,11 +75,12 @@ class _BookingsCardState extends State<BookingsCard> {
                           restaurantNameInBooking.length > 14
                               ? restaurantNameInBooking.substring(0, 14) + '...'
                               : restaurantNameInBooking,
-                          style: Theme.of(context).textTheme.bodyText1.copyWith(
-                                color: Theme.of(context).primaryColorDark,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 14,
-                              ),
+                          style:
+                              Theme.of(context).textTheme.bodyText1!.copyWith(
+                                    color: Theme.of(context).primaryColorDark,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 14,
+                                  ),
                         ),
                       )
                     ],
@@ -118,7 +119,7 @@ class _BookingsCardState extends State<BookingsCard> {
                     child: RichText(
                       text: TextSpan(
                         text: 'A familiar table ',
-                        style: Theme.of(context).textTheme.caption.copyWith(
+                        style: Theme.of(context).textTheme.caption!.copyWith(
                             color: Theme.of(context).primaryColorDark,
                             fontWeight: FontWeight.w300,
                             fontSize: 11),
@@ -144,7 +145,7 @@ class _BookingsCardState extends State<BookingsCard> {
                                 "\$12.000",
                                 style: Theme.of(context)
                                     .textTheme
-                                    .caption
+                                    .caption!
                                     .copyWith(
                                       fontWeight: FontWeight.w700,
                                       color: Theme.of(context).buttonColor,
@@ -168,11 +169,12 @@ class _BookingsCardState extends State<BookingsCard> {
                           onHighlightChanged: (val) {},
                           child: Text(
                             'Cancel',
-                            style: Theme.of(context).textTheme.caption.copyWith(
-                                  color: widget.booking != 'today'
-                                      ? Theme.of(context).primaryColorLight
-                                      : Theme.of(context).primaryColorDark,
-                                ),
+                            style:
+                                Theme.of(context).textTheme.caption!.copyWith(
+                                      color: widget.booking != 'today'
+                                          ? Theme.of(context).primaryColorLight
+                                          : Theme.of(context).primaryColorDark,
+                                    ),
                           ),
                         ),
                       )

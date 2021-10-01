@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NearYouCard extends StatefulWidget {
-  final Dishes dish;
-  final int index;
+  final Dishes? dish;
+  final int? index;
   NearYouCard({
     this.dish,
     this.index,
@@ -18,8 +18,8 @@ class NearYouCard extends StatefulWidget {
 }
 
 class _NearYouCardState extends State<NearYouCard> {
-  CartBloc cartBlocInstance;
-  FavoritesBloc favoriteBlocInstance;
+  late CartBloc cartBlocInstance;
+  late FavoritesBloc favoriteBlocInstance;
   @override
   void initState() {
     super.initState();
@@ -31,7 +31,7 @@ class _NearYouCardState extends State<NearYouCard> {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-        right: widget.index < 9 ? MediaQuery.of(context).size.width * 0.04 : 5,
+        right: widget.index! < 9 ? MediaQuery.of(context).size.width * 0.04 : 5,
       ),
       width: MediaQuery.of(context).size.width / 2.6,
       child: RaisedButton(
@@ -82,7 +82,7 @@ class _NearYouCardState extends State<NearYouCard> {
                 image: DecorationImage(
                   fit: BoxFit.cover,
                   image: ExactAssetImage(
-                    widget.dish.image,
+                    widget.dish!.image!,
                   ),
                 ),
               ),
@@ -108,8 +108,11 @@ class _NearYouCardState extends State<NearYouCard> {
                             size: 11,
                           ),
                           Text(
-                            widget.dish.rating.toString(),
-                            style: Theme.of(context).textTheme.caption.copyWith(
+                            widget.dish!.rating.toString(),
+                            style: Theme.of(context)
+                                .textTheme
+                                .caption!
+                                .copyWith(
                                   fontWeight: FontWeight.w600,
                                   fontSize: 11,
                                   color: Theme.of(context).primaryColorLight,
@@ -129,9 +132,9 @@ class _NearYouCardState extends State<NearYouCard> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    widget.dish.name,
+                    widget.dish!.name!,
                     textAlign: TextAlign.start,
-                    style: Theme.of(context).textTheme.caption.copyWith(
+                    style: Theme.of(context).textTheme.caption!.copyWith(
                           color: Theme.of(context).primaryColorDark,
                           fontWeight: FontWeight.w700,
                         ),
@@ -139,8 +142,8 @@ class _NearYouCardState extends State<NearYouCard> {
                   FittedBox(
                     fit: BoxFit.scaleDown,
                     child: Text(
-                      widget.dish.details.substring(1, 25) + '...',
-                      style: Theme.of(context).textTheme.caption.copyWith(
+                      widget.dish!.details!.substring(1, 25) + '...',
+                      style: Theme.of(context).textTheme.caption!.copyWith(
                             wordSpacing: 0.5,
                             fontSize: 10,
                             fontWeight: FontWeight.w400,

@@ -10,9 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
-  final TabController controller;
-  final bool animateScreen;
-  HomePage({this.controller, this.animateScreen});
+  final TabController? controller;
+  final bool? animateScreen;
+  HomePage({
+    this.controller,
+    this.animateScreen,
+  });
   @override
   _HomePageState createState() => _HomePageState();
 }
@@ -23,7 +26,7 @@ class _HomePageState extends State<HomePage>
   bool animationChildren = false;
   @override
   void initState() {
-    this.animateOpacity = widget.animateScreen;
+    this.animateOpacity = widget.animateScreen!;
     this.animationChildren = this.animateOpacity;
     super.initState();
     this.setAnimationState();

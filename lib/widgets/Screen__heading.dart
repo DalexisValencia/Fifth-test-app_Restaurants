@@ -2,10 +2,10 @@ import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:flutter/material.dart';
 
 class ScreenHeading extends StatelessWidget {
-  final String title;
-  final String subtitle;
+  final String? title;
+  final String? subtitle;
   ScreenHeading({
-    Key key,
+    Key? key,
     this.title,
     this.subtitle,
   }) : super(key: key);
@@ -21,16 +21,16 @@ class ScreenHeading extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            title,
+            title!,
             textAlign: TextAlign.left,
-            style: Theme.of(context).textTheme.headline4.copyWith(
+            style: Theme.of(context).textTheme.headline4!.copyWith(
                   color: Theme.of(context).primaryColorDark,
                   fontWeight: FontWeight.w600,
                 ),
           ),
           Text(
-            subtitle,
-            style: Theme.of(context).textTheme.button.copyWith(
+            subtitle!,
+            style: Theme.of(context).textTheme.button!.copyWith(
                   color: Theme.of(context).primaryColorDark,
                   fontWeight: FontWeight.w300,
                 ),

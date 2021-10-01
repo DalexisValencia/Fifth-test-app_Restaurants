@@ -8,6 +8,6 @@ abstract class DetailsrestaurantEvent extends Equatable {
 }
 
 class DetailsresturantSetCurrent extends DetailsrestaurantEvent {
-  final Restaurants restaurant;
+  final Restaurants? restaurant;
   DetailsresturantSetCurrent({this.restaurant});
 }

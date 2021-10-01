@@ -12,7 +12,7 @@ class FixedTopHeader extends StatefulWidget {
 class FixedTopHeaderState extends State<FixedTopHeader> {
   FocusNode _focus = new FocusNode();
   final TextEditingController searcController = new TextEditingController();
-  SearchBloc searchBloc;
+  late SearchBloc searchBloc;
   @override
   void initState() {
     super.initState();
@@ -55,7 +55,7 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
   Widget _iconTextFormField() {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (BuildContext context, SearchState state) {
-        SearchInitInterface modelSearch = state.props[0];
+        SearchInitInterface modelSearch = state.props[0] as SearchInitInterface;
         return GestureDetector(
           child: Container(
             width: 40,
@@ -71,7 +71,7 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
               color: Colors.transparent,
               splashColor: Theme.of(context).buttonColor,
               child: Icon(
-                modelSearch.results.length >= 1 && searcController.text != ''
+                modelSearch.results!.length >= 1 && searcController.text != ''
                     ? Icons.close
                     : Icons.search,
                 size: 16,

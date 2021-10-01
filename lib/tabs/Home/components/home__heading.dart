@@ -10,7 +10,7 @@ class HomeHeading extends StatelessWidget {
           width: MediaQuery.of(context).size.width * 0.3,
           child: Text(
             "Have a Good day",
-            style: Theme.of(context).textTheme.headline5.copyWith(
+            style: Theme.of(context).textTheme.headline5!.copyWith(
               fontWeight: FontWeight.bold,
               color: Theme.of(context).primaryColorLight,
               shadows: [
@@ -29,7 +29,7 @@ class HomeHeading extends StatelessWidget {
           margin: EdgeInsets.only(top: 5),
           child: Text(
             'Restaurants waiting for you',
-            style: Theme.of(context).textTheme.subtitle2.copyWith(
+            style: Theme.of(context).textTheme.subtitle2!.copyWith(
               fontWeight: FontWeight.normal,
               color: Theme.of(context).primaryColorLight,
               shadows: [

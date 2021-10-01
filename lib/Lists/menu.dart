@@ -63,7 +63,7 @@ List<Dishes> dishes = [
         image: '',
       )
     ],
-    category: [categories[0].name, categories[2].name],
+    category: [categories[0].name!, categories[2].name!],
     additions: [
       Adittional(title: 'Cookware', isMulti: false, children: [
         AditionalsOptions(name: 'With Cookware', isActive: true, price: 0),
@@ -129,7 +129,7 @@ List<Dishes> dishes = [
           image: '',
         )
       ],
-      category: [categories[1].name, categories[3].name],
+      category: [categories[1].name!, categories[3].name!],
       additions: [],
       ingredients: [
         Ingredients(name: 'Beef', amountGrams: '40G'),
@@ -164,10 +164,10 @@ List<Dishes> dishes = [
         )
       ],
       category: [
-        categories[0].name,
-        categories[1].name,
-        categories[2].name,
-        categories[3].name
+        categories[0].name!,
+        categories[1].name!,
+        categories[2].name!,
+        categories[3].name!,
       ],
       additions: [],
       ingredients: [
@@ -229,10 +229,10 @@ List<Restaurants> restaurants = [
     ],
     schedule: '8:00am to 9:00pm',
     categories: [
-      categories[0].name,
-      categories[1].name,
-      categories[2].name,
-      categories[3].name
+      categories[0].name!,
+      categories[1].name!,
+      categories[2].name!,
+      categories[3].name!,
     ],
     //
   ),
@@ -263,7 +263,10 @@ List<Restaurants> restaurants = [
       ),
     ],
     schedule: '8:00am to 9:00pm',
-    categories: [categories[0].name, categories[3].name],
+    categories: [
+      categories[0].name!,
+      categories[3].name!,
+    ],
     //
   ),
   Restaurants(
@@ -298,7 +301,10 @@ List<Restaurants> restaurants = [
       ),
     ],
     schedule: '8:00am to 9:00pm',
-    categories: [categories[0].name, categories[2].name],
+    categories: [
+      categories[0].name!,
+      categories[2].name!,
+    ],
     //
   )
 ];

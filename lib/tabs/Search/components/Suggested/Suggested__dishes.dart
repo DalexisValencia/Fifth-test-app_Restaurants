@@ -4,7 +4,7 @@ import 'package:fith_app__restaurant/sections/Suggested__horizontalList.dart';
 import 'package:flutter/material.dart';
 
 class SuggestedDishes extends StatelessWidget {
-  final List<Dishes> suggestions;
+  final List<Dishes>? suggestions;
   SuggestedDishes({
     this.suggestions,
   });

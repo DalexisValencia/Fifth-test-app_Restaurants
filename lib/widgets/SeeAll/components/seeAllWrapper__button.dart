@@ -2,8 +2,8 @@ import 'package:fith_app__restaurant/constants/contansts.dart';
 import 'package:flutter/material.dart';
 
 class RoundedCustomButton extends StatefulWidget {
-  final String title;
-  final Function callPressed;
+  final String? title;
+  final Function? callPressed;
   RoundedCustomButton({
     this.title,
     this.callPressed,
@@ -24,10 +24,10 @@ class _RoundedCustomButtonState extends State<RoundedCustomButton> {
           defaultRadius,
         ),
       ),
-      onPressed: () => widget.callPressed(),
+      onPressed: () => widget.callPressed!(),
       child: Text(
-        widget.title,
-        style: Theme.of(context).textTheme.bodyText1.copyWith(
+        widget.title!,
+        style: Theme.of(context).textTheme.bodyText1!.copyWith(
               color: Theme.of(context).buttonColor,
               fontWeight: FontWeight.w700,
               decoration: TextDecoration.underline,
