@@ -1,14 +1,14 @@
-import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/tabs/Bookings/bookings.dart';
-import 'package:fith_app__restaurant/tabs/Cart/Cart.dart';
-import 'package:fith_app__restaurant/tabs/Favorites/favorites.dart';
-import 'package:fith_app__restaurant/tabs/Home/home.dart';
-import 'package:fith_app__restaurant/tabs/Search/search.dart';
-import 'package:fith_app__restaurant/widgets/Animation__amountOnGlobe.dart';
+import 'package:restaurants/blocs/bloc/cart/bloc/cart_bloc.dart';
+import 'package:restaurants/blocs/bloc/discovery/bloc/discovery_bloc.dart';
+import 'package:restaurants/blocs/bloc/favorites/bloc/favorites_bloc.dart';
+import 'package:restaurants/blocs/bloc/search/bloc/search_bloc.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
+import 'package:restaurants/tabs/Bookings/bookings.dart';
+import 'package:restaurants/tabs/Cart/Cart.dart';
+import 'package:restaurants/tabs/Favorites/favorites.dart';
+import 'package:restaurants/tabs/Home/home.dart';
+import 'package:restaurants/tabs/Search/search.dart';
+import 'package:restaurants/widgets/Animation__amountOnGlobe.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

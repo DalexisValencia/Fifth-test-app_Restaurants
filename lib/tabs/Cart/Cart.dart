@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/tabs/Cart/components/Empty/Empty.dart';
-import 'package:fith_app__restaurant/tabs/Cart/components/List/List__verticalList.dart';
-import 'package:fith_app__restaurant/tabs/Cart/components/cart__buttonPay.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/Navigation.dart';
-import 'package:fith_app__restaurant/widgets/Screen__heading.dart';
+import 'package:restaurants/blocs/bloc/cart/bloc/cart_bloc.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
+import 'package:restaurants/tabs/Cart/components/Empty/Empty.dart';
+import 'package:restaurants/tabs/Cart/components/List/List__verticalList.dart';
+import 'package:restaurants/tabs/Cart/components/cart__buttonPay.dart';
+import 'package:restaurants/widgets/Navigation/Navigation.dart';
+import 'package:restaurants/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

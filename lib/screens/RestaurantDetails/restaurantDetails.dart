@@ -1,18 +1,18 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:restaurants/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
+import 'package:restaurants/constants/contansts.dart';
 
-import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
-import 'package:fith_app__restaurant/screens/RestaurantDetails/components/restaurantsDetails__title.dart';
-import 'package:fith_app__restaurant/screens/RestaurantDetails/hightlight/restaurantDetails__hightlightDish.dart';
-import 'package:fith_app__restaurant/screens/RestaurantDetails/map/restauranstDetails__map.dart';
-import 'package:fith_app__restaurant/screens/RestaurantDetails/suggestions/restaurantsDetails__suggestions.dart';
-import 'package:fith_app__restaurant/screens/RestaurantDetails/contact/restaurantDetails__contact.dart';
-import 'package:fith_app__restaurant/screens/RestaurantDetails/options/restaurantDetails__options.dart';
-import 'package:fith_app__restaurant/screens/RestaurantDetails/Tags/restaurantsDetails__tags.dart';
-import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/navigation.dart';
+import 'package:restaurants/interfaces/Restaurants.dart';
+import 'package:restaurants/screens/RestaurantDetails/components/restaurantsDetails__title.dart';
+import 'package:restaurants/screens/RestaurantDetails/hightlight/restaurantDetails__hightlightDish.dart';
+import 'package:restaurants/screens/RestaurantDetails/map/restauranstDetails__map.dart';
+import 'package:restaurants/screens/RestaurantDetails/suggestions/restaurantsDetails__suggestions.dart';
+import 'package:restaurants/screens/RestaurantDetails/contact/restaurantDetails__contact.dart';
+import 'package:restaurants/screens/RestaurantDetails/options/restaurantDetails__options.dart';
+import 'package:restaurants/screens/RestaurantDetails/Tags/restaurantsDetails__tags.dart';
+import 'package:restaurants/widgets/AnimationContainerWrapper.dart';
+import 'package:restaurants/widgets/Navigation/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

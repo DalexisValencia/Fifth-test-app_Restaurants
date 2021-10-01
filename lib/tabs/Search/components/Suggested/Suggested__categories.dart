@@ -1,4 +1,4 @@
-import 'package:fith_app__restaurant/Lists/menu.dart';
+import 'package:restaurants/Lists/menu.dart';
 import 'package:flutter/material.dart';
 
 class SuggestedCategories extends StatefulWidget {

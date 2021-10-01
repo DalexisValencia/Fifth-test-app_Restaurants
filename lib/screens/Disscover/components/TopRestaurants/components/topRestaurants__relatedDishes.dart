@@ -1,6 +1,6 @@
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/widgets/Dish__card.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
+import 'package:restaurants/widgets/Dish__card.dart';
 import 'package:flutter/material.dart';
 
 class RelatedDishesTopRestaurant extends StatelessWidget {

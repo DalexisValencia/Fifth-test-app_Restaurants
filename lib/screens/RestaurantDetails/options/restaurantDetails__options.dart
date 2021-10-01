@@ -1,4 +1,4 @@
-import 'package:fith_app__restaurant/screens/RestaurantDetails/options/components/options__circle.dart';
+import 'package:restaurants/screens/RestaurantDetails/options/components/options__circle.dart';
 import 'package:flutter/material.dart';
 
 class RoundedOptionsContactWrapper extends StatefulWidget {

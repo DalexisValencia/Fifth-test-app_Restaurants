@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fith_app__restaurant/interfaces/Ingredients.dart';
+import 'package:restaurants/interfaces/Ingredients.dart';
 
 class SummaryIngredients extends StatefulWidget {
   final List<Ingredients>? ingredients;

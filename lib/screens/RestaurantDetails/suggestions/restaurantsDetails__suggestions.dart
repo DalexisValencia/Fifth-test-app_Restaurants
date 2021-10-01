@@ -1,7 +1,7 @@
-import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/sections/Suggested__horizontalList.dart';
-import 'package:fith_app__restaurant/widgets/SeeAll/Screen__seeAllSection.dart';
+import 'package:restaurants/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
+import 'package:restaurants/sections/Suggested__horizontalList.dart';
+import 'package:restaurants/widgets/SeeAll/Screen__seeAllSection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fith_app__restaurant/interfaces/aditional.dart';
+import 'package:restaurants/interfaces/aditional.dart';
 
 part 'additionals_event.dart';
 part 'additionals_state.dart';

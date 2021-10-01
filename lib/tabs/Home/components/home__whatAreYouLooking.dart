@@ -1,8 +1,8 @@
-import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/tabs/Search/search.dart';
+import 'package:restaurants/blocs/bloc/cart/bloc/cart_bloc.dart';
+import 'package:restaurants/blocs/bloc/favorites/bloc/favorites_bloc.dart';
+import 'package:restaurants/blocs/bloc/search/bloc/search_bloc.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/tabs/Search/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

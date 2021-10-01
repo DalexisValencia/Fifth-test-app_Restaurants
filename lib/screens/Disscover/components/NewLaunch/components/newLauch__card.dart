@@ -1,10 +1,10 @@
-import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/screens/DishDetail/dishDetail.dart';
-import 'package:fith_app__restaurant/screens/Disscover/components/NewLaunch/components/newLauch__comments.dart';
-import 'package:fith_app__restaurant/widgets/Card__CustomChip.dart';
+import 'package:restaurants/blocs/bloc/cart/bloc/cart_bloc.dart';
+import 'package:restaurants/blocs/bloc/dish/bloc/dish_bloc.dart';
+import 'package:restaurants/blocs/bloc/favorites/bloc/favorites_bloc.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
+import 'package:restaurants/screens/DishDetail/dishDetail.dart';
+import 'package:restaurants/screens/Disscover/components/NewLaunch/components/newLauch__comments.dart';
+import 'package:restaurants/widgets/Card__CustomChip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

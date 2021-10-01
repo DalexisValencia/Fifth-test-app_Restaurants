@@ -1,11 +1,11 @@
-import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
-import 'package:fith_app__restaurant/screens/Disscover/components/TopRestaurants/components/topRestaurant__separatorLine.dart';
-import 'package:fith_app__restaurant/screens/Disscover/components/TopRestaurants/components/topRestaurants__relatedDishes.dart';
-import 'package:fith_app__restaurant/screens/Disscover/components/TopRestaurants/components/topRestaurants__cardRestaurant.dart';
-import 'package:fith_app__restaurant/sections/Screen__EmtpySection.dart';
-import 'package:fith_app__restaurant/widgets/SeeAll/Screen__seeAllSection.dart';
+import 'package:restaurants/blocs/bloc/dish/bloc/dish_bloc.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/interfaces/Restaurants.dart';
+import 'package:restaurants/screens/Disscover/components/TopRestaurants/components/topRestaurant__separatorLine.dart';
+import 'package:restaurants/screens/Disscover/components/TopRestaurants/components/topRestaurants__relatedDishes.dart';
+import 'package:restaurants/screens/Disscover/components/TopRestaurants/components/topRestaurants__cardRestaurant.dart';
+import 'package:restaurants/sections/Screen__EmtpySection.dart';
+import 'package:restaurants/widgets/SeeAll/Screen__seeAllSection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

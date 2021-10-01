@@ -1,5 +1,5 @@
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/tabs/Cart/components/List/List__Item.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
+import 'package:restaurants/tabs/Cart/components/List/List__Item.dart';
 import 'package:flutter/material.dart';
 
 class CartVerticalList extends StatelessWidget {

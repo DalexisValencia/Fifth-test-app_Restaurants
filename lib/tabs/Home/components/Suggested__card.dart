@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
-import 'package:fith_app__restaurant/interfaces/categories.dart';
-import 'package:fith_app__restaurant/screens/Disscover/disscover.dart';
+import 'package:restaurants/blocs/bloc/cart/bloc/cart_bloc.dart';
+import 'package:restaurants/blocs/bloc/discovery/bloc/discovery_bloc.dart';
+import 'package:restaurants/blocs/bloc/favorites/bloc/favorites_bloc.dart';
+import 'package:restaurants/interfaces/categories.dart';
+import 'package:restaurants/screens/Disscover/disscover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

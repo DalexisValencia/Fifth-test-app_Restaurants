@@ -1,6 +1,6 @@
-import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
-import 'package:fith_app__restaurant/interfaces/search.dart';
-import 'package:fith_app__restaurant/widgets/Button_roundWithIcon.dart';
+import 'package:restaurants/blocs/bloc/search/bloc/search_bloc.dart';
+import 'package:restaurants/interfaces/search.dart';
+import 'package:restaurants/widgets/Button_roundWithIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

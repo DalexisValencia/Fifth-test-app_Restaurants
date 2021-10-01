@@ -1,6 +1,6 @@
-import 'package:fith_app__restaurant/Lists/menu.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/tabs/Home/components/Suggested__card.dart';
+import 'package:restaurants/Lists/menu.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/tabs/Home/components/Suggested__card.dart';
 import 'package:flutter/material.dart';
 
 class HomeCategoriesSuggested extends StatelessWidget {

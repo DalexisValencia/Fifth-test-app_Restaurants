@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/search.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Suggested/Suggested__categories.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Suggested/Suggested__dishes.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Suggested/Suggested__popular.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Suggested/Suggested__restaurants.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/search__loading.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/interfaces/search.dart';
+import 'package:restaurants/tabs/Search/components/Suggested/Suggested__categories.dart';
+import 'package:restaurants/tabs/Search/components/Suggested/Suggested__dishes.dart';
+import 'package:restaurants/tabs/Search/components/Suggested/Suggested__popular.dart';
+import 'package:restaurants/tabs/Search/components/Suggested/Suggested__restaurants.dart';
+import 'package:restaurants/tabs/Search/components/search__loading.dart';
 import 'package:flutter/material.dart';
 
 class Suggested extends StatefulWidget {

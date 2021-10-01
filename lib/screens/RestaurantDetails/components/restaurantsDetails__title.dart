@@ -1,4 +1,4 @@
-import 'package:fith_app__restaurant/widgets/Screen__heading.dart';
+import 'package:restaurants/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
 
 class RestaurantdetailTitle extends StatelessWidget {

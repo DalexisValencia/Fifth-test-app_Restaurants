@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fith_app__restaurant/Lists/menu.dart';
-import 'package:fith_app__restaurant/interfaces/Discovery.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
+import 'package:restaurants/Lists/menu.dart';
+import 'package:restaurants/interfaces/Discovery.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
+import 'package:restaurants/interfaces/Restaurants.dart';
 
 part 'discovery_event.dart';
 part 'discovery_state.dart';
@@ -27,11 +27,11 @@ class DiscoveryBloc extends Bloc<DiscoveryEvent, DiscoveryState> {
 completeDiscovery(name) {
   List<Dishes> platos = dishes.where((dish) {
     return dish.category!.indexOf(name) != -1;
-  }).toList();
+  }).toList() as List<Dishes>;
 
   List<Restaurants> resta = restaurants.where((item) {
     return item.categories!.indexOf(name) != -1;
-  }).toList();
+  }).toList() as List<Restaurants>;
   Discovery discoveryView = Discovery(
     name: name,
     near: platos,

@@ -2,19 +2,33 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fith_app__restaurant/Lists/menu.dart';
-import 'package:fith_app__restaurant/interfaces/search.dart';
+import 'package:restaurants/Lists/menu.dart';
+import 'package:restaurants/interfaces/search.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
-  SearchBloc() : super(SearchInitial());
+  SearchBloc()
+      : super(
+          SearchInitial(
+            initial: SearchInitInterface(
+              suggestions: [],
+              popular: [],
+              highlightRestaurants: [],
+              results: [],
+              findIn: '',
+            ),
+          ),
+        );
 
   @override
   Stream<SearchState> mapEventToState(
     SearchEvent event,
   ) async* {
+    print(":::::");
+    print(state.props[0]);
+    print(":::::");
     SearchInitInterface searchState = state.props[0] as SearchInitInterface;
     if (event is SearchInit) {
       yield SearchInitial(initial: assembleInitial(event.findIn));

@@ -1,6 +1,6 @@
-import 'package:fith_app__restaurant/interfaces/Comments.dart';
-import 'package:fith_app__restaurant/interfaces/Ingredients.dart';
-import 'package:fith_app__restaurant/interfaces/aditional.dart';
+import 'package:restaurants/interfaces/Comments.dart';
+import 'package:restaurants/interfaces/Ingredients.dart';
+import 'package:restaurants/interfaces/aditional.dart';
 import 'package:flutter/material.dart';
 
 class Dishes {

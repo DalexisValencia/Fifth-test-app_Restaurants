@@ -1,7 +1,7 @@
-import 'package:fith_app__restaurant/interfaces/ContactMeans.dart';
+import 'package:restaurants/interfaces/ContactMeans.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:restaurants/constants/contansts.dart';
 
 class ContactMethods extends StatefulWidget {
   final List<ContactMeans>? contact;

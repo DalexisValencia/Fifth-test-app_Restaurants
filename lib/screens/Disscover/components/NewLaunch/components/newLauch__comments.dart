@@ -1,5 +1,5 @@
-import 'package:fith_app__restaurant/interfaces/Comments.dart';
-import 'package:fith_app__restaurant/screens/Disscover/components/NewLaunch/components/newLaunch__seeAllComments.dart';
+import 'package:restaurants/interfaces/Comments.dart';
+import 'package:restaurants/screens/Disscover/components/NewLaunch/components/newLaunch__seeAllComments.dart';
 import 'package:flutter/material.dart';
 
 class NewLaunchComments extends StatelessWidget {

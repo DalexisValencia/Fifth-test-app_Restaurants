@@ -1,11 +1,11 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/tabs/Home/Components/home__whatAreYouLooking.dart';
-import 'package:fith_app__restaurant/tabs/Home/components/home__categoriesSuggested.dart';
-import 'package:fith_app__restaurant/tabs/Home/components/home__fixedTopMenu.dart';
-import 'package:fith_app__restaurant/tabs/Home/components/home__heading.dart';
-import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/tabs/Home/Components/home__whatAreYouLooking.dart';
+import 'package:restaurants/tabs/Home/components/home__categoriesSuggested.dart';
+import 'package:restaurants/tabs/Home/components/home__fixedTopMenu.dart';
+import 'package:restaurants/tabs/Home/components/home__heading.dart';
+import 'package:restaurants/widgets/AnimationContainerWrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 

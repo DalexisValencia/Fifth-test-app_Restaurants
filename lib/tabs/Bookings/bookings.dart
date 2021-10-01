@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/tabs/Bookings/components/bookings__card.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/navigation.dart';
-import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
-import 'package:fith_app__restaurant/widgets/Screen__heading.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/tabs/Bookings/components/bookings__card.dart';
+import 'package:restaurants/widgets/Navigation/navigation.dart';
+import 'package:restaurants/widgets/AnimationContainerWrapper.dart';
+import 'package:restaurants/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
 
 class BookingsScreen extends StatefulWidget {

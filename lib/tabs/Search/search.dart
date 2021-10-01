@@ -1,15 +1,15 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/search.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/search__fixedTopInput.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Results/Results.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Suggested/Suggested.dart';
-import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
+import 'package:restaurants/blocs/bloc/search/bloc/search_bloc.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/interfaces/search.dart';
+import 'package:restaurants/tabs/Search/components/search__fixedTopInput.dart';
+import 'package:restaurants/tabs/Search/components/Results/Results.dart';
+import 'package:restaurants/tabs/Search/components/Suggested/Suggested.dart';
+import 'package:restaurants/widgets/AnimationContainerWrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:keyboard_visibility/keyboard_visibility.dart';
+// import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 class ScaffoldSearch extends StatefulWidget {
   @override
@@ -25,13 +25,13 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
   void initState() {
     super.initState();
     this.startAnimationScreen();
-    KeyboardVisibilityNotification().addNewListener(
-      onChange: (bool visible) {
-        setState(() {
-          this.activeResults = visible;
-        });
-      },
-    );
+    // KeyboardVisibilityNotification().addNewListener(
+    //   onChange: (bool visible) {
+    //     setState(() {
+    //       this.activeResults = visible;
+    //     });
+    //   },
+    // );
   }
 
   void startAnimationScreen() {

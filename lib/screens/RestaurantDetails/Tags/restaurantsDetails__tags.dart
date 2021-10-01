@@ -1,6 +1,6 @@
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/screens/RestaurantDetails/Tags/components/tags__item.dart';
-import 'package:fith_app__restaurant/widgets/SeeAll/Screen__seeAllSection.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/screens/RestaurantDetails/Tags/components/tags__item.dart';
+import 'package:restaurants/widgets/SeeAll/Screen__seeAllSection.dart';
 import 'package:flutter/material.dart';
 
 class ExploreTheMenu extends StatefulWidget {

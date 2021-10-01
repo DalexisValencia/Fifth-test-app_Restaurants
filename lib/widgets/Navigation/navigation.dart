@@ -1,9 +1,9 @@
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__appBar.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__favoriteButton.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__goBackButton.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__searchButton.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__trashButton.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/widgets/Navigation/components/navigation__appBar.dart';
+import 'package:restaurants/widgets/Navigation/components/navigation__favoriteButton.dart';
+import 'package:restaurants/widgets/Navigation/components/navigation__goBackButton.dart';
+import 'package:restaurants/widgets/Navigation/components/navigation__searchButton.dart';
+import 'package:restaurants/widgets/Navigation/components/navigation__trashButton.dart';
 import 'package:flutter/material.dart';
 
 class Navigation extends StatelessWidget {

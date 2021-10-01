@@ -1,10 +1,10 @@
-import 'package:fith_app__restaurant/interfaces/Comments.dart';
-import 'package:fith_app__restaurant/interfaces/ContactMeans.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/interfaces/Ingredients.dart';
-import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
-import 'package:fith_app__restaurant/interfaces/aditional.dart';
-import 'package:fith_app__restaurant/interfaces/categories.dart';
+import 'package:restaurants/interfaces/Comments.dart';
+import 'package:restaurants/interfaces/ContactMeans.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
+import 'package:restaurants/interfaces/Ingredients.dart';
+import 'package:restaurants/interfaces/Restaurants.dart';
+import 'package:restaurants/interfaces/aditional.dart';
+import 'package:restaurants/interfaces/categories.dart';
 import 'package:flutter/material.dart';
 
 List<Category> categories = [

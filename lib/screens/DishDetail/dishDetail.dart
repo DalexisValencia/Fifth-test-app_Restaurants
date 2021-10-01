@@ -1,19 +1,19 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/dishAmount/bloc/dishamount_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__addButton.dart';
-import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__feaures.dart';
-import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__portrait.dart';
-import 'package:fith_app__restaurant/screens/DishDetail/components/additionals/dishDetail__additionals.dart';
-import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__amount.dart';
-import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__ingredients.dart';
-import 'package:fith_app__restaurant/screens/DishDetail/components/dishDetail__dishSummary.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/navigation.dart';
+import 'package:restaurants/blocs/bloc/additional/additionals_bloc.dart';
+import 'package:restaurants/blocs/bloc/dish/bloc/dish_bloc.dart';
+import 'package:restaurants/blocs/bloc/dishAmount/bloc/dishamount_bloc.dart';
+import 'package:restaurants/blocs/bloc/favorites/bloc/favorites_bloc.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
+import 'package:restaurants/screens/DishDetail/components/dishDetail__addButton.dart';
+import 'package:restaurants/screens/DishDetail/components/dishDetail__feaures.dart';
+import 'package:restaurants/screens/DishDetail/components/dishDetail__portrait.dart';
+import 'package:restaurants/screens/DishDetail/components/additionals/dishDetail__additionals.dart';
+import 'package:restaurants/screens/DishDetail/components/dishDetail__amount.dart';
+import 'package:restaurants/screens/DishDetail/components/dishDetail__ingredients.dart';
+import 'package:restaurants/screens/DishDetail/components/dishDetail__dishSummary.dart';
+import 'package:restaurants/widgets/Navigation/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

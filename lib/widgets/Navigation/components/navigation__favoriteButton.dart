@@ -1,4 +1,4 @@
-import 'package:fith_app__restaurant/widgets/Button_roundWithIcon.dart';
+import 'package:restaurants/widgets/Button_roundWithIcon.dart';
 import 'package:flutter/material.dart';
 
 class FavoriteButton extends StatelessWidget {

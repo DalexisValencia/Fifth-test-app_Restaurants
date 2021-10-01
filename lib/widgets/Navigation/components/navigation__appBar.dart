@@ -1,5 +1,5 @@
-import 'package:fith_app__restaurant/constants/contansts.dart';
-// import 'package:fith_app__restaurant/widgets/roundedIconsButtons.dart';
+import 'package:restaurants/constants/contansts.dart';
+// import 'package:restaurants/widgets/roundedIconsButtons.dart';
 import 'package:flutter/material.dart';
 
 class AppBarCustom extends StatelessWidget {

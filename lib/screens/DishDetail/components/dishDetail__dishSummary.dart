@@ -1,6 +1,6 @@
-import 'package:fith_app__restaurant/blocs/bloc/additional/additionals_bloc.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/aditional.dart';
+import 'package:restaurants/blocs/bloc/additional/additionals_bloc.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/interfaces/aditional.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

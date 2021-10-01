@@ -1,5 +1,5 @@
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/aditional.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/interfaces/aditional.dart';
 import 'package:flutter/material.dart';
 
 class ExpansionModifiersCartItem extends StatefulWidget {

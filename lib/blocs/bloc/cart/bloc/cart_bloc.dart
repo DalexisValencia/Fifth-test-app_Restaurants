@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/interfaces/aditional.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
+import 'package:restaurants/interfaces/aditional.dart';
 
 part 'cart_event.dart';
 part 'cart_state.dart';

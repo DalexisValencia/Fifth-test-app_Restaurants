@@ -1,7 +1,7 @@
-import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
-import 'package:fith_app__restaurant/interfaces/search.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Results/components/Results__title.dart';
-import 'package:fith_app__restaurant/widgets/Dish__card.dart';
+import 'package:restaurants/blocs/bloc/search/bloc/search_bloc.dart';
+import 'package:restaurants/interfaces/search.dart';
+import 'package:restaurants/tabs/Search/components/Results/components/Results__title.dart';
+import 'package:restaurants/widgets/Dish__card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

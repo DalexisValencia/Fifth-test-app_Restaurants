@@ -1,10 +1,10 @@
-import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
-import 'package:fith_app__restaurant/tabs/Favorites/components/favorites__EmptyList.dart';
-import 'package:fith_app__restaurant/tabs/Favorites/components/list__CardDish.dart';
-import 'package:fith_app__restaurant/tabs/Favorites/components/list__CardRestaurant.dart';
+import 'package:restaurants/blocs/bloc/favorites/bloc/favorites_bloc.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
+import 'package:restaurants/interfaces/Restaurants.dart';
+import 'package:restaurants/tabs/Favorites/components/favorites__EmptyList.dart';
+import 'package:restaurants/tabs/Favorites/components/list__CardDish.dart';
+import 'package:restaurants/tabs/Favorites/components/list__CardRestaurant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

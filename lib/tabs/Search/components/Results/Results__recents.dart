@@ -1,7 +1,7 @@
-import 'package:fith_app__restaurant/Lists/menu.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Results/components/Results__seeAll.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Results/components/Results__title.dart';
-import 'package:fith_app__restaurant/widgets/Dish__card.dart';
+import 'package:restaurants/Lists/menu.dart';
+import 'package:restaurants/tabs/Search/components/Results/components/Results__seeAll.dart';
+import 'package:restaurants/tabs/Search/components/Results/components/Results__title.dart';
+import 'package:restaurants/widgets/Dish__card.dart';
 import 'package:flutter/material.dart';
 
 class ResultRecents extends StatelessWidget {
