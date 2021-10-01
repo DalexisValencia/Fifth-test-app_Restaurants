@@ -71,5 +71,5 @@ snackBarAddCart(BuildContext context, name) {
     ),
   );
 
-  Scaffold.of(context).showSnackBar(snackBarCar);
+  ScaffoldMessenger.of(context).showSnackBar(snackBarCar);
 }

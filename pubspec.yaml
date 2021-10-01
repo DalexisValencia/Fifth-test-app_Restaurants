@@ -24,11 +24,11 @@ dependencies:
   flutter:
     sdk: flutter
   bloc: ^7.2.0
-  equatable: ^1.0.0
+  equatable: ^2.0.3
   flutter_bloc: ^7.2.0
   carousel_slider: ^4.0.0
   url_launcher: ^5.4.11
-  intl: ^0.16.1
+  intl: ^0.17.0
   keyboard_visibility: ^0.5.6
 
 

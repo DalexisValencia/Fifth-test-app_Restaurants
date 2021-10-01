@@ -78,7 +78,7 @@ class _PlateDetailScreenState extends State<PlateDetailScreen> {
           currentDish: widget.dish,
         ),
       )
-      ..listen((state) {
+      ..stream.listen((state) {
         if (state is DishCurrent) {
           startAnimationScreen();
         }

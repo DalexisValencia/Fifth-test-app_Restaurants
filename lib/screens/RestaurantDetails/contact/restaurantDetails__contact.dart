@@ -93,7 +93,7 @@ class ContactMethodsState extends State<ContactMethods> {
                           ),
                           backgroundColor: Theme.of(context).primaryColorDark,
                         );
-                        Scaffold.of(context).showSnackBar(snackBar);
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       }
                     },
                     child: Row(
