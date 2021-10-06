@@ -5,7 +5,6 @@ import 'package:restaurants/tabs/main.tabs.dart';
 import 'package:restaurants/screens/splashScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 void main() {
   runApp(MyApp());
 }

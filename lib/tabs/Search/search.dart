@@ -61,6 +61,9 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
         builder: (context, state) {
           SearchInitInterface suggestedSearches =
               state.props[0] as SearchInitInterface;
+          print(":::::::");
+          print(suggestedSearches);
+          print(":::::::");
           return Column(
             children: <Widget>[
               Container(
@@ -73,8 +76,9 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
                   //   tag: 'mainSearch',
                   //   child: FixedTopHeader(),
                   // )
-                  child:
-                      suggestedSearches == null ? SizedBox() : FixedTopHeader(),
+                  child: FixedTopHeader(),
+                  // child:
+                  //     suggestedSearches == null ? SizedBox() : FixedTopHeader(),
                 ),
               ),
               Expanded(
@@ -84,20 +88,20 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
                   child: Container(
                     width: MediaQuery.of(context).size.width,
                     child: SingleChildScrollView(
-                      child: suggestedSearches == null
-                          ? SizedBox()
-                          : Container(
-                              width: totalWidth,
-                              child: CustomContainerAnimation(
-                                animationChildren: animatedChildren,
-                                children: !activeResults &&
-                                        suggestedSearches.results!.length == 0
-                                    ? Suggested(
-                                        suggestedSearches: suggestedSearches,
-                                      )
-                                    : Results(),
-                              ),
-                            ),
+                      // child: suggestedSearches == null
+                      //     ? SizedBox() : ...
+                      child: Container(
+                        width: totalWidth,
+                        child: CustomContainerAnimation(
+                          animationChildren: animatedChildren,
+                          children: !activeResults &&
+                                  suggestedSearches.results!.length == 0
+                              ? Suggested(
+                                  suggestedSearches: suggestedSearches,
+                                )
+                              : Results(),
+                        ),
+                      ),
                     ),
                   ),
                 ),
