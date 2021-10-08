@@ -37,23 +37,26 @@ class FetchItems extends CartState {
   final List<Dishes>? dishes;
   final double? total;
   final int? amount;
-  final List<Dishes>? selecteds;
-  FetchItems({
+  // final List<Dishes>? selecteds;
+  FetchItems(
     this.dishes,
     this.total,
     this.amount,
-    this.selecteds,
-  });
+    // this.selecteds,
+  );
 
   @override
   List<Object> get props => [
         dishes!,
         total!,
         amount!,
-        selecteds!,
+        // selecteds!,
       ];
 
   @override
+  // List<Object> get props => ["esto"];
+
+  @override
   String toString() =>
-      'FetchItems {List of Dishes: $dishes && $total && $amount && $selecteds}';
+      'FetchItems {List of Dishes: Plato(s): $dishes && total: $total && cantidad: $amount && seleccionados: ??}';
 }

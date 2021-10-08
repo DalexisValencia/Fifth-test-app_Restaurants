@@ -29,10 +29,12 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         ..add(
           generateNewDish(event.dish!),
         );
+      print(finaldishes);
       yield FetchItems(
-        dishes: finaldishes,
-        total: _getTodal(finaldishes),
-        amount: _getAmountTotal(finaldishes),
+        finaldishes,
+        _getTodal(finaldishes),
+        _getAmountTotal(finaldishes),
+        // [],
       );
     }
 
@@ -50,9 +52,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         finaldishes.removeAt(0);
       }
       yield FetchItems(
-        dishes: finaldishes,
-        total: 0,
-        amount: _getAmountTotal(finaldishes),
+        finaldishes,
+        0,
+        _getAmountTotal(finaldishes),
+        // [],
       );
     }
 
@@ -85,9 +88,10 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       List<Dishes> finaldishes = List.from(copyListDishes)
         ..insert(indexFound, currentPlate);
       yield FetchItems(
-        dishes: finaldishes,
-        total: _getTodal(finaldishes),
-        amount: _getAmountTotal(finaldishes),
+        finaldishes,
+        _getTodal(finaldishes),
+        _getAmountTotal(finaldishes),
+        // [],
       );
     }
   }
