@@ -5,28 +5,18 @@ import 'package:restaurants/constants/contansts.dart';
 import 'package:restaurants/tabs/Search/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:animations/animations.dart';
 
 class WhatAreYouLookinForFormWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
-    return BlocProvider(
-      create: (BuildContext context) => SearchBloc()
-        ..add(
-          SearchInit(
-            findIn: 'all',
-          ),
-        ),
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
-        width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(),
-        child: Hero(
-          tag: 'mainSearch',
-          child: WhatAreYouLookinForForm(),
-        ),
-      ),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(),
+      child: WhatAreYouLookinForForm(),
     );
   }
 }
@@ -50,64 +40,62 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialButton(
-      // this was a RaisedButton
-      splashColor: Theme.of(context).buttonColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-      elevation: 4,
-      padding: EdgeInsets.fromLTRB(14, 13, 10, 13),
-      color: Theme.of(context).primaryColorLight,
-      onHighlightChanged: (value) {
-        if (value == false) {
-          final searchBloc = BlocProvider.of<SearchBloc>(context);
-          Navigator.of(context).push(
-            MaterialPageRoute<ScaffoldSearch>(
-              builder: (context) {
-                return MultiBlocProvider(
-                  providers: [
-                    BlocProvider<SearchBloc>.value(
-                      // create: (BuildContext context) => searchBloc,
-                      value: searchBloc,
-                      child: ScaffoldSearch(),
-                    ),
-                    BlocProvider<CartBloc>.value(
-                      value: cartBlocIntance,
-                      child: ScaffoldSearch(),
-                      // create: (BuildContext context) => cartBlocIntance,
-                    ),
-                    BlocProvider<FavoritesBloc>.value(
-                      value: favoriteBlocIntance,
-                      child: ScaffoldSearch(),
-                    ),
-                  ],
-                  child: ScaffoldSearch(),
-                );
-              },
+    return OpenContainer(
+      openBuilder: (BuildContext context, closedContainer) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider<SearchBloc>(
+              create: (BuildContext context) => SearchBloc()
+                ..add(
+                  SearchInit(
+                    findIn: 'all',
+                  ),
+                ),
+              child: ScaffoldSearch(),
             ),
-          );
-        }
+            BlocProvider<CartBloc>.value(
+              value: cartBlocIntance,
+              child: ScaffoldSearch(),
+            ),
+            BlocProvider<FavoritesBloc>.value(
+              value: favoriteBlocIntance,
+              child: ScaffoldSearch(),
+            ),
+          ],
+          child: ScaffoldSearch(),
+        );
       },
-      onPressed: () {},
-      child: Row(
-        children: <Widget>[
-          Icon(
-            Icons.search,
-            color: Theme.of(context).primaryColorDark,
+      openColor: Colors.black,
+      closedBuilder: (BuildContext context, closedContainer) {
+        return MaterialButton(
+          splashColor: Theme.of(context).buttonColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
           ),
-          SizedBox(
-            width: MediaQuery.of(context).size.width * 0.03,
+          elevation: 4,
+          padding: EdgeInsets.fromLTRB(14, 13, 10, 13),
+          color: Theme.of(context).primaryColorLight,
+          onPressed: () => closedContainer(),
+          child: Row(
+            children: <Widget>[
+              Icon(
+                Icons.search,
+                color: Theme.of(context).primaryColorDark,
+              ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.03,
+              ),
+              Text(
+                'What are you looking for?',
+                style: TextStyle(
+                  color: Theme.of(context).primaryColorDark,
+                  fontSize: 12,
+                ),
+              )
+            ],
           ),
-          Text(
-            'What are you looking for?',
-            style: TextStyle(
-              color: Theme.of(context).primaryColorDark,
-              fontSize: 12,
-            ),
-          )
-        ],
-      ),
+        );
+      },
     );
   }
 }

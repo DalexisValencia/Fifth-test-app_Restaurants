@@ -57,77 +57,76 @@ class _HomePageState extends State<HomePage>
     });
   }
 
-  Widget _containerSearch() {
-    return CustomContainerAnimation(
-      animationChildren: animationChildren,
-      children: WhatAreYouLookinForFormWrapper(),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     this.changeSystemBarColor();
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
     return Scaffold(
-        body: AnimatedOpacity(
-      opacity: animateOpacity ? 0 : 1,
-      duration: Duration(
-        milliseconds: animationOpacityTime,
-      ),
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Column(children: <Widget>[
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: ExactAssetImage(
-                    'assets/banner/break-fast.png',
+      body: AnimatedOpacity(
+        opacity: animateOpacity ? 0 : 1,
+        duration: Duration(
+          milliseconds: animationOpacityTime,
+        ),
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Column(children: <Widget>[
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: ExactAssetImage(
+                      'assets/banner/break-fast.png',
+                    ),
                   ),
                 ),
-              ),
-              child: Stack(
-                children: <Widget>[
-                  Positioned(
-                    width: MediaQuery.of(context).size.width,
-                    top: MediaQuery.of(context).padding.top,
-                    child: FixedTopMenu(),
-                  ),
-                  Positioned(
-                    left: withDefaultPadding,
-                    top: MediaQuery.of(context).size.height * 0.14,
-                    child: CustomContainerAnimation(
-                      animationChildren: animationChildren,
-                      children: HomeHeading(),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned(
+                      width: MediaQuery.of(context).size.width,
+                      top: MediaQuery.of(context).padding.top,
+                      child: FixedTopMenu(),
                     ),
-                  )
-                ],
+                    Positioned(
+                      left: withDefaultPadding,
+                      top: MediaQuery.of(context).size.height * 0.14,
+                      child: CustomContainerAnimation(
+                        animationChildren: animationChildren,
+                        children: HomeHeading(),
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-          Expanded(
-            child: Container(
-              transform: Matrix4.translationValues(
-                0,
-                -MediaQuery.of(context).size.width * 0.07,
-                0,
-              ),
-              child: Column(
-                children: <Widget>[
-                  _containerSearch(),
-                  CustomContainerAnimation(
-                    animationChildren: animationChildren,
-                    children: HomeCategoriesSuggested(),
-                  )
-                ],
+            Expanded(
+              child: Container(
+                transform: Matrix4.translationValues(
+                  0,
+                  -MediaQuery.of(context).size.width * 0.07,
+                  0,
+                ),
+                child: Column(
+                  children: <Widget>[
+                    //Search Field
+                    CustomContainerAnimation(
+                      animationChildren: animationChildren,
+                      children: WhatAreYouLookinForFormWrapper(),
+                    ),
+                    // Categories Card
+                    CustomContainerAnimation(
+                      animationChildren: animationChildren,
+                      children: HomeCategoriesSuggested(),
+                    )
+                  ],
+                ),
               ),
             ),
-          ),
-        ]),
+          ]),
+        ),
       ),
-    ));
+    );
   }
 }

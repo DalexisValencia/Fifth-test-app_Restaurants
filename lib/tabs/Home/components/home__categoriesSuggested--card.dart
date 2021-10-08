@@ -8,17 +8,19 @@ import 'package:restaurants/screens/Disscover/disscover.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SuggestedCard extends StatefulWidget {
+class HomeCategoriesSuggestedCard extends StatefulWidget {
   final Category? category;
-  SuggestedCard({
+  HomeCategoriesSuggestedCard({
     this.category,
   });
 
   @override
-  _SuggestedCardState createState() => _SuggestedCardState();
+  _HomeCategoriesSuggestedCardState createState() =>
+      _HomeCategoriesSuggestedCardState();
 }
 
-class _SuggestedCardState extends State<SuggestedCard> {
+class _HomeCategoriesSuggestedCardState
+    extends State<HomeCategoriesSuggestedCard> {
   DiscoveryBloc? blocDiscovery;
   CartBloc? blocCartInstance;
   FavoritesBloc? favoriteBlocInstance;
@@ -33,7 +35,6 @@ class _SuggestedCardState extends State<SuggestedCard> {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-      // this was a RaisedButton
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(7),
       ),
