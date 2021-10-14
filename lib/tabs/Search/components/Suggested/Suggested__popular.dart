@@ -2,7 +2,7 @@ import 'package:restaurants/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:restaurants/constants/contansts.dart';
 import 'package:restaurants/interfaces/Dishes.dart';
 import 'package:restaurants/widgets/SeeAll/Screen__seeAllSection.dart';
-import 'package:restaurants/widgets/Popular__dishCardComment.dart';
+import 'package:restaurants/widgets/dishCard/cardComment/CardComment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,6 +27,7 @@ class _SuggestedPopularState extends State<SuggestedPopular> {
                   (item) => new DishCardComment(
                     dish: item,
                   ),
+                  // (item) => new Text(": item,"),
                 )
                 .toList(),
           );

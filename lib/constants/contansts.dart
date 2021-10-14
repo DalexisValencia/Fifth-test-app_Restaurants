@@ -85,3 +85,10 @@ snackBarAddCart(BuildContext context, name) {
 
   ScaffoldMessenger.of(context).showSnackBar(snackBarCar);
 }
+
+// Split the First letter of the name and lastName to create a two Letters pseudonimo  like DV
+splitName(String name) {
+  String firtsLetter = name.split(' ')[0].substring(0, 1).toUpperCase();
+  String secondLetter = name.split(' ')[1].substring(0, 1).toUpperCase();
+  return firtsLetter + secondLetter;
+}

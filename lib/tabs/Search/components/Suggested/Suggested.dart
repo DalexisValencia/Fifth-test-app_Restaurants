@@ -50,6 +50,7 @@ class _SuggestedState extends State<Suggested> {
           height: 40,
           child: SuggestedCategories(), //Categories ActionChip
         ),
+        //Lista horizontal de platos sugeridos
         widget.suggestedSearches!.suggestions!.length >= 1
             ? SuggestedDishes(
                 suggestions: widget.suggestedSearches!.suggestions,
