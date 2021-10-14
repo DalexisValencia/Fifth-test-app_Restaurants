@@ -84,7 +84,10 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                               ..add(
                                 SearchInit(findIn: 'all'),
                               ),
-                            child: ScaffoldSearch(),
+                            child: ScaffoldSearch(
+                              from: 'tabs',
+                              controller: _tabController,
+                            ),
                           )
                         : SizedBox(),
                   ),

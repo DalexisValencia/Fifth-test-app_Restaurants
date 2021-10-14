@@ -5,6 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FixedTopHeader extends StatefulWidget {
+  final String? from;
+  final TabController? controller;
+  FixedTopHeader({
+    Key? key,
+    this.from,
+    this.controller,
+  }) : super(key: key);
   @override
   FixedTopHeaderState createState() => FixedTopHeaderState();
 }
@@ -166,7 +173,12 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
           color: Theme.of(context).primaryColorDark,
           bgColor: Theme.of(context).accentColor.withOpacity(.1),
           trigger: () {
-            Navigator.pop(context);
+            if (widget.from == 'nav') {
+              Navigator.pop(context);
+            }
+            if (widget.from == 'tabs') {
+              widget.controller!.animateTo(0);
+            }
           },
         ),
         Expanded(

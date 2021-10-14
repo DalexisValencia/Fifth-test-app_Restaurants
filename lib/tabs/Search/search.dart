@@ -12,6 +12,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:keyboard_visibility/keyboard_visibility.dart';
 
 class ScaffoldSearch extends StatefulWidget {
+  final String? from;
+  final TabController? controller;
+  ScaffoldSearch({
+    Key? key,
+    this.from,
+    this.controller,
+  }) : super(key: key);
+
   @override
   _ScaffoldSearchState createState() => _ScaffoldSearchState();
 }
@@ -61,9 +69,6 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
         builder: (context, state) {
           SearchInitInterface suggestedSearches =
               state.props[0] as SearchInitInterface;
-          print(":::::::");
-          print(suggestedSearches);
-          print(":::::::");
           return Column(
             children: <Widget>[
               Container(
@@ -76,7 +81,8 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
                   //   tag: 'mainSearch',
                   //   child: FixedTopHeader(),
                   // )
-                  child: FixedTopHeader(),
+                  child: FixedTopHeader(
+                      from: widget.from, controller: widget.controller),
                   // child:
                   //     suggestedSearches == null ? SizedBox() : FixedTopHeader(),
                 ),

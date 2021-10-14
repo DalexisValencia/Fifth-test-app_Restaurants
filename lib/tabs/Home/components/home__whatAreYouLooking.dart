@@ -46,6 +46,9 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
       openElevation: 0,
       closedElevation: 2,
       openBuilder: (BuildContext context, closedContainer) {
+        Widget screenSearch = ScaffoldSearch(
+          from: 'nav',
+        );
         return MultiBlocProvider(
           providers: [
             BlocProvider<SearchBloc>(
@@ -55,18 +58,18 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
                     findIn: 'all',
                   ),
                 ),
-              child: ScaffoldSearch(),
+              child: screenSearch,
             ),
             BlocProvider<CartBloc>.value(
               value: cartBlocIntance,
-              child: ScaffoldSearch(),
+              child: screenSearch,
             ),
             BlocProvider<FavoritesBloc>.value(
               value: favoriteBlocIntance,
-              child: ScaffoldSearch(),
+              child: screenSearch,
             ),
           ],
-          child: ScaffoldSearch(),
+          child: screenSearch,
         );
       },
       closedColor: Colors.transparent,
