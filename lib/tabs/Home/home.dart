@@ -72,6 +72,7 @@ class _HomePageState extends State<HomePage>
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           child: Column(children: <Widget>[
+            // Contenedor de imagen y menu superior
             Expanded(
               child: Container(
                 decoration: BoxDecoration(
@@ -82,6 +83,7 @@ class _HomePageState extends State<HomePage>
                     ),
                   ),
                 ),
+                // icon drawer, favorites y text 'have a good day'
                 child: Stack(
                   children: <Widget>[
                     Positioned(
@@ -101,6 +103,7 @@ class _HomePageState extends State<HomePage>
                 ),
               ),
             ),
+            // Contenedor buscador y categorias
             Expanded(
               child: Container(
                 transform: Matrix4.translationValues(

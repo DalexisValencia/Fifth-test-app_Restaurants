@@ -1,4 +1,4 @@
-import 'package:restaurants/Lists/menu.dart';
+import 'package:restaurants/Lists/mainCategories.dart';
 import 'package:restaurants/constants/contansts.dart';
 import 'package:restaurants/tabs/Home/components/home__categoriesSuggested--card.dart';
 import 'package:flutter/material.dart';
