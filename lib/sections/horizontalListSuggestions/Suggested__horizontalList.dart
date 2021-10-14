@@ -1,9 +1,16 @@
 import 'package:restaurants/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:restaurants/constants/contansts.dart';
 import 'package:restaurants/interfaces/Dishes.dart';
-import 'package:restaurants/widgets/Suggested__dishCard.dart';
+import 'package:restaurants/sections/horizontalListSuggestions/Suggested__horizontalList--Card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+/*
+Encargado de mostrar una sugerencia de platos mediante un slider horizontal.
+Usado en:
+1. Suggested -> Platos Sugeridos en la sección del busqueda.
+2. RestaurantDetailsSuggestions -> Platos Sugeridos en la sección del restarante.
+*/
 
 class SuggestedHorizontalList extends StatefulWidget {
   final List<Dishes>? suggestions;
@@ -42,7 +49,6 @@ class _SuggestedHorizontalListState extends State<SuggestedHorizontalList> {
             return SuggestionDishCard(
               suggestion: widget.suggestions![index],
             );
-            // return Text("Info");
           },
         ),
       ),

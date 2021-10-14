@@ -48,7 +48,7 @@ class _SuggestedState extends State<Suggested> {
           ),
           width: totalWidth,
           height: 40,
-          child: SuggestedCategories(),
+          child: SuggestedCategories(), //Categories ActionChip
         ),
         widget.suggestedSearches!.suggestions!.length >= 1
             ? SuggestedDishes(
@@ -66,9 +66,6 @@ class _SuggestedState extends State<Suggested> {
                     widget.suggestedSearches!.highlightRestaurants,
               )
             : SizedBox(),
-        Text(
-          "Cuando se busca desde la vista de resurante",
-        ),
         SizedBox(
           height: 20,
         )

@@ -28,7 +28,7 @@ class _AddtoCarState extends State<AddtoCar> {
   }
 
   String finalPrice(amount, additionals) {
-    late List<PricePromotions> specialPrice;
+    List<PricePromotions>? specialPrice = [];
     List<PricePromotions> promotionsPrices =
         widget.dish!.promotionLabel!.pricePromotions!;
     if (promotionsPrices.length >= 1) {
@@ -44,6 +44,7 @@ class _AddtoCarState extends State<AddtoCar> {
         ? formatterPrice((specialPrice[0].price)! + additionals).toString()
         : formatterPrice((widget.dish!.price! * amount) + additionals)
             .toString();
+    // return 0.toString();
   }
 
   void addToCart(Dishes detailDish) {

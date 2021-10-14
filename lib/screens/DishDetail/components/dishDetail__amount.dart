@@ -46,7 +46,7 @@ class _AmountDishesState extends State<AmountDishes> {
   }
 
   String _priceDish(amount) {
-    late List<PricePromotions> specialPrice;
+    List<PricePromotions>? specialPrice = [];
     if (widget.promos!.length >= 1) {
       specialPrice = widget.promos!.where((element) {
         PricePromotions promos = element as PricePromotions;

@@ -39,6 +39,7 @@ class _SuggestionDishCardState extends State<SuggestionDishCard> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
             image: DecorationImage(
+              // Imagen de la tarjeta
               fit: BoxFit.cover,
               image: ExactAssetImage(
                 widget.suggestion!.image!,
@@ -56,6 +57,10 @@ class _SuggestionDishCardState extends State<SuggestionDishCard> {
             ),
             elevation: 0,
             onPressed: () {
+              // Se guarda el screen, para una mejor reutilización
+              Widget plateDetailScreenIns = PlateDetailScreen(
+                dish: widget.suggestion,
+              );
               Navigator.of(context).push(
                 MaterialPageRoute<PlateDetailScreen>(
                   builder: (context) {
@@ -66,20 +71,14 @@ class _SuggestionDishCardState extends State<SuggestionDishCard> {
                         ),
                         BlocProvider<CartBloc>.value(
                           value: instanceCartBloc,
-                          child: PlateDetailScreen(
-                            dish: widget.suggestion,
-                          ),
+                          child: plateDetailScreenIns,
                         ),
                         BlocProvider<FavoritesBloc>.value(
                           value: favoriteBlocInstance,
-                          child: PlateDetailScreen(
-                            dish: widget.suggestion,
-                          ),
+                          child: plateDetailScreenIns,
                         )
                       ],
-                      child: PlateDetailScreen(
-                        dish: widget.suggestion,
-                      ),
+                      child: plateDetailScreenIns,
                     );
                   },
                 ),
