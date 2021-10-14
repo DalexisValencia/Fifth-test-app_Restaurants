@@ -9,7 +9,7 @@ import 'package:restaurants/tabs/Search/components/Suggested/Suggested.dart';
 import 'package:restaurants/widgets/AnimationContainerWrapper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:keyboard_visibility/keyboard_visibility.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 
 class ScaffoldSearch extends StatefulWidget {
   final String? from;
@@ -33,13 +33,6 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
   void initState() {
     super.initState();
     this.startAnimationScreen();
-    // KeyboardVisibilityNotification().addNewListener(
-    //   onChange: (bool visible) {
-    //     setState(() {
-    //       this.activeResults = visible;
-    //     });
-    //   },
-    // );
   }
 
   void startAnimationScreen() {
@@ -59,73 +52,68 @@ class _ScaffoldSearchState extends State<ScaffoldSearch> {
     });
   }
 
-  Widget _bodyScaffold() {
+  @override
+  Widget build(BuildContext context) {
     double totalWidth = MediaQuery.of(context).size.width;
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
-    return Container(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-      child: BlocBuilder<SearchBloc, SearchState>(
-        builder: (context, state) {
-          SearchInitInterface suggestedSearches =
-              state.props[0] as SearchInitInterface;
-          return Column(
-            children: <Widget>[
-              Container(
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: withDefaultPadding - 10),
-                  height: defaultHeaderCustomHeight,
-                  width: totalWidth,
-                  // child: Hero(
-                  //   tag: 'mainSearch',
-                  //   child: FixedTopHeader(),
-                  // )
-                  child: FixedTopHeader(
-                      from: widget.from, controller: widget.controller),
-                  // child:
-                  //     suggestedSearches == null ? SizedBox() : FixedTopHeader(),
-                ),
-              ),
-              Expanded(
-                child: AnimatedOpacity(
-                  duration: Duration(milliseconds: 500),
-                  opacity: animateOpacity ? 0 : 1,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: SingleChildScrollView(
-                      // child: suggestedSearches == null
-                      //     ? SizedBox() : ...
-                      child: Container(
-                        width: totalWidth,
-                        child: CustomContainerAnimation(
-                          animationChildren: animatedChildren,
-                          children: !activeResults &&
-                                  suggestedSearches.results!.length == 0
-                              ? Suggested(
-                                  suggestedSearches: suggestedSearches,
-                                )
-                              : Results(),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              )
-            ],
-          );
-        },
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       // resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).primaryColorLight,
-      body: _bodyScaffold(),
+      body: Container(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        child: BlocBuilder<SearchBloc, SearchState>(
+          builder: (context, state) {
+            SearchInitInterface suggestedSearches =
+                state.props[0] as SearchInitInterface;
+            return Column(
+              children: <Widget>[
+                Container(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: withDefaultPadding - 10,
+                    ),
+                    height: defaultHeaderCustomHeight,
+                    width: totalWidth,
+                    child: FixedTopHeader(
+                      from: widget.from,
+                      controller: widget.controller,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: AnimatedOpacity(
+                    duration: Duration(milliseconds: 200),
+                    opacity: animateOpacity ? 0 : 1,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: SingleChildScrollView(
+                        child: Container(
+                          width: totalWidth,
+                          child: CustomContainerAnimation(
+                            animationChildren: animatedChildren,
+                            children: KeyboardVisibilityBuilder(
+                              builder: (context, isKeyboardVisible) {
+                                return !isKeyboardVisible &&
+                                        suggestedSearches.results!.length == 0
+                                    ? Suggested(
+                                        suggestedSearches: suggestedSearches,
+                                      )
+                                    : Results();
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              ],
+            );
+          },
+        ),
+      ),
     );
   }
 
