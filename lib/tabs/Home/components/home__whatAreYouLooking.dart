@@ -13,9 +13,11 @@ class WhatAreYouLookinForFormWrapper extends StatelessWidget {
     double withDefaultPadding =
         MediaQuery.of(context).size.width * defaultPadding;
     return Container(
+      decoration: BoxDecoration(
+        color: Colors.transparent,
+      ),
       padding: EdgeInsets.symmetric(horizontal: withDefaultPadding),
       width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(),
       child: WhatAreYouLookinForForm(),
     );
   }
@@ -41,6 +43,8 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
   @override
   Widget build(BuildContext context) {
     return OpenContainer(
+      openElevation: 0,
+      closedElevation: 2,
       openBuilder: (BuildContext context, closedContainer) {
         return MultiBlocProvider(
           providers: [
@@ -65,14 +69,15 @@ class _WhatAreYouLookinForFormState extends State<WhatAreYouLookinForForm> {
           child: ScaffoldSearch(),
         );
       },
-      openColor: Colors.black,
+      closedColor: Colors.transparent,
+      openColor: Colors.transparent,
       closedBuilder: (BuildContext context, closedContainer) {
         return MaterialButton(
           splashColor: Theme.of(context).buttonColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),
-          elevation: 4,
+          elevation: 0,
           padding: EdgeInsets.fromLTRB(14, 13, 10, 13),
           color: Theme.of(context).primaryColorLight,
           onPressed: () => closedContainer(),
