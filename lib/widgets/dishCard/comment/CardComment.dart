@@ -5,9 +5,9 @@ import 'package:restaurants/interfaces/Dishes.dart';
 import 'package:restaurants/screens/DishDetail/dishDetail.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurants/widgets/dishCard/cardComment/CardComment__comment.dart';
-import 'package:restaurants/widgets/dishCard/cardComment/CardComment__details.dart';
-import 'package:restaurants/widgets/dishCard/cardComment/CardComment__image.dart';
+import 'package:restaurants/widgets/dishCard/comment/CardComment__comment.dart';
+import 'package:restaurants/widgets/dishCard/comment/CardComment__details.dart';
+import 'package:restaurants/widgets/dishCard/comment/CardComment__image.dart';
 
 class DishCardComment extends StatefulWidget {
   final Dishes? dish;

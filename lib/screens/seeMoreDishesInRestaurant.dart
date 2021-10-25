@@ -6,7 +6,7 @@ import 'package:restaurants/constants/contansts.dart';
 import 'package:restaurants/interfaces/Dishes.dart';
 import 'package:restaurants/interfaces/Restaurants.dart';
 import 'package:restaurants/widgets/AnimationContainerWrapper.dart';
-import 'package:restaurants/widgets/dishCard/cardComment/CardComment.dart';
+import 'package:restaurants/widgets/dishCard/comment/CardComment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
