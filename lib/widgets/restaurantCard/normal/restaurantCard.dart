@@ -7,9 +7,9 @@ import 'package:restaurants/screens/RestaurantDetails/restaurantDetails.dart';
 // import 'package:restaurants/widgets/Button_roundWithIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:restaurants/widgets/restaurantCard/restaurantCard__seemore.dart';
-import 'package:restaurants/widgets/restaurantCard/restaurantCard__favorite.dart';
-import 'package:restaurants/widgets/restaurantCard/restaurantCard__headline.dart';
+import 'package:restaurants/widgets/restaurantCard/normal/restaurantCard__seemore.dart';
+import 'package:restaurants/widgets/restaurantCard/normal/restaurantCard__favorite.dart';
+import 'package:restaurants/widgets/restaurantCard/normal/restaurantCard__headline.dart';
 
 class HightlightResturantsCard extends StatefulWidget {
   final Restaurants? hightlight;

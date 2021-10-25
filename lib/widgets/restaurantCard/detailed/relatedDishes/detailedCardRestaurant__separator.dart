@@ -1,7 +1,7 @@
 import 'package:restaurants/constants/contansts.dart';
 import 'package:flutter/material.dart';
 
-class SeparatorLine extends StatelessWidget {
+class DetailedCardRestaurantSeparator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
