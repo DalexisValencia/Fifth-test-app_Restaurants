@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
 class EmptySections extends StatelessWidget {
+  final String? label;
+  EmptySections({
+    Key? key,
+    this.label = "This section is empty",
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -15,7 +20,7 @@ class EmptySections extends StatelessWidget {
       child: Align(
         alignment: Alignment.center,
         child: Text(
-          "This section is empty",
+          label!,
           style: TextStyle(
             color: Colors.grey[500],
             fontWeight: FontWeight.bold,

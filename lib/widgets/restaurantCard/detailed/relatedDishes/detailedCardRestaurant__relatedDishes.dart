@@ -64,10 +64,13 @@ class _MainTopRestaurantState extends State<MainTopRestaurant> {
                   ),
                 )
               : Container(
-                  margin: EdgeInsets.only(
-                    right: MediaQuery.of(context).size.width * defaultPadding,
+                  margin: EdgeInsets.symmetric(
+                    horizontal:
+                        MediaQuery.of(context).size.width * defaultPadding,
                   ),
-                  child: EmptySections(),
+                  child: EmptySections(
+                    label: "There's no related dishes",
+                  ),
                 ),
           DetailedCardRestaurantSeparator(),
         ],
