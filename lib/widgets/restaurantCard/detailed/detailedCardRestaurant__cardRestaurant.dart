@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurants/widgets/restaurantCard/detailed/detailedCardRestaurant__overlayDetail.dart';
 
+/*
+Utilizado en la sección disscover, en tops Restaurant
+ */
 class RestaurantTopSummary extends StatefulWidget {
   final Restaurants? resturant;
   RestaurantTopSummary({
