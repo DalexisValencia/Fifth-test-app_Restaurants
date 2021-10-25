@@ -4,14 +4,13 @@ import 'package:restaurants/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:restaurants/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:restaurants/constants/contansts.dart';
 import 'package:restaurants/interfaces/Discovery.dart';
-import 'package:restaurants/screens/Disscover/components/NearYou/nearYou.dart';
-import 'package:restaurants/screens/Disscover/components/NewLaunch/newLaunch.dart';
-import 'package:restaurants/screens/Disscover/components/TopRestaurants/topRestaurants.dart';
+import 'package:restaurants/screens/Disscover/nearYou.dart';
+import 'package:restaurants/screens/Disscover/newLaunch.dart';
+import 'package:restaurants/screens/Disscover/topRestaurants.dart';
 import 'package:restaurants/widgets/AnimationContainerWrapper.dart';
 import 'package:restaurants/widgets/Navigation/Navigation.dart';
 import 'package:restaurants/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DiscoverScaffold extends StatefulWidget {
