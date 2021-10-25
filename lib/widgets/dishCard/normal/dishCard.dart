@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurants/widgets/dishCard/normal/dishCard__image.dart';
 import 'package:restaurants/widgets/dishCard/normal/dishCard__details.dart';
-// Bloc pattern:
 
 class DishCard extends StatefulWidget {
   final Dishes? dish;
