@@ -1,7 +1,7 @@
 import 'package:restaurants/interfaces/Dishes.dart';
-import 'package:restaurants/screens/Disscover/components/NewLaunch/components/newLauch__card.dart';
 import 'package:restaurants/widgets/SeeAll/Screen__seeAllSection.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurants/widgets/dishCard/newLaunch/newLauchCard.dart';
 
 class NewLaunch extends StatefulWidget {
   final List<Dishes>? newLaunched;

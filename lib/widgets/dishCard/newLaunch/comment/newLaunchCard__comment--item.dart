@@ -1,10 +1,11 @@
 import 'package:restaurants/interfaces/Comments.dart';
-import 'package:restaurants/screens/Disscover/components/NewLaunch/components/newLaunch__seeAllComments.dart';
+// import 'package:restaurants/screens/Disscover/components/NewLaunch/components/newLaunch__seeAllComments.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurants/widgets/dishCard/newLaunch/comment/newLaunchCard__comments--seeAll.dart';
 
-class NewLaunchComments extends StatelessWidget {
+class NewLaunchCardCommentItems extends StatelessWidget {
   final List<Comments>? comments;
-  NewLaunchComments({
+  NewLaunchCardCommentItems({
     this.comments,
   });
 
@@ -80,7 +81,7 @@ class NewLaunchComments extends StatelessWidget {
           }).toList();
           if (comments!.length > 2) {
             wComments.add(
-              SeeAllCommentsCard(),
+              NewLauchCardCommentSeeAll(),
             );
           }
           return Column(
