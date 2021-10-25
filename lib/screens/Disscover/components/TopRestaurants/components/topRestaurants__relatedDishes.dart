@@ -1,6 +1,6 @@
 import 'package:restaurants/constants/contansts.dart';
 import 'package:restaurants/interfaces/Dishes.dart';
-import 'package:restaurants/widgets/dishCard/card/Dish__card.dart';
+import 'package:restaurants/widgets/dishCard/normal/dishCard.dart';
 import 'package:flutter/material.dart';
 
 class RelatedDishesTopRestaurant extends StatelessWidget {

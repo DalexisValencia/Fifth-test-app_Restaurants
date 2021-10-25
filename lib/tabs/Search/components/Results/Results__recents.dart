@@ -1,7 +1,7 @@
 import 'package:restaurants/Lists/menu.dart';
 import 'package:restaurants/tabs/Search/components/Results/components/Results__seeAll.dart';
 import 'package:restaurants/tabs/Search/components/Results/components/Results__title.dart';
-import 'package:restaurants/widgets/dishCard/card/Dish__card.dart';
+import 'package:restaurants/widgets/dishCard/normal/dishCard.dart';
 import 'package:flutter/material.dart';
 
 class ResultRecents extends StatelessWidget {
