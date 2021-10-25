@@ -1,6 +1,6 @@
 import 'package:restaurants/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
 import 'package:restaurants/interfaces/Restaurants.dart';
-import 'package:restaurants/widgets/Hightlight__resturantsCard.dart';
+import 'package:restaurants/widgets/restaurantCard/restaurantCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
