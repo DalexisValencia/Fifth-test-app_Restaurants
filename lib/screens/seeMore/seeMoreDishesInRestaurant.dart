@@ -10,6 +10,9 @@ import 'package:restaurants/widgets/dishCard/comment/CardComment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/*
+this page isn't used
+*/
 class SeeMoreDishesByRestaurant extends StatefulWidget {
   final String? searchKey;
   SeeMoreDishesByRestaurant({this.searchKey});
