@@ -1,8 +1,8 @@
 import 'package:restaurants/blocs/bloc/additional/additionals_bloc.dart';
-import 'package:restaurants/screens/DishDetail/components/Additionals/components/additionals__expansionPanel.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurants/interfaces/aditional.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurants/screens/DishDetail/Aditionals/dishDetail__additionals--expansionPanel.dart';
 
 class Aditionals extends StatefulWidget {
   final List<Adittional>? aditionals;

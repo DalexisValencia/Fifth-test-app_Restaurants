@@ -12,12 +12,14 @@ class Navigation extends StatelessWidget {
   final Function? onPressed;
   final String? category;
   final Color? iconColor;
+  final Color? goBackColor;
   Navigation({
     this.secondItem,
     this.amout,
     this.onPressed,
     this.category,
     this.iconColor,
+    this.goBackColor = tertiaryColor,
   });
   Widget _secondaryItem() {
     switch (secondItem) {
@@ -52,7 +54,7 @@ class Navigation extends StatelessWidget {
       height: defaultHeaderCustomHeight,
       child: AppBarCustom(
         iconLeft: GoBackButton(
-          iconColor: iconColor,
+          iconColor: this.goBackColor,
         ),
         iconRigth: _secondaryItem(),
       ),

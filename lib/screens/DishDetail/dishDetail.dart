@@ -3,19 +3,18 @@ import 'dart:async';
 import 'package:restaurants/blocs/bloc/additional/additionals_bloc.dart';
 import 'package:restaurants/blocs/bloc/dish/bloc/dish_bloc.dart';
 import 'package:restaurants/blocs/bloc/dishAmount/bloc/dishamount_bloc.dart';
-import 'package:restaurants/blocs/bloc/favorites/bloc/favorites_bloc.dart';
 import 'package:restaurants/constants/contansts.dart';
 import 'package:restaurants/interfaces/Dishes.dart';
-import 'package:restaurants/screens/DishDetail/components/dishDetail__addButton.dart';
-import 'package:restaurants/screens/DishDetail/components/dishDetail__feaures.dart';
-import 'package:restaurants/screens/DishDetail/components/dishDetail__portrait.dart';
+import 'package:restaurants/screens/DishDetail/dishDetail__addButton.dart';
 import 'package:restaurants/screens/DishDetail/components/additionals/dishDetail__additionals.dart';
-import 'package:restaurants/screens/DishDetail/components/dishDetail__amount.dart';
-import 'package:restaurants/screens/DishDetail/components/dishDetail__ingredients.dart';
-import 'package:restaurants/screens/DishDetail/components/dishDetail__dishSummary.dart';
-import 'package:restaurants/widgets/Navigation/navigation.dart';
+import 'package:restaurants/screens/DishDetail/dishDetail__amount.dart';
+import 'package:restaurants/screens/DishDetail/dishDetail__dishSummary.dart';
+import 'package:restaurants/screens/DishDetail/dishDetail__feaures.dart';
+import 'package:restaurants/screens/DishDetail/dishDetail__header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:restaurants/screens/DishDetail/dishDetail__ingredients.dart';
+import 'package:restaurants/screens/DishDetail/dishDetail__portrait.dart';
 
 class PlateDetailScreen extends StatefulWidget {
   final Dishes? dish;
@@ -33,7 +32,6 @@ class _PlateDetailScreenState extends State<PlateDetailScreen> {
   late DishBloc instanceDishBloc;
   bool animationChildren = true;
   late ScrollController _controller;
-  late FavoritesBloc favoriteBlocInstance;
   _scrollListener() {
     if (_controller.offset > 100 && !minSizeReached) {
       setState(() {
@@ -83,8 +81,6 @@ class _PlateDetailScreenState extends State<PlateDetailScreen> {
           startAnimationScreen();
         }
       });
-
-    favoriteBlocInstance = BlocProvider.of<FavoritesBloc>(context);
   }
 
   //Cuando avandonamos la vista volvemos al estado de plato vacio
@@ -167,68 +163,14 @@ class _PlateDetailScreenState extends State<PlateDetailScreen> {
                     ),
                   ),
                 ),
-                Positioned(
-                  top: 0,
-                  child: AnimatedContainer(
-                    decoration: BoxDecoration(
-                      color: minSizeReached ? Colors.white : Colors.transparent,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 0.5,
-                          color: minSizeReached
-                              ? Theme.of(context).primaryColor
-                              : Colors.transparent,
-                          offset: Offset(2, 0),
-                        )
-                      ],
-                    ),
-                    duration: Duration(
-                      milliseconds: 500,
-                    ),
-                    curve: Curves.ease,
-                    padding: EdgeInsets.only(
-                      bottom: 10,
-                    ),
-                    width: MediaQuery.of(context).size.width,
-                    child: BlocBuilder<FavoritesBloc, FavoritesState>(
-                      builder: (BuildContext context, FavoritesState state) {
-                        List<Dishes> favoriteDishes =
-                            state.props[1] as List<Dishes>;
-                        return Navigation(
-                          secondItem: 'favorite',
-                          onPressed: () {
-                            favoriteBlocInstance.add(
-                              FavoriteAddDish(dish: dish),
-                            );
-                          },
-                          iconColor: favoriteDishes.contains(dish)
-                              ? Theme.of(context).buttonColor
-                              : minSizeReached
-                                  ? Theme.of(context).primaryColorDark
-                                  : Theme.of(context).primaryColorLight,
-                        );
-                      },
-                    ),
-                  ),
+                // here header
+                DishDetailHeader(
+                  dish: dish,
+                  minSizeReached: minSizeReached,
                 ),
-                Positioned(
-                  bottom: 0,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: Container(
-                      color: Colors.red,
-                      margin: EdgeInsets.all(0),
-                      padding: EdgeInsets.all(0),
-                      width: MediaQuery.of(context).size.width,
-                      height: 60,
-                      child: SizedBox.expand(
-                        child: AddtoCar(
-                          dish: dish,
-                        ),
-                      ),
-                    ),
-                  ),
-                )
+                AddtoCar(
+                  dish: dish,
+                ),
               ],
             ),
           ),
