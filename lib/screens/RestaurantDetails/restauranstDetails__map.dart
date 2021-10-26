@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class WrapperMap extends StatelessWidget {
+class RestaurantdetailMap extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

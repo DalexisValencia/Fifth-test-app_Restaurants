@@ -4,9 +4,9 @@ import 'package:restaurants/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.da
 import 'package:restaurants/constants/contansts.dart';
 
 import 'package:restaurants/interfaces/Restaurants.dart';
-import 'package:restaurants/screens/RestaurantDetails/components/restaurantsDetails__title.dart';
+import 'package:restaurants/screens/RestaurantDetails/restaurantsDetails__features.dart';
 import 'package:restaurants/screens/RestaurantDetails/hightlight/restaurantDetails__hightlightDish.dart';
-import 'package:restaurants/screens/RestaurantDetails/map/restauranstDetails__map.dart';
+import 'package:restaurants/screens/RestaurantDetails/restauranstDetails__map.dart';
 import 'package:restaurants/screens/RestaurantDetails/suggestions/restaurantsDetails__suggestions.dart';
 import 'package:restaurants/screens/RestaurantDetails/contact/restaurantDetails__contact.dart';
 import 'package:restaurants/screens/RestaurantDetails/options/restaurantDetails__options.dart';
@@ -98,11 +98,11 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
               animationChildren: animationScreenContainer,
               children: Column(
                 children: <Widget>[
-                  RestaurantdetailTitle(
+                  RestaurantdetailFeatures(
                     title: currentRestaurant.name,
                     subtitle: currentRestaurant.description,
                   ),
-                  WrapperMap(),
+                  RestaurantdetailMap(),
                   currentRestaurant.lunchNow!.isNotEmpty
                       ? DetailHighlightProduct(
                           highlishDishes: currentRestaurant.lunchNow,

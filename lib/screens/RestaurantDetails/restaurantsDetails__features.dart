@@ -1,9 +1,9 @@
 import 'package:restaurants/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
 
-class RestaurantdetailTitle extends StatelessWidget {
+class RestaurantdetailFeatures extends StatelessWidget {
   final String? title, subtitle;
-  RestaurantdetailTitle({
+  RestaurantdetailFeatures({
     Key? key,
     this.title,
     this.subtitle,
