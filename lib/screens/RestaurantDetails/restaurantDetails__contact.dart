@@ -3,16 +3,17 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:restaurants/constants/contansts.dart';
 
-class ContactMethods extends StatefulWidget {
+class RestaurantDetailsContact extends StatefulWidget {
   final List<ContactMeans>? contact;
-  ContactMethods({
+  RestaurantDetailsContact({
     this.contact,
   });
   @override
-  ContactMethodsState createState() => ContactMethodsState();
+  _RestaurantDetailsContactState createState() =>
+      _RestaurantDetailsContactState();
 }
 
-class ContactMethodsState extends State<ContactMethods> {
+class _RestaurantDetailsContactState extends State<RestaurantDetailsContact> {
   @override
   Widget build(BuildContext context) {
     double withDefaultPadding =

@@ -1,12 +1,13 @@
-import 'package:restaurants/screens/RestaurantDetails/options/components/options__circle.dart';
+import 'package:restaurants/widgets/shared/shared__circle.dart';
 import 'package:flutter/material.dart';
 
-class RoundedOptionsContactWrapper extends StatefulWidget {
+class RestaurantDetailsShared extends StatefulWidget {
   @override
-  _RoundedOptionsContactState createState() => _RoundedOptionsContactState();
+  _RestaurantDetailsSharedState createState() =>
+      _RestaurantDetailsSharedState();
 }
 
-class _RoundedOptionsContactState extends State<RoundedOptionsContactWrapper> {
+class _RestaurantDetailsSharedState extends State<RestaurantDetailsShared> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,19 +18,19 @@ class _RoundedOptionsContactState extends State<RoundedOptionsContactWrapper> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          CircleOption(
+          SharedCircle(
             icon: Icons.share,
             title: 'Share',
           ),
-          CircleOption(
+          SharedCircle(
             icon: Icons.comment,
             title: 'Comment',
           ),
-          CircleOption(
+          SharedCircle(
             icon: Icons.calendar_today,
             title: 'Schedule',
           ),
-          CircleOption(
+          SharedCircle(
             icon: Icons.assignment,
             title: 'Rerserve',
           )

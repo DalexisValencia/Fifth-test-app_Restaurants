@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
-class CircleOption extends StatefulWidget {
+class SharedCircle extends StatefulWidget {
   final String? title;
   final IconData? icon;
-  CircleOption({
+  SharedCircle({
     this.title,
     this.icon,
   });
   @override
-  _CircleOptionState createState() => _CircleOptionState();
+  _SharedCircleState createState() => _SharedCircleState();
 }
 
-class _CircleOptionState extends State<CircleOption> {
+class _SharedCircleState extends State<SharedCircle> {
   @override
   Widget build(BuildContext context) {
     return Column(

@@ -8,8 +8,8 @@ import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__feature
 import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__hightlight.dart';
 import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__map.dart';
 import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__suggestions.dart';
-import 'package:restaurants/screens/RestaurantDetails/contact/restaurantDetails__contact.dart';
-import 'package:restaurants/screens/RestaurantDetails/options/restaurantDetails__options.dart';
+import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__contact.dart';
+import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__shared.dart';
 import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__categories.dart';
 import 'package:restaurants/widgets/AnimationContainerWrapper.dart';
 import 'package:restaurants/widgets/Navigation/navigation.dart';
@@ -119,9 +119,9 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
                           suggestions: currentRestaurant.suggestions,
                         )
                       : SizedBox(),
-                  RoundedOptionsContactWrapper(),
+                  RestaurantDetailsShared(),
                   currentRestaurant.contact!.isNotEmpty
-                      ? ContactMethods(
+                      ? RestaurantDetailsContact(
                           contact: currentRestaurant.contact,
                         )
                       : SizedBox(),
