@@ -37,14 +37,10 @@ class _AddtoCarState extends State<AddtoCar> {
         return promos.amount == amount;
       }).toList();
     }
-    // return specialPrice
-    //     ? formatterPrice((widget.dish!.price! * amount) + additionals).toString()
-    //     :
     return specialPrice.length >= 1
         ? formatterPrice((specialPrice[0].price)! + additionals).toString()
         : formatterPrice((widget.dish!.price! * amount) + additionals)
             .toString();
-    // return 0.toString();
   }
 
   void addToCart(Dishes detailDish) {
@@ -80,9 +76,6 @@ class _AddtoCarState extends State<AddtoCar> {
           width: MediaQuery.of(context).size.width,
           height: 60,
           child: SizedBox.expand(
-            // child: AddtoCar(
-            //   dish: dish,
-            // ),
             child: Container(
               decoration: BoxDecoration(
                 border: Border(

@@ -1,8 +1,8 @@
-//Especificaciones del plato. Icono - Nombre - Descripción y calificaciones
 import 'package:restaurants/constants/contansts.dart';
 import 'package:restaurants/interfaces/Dishes.dart';
 import 'package:flutter/material.dart';
 
+//Especificaciones del plato. Icono - Nombre - Descripción y calificaciones
 class DetailFeatures extends StatelessWidget {
   final Dishes? dish;
   DetailFeatures({

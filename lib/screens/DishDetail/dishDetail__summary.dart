@@ -18,18 +18,19 @@ class _DishSummaryState extends State<DishSummary> {
 
   Widget _header() {
     return Container(
-        width: MediaQuery.of(context).size.width,
-        margin: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width * 0.07,
-            right: MediaQuery.of(context).size.width * 0.07,
-            bottom: 10),
-        child: Text(
-          "Summary",
-          textAlign: TextAlign.left,
-          style: Theme.of(context).textTheme.subtitle1!.copyWith(
-              fontWeight: FontWeight.bold,
-              color: Theme.of(context).primaryColorDark),
-        ));
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.only(
+          left: MediaQuery.of(context).size.width * 0.07,
+          right: MediaQuery.of(context).size.width * 0.07,
+          bottom: 10),
+      child: Text(
+        "Summary",
+        textAlign: TextAlign.left,
+        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).primaryColorDark),
+      ),
+    );
   }
 
   Widget _body() {
