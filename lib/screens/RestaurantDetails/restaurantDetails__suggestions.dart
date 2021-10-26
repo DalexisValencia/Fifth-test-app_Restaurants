@@ -5,18 +5,18 @@ import 'package:restaurants/widgets/SeeAll/Screen__seeAllSection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RestaurantDetailsSuggestions extends StatefulWidget {
+class RestaurantDetailSuggestions extends StatefulWidget {
   final List<Dishes>? suggestions;
-  RestaurantDetailsSuggestions({
+  RestaurantDetailSuggestions({
     this.suggestions,
   });
   @override
-  _RestaurantDetailsSuggestionsState createState() =>
-      _RestaurantDetailsSuggestionsState();
+  _RestaurantDetailSuggestionsState createState() =>
+      _RestaurantDetailSuggestionsState();
 }
 
-class _RestaurantDetailsSuggestionsState
-    extends State<RestaurantDetailsSuggestions> {
+class _RestaurantDetailSuggestionsState
+    extends State<RestaurantDetailSuggestions> {
   late DetailsrestaurantBloc instancerestaurantBloc;
   @override
   void initState() {

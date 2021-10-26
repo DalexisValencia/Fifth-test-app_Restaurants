@@ -4,13 +4,13 @@ import 'package:restaurants/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.da
 import 'package:restaurants/constants/contansts.dart';
 
 import 'package:restaurants/interfaces/Restaurants.dart';
-import 'package:restaurants/screens/RestaurantDetails/restaurantsDetails__features.dart';
-import 'package:restaurants/screens/RestaurantDetails/hightlight/restaurantDetails__hightlightDish.dart';
-import 'package:restaurants/screens/RestaurantDetails/restauranstDetails__map.dart';
-import 'package:restaurants/screens/RestaurantDetails/suggestions/restaurantsDetails__suggestions.dart';
+import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__features.dart';
+import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__hightlight.dart';
+import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__map.dart';
+import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__suggestions.dart';
 import 'package:restaurants/screens/RestaurantDetails/contact/restaurantDetails__contact.dart';
 import 'package:restaurants/screens/RestaurantDetails/options/restaurantDetails__options.dart';
-import 'package:restaurants/screens/RestaurantDetails/Tags/restaurantsDetails__tags.dart';
+import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__categories.dart';
 import 'package:restaurants/widgets/AnimationContainerWrapper.dart';
 import 'package:restaurants/widgets/Navigation/navigation.dart';
 import 'package:flutter/material.dart';
@@ -104,18 +104,18 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
                   ),
                   RestaurantdetailMap(),
                   currentRestaurant.lunchNow!.isNotEmpty
-                      ? DetailHighlightProduct(
+                      ? RestaurantdetailHighlight(
                           highlishDishes: currentRestaurant.lunchNow,
                         )
                       : SizedBox(),
                   currentRestaurant.tagsMenu!.isNotEmpty
-                      ? ExploreTheMenu(
+                      ? RestaurantdetailCategories(
                           tags: currentRestaurant.tagsMenu,
                           restaurantName: currentRestaurant.name,
                         )
                       : SizedBox(),
                   currentRestaurant.suggestions!.isNotEmpty
-                      ? RestaurantDetailsSuggestions(
+                      ? RestaurantDetailSuggestions(
                           suggestions: currentRestaurant.suggestions,
                         )
                       : SizedBox(),

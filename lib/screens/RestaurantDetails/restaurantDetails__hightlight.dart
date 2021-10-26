@@ -7,16 +7,17 @@ import 'package:restaurants/widgets/SeeAll/Screen__seeAllSection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DetailHighlightProduct extends StatefulWidget {
+class RestaurantdetailHighlight extends StatefulWidget {
   final List<Dishes>? highlishDishes;
-  DetailHighlightProduct({
+  RestaurantdetailHighlight({
     this.highlishDishes,
   });
   @override
-  _DetailHighlightProductState createState() => _DetailHighlightProductState();
+  _RestaurantdetailHighlightState createState() =>
+      _RestaurantdetailHighlightState();
 }
 
-class _DetailHighlightProductState extends State<DetailHighlightProduct> {
+class _RestaurantdetailHighlightState extends State<RestaurantdetailHighlight> {
   late DetailsrestaurantBloc restaurantBloc;
   @override
   initState() {
@@ -54,7 +55,7 @@ class _DetailHighlightProductState extends State<DetailHighlightProduct> {
                       scrollDirection: Axis.horizontal,
                       itemCount: widget.highlishDishes!.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return HighlightRestaurantCard(
+                        return PromotionalDishCard(
                           dish: widget.highlishDishes![index],
                         );
                       },

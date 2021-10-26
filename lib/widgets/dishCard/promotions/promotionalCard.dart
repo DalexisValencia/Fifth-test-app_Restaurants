@@ -8,17 +8,16 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:restaurants/widgets/dishCard/promotions/promotionalCard__features.dart';
 import 'package:restaurants/widgets/dishCard/promotions/promotionalCard__labelOffer.dart';
 
-class HighlightRestaurantCard extends StatefulWidget {
+class PromotionalDishCard extends StatefulWidget {
   final Dishes? dish;
-  HighlightRestaurantCard({
+  PromotionalDishCard({
     this.dish,
   });
   @override
-  _HighlightRestaurantCardState createState() =>
-      _HighlightRestaurantCardState();
+  _PromotionalDishCardState createState() => _PromotionalDishCardState();
 }
 
-class _HighlightRestaurantCardState extends State<HighlightRestaurantCard> {
+class _PromotionalDishCardState extends State<PromotionalDishCard> {
   late CartBloc instanceCartBloc;
   late FavoritesBloc instanceFavorite;
   @override

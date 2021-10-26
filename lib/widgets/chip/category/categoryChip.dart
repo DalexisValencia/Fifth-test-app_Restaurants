@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class TagItem extends StatelessWidget {
+class CategoryChip extends StatelessWidget {
   final String? name;
-  TagItem({
+  CategoryChip({
     this.name,
   });
   @override
