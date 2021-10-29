@@ -92,7 +92,11 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                         : SizedBox(),
                   ),
                   Container(
-                    child: tabStateInit == 2 ? BookingsScreen() : SizedBox(),
+                    child: tabStateInit == 2
+                        ? BookingsScreen(
+                            controller: _tabController,
+                          )
+                        : SizedBox(),
                   ),
                   Container(
                     child: tabStateInit == 3
@@ -103,7 +107,11 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                         : SizedBox(),
                   ),
                   Container(
-                    child: tabStateInit == 4 ? ScreenCart() : SizedBox(),
+                    child: tabStateInit == 4
+                        ? ScreenCart(
+                            controller: _tabController,
+                          )
+                        : SizedBox(),
                   ),
                 ],
               ),

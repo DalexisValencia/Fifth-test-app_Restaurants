@@ -11,6 +11,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScreenCart extends StatefulWidget {
+  final TabController? controller;
+  ScreenCart({
+    Key? key,
+    this.controller,
+  }) : super(key: key);
   @override
   _ScreenCartState createState() => _ScreenCartState();
 }
@@ -101,7 +106,7 @@ class _ScreenCartState extends State<ScreenCart> {
                   }
                 },
                 goBack: () {
-                  print("volver con tabs");
+                  widget.controller!.animateTo(0);
                 },
               ),
               _bodyCart(

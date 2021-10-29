@@ -8,6 +8,11 @@ import 'package:restaurants/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
 
 class BookingsScreen extends StatefulWidget {
+  final TabController? controller;
+  BookingsScreen({
+    Key? key,
+    this.controller,
+  }) : super(key: key);
   @override
   _BookingsScreenState createState() => _BookingsScreenState();
 }
@@ -101,7 +106,7 @@ class _BookingsScreenState extends State<BookingsScreen> {
               Navigation(
                 secondItem: 'favorite',
                 goBack: () {
-                  print("volver con tabs");
+                  widget.controller!.animateTo(0);
                   // Navigator.pop(context);
                 },
               ),
