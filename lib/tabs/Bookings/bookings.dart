@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:restaurants/constants/contansts.dart';
-import 'package:restaurants/tabs/Bookings/components/bookings__card.dart';
+import 'package:restaurants/widgets/booking/bookingsCard.dart';
 import 'package:restaurants/widgets/Navigation/navigation.dart';
 import 'package:restaurants/widgets/AnimationContainerWrapper.dart';
 import 'package:restaurants/widgets/Screen__heading.dart';
