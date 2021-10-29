@@ -77,6 +77,9 @@ class _DishDetailHeaderState extends State<DishDetailHeader> {
                       : Theme.of(context).primaryColorLight,
               goBackColor:
                   widget.minSizeReached! ? tertiaryColor : secondaryColor,
+              goBack: () {
+                Navigator.pop(context);
+              },
             );
           },
         ),

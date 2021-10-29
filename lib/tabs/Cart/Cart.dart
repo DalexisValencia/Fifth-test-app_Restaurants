@@ -5,7 +5,7 @@ import 'package:restaurants/interfaces/Dishes.dart';
 import 'package:restaurants/tabs/Cart/components/Empty/Empty.dart';
 import 'package:restaurants/tabs/Cart/components/List/List__verticalList.dart';
 import 'package:restaurants/tabs/Cart/components/cart__buttonPay.dart';
-import 'package:restaurants/widgets/Navigation/Navigation.dart';
+import 'package:restaurants/widgets/Navigation/navigation.dart';
 import 'package:restaurants/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -99,6 +99,9 @@ class _ScreenCartState extends State<ScreenCart> {
                       },
                     );
                   }
+                },
+                goBack: () {
+                  print("volver con tabs");
                 },
               ),
               _bodyCart(

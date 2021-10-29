@@ -31,7 +31,9 @@ class FixedTopMenu extends StatelessWidget {
                 builder: (context) {
                   return BlocProvider.value(
                     value: favoritesBloc,
-                    child: FavoritesScreen(),
+                    child: FavoritesScreen(
+                      from: 'nav',
+                    ),
                   );
                 },
               ));

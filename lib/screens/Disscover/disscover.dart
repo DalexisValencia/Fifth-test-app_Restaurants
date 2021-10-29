@@ -8,7 +8,7 @@ import 'package:restaurants/screens/Disscover/disscover__nearYou.dart';
 import 'package:restaurants/screens/Disscover/disscover__newLaunch.dart';
 import 'package:restaurants/screens/Disscover/disscover__topRestaurants.dart';
 import 'package:restaurants/widgets/AnimationContainerWrapper.dart';
-import 'package:restaurants/widgets/Navigation/Navigation.dart';
+import 'package:restaurants/widgets/Navigation/navigation.dart';
 import 'package:restaurants/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -111,6 +111,9 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
                         child: Navigation(
                           secondItem: 'search',
                           category: discoveryPropsBloc.name!,
+                          goBack: () {
+                            Navigator.pop(context);
+                          },
                         ),
                       ),
                     ],

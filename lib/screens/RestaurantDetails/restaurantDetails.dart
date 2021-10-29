@@ -149,6 +149,9 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
                   Navigation(
                     secondItem: 'search',
                     category: currentRestaurant.name!,
+                    goBack: () {
+                      Navigator.pop(context);
+                    },
                   ),
                   _bodyRestaurantsDetail(currentRestaurant),
                 ],

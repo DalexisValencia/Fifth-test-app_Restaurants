@@ -95,7 +95,12 @@ class _MainTabsWrapperState extends State<MainTabsWrapper>
                     child: tabStateInit == 2 ? BookingsScreen() : SizedBox(),
                   ),
                   Container(
-                    child: tabStateInit == 3 ? FavoritesScreen() : SizedBox(),
+                    child: tabStateInit == 3
+                        ? FavoritesScreen(
+                            from: 'tabs',
+                            controller: _tabController,
+                          )
+                        : SizedBox(),
                   ),
                   Container(
                     child: tabStateInit == 4 ? ScreenCart() : SizedBox(),

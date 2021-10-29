@@ -100,6 +100,10 @@ class _BookingsScreenState extends State<BookingsScreen> {
             children: <Widget>[
               Navigation(
                 secondItem: 'favorite',
+                goBack: () {
+                  print("volver con tabs");
+                  // Navigator.pop(context);
+                },
               ),
               _body(),
             ],

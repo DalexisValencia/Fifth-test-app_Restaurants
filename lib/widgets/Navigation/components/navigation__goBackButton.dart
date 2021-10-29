@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 
 class GoBackButton extends StatelessWidget {
   final Color? iconColor;
+  final Function? goBack;
   GoBackButton({
     this.iconColor,
+    this.goBack,
   });
   @override
   Widget build(BuildContext context) {
@@ -16,9 +18,10 @@ class GoBackButton extends StatelessWidget {
         color:
             iconColor == null ? Theme.of(context).primaryColorDark : iconColor!,
         bgColor: Theme.of(context).primaryColorDark.withOpacity(0.2),
-        trigger: () {
-          Navigator.pop(context);
-        },
+        // trigger: () {
+        //   Navigator.pop(context);
+        // },
+        trigger: () => goBack!(),
       ),
     );
   }
