@@ -3,7 +3,7 @@ import 'package:restaurants/constants/contansts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ButtonCart extends StatelessWidget {
+class GoToPay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(

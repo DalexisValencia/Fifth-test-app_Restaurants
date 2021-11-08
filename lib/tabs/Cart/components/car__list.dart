@@ -1,12 +1,12 @@
 import 'package:restaurants/interfaces/Dishes.dart';
-import 'package:restaurants/tabs/Cart/components/List/List__Item.dart';
+import 'package:restaurants/widgets/dishCard/car/cardCar.dart';
 import 'package:flutter/material.dart';
 
-class CartVerticalList extends StatelessWidget {
+class CarList extends StatelessWidget {
   final List<Dishes>? cartDishes;
   final Function? onSelectThis;
   final List<int>? selecteds;
-  CartVerticalList({
+  CarList({
     this.cartDishes,
     this.onSelectThis,
     this.selecteds,
@@ -24,7 +24,7 @@ class CartVerticalList extends StatelessWidget {
                 onLongPress: () {
                   onSelectThis!(item.key);
                 },
-                child: CompleteCartItem(
+                child: CardCar(
                   dish: cartDishes![item.key],
                   selected: selecteds!.contains(item.key),
                 ),

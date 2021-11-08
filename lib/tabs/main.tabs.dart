@@ -3,7 +3,7 @@ import 'package:restaurants/blocs/bloc/discovery/bloc/discovery_bloc.dart';
 import 'package:restaurants/blocs/bloc/favorites/bloc/favorites_bloc.dart';
 import 'package:restaurants/blocs/bloc/search/bloc/search_bloc.dart';
 import 'package:restaurants/tabs/Bookings/bookings.dart';
-import 'package:restaurants/tabs/Cart/Cart.dart';
+import 'package:restaurants/tabs/Cart/cart.dart';
 import 'package:restaurants/tabs/Favorites/favorites.dart';
 import 'package:restaurants/tabs/Home/home.dart';
 import 'package:restaurants/tabs/TabsNavigation/tabs__bottomNavigationBar.dart';

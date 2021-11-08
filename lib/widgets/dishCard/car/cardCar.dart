@@ -1,13 +1,13 @@
-//Componente utilizado para armar la tarjeta de carrito cuando tiene modificadores
 import 'package:restaurants/interfaces/Dishes.dart';
-import 'package:restaurants/tabs/Cart/components/List/item/Item__card.dart';
-import 'package:restaurants/tabs/Cart/components/List/item/Item__modifier.dart';
 import 'package:flutter/material.dart';
+import 'package:restaurants/widgets/dishCard/car/cardCar__body.dart';
+import 'package:restaurants/widgets/dishCard/car/cardCar__modifiers.dart';
 
-class CompleteCartItem extends StatelessWidget {
+//Componente utilizado para armar la tarjeta de carrito cuando tiene modificadores
+class CardCar extends StatelessWidget {
   final Dishes? dish;
   final bool? selected;
-  CompleteCartItem({
+  CardCar({
     Key? key,
     this.dish,
     this.selected,
@@ -20,16 +20,13 @@ class CompleteCartItem extends StatelessWidget {
       ),
       child: Column(
         children: [
-          ItemCartCard(
+          CardCarBody(
             dish: dish,
             selected: selected,
-            priceByCard: (amout) {
-              //print("en esta vista::");
-              //print(amout);
-            },
+            priceByCard: (amout) {},
           ),
           dish!.additions!.length >= 1
-              ? ExpansionModifiersCartItem(
+              ? CardCarModifiers(
                   additionals: dish!.additions,
                 )
               : SizedBox(),

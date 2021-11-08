@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:restaurants/blocs/bloc/cart/bloc/cart_bloc.dart';
 import 'package:restaurants/interfaces/Dishes.dart';
-import 'package:restaurants/tabs/Cart/components/Empty/Empty.dart';
-import 'package:restaurants/tabs/Cart/components/List/List__verticalList.dart';
-import 'package:restaurants/tabs/Cart/components/cart__buttonPay.dart';
+import 'package:restaurants/tabs/Cart/components/car__list.dart';
+import 'package:restaurants/tabs/Cart/components/car__goToPay.dart';
+import 'package:restaurants/tabs/Cart/components/car__empty.dart';
 import 'package:restaurants/widgets/Navigation/navigation.dart';
 import 'package:restaurants/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
@@ -56,8 +56,8 @@ class _ScreenCartState extends State<ScreenCart> {
                     : 'There ${listDishes.length == 1 ? 'is' : 'are'} ${listDishes.length} ${listDishes.length == 1 ? 'item' : 'items'} in your cart',
               ),
               empty
-                  ? EmptyCart()
-                  : CartVerticalList(
+                  ? CarEmpty()
+                  : CarList(
                       cartDishes: listDishes,
                       onSelectThis: (index) {
                         selectItem(index);
@@ -115,7 +115,7 @@ class _ScreenCartState extends State<ScreenCart> {
               ),
               state is CartblocInitial || cartDishes.length == 0
                   ? SizedBox()
-                  : ButtonCart(),
+                  : GoToPay(),
             ],
           );
         },

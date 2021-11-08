@@ -2,18 +2,16 @@ import 'package:restaurants/constants/contansts.dart';
 import 'package:restaurants/interfaces/aditional.dart';
 import 'package:flutter/material.dart';
 
-class ExpansionModifiersCartItem extends StatefulWidget {
+class CardCarModifiers extends StatefulWidget {
   final List<Adittional>? additionals;
-  ExpansionModifiersCartItem({
+  CardCarModifiers({
     this.additionals,
   });
   @override
-  _ExpansionModifiersCartItemState createState() =>
-      _ExpansionModifiersCartItemState();
+  _CardCarModifiersState createState() => _CardCarModifiersState();
 }
 
-class _ExpansionModifiersCartItemState
-    extends State<ExpansionModifiersCartItem> {
+class _CardCarModifiersState extends State<CardCarModifiers> {
   bool showModifiers = false;
   void activeModifiers() {
     setState(() {
