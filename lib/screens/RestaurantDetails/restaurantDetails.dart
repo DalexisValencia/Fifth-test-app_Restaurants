@@ -1,18 +1,18 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
+import 'package:restaurants/blocs/bloc/restaurant/bloc/detailsrestaurant_bloc.dart';
+import 'package:restaurants/constants/contansts.dart';
 
-import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
-import 'package:fith_app__restaurant/screens/RestaurantDetails/components/restaurantsDetails__title.dart';
-import 'package:fith_app__restaurant/screens/RestaurantDetails/hightlight/restaurantDetails__hightlightDish.dart';
-import 'package:fith_app__restaurant/screens/RestaurantDetails/map/restauranstDetails__map.dart';
-import 'package:fith_app__restaurant/screens/RestaurantDetails/suggestions/restaurantsDetails__suggestions.dart';
-import 'package:fith_app__restaurant/screens/RestaurantDetails/contact/restaurantDetails__contact.dart';
-import 'package:fith_app__restaurant/screens/RestaurantDetails/options/restaurantDetails__options.dart';
-import 'package:fith_app__restaurant/screens/RestaurantDetails/Tags/restaurantsDetails__tags.dart';
-import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/navigation.dart';
+import 'package:restaurants/interfaces/Restaurants.dart';
+import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__features.dart';
+import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__hightlight.dart';
+import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__map.dart';
+import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__suggestions.dart';
+import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__contact.dart';
+import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__shared.dart';
+import 'package:restaurants/screens/RestaurantDetails/restaurantDetails__categories.dart';
+import 'package:restaurants/widgets/AnimationContainerWrapper.dart';
+import 'package:restaurants/widgets/Navigation/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,7 +27,7 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
   bool minSizeReached = false;
   bool animationScreenOpacity = true;
   bool animationScreenContainer = true;
-  ScrollController _controller;
+  late ScrollController _controller;
 
   @override
   void initState() {
@@ -98,30 +98,30 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
               animationChildren: animationScreenContainer,
               children: Column(
                 children: <Widget>[
-                  RestaurantdetailTitle(
+                  RestaurantdetailFeatures(
                     title: currentRestaurant.name,
                     subtitle: currentRestaurant.description,
                   ),
-                  WrapperMap(),
-                  currentRestaurant.lunchNow.isNotEmpty
-                      ? DetailHighlightProduct(
+                  RestaurantdetailMap(),
+                  currentRestaurant.lunchNow!.isNotEmpty
+                      ? RestaurantdetailHighlight(
                           highlishDishes: currentRestaurant.lunchNow,
                         )
                       : SizedBox(),
-                  currentRestaurant.tagsMenu.isNotEmpty
-                      ? ExploreTheMenu(
+                  currentRestaurant.tagsMenu!.isNotEmpty
+                      ? RestaurantdetailCategories(
                           tags: currentRestaurant.tagsMenu,
                           restaurantName: currentRestaurant.name,
                         )
                       : SizedBox(),
-                  currentRestaurant.suggestions.isNotEmpty
-                      ? RestaurantDetailsSuggestions(
+                  currentRestaurant.suggestions!.isNotEmpty
+                      ? RestaurantDetailSuggestions(
                           suggestions: currentRestaurant.suggestions,
                         )
                       : SizedBox(),
-                  RoundedOptionsContactWrapper(),
-                  currentRestaurant.contact.isNotEmpty
-                      ? ContactMethods(
+                  RestaurantDetailsShared(),
+                  currentRestaurant.contact!.isNotEmpty
+                      ? RestaurantDetailsContact(
                           contact: currentRestaurant.contact,
                         )
                       : SizedBox(),
@@ -141,14 +141,17 @@ class _RestaurantDetailWrapperState extends State<RestaurantDetailWrapper>
       child: Scaffold(
         body: BlocBuilder<DetailsrestaurantBloc, DetailsrestaurantState>(
           builder: (BuildContext context, DetailsrestaurantState state) {
-            Restaurants currentRestaurant = state.props[0];
+            Restaurants currentRestaurant = state.props[0] as Restaurants;
             return SafeArea(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Navigation(
                     secondItem: 'search',
-                    category: currentRestaurant.name,
+                    category: currentRestaurant.name!,
+                    goBack: () {
+                      Navigator.pop(context);
+                    },
                   ),
                   _bodyRestaurantsDetail(currentRestaurant),
                 ],

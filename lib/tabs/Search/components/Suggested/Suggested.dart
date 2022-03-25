@@ -1,16 +1,16 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/search.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Suggested/Suggested__categories.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Suggested/Suggested__dishes.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Suggested/Suggested__popular.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Suggested/Suggested__restaurants.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/search__loading.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/interfaces/search.dart';
+import 'package:restaurants/tabs/Search/components/Suggested/Suggested__categories.dart';
+import 'package:restaurants/tabs/Search/components/Suggested/Suggested__dishes.dart';
+import 'package:restaurants/tabs/Search/components/Suggested/Suggested__popular.dart';
+import 'package:restaurants/tabs/Search/components/Suggested/Suggested__restaurants.dart';
+import 'package:restaurants/tabs/Search/components/search__loading.dart';
 import 'package:flutter/material.dart';
 
 class Suggested extends StatefulWidget {
-  final SearchInitInterface suggestedSearches;
+  final SearchInitInterface? suggestedSearches;
   Suggested({
     this.suggestedSearches,
   });
@@ -48,27 +48,25 @@ class _SuggestedState extends State<Suggested> {
           ),
           width: totalWidth,
           height: 40,
-          child: SuggestedCategories(),
+          child: SuggestedCategories(), //Categories ActionChip
         ),
-        widget.suggestedSearches.suggestions.length >= 1
+        //Lista horizontal de platos sugeridos
+        widget.suggestedSearches!.suggestions!.length >= 1
             ? SuggestedDishes(
-                suggestions: widget.suggestedSearches.suggestions,
+                suggestions: widget.suggestedSearches!.suggestions,
               )
             : SizedBox(),
-        widget.suggestedSearches.popular.length >= 1
+        widget.suggestedSearches!.popular!.length >= 1
             ? SuggestedPopular(
-                popularSuggestions: widget.suggestedSearches.popular,
+                popularSuggestions: widget.suggestedSearches!.popular,
               )
             : SizedBox(),
-        widget.suggestedSearches.highlightRestaurants.length >= 1
+        widget.suggestedSearches!.highlightRestaurants!.length >= 1
             ? SuggestedRestaurants(
                 restaurantSuggestions:
-                    widget.suggestedSearches.highlightRestaurants,
+                    widget.suggestedSearches!.highlightRestaurants,
               )
             : SizedBox(),
-        Text(
-          "Cuando se busca desde la vista de resurante",
-        ),
         SizedBox(
           height: 20,
         )

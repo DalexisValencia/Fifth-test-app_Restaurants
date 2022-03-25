@@ -1,7 +1,7 @@
-import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
-import 'package:fith_app__restaurant/interfaces/search.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Results/components/Results__title.dart';
-import 'package:fith_app__restaurant/widgets/Dish__card.dart';
+import 'package:restaurants/blocs/bloc/search/bloc/search_bloc.dart';
+import 'package:restaurants/interfaces/search.dart';
+import 'package:restaurants/tabs/Search/components/Results/components/Results__title.dart';
+import 'package:restaurants/widgets/dishCard/normal/dishCard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,8 +10,9 @@ class ResultsContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
-        SearchInitInterface stateSearchResults = state.props[0];
-        return stateSearchResults.results.length >= 1
+        SearchInitInterface stateSearchResults =
+            state.props[0] as SearchInitInterface;
+        return stateSearchResults.results!.length >= 1
             ? Container(
                 width: MediaQuery.of(context).size.width,
                 child: Column(
@@ -22,7 +23,7 @@ class ResultsContainer extends StatelessWidget {
                       child: Text(
                         "Results",
                         textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.bodyText1.copyWith(
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               color: Theme.of(context).primaryColorDark,
                               fontWeight: FontWeight.w800,
                             ),
@@ -37,7 +38,7 @@ class ResultsContainer extends StatelessWidget {
                             total: '10',
                           ),
                         );
-                        stateSearchResults.results.map((e) {
+                        stateSearchResults.results!.map((e) {
                           recent.add(
                             Container(
                               padding: EdgeInsets.symmetric(horizontal: 2),

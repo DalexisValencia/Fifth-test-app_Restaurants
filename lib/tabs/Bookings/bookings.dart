@@ -1,13 +1,18 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/tabs/Bookings/components/bookings__card.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/navigation.dart';
-import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
-import 'package:fith_app__restaurant/widgets/Screen__heading.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/widgets/booking/bookingsCard.dart';
+import 'package:restaurants/widgets/Navigation/navigation.dart';
+import 'package:restaurants/widgets/AnimationContainerWrapper.dart';
+import 'package:restaurants/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
 
 class BookingsScreen extends StatefulWidget {
+  final TabController? controller;
+  BookingsScreen({
+    Key? key,
+    this.controller,
+  }) : super(key: key);
   @override
   _BookingsScreenState createState() => _BookingsScreenState();
 }
@@ -100,6 +105,10 @@ class _BookingsScreenState extends State<BookingsScreen> {
             children: <Widget>[
               Navigation(
                 secondItem: 'favorite',
+                goBack: () {
+                  widget.controller!.animateTo(0);
+                  // Navigator.pop(context);
+                },
               ),
               _body(),
             ],

@@ -1,23 +1,27 @@
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__appBar.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__favoriteButton.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__goBackButton.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__searchButton.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/components/navigation__trashButton.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/widgets/Navigation/components/navigation__appBar.dart';
+import 'package:restaurants/widgets/Navigation/components/navigation__favoriteButton.dart';
+import 'package:restaurants/widgets/Navigation/components/navigation__goBackButton.dart';
+import 'package:restaurants/widgets/Navigation/components/navigation__searchButton.dart';
+import 'package:restaurants/widgets/Navigation/components/navigation__trashButton.dart';
 import 'package:flutter/material.dart';
 
 class Navigation extends StatelessWidget {
-  final String secondItem;
-  final int amout;
-  final Function onPressed;
-  final String category;
-  final Color iconColor;
+  final String? secondItem;
+  final int? amout;
+  final Function? onPressed;
+  final String? category;
+  final Color? iconColor;
+  final Color? goBackColor;
+  final Function? goBack;
   Navigation({
     this.secondItem,
     this.amout,
     this.onPressed,
     this.category,
     this.iconColor,
+    this.goBackColor = tertiaryColor,
+    this.goBack,
   });
   Widget _secondaryItem() {
     switch (secondItem) {
@@ -26,20 +30,17 @@ class Navigation extends StatelessWidget {
           iconColor: iconColor,
           onpressed: this.onPressed,
         );
-        break;
       case 'trash':
         return TrashButton(
           amout: amout,
           onClick: onPressed,
           iconColor: iconColor,
         );
-        break;
       case 'search':
         return SearchButton(
           category: category,
           iconColor: iconColor,
         );
-        break;
       default:
     }
     return SizedBox();
@@ -55,7 +56,8 @@ class Navigation extends StatelessWidget {
       height: defaultHeaderCustomHeight,
       child: AppBarCustom(
         iconLeft: GoBackButton(
-          iconColor: iconColor,
+          iconColor: goBackColor,
+          goBack: goBack,
         ),
         iconRigth: _secondaryItem(),
       ),

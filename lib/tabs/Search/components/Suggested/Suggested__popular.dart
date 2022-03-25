@@ -1,13 +1,13 @@
-import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/widgets/SeeAll/Screen__seeAllSection.dart';
-import 'package:fith_app__restaurant/widgets/Popular__dishCardComment.dart';
+import 'package:restaurants/blocs/bloc/dish/bloc/dish_bloc.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
+import 'package:restaurants/widgets/SeeAll/Screen__seeAllSection.dart';
+import 'package:restaurants/widgets/dishCard/comment/CardComment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SuggestedPopular extends StatefulWidget {
-  final List<Dishes> popularSuggestions;
+  final List<Dishes>? popularSuggestions;
   SuggestedPopular({
     this.popularSuggestions,
   });
@@ -22,11 +22,12 @@ class _SuggestedPopularState extends State<SuggestedPopular> {
       child: Builder(
         builder: (BuildContext context) {
           return new Column(
-            children: widget.popularSuggestions
+            children: widget.popularSuggestions!
                 .map(
                   (item) => new DishCardComment(
                     dish: item,
                   ),
+                  // (item) => new Text(": item,"),
                 )
                 .toList(),
           );

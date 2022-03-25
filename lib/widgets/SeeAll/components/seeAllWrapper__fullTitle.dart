@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class FullSectionTitle extends StatefulWidget {
-  final String title;
-  final Widget rightContainer;
-  final bool paddingRight;
+  final String? title;
+  final Widget? rightContainer;
+  final bool? paddingRight;
   FullSectionTitle({
     this.title,
     this.rightContainer,
@@ -22,12 +22,12 @@ class _FullSectionTitleState extends State<FullSectionTitle> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
-            widget.title,
-            style: Theme.of(context).textTheme.bodyText1.copyWith(
+            widget.title!,
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
                 color: Theme.of(context).primaryColorDark,
                 fontWeight: FontWeight.w800),
           ),
-          widget.rightContainer
+          widget.rightContainer!
         ],
       ),
     );

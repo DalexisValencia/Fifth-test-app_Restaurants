@@ -1,38 +1,12 @@
-import 'package:fith_app__restaurant/interfaces/Comments.dart';
-import 'package:fith_app__restaurant/interfaces/ContactMeans.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/interfaces/Ingredients.dart';
-import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
-import 'package:fith_app__restaurant/interfaces/aditional.dart';
-import 'package:fith_app__restaurant/interfaces/categories.dart';
+import 'package:restaurants/Lists/mainCategories.dart';
+import 'package:restaurants/interfaces/Comments.dart';
+import 'package:restaurants/interfaces/ContactMeans.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
+import 'package:restaurants/interfaces/Ingredients.dart';
+import 'package:restaurants/interfaces/Restaurants.dart';
+import 'package:restaurants/interfaces/aditional.dart';
+import 'package:restaurants/interfaces/categories.dart';
 import 'package:flutter/material.dart';
-
-List<Category> categories = [
-  Category(
-      name: 'Break Fast',
-      icon: Icons.store_mall_directory,
-      iconSource: 'assets/home-categories/category-1.png'),
-  Category(
-      name: 'Food',
-      icon: Icons.sentiment_neutral,
-      iconSource: 'assets/home-categories/category-2.png'),
-  Category(
-      name: 'Wine',
-      icon: Icons.sentiment_neutral,
-      iconSource: 'assets/home-categories/category-3.png'),
-  Category(
-      name: 'Coffee',
-      icon: Icons.store_mall_directory,
-      iconSource: 'assets/home-categories/category-4.png'),
-  Category(
-      name: 'Meat',
-      icon: Icons.sentiment_neutral,
-      iconSource: 'assets/home-categories/category-5.png'),
-  Category(
-      name: 'Beer',
-      icon: Icons.sentiment_neutral,
-      iconSource: 'assets/home-categories/category-6.png'),
-];
 
 List<Dishes> dishes = [
   Dishes(
@@ -63,7 +37,7 @@ List<Dishes> dishes = [
         image: '',
       )
     ],
-    category: [categories[0].name, categories[2].name],
+    category: [categories[0].name!, categories[2].name!],
     additions: [
       Adittional(title: 'Cookware', isMulti: false, children: [
         AditionalsOptions(name: 'With Cookware', isActive: true, price: 0),
@@ -129,7 +103,7 @@ List<Dishes> dishes = [
           image: '',
         )
       ],
-      category: [categories[1].name, categories[3].name],
+      category: [categories[1].name!, categories[3].name!],
       additions: [],
       ingredients: [
         Ingredients(name: 'Beef', amountGrams: '40G'),
@@ -164,10 +138,10 @@ List<Dishes> dishes = [
         )
       ],
       category: [
-        categories[0].name,
-        categories[1].name,
-        categories[2].name,
-        categories[3].name
+        categories[0].name!,
+        categories[1].name!,
+        categories[2].name!,
+        categories[3].name!,
       ],
       additions: [],
       ingredients: [
@@ -229,10 +203,10 @@ List<Restaurants> restaurants = [
     ],
     schedule: '8:00am to 9:00pm',
     categories: [
-      categories[0].name,
-      categories[1].name,
-      categories[2].name,
-      categories[3].name
+      categories[0].name!,
+      categories[1].name!,
+      categories[2].name!,
+      categories[3].name!,
     ],
     //
   ),
@@ -263,7 +237,10 @@ List<Restaurants> restaurants = [
       ),
     ],
     schedule: '8:00am to 9:00pm',
-    categories: [categories[0].name, categories[3].name],
+    categories: [
+      categories[0].name!,
+      categories[3].name!,
+    ],
     //
   ),
   Restaurants(
@@ -298,7 +275,10 @@ List<Restaurants> restaurants = [
       ),
     ],
     schedule: '8:00am to 9:00pm',
-    categories: [categories[0].name, categories[2].name],
+    categories: [
+      categories[0].name!,
+      categories[2].name!,
+    ],
     //
   )
 ];

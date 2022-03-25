@@ -1,17 +1,16 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/blocs/bloc/discovery/bloc/discovery_bloc.dart';
-import 'package:fith_app__restaurant/blocs/bloc/dish/bloc/dish_bloc.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/Discovery.dart';
-import 'package:fith_app__restaurant/screens/Disscover/components/NearYou/nearYou.dart';
-import 'package:fith_app__restaurant/screens/Disscover/components/NewLaunch/newLaunch.dart';
-import 'package:fith_app__restaurant/screens/Disscover/components/TopRestaurants/topRestaurants.dart';
-import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/Navigation.dart';
-import 'package:fith_app__restaurant/widgets/Screen__heading.dart';
+import 'package:restaurants/blocs/bloc/discovery/bloc/discovery_bloc.dart';
+import 'package:restaurants/blocs/bloc/dish/bloc/dish_bloc.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/interfaces/Discovery.dart';
+import 'package:restaurants/screens/Disscover/disscover__nearYou.dart';
+import 'package:restaurants/screens/Disscover/disscover__newLaunch.dart';
+import 'package:restaurants/screens/Disscover/disscover__topRestaurants.dart';
+import 'package:restaurants/widgets/AnimationContainerWrapper.dart';
+import 'package:restaurants/widgets/Navigation/navigation.dart';
+import 'package:restaurants/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DiscoverScaffold extends StatefulWidget {
@@ -61,7 +60,7 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
       body: SafeArea(
         child: BlocBuilder<DiscoveryBloc, DiscoveryState>(
           builder: (BuildContext context, state) {
-            Discovery discoveryPropsBloc = state.props[0];
+            Discovery discoveryPropsBloc = state.props[0] as Discovery;
             return AnimatedOpacity(
               duration: Duration(milliseconds: animationOpacityTime),
               opacity: animatedOpacity ? 0 : 1,
@@ -83,10 +82,10 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
                           child: Column(
                             children: <Widget>[
                               ScreenHeading(
-                                title: discoveryPropsBloc.name,
+                                title: discoveryPropsBloc.name!,
                                 subtitle: '',
                               ),
-                              discoveryPropsBloc.near.isNotEmpty
+                              discoveryPropsBloc.near!.isNotEmpty
                                   ? BlocProvider<DishBloc>(
                                       create: (BuildContext context) =>
                                           DishBloc(),
@@ -95,7 +94,7 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
                                       ),
                                     )
                                   : SizedBox(),
-                              discoveryPropsBloc.newLaunch.isNotEmpty
+                              discoveryPropsBloc.newLaunch!.isNotEmpty
                                   ? NewLaunch(
                                       newLaunched: discoveryPropsBloc.newLaunch,
                                     )
@@ -111,7 +110,10 @@ class _DiscoverScaffoldState extends State<DiscoverScaffold> {
                         top: 0,
                         child: Navigation(
                           secondItem: 'search',
-                          category: discoveryPropsBloc.name,
+                          category: discoveryPropsBloc.name!,
+                          goBack: () {
+                            Navigator.pop(context);
+                          },
                         ),
                       ),
                     ],

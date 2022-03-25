@@ -1,4 +1,4 @@
-import 'package:fith_app__restaurant/Lists/menu.dart';
+import 'package:restaurants/Lists/menu.dart';
 import 'package:flutter/material.dart';
 
 class SuggestedCategories extends StatefulWidget {
@@ -28,7 +28,7 @@ class _SuggestedCategoriesState extends State<SuggestedCategories> {
               ),
             ),
             label: Text(
-              suggesteds[index].name,
+              suggesteds[index].name!,
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
                 fontWeight: FontWeight.w600,

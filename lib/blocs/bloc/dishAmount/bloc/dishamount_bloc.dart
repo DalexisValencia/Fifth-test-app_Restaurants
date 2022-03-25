@@ -17,11 +17,11 @@ class DishamountBloc extends Bloc<DishamountEvent, DishamountState> {
       yield DishamountCurrent(amount: event.amount);
     }
     if (event is DishAmountPlus) {
-      int _state = state.props[0];
+      int _state = state.props[0] as int;
       yield DishamountCurrent(amount: _state + 1);
     }
     if (event is DishAmountRemove) {
-      int _state = state.props[0];
+      int _state = state.props[0] as int;
       yield DishamountCurrent(amount: _state - 1);
     }
   }

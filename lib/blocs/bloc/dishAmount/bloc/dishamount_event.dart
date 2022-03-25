@@ -8,7 +8,7 @@ abstract class DishamountEvent extends Equatable {
 }
 
 class DishInitialAmount extends DishamountEvent {
-  final int amount;
+  final int? amount;
   DishInitialAmount({this.amount});
 }
 

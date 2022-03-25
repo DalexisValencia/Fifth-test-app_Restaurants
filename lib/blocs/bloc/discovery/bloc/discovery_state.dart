@@ -10,11 +10,11 @@ abstract class DiscoveryState extends Equatable {
 class DiscoveryInitial extends DiscoveryState {}
 
 class DiscoveryCurrent extends DiscoveryState {
-  final Discovery discovery; // no es un string es la interface de discovery
+  final Discovery? discovery; // no es un string es la interface de discovery
   DiscoveryCurrent({this.discovery});
 
   @override
-  List<Object> get props => [discovery];
+  List<Object> get props => [discovery!];
 
   @override
   String toString() => 'DiscoveryCurrent { Search by : $discovery}';

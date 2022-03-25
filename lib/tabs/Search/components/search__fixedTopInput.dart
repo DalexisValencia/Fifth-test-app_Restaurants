@@ -1,10 +1,17 @@
-import 'package:fith_app__restaurant/blocs/bloc/search/bloc/search_bloc.dart';
-import 'package:fith_app__restaurant/interfaces/search.dart';
-import 'package:fith_app__restaurant/widgets/Button_roundWithIcon.dart';
+import 'package:restaurants/blocs/bloc/search/bloc/search_bloc.dart';
+import 'package:restaurants/interfaces/search.dart';
+import 'package:restaurants/widgets/Button_roundWithIcon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FixedTopHeader extends StatefulWidget {
+  final String? from;
+  final TabController? controller;
+  FixedTopHeader({
+    Key? key,
+    this.from,
+    this.controller,
+  }) : super(key: key);
   @override
   FixedTopHeaderState createState() => FixedTopHeaderState();
 }
@@ -12,7 +19,7 @@ class FixedTopHeader extends StatefulWidget {
 class FixedTopHeaderState extends State<FixedTopHeader> {
   FocusNode _focus = new FocusNode();
   final TextEditingController searcController = new TextEditingController();
-  SearchBloc searchBloc;
+  late SearchBloc searchBloc;
   @override
   void initState() {
     super.initState();
@@ -55,14 +62,15 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
   Widget _iconTextFormField() {
     return BlocBuilder<SearchBloc, SearchState>(
       builder: (BuildContext context, SearchState state) {
-        SearchInitInterface modelSearch = state.props[0];
+        SearchInitInterface modelSearch = state.props[0] as SearchInitInterface;
         return GestureDetector(
           child: Container(
             width: 40,
             padding: EdgeInsets.symmetric(
               horizontal: 5,
             ),
-            child: RaisedButton(
+            child: MaterialButton(
+              // this was a RaisedButton
               animationDuration: Duration(
                 milliseconds: 10,
               ),
@@ -71,7 +79,7 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
               color: Colors.transparent,
               splashColor: Theme.of(context).buttonColor,
               child: Icon(
-                modelSearch.results.length >= 1 && searcController.text != ''
+                modelSearch.results!.length >= 1 && searcController.text != ''
                     ? Icons.close
                     : Icons.search,
                 size: 16,
@@ -165,7 +173,12 @@ class FixedTopHeaderState extends State<FixedTopHeader> {
           color: Theme.of(context).primaryColorDark,
           bgColor: Theme.of(context).accentColor.withOpacity(.1),
           trigger: () {
-            Navigator.pop(context);
+            if (widget.from == 'nav') {
+              Navigator.pop(context);
+            }
+            if (widget.from == 'tabs') {
+              widget.controller!.animateTo(0);
+            }
           },
         ),
         Expanded(

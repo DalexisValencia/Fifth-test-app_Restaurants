@@ -8,10 +8,10 @@ abstract class CartState extends Equatable {
 }
 
 class CartblocInitial extends CartState {
-  final List<Dishes> dishes;
-  final double total;
-  final int amount;
-  final List<Dishes> selecteds;
+  final List<Dishes>? dishes;
+  final double? total;
+  final int? amount;
+  final List<Dishes>? selecteds;
   // final List<int> dishes;
   CartblocInitial({
     this.dishes,
@@ -21,10 +21,10 @@ class CartblocInitial extends CartState {
   });
   @override
   List<Object> get props => [
-        dishes,
-        total,
-        amount,
-        selecteds,
+        dishes!,
+        total!,
+        amount!,
+        selecteds!,
       ];
 
   @override
@@ -34,26 +34,29 @@ class CartblocInitial extends CartState {
 
 class FetchItems extends CartState {
   // final List<int> dishes;
-  final List<Dishes> dishes;
-  final double total;
-  final int amount;
-  final List<Dishes> selecteds;
-  FetchItems({
+  final List<Dishes>? dishes;
+  final double? total;
+  final int? amount;
+  // final List<Dishes>? selecteds;
+  FetchItems(
     this.dishes,
     this.total,
     this.amount,
-    this.selecteds,
-  });
+    // this.selecteds,
+  );
 
   @override
   List<Object> get props => [
-        dishes,
-        total,
-        amount,
-        selecteds,
+        dishes!,
+        total!,
+        amount!,
+        // selecteds!,
       ];
 
   @override
+  // List<Object> get props => ["esto"];
+
+  @override
   String toString() =>
-      'FetchItems {List of Dishes: $dishes && $total && $amount && $selecteds}';
+      'FetchItems {List of Dishes: Plato(s): $dishes && total: $total && cantidad: $amount && seleccionados: ??}';
 }

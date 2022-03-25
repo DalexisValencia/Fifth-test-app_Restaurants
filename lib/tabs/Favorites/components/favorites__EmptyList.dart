@@ -21,7 +21,7 @@ class EmptyFavoriteList extends StatelessWidget {
           // color: Colors.red,
           child: Text(
             'Your Favorite is empty',
-            style: Theme.of(context).textTheme.caption.copyWith(
+            style: Theme.of(context).textTheme.caption!.copyWith(
                   color: Theme.of(context).primaryColorDark,
                   fontWeight: FontWeight.w500,
                 ),

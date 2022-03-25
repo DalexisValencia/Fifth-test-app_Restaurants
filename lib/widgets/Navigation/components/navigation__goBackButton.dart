@@ -1,9 +1,13 @@
-import 'package:fith_app__restaurant/widgets/Button_roundWithIcon.dart';
+import 'package:restaurants/widgets/Button_roundWithIcon.dart';
 import 'package:flutter/material.dart';
 
 class GoBackButton extends StatelessWidget {
-  final Color iconColor;
-  GoBackButton({this.iconColor});
+  final Color? iconColor;
+  final Function? goBack;
+  GoBackButton({
+    this.iconColor,
+    this.goBack,
+  });
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,11 +16,12 @@ class GoBackButton extends StatelessWidget {
       child: CircleIconButton(
         icon: Icons.arrow_back,
         color:
-            iconColor == null ? Theme.of(context).primaryColorDark : iconColor,
+            iconColor == null ? Theme.of(context).primaryColorDark : iconColor!,
         bgColor: Theme.of(context).primaryColorDark.withOpacity(0.2),
-        trigger: () {
-          Navigator.pop(context);
-        },
+        // trigger: () {
+        //   Navigator.pop(context);
+        // },
+        trigger: () => goBack!(),
       ),
     );
   }

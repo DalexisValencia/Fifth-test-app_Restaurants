@@ -1,9 +1,9 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:fith_app__restaurant/interfaces/aditional.dart';
+import 'package:restaurants/interfaces/aditional.dart';
 part 'dish_event.dart';
 part 'dish_state.dart';
 
@@ -20,9 +20,9 @@ class DishBloc extends Bloc<DishEvent, DishState> {
     }
 
     if (event is DishModifierEdit) {
-      AditionalsOptions adpush = event.currentModifier;
-      Dishes platos = state.props[0];
-      platos.additions[0].children.add(adpush);
+      AditionalsOptions adpush = event.currentModifier as AditionalsOptions;
+      Dishes platos = state.props[0] as Dishes;
+      platos.additions![0].children!.add(adpush);
       yield DishCurrent(dish: platos);
     }
 

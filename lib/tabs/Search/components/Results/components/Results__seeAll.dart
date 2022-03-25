@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class SeeAllRecents extends StatelessWidget {
-  final String title;
-  final String to;
+  final String? title;
+  final String? to;
   SeeAllRecents({
     this.title,
     this.to,
@@ -21,8 +21,8 @@ class SeeAllRecents extends StatelessWidget {
           splashColor: Theme.of(context).splashColor,
           onPressed: () {},
           child: Text(
-            title,
-            style: Theme.of(context).textTheme.caption.copyWith(
+            title!,
+            style: Theme.of(context).textTheme.caption!.copyWith(
                 decoration: TextDecoration.underline,
                 color: Theme.of(context).primaryColorDark),
           ),

@@ -1,16 +1,25 @@
 import 'dart:async';
-import 'package:fith_app__restaurant/blocs/bloc/favorites/bloc/favorites_bloc.dart';
-import 'package:fith_app__restaurant/constants/contansts.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/interfaces/Restaurants.dart';
-import 'package:fith_app__restaurant/tabs/Favorites/components/favorites__list.dart';
-import 'package:fith_app__restaurant/widgets/AnimationContainerWrapper.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/Navigation.dart';
-import 'package:fith_app__restaurant/widgets/Screen__heading.dart';
+import 'package:restaurants/blocs/bloc/favorites/bloc/favorites_bloc.dart';
+import 'package:restaurants/constants/contansts.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
+import 'package:restaurants/interfaces/Restaurants.dart';
+import 'package:restaurants/tabs/Favorites/components/favorites__list.dart';
+import 'package:restaurants/widgets/AnimationContainerWrapper.dart';
+import 'package:restaurants/widgets/Navigation/navigation.dart';
+import 'package:restaurants/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class FavoritesScreen extends StatefulWidget {
+  final String? from;
+  final TabController? controller;
+
+  FavoritesScreen({
+    Key? key,
+    this.from,
+    this.controller,
+  }) : super(key: key);
+
   @override
   _FavoritesScreenState createState() => _FavoritesScreenState();
 }
@@ -18,7 +27,7 @@ class FavoritesScreen extends StatefulWidget {
 class _FavoritesScreenState extends State<FavoritesScreen> {
   bool opacityActive = true;
   bool animatedContainerActive = true;
-  FavoritesBloc instanceFavorite;
+  late FavoritesBloc instanceFavorite;
 
   @override
   initState() {
@@ -50,36 +59,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     });
   }
 
-  Widget _screenBody() {
-    return Expanded(
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        child: SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              BlocBuilder<FavoritesBloc, FavoritesState>(
-                builder: (BuildContext context, state) {
-                  List<Restaurants> restaurantsState = state.props[0];
-                  List<Dishes> dishesState = state.props[1];
-                  return ScreenHeading(
-                    title: 'Favorites',
-                    subtitle: restaurantsState.isEmpty && dishesState.isEmpty
-                        ? ''
-                        : 'Press and hold to select an item',
-                  );
-                },
-              ),
-              FavoriteListScreen(),
-              SizedBox(
-                height: spaceUntilBottom,
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,7 +73,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
             children: [
               BlocBuilder<FavoritesBloc, FavoritesState>(
                 builder: (BuildContext context, FavoritesState state) {
-                  List<dynamic> selecteds = state.props[2];
+                  List<dynamic> selecteds = state.props[2] as List<dynamic>;
                   return Navigation(
                     secondItem: 'trash',
                     amout: selecteds.length,
@@ -103,10 +82,48 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                         FavoriteRemove(),
                       );
                     },
+                    goBack: () {
+                      if (widget.from == 'tabs') {
+                        widget.controller!.animateTo(0);
+                      }
+                      if (widget.from == 'nav') {
+                        // print("volvemos");
+                        Navigator.pop(context);
+                      }
+                    },
                   );
                 },
               ),
-              _screenBody(),
+              Expanded(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: <Widget>[
+                        BlocBuilder<FavoritesBloc, FavoritesState>(
+                          builder: (BuildContext context, state) {
+                            List<Restaurants> restaurantsState =
+                                state.props[0] as List<Restaurants>;
+                            List<Dishes> dishesState =
+                                state.props[1] as List<Dishes>;
+                            return ScreenHeading(
+                              title: 'Favorites',
+                              subtitle: restaurantsState.isEmpty &&
+                                      dishesState.isEmpty
+                                  ? ''
+                                  : 'Press and hold to select an item',
+                            );
+                          },
+                        ),
+                        FavoriteListScreen(),
+                        SizedBox(
+                          height: spaceUntilBottom,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

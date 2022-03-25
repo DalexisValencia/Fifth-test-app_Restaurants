@@ -1,23 +1,28 @@
 import 'dart:async';
 
-import 'package:fith_app__restaurant/blocs/bloc/cart/bloc/cart_bloc.dart';
-import 'package:fith_app__restaurant/interfaces/Dishes.dart';
-import 'package:fith_app__restaurant/tabs/Cart/components/Empty/Empty.dart';
-import 'package:fith_app__restaurant/tabs/Cart/components/List/List__verticalList.dart';
-import 'package:fith_app__restaurant/tabs/Cart/components/cart__buttonPay.dart';
-import 'package:fith_app__restaurant/widgets/Navigation/Navigation.dart';
-import 'package:fith_app__restaurant/widgets/Screen__heading.dart';
+import 'package:restaurants/blocs/bloc/cart/bloc/cart_bloc.dart';
+import 'package:restaurants/interfaces/Dishes.dart';
+import 'package:restaurants/tabs/Cart/components/car__list.dart';
+import 'package:restaurants/tabs/Cart/components/car__goToPay.dart';
+import 'package:restaurants/tabs/Cart/components/car__empty.dart';
+import 'package:restaurants/widgets/Navigation/navigation.dart';
+import 'package:restaurants/widgets/Screen__heading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ScreenCart extends StatefulWidget {
+  final TabController? controller;
+  ScreenCart({
+    Key? key,
+    this.controller,
+  }) : super(key: key);
   @override
   _ScreenCartState createState() => _ScreenCartState();
 }
 
 class _ScreenCartState extends State<ScreenCart> {
   List<int> deleteFromCard = [];
-  CartBloc cartBloc;
+  late CartBloc cartBloc;
 
   @override
   initState() {
@@ -51,8 +56,8 @@ class _ScreenCartState extends State<ScreenCart> {
                     : 'There ${listDishes.length == 1 ? 'is' : 'are'} ${listDishes.length} ${listDishes.length == 1 ? 'item' : 'items'} in your cart',
               ),
               empty
-                  ? EmptyCart()
-                  : CartVerticalList(
+                  ? CarEmpty()
+                  : CarList(
                       cartDishes: listDishes,
                       onSelectThis: (index) {
                         selectItem(index);
@@ -75,7 +80,7 @@ class _ScreenCartState extends State<ScreenCart> {
       //
       body: BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
-          List<Dishes> cartDishes = state.props[0];
+          List<Dishes> cartDishes = state.props[0] as List<Dishes>;
           return Column(
             children: [
               Navigation(
@@ -100,6 +105,9 @@ class _ScreenCartState extends State<ScreenCart> {
                     );
                   }
                 },
+                goBack: () {
+                  widget.controller!.animateTo(0);
+                },
               ),
               _bodyCart(
                 state is CartblocInitial || cartDishes.length == 0,
@@ -107,7 +115,7 @@ class _ScreenCartState extends State<ScreenCart> {
               ),
               state is CartblocInitial || cartDishes.length == 0
                   ? SizedBox()
-                  : ButtonCart(),
+                  : GoToPay(),
             ],
           );
         },

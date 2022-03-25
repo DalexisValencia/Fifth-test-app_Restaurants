@@ -8,12 +8,12 @@ abstract class DishEvent extends Equatable {
 }
 
 class DishStart extends DishEvent {
-  final Dishes currentDish;
+  final Dishes? currentDish;
   DishStart({this.currentDish});
 }
 
 class DishModifierEdit extends DishEvent {
-  final AditionalsOptions currentModifier;
+  final AditionalsOptions? currentModifier;
   DishModifierEdit({this.currentModifier});
 }
 

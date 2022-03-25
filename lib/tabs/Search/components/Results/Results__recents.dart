@@ -1,7 +1,7 @@
-import 'package:fith_app__restaurant/Lists/menu.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Results/components/Results__seeAll.dart';
-import 'package:fith_app__restaurant/tabs/Search/components/Results/components/Results__title.dart';
-import 'package:fith_app__restaurant/widgets/Dish__card.dart';
+import 'package:restaurants/Lists/menu.dart';
+import 'package:restaurants/tabs/Search/components/Results/components/Results__seeAll.dart';
+import 'package:restaurants/tabs/Search/components/Results/components/Results__title.dart';
+import 'package:restaurants/widgets/dishCard/normal/dishCard.dart';
 import 'package:flutter/material.dart';
 
 class ResultRecents extends StatelessWidget {
@@ -17,7 +17,7 @@ class ResultRecents extends StatelessWidget {
             child: Text(
               "Recents",
               textAlign: TextAlign.start,
-              style: Theme.of(context).textTheme.bodyText1.copyWith(
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
                     color: Theme.of(context).primaryColorDark,
                     fontWeight: FontWeight.w800,
                   ),
